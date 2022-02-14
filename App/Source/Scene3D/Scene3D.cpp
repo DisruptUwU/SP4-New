@@ -257,7 +257,7 @@ bool CScene3D::Init(void)
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
-	cEntityManager = CEntityManager::GetInstance();
+	cEntityManager = CEntityManager::GetInstance(); //wwdawe
 	cEntityManager->Init();
 
 	// Initialise the CRock3D
