@@ -338,3 +338,12 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+FreeImage/
+freetype/
+gl3w/
+glew/
+glfw/
+glm/
+irrKlang/
+SOIL/
