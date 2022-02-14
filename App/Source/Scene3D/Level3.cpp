@@ -183,7 +183,7 @@ bool CLevel3::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitLevel3();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(150.0f, 5.0f, 150.0f); //
+	cTerrain->SetRenderSize(70.0f, 5.0f, 70.0f); //
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -192,7 +192,7 @@ bool CLevel3::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+	cPlayer3D->SetPosition(glm::vec3(-2.4f, 5.7f, -28.1f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -219,7 +219,7 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, 0.5f, 0.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
 	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
