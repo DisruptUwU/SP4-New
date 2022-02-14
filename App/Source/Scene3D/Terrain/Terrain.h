@@ -32,6 +32,8 @@ public:
 
 	bool InitLevel3(void);
 
+	bool InitFinalBoss(void);
+
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
 	// Set view
