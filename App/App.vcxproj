@@ -14,6 +14,10 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp" />
     <ClCompile Include="Source\GameStateManagement\IntroState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\Level2GameState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\Level3GameState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\Level4GameState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\Level5GameState.cpp" />
     <ClCompile Include="Source\GameStateManagement\MenuState.cpp" />
     <ClCompile Include="Source\GameStateManagement\PauseState.cpp" />
     <ClCompile Include="Source\GameStateManagement\Play3DGameState.cpp" />
@@ -47,6 +51,10 @@
     <ClCompile Include="Source\Scene3D\Entities\Structure3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\TreeKabak3D.cpp" />
     <ClCompile Include="Source\Scene3D\GUI_Scene3D.cpp" />
+    <ClCompile Include="Source\Scene3D\Level2.cpp" />
+    <ClCompile Include="Source\Scene3D\Level3.cpp" />
+    <ClCompile Include="Source\Scene3D\Level4.cpp" />
+    <ClCompile Include="Source\Scene3D\Level5.cpp" />
     <ClCompile Include="Source\Scene3D\Minimap\Minimap.cpp" />
     <ClCompile Include="Source\Scene3D\Physics3D.cpp" />
     <ClCompile Include="Source\Scene3D\Scene3D.cpp" />
@@ -70,6 +78,10 @@
     <ClInclude Include="Source\GameStateManagement\GameStateBase.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateManager.h" />
     <ClInclude Include="Source\GameStateManagement\IntroState.h" />
+    <ClInclude Include="Source\GameStateManagement\Level2GameState.h" />
+    <ClInclude Include="Source\GameStateManagement\Level3GameState.h" />
+    <ClInclude Include="Source\GameStateManagement\Level4GameState.h" />
+    <ClInclude Include="Source\GameStateManagement\Level5GameState.h" />
     <ClInclude Include="Source\GameStateManagement\MenuState.h" />
     <ClInclude Include="Source\GameStateManagement\PauseState.h" />
     <ClInclude Include="Source\GameStateManagement\Play3DGameState.h" />
@@ -102,6 +114,10 @@
     <ClInclude Include="Source\Scene3D\Entities\Structure3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\TreeKabak3D.h" />
     <ClInclude Include="Source\Scene3D\GUI_Scene3D.h" />
+    <ClInclude Include="Source\Scene3D\Level2.h" />
+    <ClInclude Include="Source\Scene3D\Level3.h" />
+    <ClInclude Include="Source\Scene3D\Level4.h" />
+    <ClInclude Include="Source\Scene3D\Level5.h" />
     <ClInclude Include="Source\Scene3D\Minimap\Minimap.h" />
     <ClInclude Include="Source\Scene3D\Physics3D.h" />
     <ClInclude Include="Source\Scene3D\Scene3D.h" />
