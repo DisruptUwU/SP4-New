@@ -54,6 +54,19 @@ bool CTerrain::Init(void)
 	return true;
 }
 
+bool CTerrain::InitFinalBoss(void)
+{
+	// Load all the 5 textures
+	if (LoadFinalBossTextures() == false)
+		return false;
+
+	// Load greyscale image for the terrain
+	if (LoadHeightMapFromImage("Image/Terrain/World/terrainBoss.bmp") == false)
+		return false;
+
+	return true;
+}
+
 bool CTerrain::InitLevel3(void)
 {
 	// Load all the 5 texture

@@ -66,3 +66,5 @@ extern CTexture tTextures[NUMTEXTURES];
 bool LoadAllTextures(void);
 
 bool LoadLevel3Textures(void);
+
+bool LoadFinalBossTextures(void);

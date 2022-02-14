@@ -1,6 +1,6 @@
 /**
  CScene3D
- By: Toh Da Jun
+ By: Ng Chun How SP4
  Date: Mar 2020
  */
 #include "Level5.h"
@@ -181,7 +181,7 @@ bool CLevel5::Init(void)
 	// Load the Ground
 	cTerrain = CTerrain::GetInstance();
 	cTerrain->SetShader("Shader3D_Terrain");
-	cTerrain->Init();
+	cTerrain->InitFinalBoss();
 	// Set the size of the Terrain
 	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
 
@@ -240,15 +240,15 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cEnemy3D);
 
 	// Initialise a CStructure3D
-	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cStructure3D->SetShader("Shader3D");
-	cStructure3D->Init();
-	cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	//CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cStructure3D->SetShader("Shader3D");
+	//cStructure3D->Init();
+	//cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	//cSolidObjectManager->Add(cStructure3D);
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
@@ -288,38 +288,38 @@ bool CLevel5::Init(void)
 	//}
 
 	// Initialise the CTreeKabak3D
-	CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
-	cTreeKabak3D->SetInstancingMode(true);
-	if (cTreeKabak3D->IsInstancedRendering() == true)
-	{
-		cTreeKabak3D->SetScale(glm::vec3(1.0f));
-		cTreeKabak3D->SetNumOfInstance(100);
-		cTreeKabak3D->SetSpreadDistance(100.0f);
+	//CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
+	//cTreeKabak3D->SetInstancingMode(true);
+	//if (cTreeKabak3D->IsInstancedRendering() == true)
+	//{
+	//	cTreeKabak3D->SetScale(glm::vec3(1.0f));
+	//	cTreeKabak3D->SetNumOfInstance(100);
+	//	cTreeKabak3D->SetSpreadDistance(100.0f);
 
-		cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	}
-	if (cTreeKabak3D->Init() == true)
-	{
-		cEntityManager->Add(cTreeKabak3D);
-	}
-	else
-	{
-		delete cTreeKabak3D;
-	}
+	//	cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
+	//}
+	//if (cTreeKabak3D->Init() == true)
+	//{
+	//	cEntityManager->Add(cTreeKabak3D);
+	//}
+	//else
+	//{
+	//	delete cTreeKabak3D;
+	//}
 
 	// Initialise a CSpinTower
 	//CSpinTower::Create();
 
 	// Initialise a CHut_Concrete
-	fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
-	CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
-	cHut_Concrete->SetShader("Shader3DNoColour");
-	cHut_Concrete->SetLODStatus(true);
-	cHut_Concrete->Init();
-	cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
+	//CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
+	//cHut_Concrete->SetShader("Shader3DNoColour");
+	//cHut_Concrete->SetLODStatus(true);
+	//cHut_Concrete->Init();
+	//cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
 	// Add the cHut_Concrete to the cSolidObjectManager
-	cSolidObjectManager->Add(cHut_Concrete);
+	//cSolidObjectManager->Add(cHut_Concrete);
 
 	return true;
 }
