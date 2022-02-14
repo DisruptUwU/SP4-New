@@ -113,12 +113,12 @@ bool CSkyBox::Init(void)
 	//skyboxTexture.push_back("Image/SkyBox/gloomy_bk.png");
 
 	// Create the vector of skybox textures
-	skyboxTexture.push_back("Image/SkyBox/skybox_right.jpg");
-	skyboxTexture.push_back("Image/SkyBox/skybox_left.jpg");
-	skyboxTexture.push_back("Image/SkyBox/skybox_top.jpg");
-	skyboxTexture.push_back("Image/SkyBox/skybox_bottom.jpg");
-	skyboxTexture.push_back("Image/SkyBox/skybox_front.jpg");
-	skyboxTexture.push_back("Image/SkyBox/skybox_back.jpg");
+	skyboxTexture.push_back("Image/SkyBox/gloomy_lf.png");
+	skyboxTexture.push_back("Image/SkyBox/gloomy_rt.png");
+	skyboxTexture.push_back("Image/SkyBox/gloomy_up.png");
+	skyboxTexture.push_back("Image/SkyBox/gloomy_dn.png");
+	skyboxTexture.push_back("Image/SkyBox/gloomy_ft.png");
+	skyboxTexture.push_back("Image/SkyBox/gloomy_bk.png");
 
 	// Load the skybox textures into the Graphics Card
 	iTextureID = LoadSkyBoxTextures();
