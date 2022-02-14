@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Mar 2020
  */
-#include "Level2.h"
+#include "Level1.h"
 
 // Include GLEW
 #ifndef GLEW_STATIC
@@ -43,7 +43,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CLevel2::CLevel2(void)
+CLevel1::CLevel1(void)
 	: cSettings(NULL)
 	, cKeyboardController(NULL)
 	, cMouseController(NULL)
@@ -61,7 +61,7 @@ CLevel2::CLevel2(void)
 /**
  @brief Destructor
  */
-CLevel2::~CLevel2(void)
+CLevel1::~CLevel1(void)
 {
 	// Destroy the cTerrain
 	if (cTerrain)
@@ -143,7 +143,7 @@ CLevel2::~CLevel2(void)
  @brief Init Initialise this instance
  @return true if the initialisation is successful, else false
  */ 
-bool CLevel2::Init(void)
+bool CLevel1::Init(void)
 {
 	cSettings = CSettings::GetInstance();
 
@@ -329,7 +329,7 @@ bool CLevel2::Init(void)
  @param dElapsedTime A const double variable contains the time since the last frame
  @return A bool variable
 */
-bool CLevel2::Update(const double dElapsedTime)
+bool CLevel1::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
@@ -525,7 +525,7 @@ bool CLevel2::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CLevel2::PreRender(void)
+void CLevel1::PreRender(void)
 {
 	// Reset the OpenGL rendering environment
 	glLoadIdentity();
@@ -538,7 +538,7 @@ void CLevel2::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CLevel2::Render(void)
+void CLevel1::Render(void)
 {
 	// Part 1: Render for the minimap by binding to framebuffer and render to color texture
 	//         But the camera is move to top-view of the scene
@@ -653,6 +653,6 @@ void CLevel2::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CLevel2::PostRender(void)
+void CLevel1::PostRender(void)
 {
 }
