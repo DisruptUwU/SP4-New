@@ -334,25 +334,81 @@ bool CScene3D::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
-	// Get keyboard updates for player3D
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	{
-		cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+	//// Get keyboard updates for player3D
+	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
+	//{
+	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
+	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+	//}
+	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
+	//{
+	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
+	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+	//}
+	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
+	//{
+	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
+	//}
+	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
+	//{
+	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
+	//}
+	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
+		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
+			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+			sprintCheck = true;
+		}
+		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
+			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+			sprintCheck = true;
+		}
+		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
+			sprintCheck = true;
+		}
+		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
+			sprintCheck = true;
+		}
 	}
-	else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
+	else
 	{
-		cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
+			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+		}
+		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
+			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+		}
+		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
+		}
+		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
+		{
+			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
+		}
 	}
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
+
+	if (sprintCheck == true) {
+		cPlayer3D->stamina -= 20 * dElapsedTime;
+	}
+
+	if (cPlayer3D->sprint == false && cPlayer3D->stamina < 100)
 	{
-		cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
+		cPlayer3D->stamina += 10 * dElapsedTime;
+		sprintCheck = false;
 	}
-	else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	{
-		cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	}
+
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
 
@@ -416,6 +472,15 @@ bool CScene3D::Update(const double dElapsedTime)
 	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_R))
 	{
 		cPlayer3D->GetWeapon()->Reload();
+	}
+
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+	{
+		cPlayer3D->sprint = true;
+	}
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_LEFT_SHIFT))
+	{
+		cPlayer3D->sprint = false;
 	}
 
 	// Get mouse button updates
