@@ -30,6 +30,8 @@ public:
 	// Initialise this class instance
 	bool Init(void);
 
+	bool InitLevel3(void);
+
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
 	// Set view

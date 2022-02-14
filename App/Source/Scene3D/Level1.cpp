@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Mar 2020
  */
-#include "Level3.h"
+#include "Level1.h"
 
 // Include GLEW
 #ifndef GLEW_STATIC
@@ -43,7 +43,7 @@ using namespace std;
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
-CLevel3::CLevel3(void)
+CLevel1::CLevel1(void)
 	: cSettings(NULL)
 	, cKeyboardController(NULL)
 	, cMouseController(NULL)
@@ -61,7 +61,7 @@ CLevel3::CLevel3(void)
 /**
  @brief Destructor
  */
-CLevel3::~CLevel3(void)
+CLevel1::~CLevel1(void)
 {
 	// Destroy the cTerrain
 	if (cTerrain)
@@ -143,7 +143,7 @@ CLevel3::~CLevel3(void)
  @brief Init Initialise this instance
  @return true if the initialisation is successful, else false
  */ 
-bool CLevel3::Init(void)
+bool CLevel1::Init(void)
 {
 	cSettings = CSettings::GetInstance();
 
@@ -181,9 +181,9 @@ bool CLevel3::Init(void)
 	// Load the Ground
 	cTerrain = CTerrain::GetInstance();
 	cTerrain->SetShader("Shader3D_Terrain");
-	cTerrain->InitLevel3();
+	cTerrain->Init();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(150.0f, 5.0f, 150.0f); //
+	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -219,25 +219,25 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	cEnemy3D->SetShader("Shader3D");
-	cEnemy3D->Init();
-	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	//cEnemy3D->SetScale(glm::vec3(0.5f));
+	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	//cEnemy3D->SetShader("Shader3D");
+	//cEnemy3D->Init();
+	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	////cEnemy3D->SetScale(glm::vec3(0.5f));
 
-	// Assign a cPistol to the cEnemy3D
-	CPistol* cEnemyPistol = new CPistol();
-	// Set the position, rotation and scale of this weapon
-	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	// Initialise the instance
-	cEnemyPistol->Init();
-	cEnemyPistol->SetShader("Shader3D_Model");
-	cEnemy3D->SetWeapon(0, cEnemyPistol);
+	//// Assign a cPistol to the cEnemy3D
+	//CPistol* cEnemyPistol = new CPistol();
+	//// Set the position, rotation and scale of this weapon
+	////cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+	////cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	//// Initialise the instance
+	//cEnemyPistol->Init();
+	//cEnemyPistol->SetShader("Shader3D_Model");
+	//cEnemy3D->SetWeapon(0, cEnemyPistol);
 
-	// Add the cEnemy3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cEnemy3D);
+	//// Add the cEnemy3D to the cSolidObjectManager
+	//cSolidObjectManager->Add(cEnemy3D);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -287,25 +287,25 @@ bool CLevel3::Init(void)
 		delete cRock3D;
 	}
 
-	//// Initialise the CTreeKabak3D
-	//CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
-	//cTreeKabak3D->SetInstancingMode(true);
-	//if (cTreeKabak3D->IsInstancedRendering() == true)
-	//{
-	//	cTreeKabak3D->SetScale(glm::vec3(1.0f));
-	//	cTreeKabak3D->SetNumOfInstance(100);
-	//	cTreeKabak3D->SetSpreadDistance(100.0f);
+	// Initialise the CTreeKabak3D
+	CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
+	cTreeKabak3D->SetInstancingMode(true);
+	if (cTreeKabak3D->IsInstancedRendering() == true)
+	{
+		cTreeKabak3D->SetScale(glm::vec3(1.0f));
+		cTreeKabak3D->SetNumOfInstance(100);
+		cTreeKabak3D->SetSpreadDistance(100.0f);
 
-	//	cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	//}
-	//if (cTreeKabak3D->Init() == true)
-	//{
-	//	cEntityManager->Add(cTreeKabak3D);
-	//}
-	//else
-	//{
-	//	delete cTreeKabak3D;
-	//}
+		cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
+	}
+	if (cTreeKabak3D->Init() == true)
+	{
+		cEntityManager->Add(cTreeKabak3D);
+	}
+	else
+	{
+		delete cTreeKabak3D;
+	}
 
 	// Initialise a CSpinTower
 	//CSpinTower::Create();
@@ -329,7 +329,7 @@ bool CLevel3::Init(void)
  @param dElapsedTime A const double variable contains the time since the last frame
  @return A bool variable
 */
-bool CLevel3::Update(const double dElapsedTime)
+bool CLevel1::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
@@ -525,7 +525,7 @@ bool CLevel3::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CLevel3::PreRender(void)
+void CLevel1::PreRender(void)
 {
 	// Reset the OpenGL rendering environment
 	glLoadIdentity();
@@ -538,7 +538,7 @@ void CLevel3::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CLevel3::Render(void)
+void CLevel1::Render(void)
 {
 	// Part 1: Render for the minimap by binding to framebuffer and render to color texture
 	//         But the camera is move to top-view of the scene
@@ -653,6 +653,6 @@ void CLevel3::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CLevel3::PostRender(void)
+void CLevel1::PostRender(void)
 {
 }
