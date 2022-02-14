@@ -44,6 +44,7 @@
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Hut_Concrete.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Player3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Rock3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObject.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
     <ClInclude Include="Source\Scene3D\Entities\Hut_Concrete.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Hydra.h" />
     <ClInclude Include="Source\Scene3D\Entities\Player3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Rock3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObject.h" />

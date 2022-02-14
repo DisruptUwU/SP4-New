@@ -30,6 +30,8 @@
 #include "Entities\Player3D.h"
 // Include CEnemy3D
 #include "Entities\Enemy3D.h"
+// Include CHydra
+#include "Entities\Hydra.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
 // Include CProjectileManager
@@ -69,6 +71,8 @@ public:
 
 	// PostRender
 	void PostRender(void);
+
+	CHydra* cHydra;
 
 	bool sprintCheck = false;
 protected:

@@ -219,10 +219,10 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, 0.5f, 0.0f));
-	cEnemy3D->SetShader("Shader3D");
-	cEnemy3D->Init();
-	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CHydra* cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
+	cHydra->SetShader("Shader3D");
+	cHydra->Init();
+	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -234,10 +234,10 @@ bool CLevel3::Init(void)
 	// Initialise the instance
 	cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
-	cEnemy3D->SetWeapon(0, cEnemyPistol);
+	cHydra->SetWeapon(0, cEnemyPistol);
 
 	// Add the cEnemy3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cEnemy3D);
+	cSolidObjectManager->Add(cHydra);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
