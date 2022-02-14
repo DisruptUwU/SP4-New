@@ -344,6 +344,6 @@ freetype/
 gl3w/
 glew/
 glfw/
-glm/**/CMakeCache.txt
+glm/includes/out/build/x64-Debug/CMakeCache.txt
 irrKlang/
 SOIL/
