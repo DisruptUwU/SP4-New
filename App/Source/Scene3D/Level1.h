@@ -51,9 +51,9 @@
 
 class CSettings;
 
-class CLevel2 : public CSingletonTemplate<CLevel2>
+class CLevel1 : public CSingletonTemplate<CLevel1>
 {
-	friend CSingletonTemplate<CLevel2>;
+	friend CSingletonTemplate<CLevel1>;
 public:
 	// Init
 	bool Init(void);
@@ -112,8 +112,8 @@ protected:
 	CEntityManager* cEntityManager;
 
 	// Constructor
-	CLevel2(void);
+	CLevel1(void);
 	// Destructor
-	virtual ~CLevel2(void);
+	virtual ~CLevel1(void);
 };
 
