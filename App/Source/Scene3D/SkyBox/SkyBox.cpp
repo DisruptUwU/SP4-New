@@ -104,6 +104,14 @@ bool CSkyBox::Init(void)
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
+	//// Create the vector of skybox textures
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_rt.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_lf.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_up.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_dn.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_ft.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_bk.png");
+
 	// Create the vector of skybox textures
 	skyboxTexture.push_back("Image/SkyBox/skybox_right.jpg");
 	skyboxTexture.push_back("Image/SkyBox/skybox_left.jpg");

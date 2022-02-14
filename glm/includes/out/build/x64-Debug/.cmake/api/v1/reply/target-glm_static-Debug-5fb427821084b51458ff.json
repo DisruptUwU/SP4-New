@@ -1,14 +1,18 @@
 {
+	"archive" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/machine:x64",
+				"role" : "flags"
+			}
+		]
+	},
 	"artifacts" : 
 	[
 		{
-			"path" : "glm_shared.dll"
-		},
-		{
-			"path" : "glm_shared.lib"
-		},
-		{
-			"path" : "glm_shared.pdb"
+			"path" : "glm_static.lib"
 		}
 	],
 	"backtrace" : 1,
@@ -31,7 +35,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 58,
+				"line" : 50,
 				"parent" : 0
 			},
 			{
@@ -48,20 +52,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -MDd"
-				}
-			],
-			"defines" : 
-			[
-				{
-					"define" : "glm_shared_EXPORTS"
+					"fragment" : "/DWIN32 /D_WINDOWS /EHsc /Zi /Ob0 /Od /RTC1 -MDd"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 2,
-					"path" : "C:/Users/zacha/source/repos/SP4-New/glm/includes/.."
+					"path" : "C:/Users/zshaq/source/repos/SP4-New/glm/includes/.."
 				}
 			],
 			"language" : "CXX",
@@ -71,24 +69,9 @@
 			]
 		}
 	],
-	"id" : "glm_shared::@6890427a1f51a3e7e1df",
-	"link" : 
-	{
-		"commandFragments" : 
-		[
-			{
-				"fragment" : "/machine:x64 /debug /INCREMENTAL",
-				"role" : "flags"
-			},
-			{
-				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
-				"role" : "libraries"
-			}
-		],
-		"language" : "CXX"
-	},
-	"name" : "glm_shared",
-	"nameOnDisk" : "glm_shared.dll",
+	"id" : "glm_static::@6890427a1f51a3e7e1df",
+	"name" : "glm_static",
+	"nameOnDisk" : "glm_static.lib",
 	"paths" : 
 	{
 		"build" : ".",
@@ -2369,5 +2352,5 @@
 			"sourceGroupIndex" : 5
 		}
 	],
-	"type" : "SHARED_LIBRARY"
+	"type" : "STATIC_LIBRARY"
 }
