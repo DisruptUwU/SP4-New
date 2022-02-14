@@ -5,7 +5,7 @@
  */
 #pragma once
 
-// Include SingletonTemplate
+ // Include SingletonTemplate
 #include "DesignPatterns\SingletonTemplate.h"
 
 // Include GLM
@@ -34,6 +34,8 @@
 #include "Entities\Hydra.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
+// Include CStructure3D
+#include "Entities\Door.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -75,6 +77,8 @@ public:
 	CHydra* cHydra;
 
 	bool sprintCheck = false;
+
+	bool gotolevel4 = false;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -114,6 +118,10 @@ protected:
 
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
+
+	int checkportal = 0;
+
+	bool spawnportal = false;
 
 	// Constructor
 	CLevel3(void);

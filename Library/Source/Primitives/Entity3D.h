@@ -32,14 +32,16 @@ public:
 	{
 		PLAYER = 0,
 		NPC,
+		HYDRA,
 		OTHERS,		// Default value: Other entities such as ground and skybox
 		STRUCTURE,	// Buildings etc
 		PROJECTILE,
+		DOOR,
 		NUM_TYPES
 	};
 
 	// Constructor(s)
-    CEntity3D(void);
+	CEntity3D(void);
 
 	// Destructor
 	virtual ~CEntity3D(void);
@@ -141,7 +143,7 @@ protected:
 	// Movement speed
 	float fMovementSpeed;
 	// Height of this entity above the CTerrain
-	float fHeightOffset = 0.5f; 
+	float fHeightOffset = 0.5f;
 
 	// Boolean flag to indicate if this CEntity3D is active
 	// true == active, false == inactive

@@ -6,14 +6,19 @@
 
 #include "SolidObjectManager.h"
 
-// Include CCollisionManager
+ // Include CCollisionManager
 #include "Primitives/CollisionManager.h"
 
 // Include CCameraEffectsManager
 #include "../CameraEffects/CameraEffectsManager.h"
 
 #include <iostream>
+
+#include "Hydra.h"
+
 using namespace std;
+
+CHydra* cHydra;
 
 /**
  @brief Default Constructor
@@ -39,7 +44,7 @@ CSolidObjectManager::~CSolidObjectManager(void)
 	while (it != end)
 	{
 		// Delete if done
-		delete *it;
+		delete* it;
 		it = lSolidObject.erase(it);
 	}
 }
@@ -128,10 +133,10 @@ bool CSolidObjectManager::CollisionCheck(CSolidObject* cSolidObject)
 	for (it = lSolidObject.begin(); it != end; ++it)
 	{
 		// Check for collisions between the 2 entities
-		if (CCollisionManager::BoxBoxCollision( cSolidObject->GetPosition() + cSolidObject->boxMin,
-												cSolidObject->GetPosition() + cSolidObject->boxMax,
-												(*it)->GetPosition() + (*it)->boxMin,
-												(*it)->GetPosition() + (*it)->boxMax) == true)
+		if (CCollisionManager::BoxBoxCollision(cSolidObject->GetPosition() + cSolidObject->boxMin,
+			cSolidObject->GetPosition() + cSolidObject->boxMax,
+			(*it)->GetPosition() + (*it)->boxMin,
+			(*it)->GetPosition() + (*it)->boxMax) == true)
 		{
 			// Rollback the cSolidObject's position
 			cSolidObject->RollbackPosition();
@@ -222,10 +227,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 				else if (
-						(((*it)->GetType() >= CSolidObject::TYPE::NPC) &&
+					(((*it)->GetType() >= CSolidObject::TYPE::NPC) &&
 						((*it)->GetType() <= CSolidObject::TYPE::OTHERS))
-						&&
-						(((*it_other)->GetType() >= CSolidObject::TYPE::NPC) &&
+					&&
+					(((*it_other)->GetType() >= CSolidObject::TYPE::NPC) &&
 						((*it_other)->GetType() <= CSolidObject::TYPE::OTHERS))
 					)
 				{
@@ -236,10 +241,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 				}
 				// Check if a movable entity collides with a non-movable entity
 				if (
-						(((*it)->GetType() >= CSolidObject::TYPE::PLAYER) &&
-							((*it)->GetType() <= CSolidObject::TYPE::OTHERS))
-						&&
-						((*it_other)->GetType() == CSolidObject::TYPE::STRUCTURE)
+					(((*it)->GetType() >= CSolidObject::TYPE::PLAYER) &&
+						((*it)->GetType() <= CSolidObject::TYPE::OTHERS))
+					&&
+					((*it_other)->GetType() == CSolidObject::TYPE::STRUCTURE)
 					)
 				{
 					(*it)->RollbackPosition();
@@ -248,6 +253,14 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** Collision between Entity and Structure ***" << endl;
 					break;
 				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOOR))
+				{
+					wenttodoor = true;
+					cout << "** teleporting! ***" << endl;
+					break;
+				}
+
 			}
 		}
 	}
@@ -292,6 +305,17 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
 				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::HYDRA)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(*it)->SetStatus(false);
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					hydrakilled = true;
+					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					break;
+				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::STRUCTURE)
 				{
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
@@ -329,7 +353,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 			}
 		}
 	}
-	
+
 	if (bResult == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("BloodScreen")->SetStatus(true);
@@ -351,7 +375,7 @@ void CSolidObjectManager::CleanUp(void)
 		if ((*it)->IsToDelete())
 		{
 			// Delete the CSolidObject
-			delete *it;
+			delete* it;
 			// Go to the next iteration after erasing from the list
 			it = lSolidObject.erase(it);
 		}

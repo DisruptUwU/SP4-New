@@ -5,7 +5,7 @@
  */
 #pragma once
 
-// Include CSolidObject
+ // Include CSolidObject
 #include "SolidObject.h"
 
  // Include LoadOBJ
@@ -32,6 +32,7 @@
 #include "../Waypoint/WaypointManager.h"
 
 #include <string>
+
 using namespace std;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
@@ -52,10 +53,10 @@ public:
 	CHydra(void);
 
 	// Constructor with vectors
-	CHydra(	const glm::vec3 vec3Position,
-				const glm::vec3 vec3Front = glm::vec3(0.0f, 0.0f, -1.0f),
-				const float fYaw = -90.0f,
-				const float fPitch = 0.0f);
+	CHydra(const glm::vec3 vec3Position,
+		const glm::vec3 vec3Front = glm::vec3(0.0f, 0.0f, -1.0f),
+		const float fYaw = -90.0f,
+		const float fPitch = 0.0f);
 
 	// Destructor
 	virtual ~CHydra(void);
@@ -89,11 +90,11 @@ public:
 	// Check if a camera ia attached to this class instance
 	bool IsCameraAttached(void);
 
-    // Processes input received from any keyboard-like input system as Enemy movements. 
+	// Processes input received from any keyboard-like input system as Enemy movements. 
 	// Accepts input parameter in the form of Enemy defined ENUM (to abstract it from windowing systems)
 	void ProcessMovement(const ENEMYMOVEMENT direction, const float fDeltaTime);
 
-    // Processes input received from a mouse input system as Enemy rotation. 
+	// Processes input received from a mouse input system as Enemy rotation. 
 	// Expects the offset value in both the x and y direction.
 	void ProcessRotate(const float fXOffset);
 
@@ -106,6 +107,8 @@ public:
 	virtual void Render(void);
 	// PostRender
 	virtual void PostRender(void);
+
+	//bool hydrakilled = false;
 
 protected:
 	// Enemy Attributes
@@ -142,7 +145,7 @@ protected:
 	// WaypointManager
 	CWaypointManager* cWaypointManager;
 
-    // Calculates the front vector from the Enemy's (updated) Euler Angles
+	// Calculates the front vector from the Enemy's (updated) Euler Angles
 	void UpdateEnemyVectors(void);
 
 	// Constraint the Enemy's position

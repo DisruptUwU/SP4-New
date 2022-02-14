@@ -52,6 +52,10 @@ public:
 	// Render this class instance
 	virtual void Render(void);
 
+	bool hydrakilled = false;
+
+	bool wenttodoor = false;
+
 protected:
 	// Render Settings
 	glm::mat4 model;

@@ -5,10 +5,10 @@
  */
 #include "Level3.h"
 
-// Include GLEW
+ // Include GLEW
 #ifndef GLEW_STATIC
-	#define GLEW_STATIC
-	#include <GL/glew.h>
+#define GLEW_STATIC
+#include <GL/glew.h>
 #endif
 
 // Include this for glm::to_string() function
@@ -134,7 +134,7 @@ CLevel3::~CLevel3(void)
 
 	// We won't delete this since it was created elsewhere
 	cKeyboardController = NULL;
-	
+
 	// We won't delete this since it was created elsewhere
 	cSettings = NULL;
 }
@@ -142,7 +142,7 @@ CLevel3::~CLevel3(void)
 /**
  @brief Init Initialise this instance
  @return true if the initialisation is successful, else false
- */ 
+ */
 bool CLevel3::Init(void)
 {
 	cSettings = CSettings::GetInstance();
@@ -333,26 +333,6 @@ bool CLevel3::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
-
-	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
@@ -407,6 +387,39 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		cPlayer3D->stamina += 10 * dElapsedTime;
 		sprintCheck = false;
+	}
+
+	if (cSolidObjectManager->hydrakilled == true)
+	{
+		if (checkportal == 0)
+		{
+			spawnportal = true;
+			checkportal += 1;
+		}
+
+		else
+		{
+			spawnportal = false;
+		}
+	}
+
+	if (spawnportal == true)
+	{
+		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 4.0, 28.9)); //2
+		cDoor->SetShader("Shader3D");
+		cDoor->Init();
+		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
+		//cSpeed->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
+		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
+
+		cSolidObjectManager->Add(cDoor);
+	}
+
+	if (cSolidObjectManager->wenttodoor == true)//push
+	{
+		gotolevel4 = true;
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
@@ -558,9 +571,9 @@ void CLevel3::Render(void)
 	cCamera->ProcessMouseMovement(0, 0, false);
 	// Generate the view and projection
 	glm::mat4 playerView = cCamera->GetViewMatrix();
-	glm::mat4 playerProjection = glm::perspective(	glm::radians(45.0f),
-													(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
-													0.1f, 1000.0f);
+	glm::mat4 playerProjection = glm::perspective(glm::radians(45.0f),
+		(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
+		0.1f, 1000.0f);
 
 	// Set the camera parameters back to the previous values
 	cCamera->fYaw = storeCameraYaw;
@@ -598,9 +611,9 @@ void CLevel3::Render(void)
 	// Part 2: Render the entire scene as per normal
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
-	glm::mat4 projection = glm::perspective(	glm::radians(CCamera::GetInstance()->fZoom),
-												(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
-												0.1f, 1000.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(CCamera::GetInstance()->fZoom),
+		(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
+		0.1f, 1000.0f);
 	glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

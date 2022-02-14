@@ -5,7 +5,7 @@
  */
 #include "Hydra.h"
 
-// Include ShaderManager
+ // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
 
 // Include MeshBuilder
@@ -51,10 +51,10 @@ CHydra::CHydra(void)
  @param yaw A const float variable which contains the yaw of the camera
  @param pitch A const float variable which contains the pitch of the camera
  */
-CHydra::CHydra(	const glm::vec3 vec3Position,
-					const glm::vec3 vec3Front,
-					const float fYaw,
-					const float fPitch)
+CHydra::CHydra(const glm::vec3 vec3Position,
+	const glm::vec3 vec3Front,
+	const float fYaw,
+	const float fPitch)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
@@ -170,7 +170,7 @@ bool CHydra::Init(void)
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::NPC);
+	SetType(CEntity3D::TYPE::HYDRA);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
@@ -334,7 +334,7 @@ bool CHydra::DischargeWeapon(void) const
  */
 void CHydra::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
-	float velocity = fMovementSpeed* deltaTime;
+	float velocity = fMovementSpeed * deltaTime;
 	if (direction == ENEMYMOVEMENT::FORWARD)
 		vec3Position += vec3Front * velocity;
 	if (direction == ENEMYMOVEMENT::BACKWARD)
@@ -556,12 +556,12 @@ void CHydra::UpdateEnemyVectors(void)
 	front.y = sin(glm::radians(fPitch));
 	front.z = sin(glm::radians(fYaw)) * cos(glm::radians(fPitch));
 	front = glm::normalize(front);
-	
+
 	vec3Front = front;
 	// Also re-calculate the Right and Up vector
 	// Normalize the vectors, because their length gets closer to 0 the more 
 	// you look up or down which results in slower movement.
-	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));  
+	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));
 	vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
 
 	// If the camera is attached to this player, then update the camera
