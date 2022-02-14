@@ -70,6 +70,7 @@ public:
 	// PostRender
 	void PostRender(void);
 
+	bool sprintCheck = false;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;

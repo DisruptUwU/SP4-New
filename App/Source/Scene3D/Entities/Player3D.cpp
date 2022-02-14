@@ -293,6 +293,22 @@ void CPlayer3D::SetToJump(void)
 void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float deltaTime)
 {
 	float velocity = fMovementSpeed * deltaTime;
+
+	if (stamina <= 0) {
+		velocity = fMovementSpeed * 2 * deltaTime;
+	}
+	else
+	{
+		if (sprint == false)
+		{
+			velocity = fMovementSpeed * 2 * deltaTime;
+		}
+		else if (sprint == true)
+		{
+			velocity = fMovementSpeed * 4 * deltaTime;
+		}
+	}
+
 	if (direction == PLAYERMOVEMENT::FORWARD)
 		vec3Position += vec3Front * velocity;
 	if (direction == PLAYERMOVEMENT::BACKWARD)
