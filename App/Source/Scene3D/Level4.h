@@ -106,7 +106,7 @@ protected:
 	CTerrain* cTerrain;
 
 	// GUI_Scene3D
-	CGUI_Scene3D* cGUI_Scene3D; //
+	CGUI_Scene3D* cGUI_Scene3D;
 
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
