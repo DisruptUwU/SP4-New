@@ -111,6 +111,10 @@ public:
 	// Print Self
 	virtual void PrintSelf(void);
 
+	double stamina = 100;
+
+	bool sprint = false;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
