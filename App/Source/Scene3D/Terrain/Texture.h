@@ -64,3 +64,5 @@ protected:
 extern CTexture tTextures[NUMTEXTURES];
 // Load the 5 textures for the terrain
 bool LoadAllTextures(void);
+
+bool LoadLevel3Textures(void);

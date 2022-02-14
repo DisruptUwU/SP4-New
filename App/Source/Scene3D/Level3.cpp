@@ -181,9 +181,9 @@ bool CLevel3::Init(void)
 	// Load the Ground
 	cTerrain = CTerrain::GetInstance();
 	cTerrain->SetShader("Shader3D_Terrain");
-	cTerrain->Init();
+	cTerrain->InitLevel3();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
+	cTerrain->SetRenderSize(150.0f, 5.0f, 150.0f); //
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
