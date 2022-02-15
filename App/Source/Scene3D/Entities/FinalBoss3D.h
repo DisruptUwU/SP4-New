@@ -106,6 +106,7 @@ public:
 	int phase = 1;
 	int healersAlive = 4;
 
+	bool enraged = false;
 	bool regainPhase1 = false;
 
 	double FinalBossHp = 300;

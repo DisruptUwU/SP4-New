@@ -393,14 +393,49 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
-		//cout << "Phase 2 Active" << endl;
+		cout << "Phase 2 Active" << endl;
 		if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0) 
 		{
-
+			if (timer <= 0)
+			{
+				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+				CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
+				cEnemy3D->SetShader("Shader3D");
+				cEnemy3D->Init();
+				cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				CPistol* cEnemyPistol = new CPistol();
+				// Set the position, rotation and scale of this weapon
+				//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+				//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+				cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+				// Initialise the instance
+				cEnemyPistol->Init();
+				cEnemyPistol->SetShader("Shader3D_Model");
+				cEnemy3D->SetWeapon(0, cEnemyPistol);
+				cSolidObjectManager->Add(cEnemy3D);
+			}
 		}
 		else
 		{
 			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+			if (timer <= 0)
+			{
+				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+				CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
+				cEnemy3D->SetShader("Shader3D");
+				cEnemy3D->Init();
+				cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				CPistol* cEnemyPistol = new CPistol();
+				// Set the position, rotation and scale of this weapon
+				//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+				//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+				cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+				// Initialise the instance
+				cEnemyPistol->Init();
+				cEnemyPistol->SetShader("Shader3D_Model");
+				cEnemy3D->SetWeapon(0, cEnemyPistol);
+				cSolidObjectManager->Add(cEnemy3D);
+			}
 		}
 
 		if (spawnedHealers == false) {
@@ -413,14 +448,41 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 
 		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 300) {
-			cSolidObjectManager->cFinalBoss3D->healersAlive = 4;
 			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 300;
-			cSolidObjectManager->cFinalBoss3D->phase = 1;
-			cSolidObjectManager->cFinalBoss3D->regainPhase1 = true;
+			//cSolidObjectManager->cFinalBoss3D->healersAlive = 4;
+			//cSolidObjectManager->cFinalBoss3D->phase = 1;
+			//cSolidObjectManager->cFinalBoss3D->regainPhase1 = true;
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
-		//cout << "Phase 3 Active" << endl;
+		cout << "Phase 3 Active" << endl;
+		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100)
+		{
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
+		}
+		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)
+		{
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 100;
+		}
+		cSolidObjectManager->cFinalBoss3D->enraged = true;
+		if (timer <= 0)
+		{
+			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+			CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
+			cEnemy3D->SetShader("Shader3D");
+			cEnemy3D->Init();
+			cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+			CPistol* cEnemyPistol = new CPistol();
+			// Set the position, rotation and scale of this weapon
+			//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+			//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+			cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+			// Initialise the instance
+			cEnemyPistol->Init();
+			cEnemyPistol->SetShader("Shader3D_Model");
+			cEnemy3D->SetWeapon(0, cEnemyPistol);
+			cSolidObjectManager->Add(cEnemy3D);
+		}
 	}
 
 	//// Get keyboard updates for player3D
@@ -573,7 +635,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	}
 
 	// Get mouse button updates
-	if (cMouseController->IsButtonReleased(CMouseController::BUTTON_TYPE::LMB))
+	if (cMouseController->IsButtonDown(CMouseController::BUTTON_TYPE::LMB))
 	{
 		cPlayer3D->DischargeWeapon();
 	}

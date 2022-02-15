@@ -56,7 +56,7 @@ bool CYoulose::Init(void)
 	mesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), 2.0f, 2.0f);
 
 	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/GUI/Youlosenew.png", false);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/GUI/jumpscarehydra.jpg", false);
 	if (iTextureID == 0)
 	{
 		cout << "Unable to load Image/GUI/youlose.png" << endl;
