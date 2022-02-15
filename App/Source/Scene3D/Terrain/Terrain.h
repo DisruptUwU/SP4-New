@@ -34,6 +34,8 @@ public:
 
 	bool InitLevel3(void);
 
+	bool InitLevel2(void);
+
 	bool InitFinalBoss(void);
 
 	// Set model
