@@ -368,7 +368,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	{
 		cSolidObjectManager->cFinalBoss3D->phase = 4;
 	}
-	else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 100 && cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 20)
+	else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 100 && cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 200)
 	{
 		cSolidObjectManager->cFinalBoss3D->phase = 2;
 	}
