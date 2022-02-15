@@ -47,6 +47,12 @@
 // Include CPlayer3D
 #include "Entities\Player3D.h"
 
+// Include CFinalBoss3D
+#include "Entities\FinalBoss3D.h"
+
+// Include CHydra
+#include "Entities\Hydra.h"
+
 #include <string>
 using namespace std;
 
@@ -77,6 +83,10 @@ public:
 
 	// PostRender
 	virtual void PostRender(void);
+
+	CFinalBoss3D* cFinalBoss3D;
+
+	CHydra* cHydra;
 
 protected:
 	// Constructor

@@ -250,10 +250,14 @@ bool CLevel3::Init(void)
 	// Add the cStructure3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cStructure3D);
 
+	cSolidObjectManager->cHydra = cHydra;
+
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
 	cGUI_Scene3D->Init();
+
+	cGUI_Scene3D->cHydra = cHydra;
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
@@ -389,7 +393,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		sprintCheck = false;
 	}
 
-	if (cSolidObjectManager->hydrakilled == true)
+	if (cSolidObjectManager->HydraKilled == true)
 	{
 		if (checkportal == 0)
 		{
@@ -415,6 +419,8 @@ bool CLevel3::Update(const double dElapsedTime)
 		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
 		cSolidObjectManager->Add(cDoor);
+
+		cout << "Door has spawned " << spawnportal << endl;
 	}
 
 	if (cSolidObjectManager->wenttodoor == true)//push

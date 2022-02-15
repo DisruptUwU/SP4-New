@@ -74,8 +74,6 @@ public:
 	// PostRender
 	void PostRender(void);
 
-	CHydra* cHydra;
-
 	bool sprintCheck = false;
 
 	bool gotolevel4 = false;

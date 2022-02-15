@@ -121,7 +121,7 @@ bool CFinalBoss3D::Init(void)
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::NPC);
+	SetType(CEntity3D::TYPE::FINALBOSS);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();

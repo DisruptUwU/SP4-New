@@ -102,6 +102,10 @@ public:
 	// PostRender
 	virtual void PostRender(void);
 
+	bool KilledFinalBoss = false;
+
+	double FinalBossHp = 300;
+
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;

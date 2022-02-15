@@ -159,7 +159,7 @@ bool CGUI_Scene3D::Init(void)
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
 	// Add a Stamina icon as one of the inventory items
-	cInventoryItem = cInventoryManager->Add("HydraHP", "Image/Scene2D_Stamina.tga", 0, 0);
+	cInventoryItem = cInventoryManager->Add("HydraHP", "Image/Scene2D_HydraIcon.tga", 0, 0);
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
 	// Get the handler to the CPlayer3D instance
@@ -374,7 +374,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 1.f, 0.00f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(375.0f * relativeScale_x, 20.0f * relativeScale_y));
+		ImGui::ProgressBar(cFinalBoss3D->FinalBossHp / 300, ImVec2(375.0f * relativeScale_x, 20.0f * relativeScale_y));
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 		ImGui::End();
@@ -431,7 +431,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 1.f, 0.00f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(375.0f * relativeScale_x, 20.0f * relativeScale_y));
+		ImGui::ProgressBar(cHydra->HydraBossHp / 100, ImVec2(375.0f * relativeScale_x, 20.0f * relativeScale_y));
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 		ImGui::End();

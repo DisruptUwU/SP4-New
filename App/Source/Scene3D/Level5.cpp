@@ -246,6 +246,8 @@ bool CLevel5::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalBoss3D);
 
+	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
+
 	// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
 	//CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
@@ -261,6 +263,8 @@ bool CLevel5::Init(void)
 	// Store the cGUI_Scene3D singleton instance here
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
 	cGUI_Scene3D->Init();
+
+	cGUI_Scene3D->cFinalBoss3D = cFinalBoss3D;
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
