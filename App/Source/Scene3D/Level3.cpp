@@ -418,6 +418,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		gotolevel4 = true;
 	}
 
+	if (cSolidObjectManager->cHydra->HydraBossHp <= 50)
+	{
+		cSolidObjectManager->healthbelow50 = true;
+
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
 

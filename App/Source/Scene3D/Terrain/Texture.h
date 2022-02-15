@@ -65,11 +65,9 @@ extern CTexture tTextures[NUMTEXTURES];
 // Load the 5 textures for the terrain
 bool LoadAllTextures(void);
 
-<<<<<<< HEAD
 bool LoadLevel2Textures(void);
-=======
+
 bool LoadLevel1Textures(void);
->>>>>>> c9e8247e2ca2278f27ad35fa26f5c5984f140945
 
 bool LoadLevel3Textures(void);
 
