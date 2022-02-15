@@ -248,6 +248,9 @@
     <ClCompile Include="Source\GameStateManagement\Level1GameState.cpp">
       <Filter>GameStateManagement</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\CameraEffects\Lowhealth.cpp">
+      <Filter>Scene3D\CameraEffects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -447,6 +450,9 @@
     </ClInclude>
     <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
       <Filter>GameStateManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\CameraEffects\Lowhealth.h">
+      <Filter>Scene3D\CameraEffects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
