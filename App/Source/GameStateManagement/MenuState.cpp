@@ -64,7 +64,7 @@ bool CMenuState::Init(void)
 	CShaderManager::GetInstance()->activeShader->setInt("texture1", 0);
 
 	//Create Background Entity
-	background = new CBackgroundEntity("Image/MenuBackground.png");
+	background = new CBackgroundEntity("Image/MenuBackground2.png");
 	background->SetShader("2DShader");
 	background->Init();
 
