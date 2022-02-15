@@ -80,6 +80,19 @@ bool CTerrain::InitLevel3(void)
 	return true;
 }
 
+bool CTerrain::InitLevel2(void)
+{
+	// Load all the 5 texture
+	if (LoadLevel2Textures() == false)
+		return false;
+
+	// Load greyscale image for the terrain
+	if (LoadHeightMapFromImage("Image/Terrain/World/terrain2.bmp") == false)
+		return false;
+
+	return true;
+}
+
 /**
  @brief Set model
  @param model A glm::mat4 variable to be assigned to this class instance
