@@ -37,6 +37,10 @@
 // Include CStructure3D
 #include "Entities\Door.h"
 // Include CStructure3D
+#include "Entities\Speed.h"
+// Include CStructure3D
+#include "Entities\Healthup.h"
+// Include CStructure3D
 #include "Entities\Bloodbath.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
@@ -110,6 +114,7 @@ protected:
 	// Handler to the camera class
 	CCamera* cCamera;
 
+	CSpeed* cSpeed;
 	// Handler to the CSkyBox
 	CSkyBox* cSkyBox;
 	// Handler to the CGround

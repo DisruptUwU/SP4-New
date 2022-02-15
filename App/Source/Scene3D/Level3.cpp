@@ -233,14 +233,25 @@ bool CLevel3::Init(void)
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cStructure3D->SetShader("Shader3D");
-	cStructure3D->Init();
-	cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	cSpeed->SetShader("Shader3D");
+	cSpeed->Init();
+	cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	cSolidObjectManager->Add(cSpeed);
+
+	// Initialise a CStructure3D
+	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	CHealthup* cHealthup = new CHealthup(glm::vec3(5, fCheckHeight, -5));
+	cHealthup->SetShader("Shader3D");
+	cHealthup->Init();
+	cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//cStructure3D->SetScale(glm::vec3(0.5f));
+
+	// Add the cStructure3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cHealthup);
 
 	// Initialise a CStructure3D
 	CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));

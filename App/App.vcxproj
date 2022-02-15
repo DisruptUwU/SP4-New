@@ -50,10 +50,12 @@
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalBoss3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Healer3D.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Healthup.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Player3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObject.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObjectManager.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Speed.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Structure3D.cpp" />
     <ClCompile Include="Source\Scene3D\GUI_Scene3D.cpp" />
     <ClCompile Include="Source\Scene3D\Level1.cpp" />
@@ -118,10 +120,12 @@
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalBoss3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Healer3D.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Healthup.h" />
     <ClInclude Include="Source\Scene3D\Entities\Hydra.h" />
     <ClInclude Include="Source\Scene3D\Entities\Player3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObject.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObjectManager.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Speed.h" />
     <ClInclude Include="Source\Scene3D\Entities\Structure3D.h" />
     <ClInclude Include="Source\Scene3D\GUI_Scene3D.h" />
     <ClInclude Include="Source\Scene3D\Level1.h" />

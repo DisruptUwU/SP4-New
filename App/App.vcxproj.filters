@@ -245,7 +245,10 @@
     <ClCompile Include="Source\Scene3D\Terrain\vertexBufferObject.cpp">
       <Filter>Scene3D\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp">
+    <ClCompile Include="Source\Scene3D\Entities\Speed.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Healthup.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -445,7 +448,10 @@
     <ClInclude Include="Source\Scene3D\Terrain\vertexBufferObject.h">
       <Filter>Scene3D\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\Dragon.h">
+    <ClInclude Include="Source\Scene3D\Entities\Speed.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Healthup.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>

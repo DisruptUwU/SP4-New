@@ -364,7 +364,12 @@ bool CLevel5::Update(const double dElapsedTime)
 	//if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 200) {
 	//	phase = 1;
 	//}
-	if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 100 && cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 200) {
+	if (cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true)
+	{
+		cSolidObjectManager->cFinalBoss3D->phase = 4;
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 100 && cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 200)
+	{
 		cSolidObjectManager->cFinalBoss3D->phase = 2;
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100) {
@@ -458,6 +463,10 @@ bool CLevel5::Update(const double dElapsedTime)
 		cout << "Phase 3 Active" << endl;
 		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100)
 		{
+			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0)
+			{
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+			}
 			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
 		}
 		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)
@@ -483,6 +492,10 @@ bool CLevel5::Update(const double dElapsedTime)
 			cEnemy3D->SetWeapon(0, cEnemyPistol);
 			cSolidObjectManager->Add(cEnemy3D);
 		}
+	}
+	else if ((cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true) && (cSolidObjectManager->cFinalBoss3D->phase == 4))
+	{
+		cSolidObjectManager->cFinalBoss3D->FinalBossHp = 0;
 	}
 
 	//// Get keyboard updates for player3D
