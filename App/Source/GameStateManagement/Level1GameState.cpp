@@ -44,7 +44,7 @@ bool CLevel1GameState::Init(void)
 
 	// Initialise the CScene3D instance
 	CLevel1 = CLevel1::GetInstance();
-	if (CLevel2->Init() == false)
+	if (CLevel1->Init() == false)
 	{
 		cout << "Failed to load CLevel4" << endl;
 		return false;
@@ -112,7 +112,7 @@ void CLevel1GameState::Destroy(void)
 	// Destroy the CScene3D instance
 	if (CLevel1)
 	{
-		CLevel2->Destroy();
-		CLevel2 = NULL;
+		CLevel1->Destroy();
+		CLevel1 = NULL;
 	}
 }
