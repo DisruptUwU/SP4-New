@@ -45,6 +45,7 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalBoss3D.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h" />
     <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Dragon.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalBoss3D.h" />
