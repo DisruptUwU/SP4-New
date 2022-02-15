@@ -185,6 +185,16 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("PlayGameState");
 		return true;
 	}
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
+	{
+		// Reset the CKeyboardController
+		CKeyboardController::GetInstance()->Reset();
+
+		// Load the menu state
+		cout << "Loading CLevel1" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
+		return true;
+	}
 	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_LEFT_SHIFT))
 	{
 		// Reset the CKeyboardController
