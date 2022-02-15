@@ -29,6 +29,8 @@ public:
 	// Destroy this class instance
 	virtual void Destroy(void);
 
+	double gameovertimer;
+
 protected:
 	// The handler to the CLevel4 instance
 	CLevel3* CLevel3;

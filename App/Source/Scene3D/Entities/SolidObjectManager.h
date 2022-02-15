@@ -62,6 +62,8 @@ public:
 
 	bool wenttodoor = false;
 
+	bool youlose = false;
+
 	//bool hydrashotplayer = false;
 
 	CHydra* cHydra;

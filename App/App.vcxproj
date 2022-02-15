@@ -43,6 +43,8 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\CrossHair.cpp" />
     <ClCompile Include="Source\Scene3D\CameraEffects\Lowhealth.cpp" />
     <ClCompile Include="Source\Scene3D\CameraEffects\ScopeScreen.cpp" />
+    <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
@@ -112,6 +114,8 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\CrossHair.h" />
     <ClInclude Include="Source\Scene3D\CameraEffects\Lowhealth.h" />
     <ClInclude Include="Source\Scene3D\CameraEffects\ScopeScreen.h" />
+    <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
