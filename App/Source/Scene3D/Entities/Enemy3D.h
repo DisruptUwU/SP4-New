@@ -52,7 +52,8 @@ public:
 	CEnemy3D(	const glm::vec3 vec3Position,
 				const glm::vec3 vec3Front = glm::vec3(0.0f, 0.0f, -1.0f),
 				const float fYaw = -90.0f,
-				const float fPitch = 0.0f);
+				const float fPitch = 0.0f,
+				bool isFlying = false);
 
 	// Destructor
 	virtual ~CEnemy3D(void);
@@ -112,6 +113,7 @@ protected:
 	float fPitch;
 	// Enemy options
 	float fRotationSensitivity;
+	bool bIsFlying;
 
 	// Movement Control
 	int iCurrentNumMovement;

@@ -130,7 +130,7 @@ bool CHealer3D::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
+	mesh = CMeshBuilder::GenerateBox(glm::vec4(0, 1, 0, 1));
 
 	// load and create a texture 
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);

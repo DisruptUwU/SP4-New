@@ -317,6 +317,12 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 		{
 			velocity = fMovementSpeed * 4 * deltaTime;
 		}
+
+	}
+
+	if (speedPower == true)
+	{
+		velocity = fMovementSpeed * 10 * deltaTime;
 	}
 
 	if (direction == PLAYERMOVEMENT::FORWARD)
@@ -442,7 +448,36 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		playerlostallhealth = true;
 	}
 
+	//if (cInventoryItem->GetCount() >= 100) //getmaxcount
+	//{
+	//	cInventoryItem->GetCount() = 100;
+	//}
 
+	if (healthPower == true)
+	{
+		cInventoryItem = cInventoryManager->GetItem("Health");
+		cInventoryItem->Add(40); //float
+		healthPower = false;
+	}
+
+	if (speedPower == false) // later move this in update
+	{
+		speedTimer = 0;
+	}
+
+	if (speedPower == true)
+	{
+		speedTimer += dElapsedTime;
+		/*cout << "Speed power activated = " << speedPower << endl;
+		cout << "Speed time left = " << speedTimer << endl;*/
+	}
+
+	if (speedTimer >= 3.5)
+	{
+		//speedTimer = 0;
+		speedPower = false;
+		/*cout << "Speed time left = " << speedTimer << endl;*/
+	}
 
 	CSolidObject::Update(dElapsedTime);
 
