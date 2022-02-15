@@ -464,10 +464,13 @@ bool CLevel5::Update(const double dElapsedTime)
 		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100)
 		{
 			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0)
-			{
-				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+			{			
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 30.0f * dElapsedTime;
 			}
-			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
+			else
+			{
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
+			}
 		}
 		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)
 		{
