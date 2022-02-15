@@ -229,8 +229,8 @@ bool CLevel5::Init(void)
 	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
-	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(3.0f, 0.0f, 0.0f, 1.0f));
-	cFinalBoss3D->SetScale(glm::vec3(3.f));
+	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cFinalBoss3D->SetScale(glm::vec3(1.f));
 
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
