@@ -16,9 +16,13 @@
 
 #include "Hydra.h"
 
+#include "Player3D.h"
+
 using namespace std;
 
 CHydra* cHydra;
+
+CPlayer3D* cPlayer3D;
 
 /**
  @brief Default Constructor
@@ -58,6 +62,8 @@ bool CSolidObjectManager::Init(void)
 	lSolidObject.clear();
 
 	cProjectileManager = CProjectileManager::GetInstance();
+
+	cPlayer3D = CPlayer3D::GetInstance();
 
 	return true;
 }
@@ -293,8 +299,19 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between Player and Projectile ***" << endl;
 					bResult = true;
+					cPlayer3D->healthdownbyhydra = true;
 					break;
 				}
+				//else if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HYDRA))
+				//{
+				//	// If this projectile is fired by the player, then skip it
+				//	if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+				//		continue;
+				//	(cProjectileManager->vProjectile[i])->SetStatus(false);
+				//	cout << "** RayBoxCollision between Player and Hydra Projectile ***" << endl;
+				//	cPlayer3D->healthdownbyhydra = true;
+				//	break;
+				//}
 				else if ((*it)->GetType() == CSolidObject::TYPE::NPC)
 				{
 					// If this projectile is fired by the NPC, then skip it

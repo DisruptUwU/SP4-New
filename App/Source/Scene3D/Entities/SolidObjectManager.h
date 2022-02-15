@@ -56,6 +56,8 @@ public:
 
 	bool wenttodoor = false;
 
+	//bool hydrashotplayer = false;
+
 protected:
 	// Render Settings
 	glm::mat4 model;

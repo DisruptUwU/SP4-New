@@ -19,6 +19,8 @@
 // Include Camera
 #include "../Camera.h"
 
+#include "..\App\Source\Scene2D\InventoryManager.h"
+
 // Include CTerrain
 #include "../Terrain/Terrain.h"
 
@@ -115,6 +117,10 @@ public:
 
 	bool sprint = false;
 
+	bool healthdownbyhydra = false;
+
+	bool playerlostallhealth = false;
+
 	bool NearFinalBoss = false;
 	int FinalBossDialogueStage = 0;
 
@@ -124,6 +130,10 @@ protected:
 
 	// The handle to the CTerrain class instance
 	CTerrain* cTerrain;
+
+	CInventoryManager* cInventoryManager;
+
+	CInventoryItem* cInventoryItem;
 
 	// The handle to the CWeaponInfo class instance
 	CWeaponInfo* cPrimaryWeapon;

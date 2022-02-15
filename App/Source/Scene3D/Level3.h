@@ -121,6 +121,10 @@ protected:
 
 	int checkportal = 0;
 
+	int checkdeath = 0;
+
+	bool playerdies = false;
+
 	bool spawnportal = false;
 
 	// Constructor
