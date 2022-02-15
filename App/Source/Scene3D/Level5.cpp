@@ -334,6 +334,24 @@ bool CLevel5::Init(void)
 	return true;
 }
 
+void CLevel5::SpawnHealer(int x, int y, int z)
+{
+	CHealer3D* cHealer3D = new CHealer3D(glm::vec3(x, y, z));
+	cHealer3D->SetShader("Shader3D");
+	cHealer3D->Init();
+	cHealer3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CPistol* cEnemyPistol = new CPistol();
+	// Set the position, rotation and scale of this weapon
+	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	// Initialise the instance
+	cEnemyPistol->Init();
+	cEnemyPistol->SetShader("Shader3D_Model");
+	cHealer3D->SetWeapon(0, cEnemyPistol);
+	cSolidObjectManager->Add(cHealer3D);
+}
+
 /**
  @brief Update Update this instance
  @param dElapsedTime A const double variable contains the time since the last frame
@@ -343,6 +361,8 @@ bool CLevel5::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
+
+	//cout << cSolidObjectManager->cFinalBoss3D->regainPhase1 << endl;
 
 	if (timer >= 0) {
 		timer -= 1 * dElapsedTime;
@@ -362,7 +382,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	}
 
 	if (cSolidObjectManager->cFinalBoss3D->phase == 1) {
-		cout << "Phase 1 Active" << endl;
+		//cout << "Phase 1 Active" << endl;
 		if (timer <= 0)
 		{
 			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
@@ -383,16 +403,34 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
-		cout << "Phase 2 Active" << endl;
-		cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+		//cout << "Phase 2 Active" << endl;
+		if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0) 
+		{
+
+		}
+		else
+		{
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+		}
+
+		if (spawnedHealers == false) {
+			float fCheckHeight = cTerrain->GetHeight(5.0f, -20.0f);
+			SpawnHealer(20, fCheckHeight, 20);
+			SpawnHealer(20, fCheckHeight, -20);
+			SpawnHealer(-20, fCheckHeight, -20);
+			SpawnHealer(-20, fCheckHeight, 20);
+			spawnedHealers = true;
+		}
 
 		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 300) {
+			cSolidObjectManager->cFinalBoss3D->healersAlive = 4;
 			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 300;
 			cSolidObjectManager->cFinalBoss3D->phase = 1;
+			cSolidObjectManager->cFinalBoss3D->regainPhase1 = true;
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
-		cout << "Phase 3 Active" << endl;
+		//cout << "Phase 3 Active" << endl;
 	}
 
 	//// Get keyboard updates for player3D
