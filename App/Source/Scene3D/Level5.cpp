@@ -245,7 +245,6 @@ bool CLevel5::Init(void)
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalBoss3D);
-
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
 	// Initialise a CStructure3D
@@ -344,6 +343,10 @@ bool CLevel5::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
+
+	if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 200) {
+		//std::cout << "HEllO" << endl;
+	}
 
 	//// Get keyboard updates for player3D
 	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
