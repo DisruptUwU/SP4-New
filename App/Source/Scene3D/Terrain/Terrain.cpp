@@ -54,28 +54,18 @@ bool CTerrain::Init(void)
 	return true;
 }
 
-bool CTerrain::InitFinalBoss(void)
+bool CTerrain::InitTerrain(int i)
 {
 	// Load all the 5 textures
-	if (LoadFinalBossTextures() == false)
+	if (LoadFinalBossTextures() == false) //TODO:change loadtexture to pass in int according to level
 		return false;
 
-	// Load greyscale image for the terrain
-	if (LoadHeightMapFromImage("Image/Terrain/World/terrainBoss.bmp") == false)
-		return false;
-
-	return true;
-}
-
-bool CTerrain::InitLevel3(void)
-{
-	// Load all the 5 texture
-	if (LoadLevel3Textures() == false)
-		return false;
-
-	// Load greyscale image for the terrain
-	if (LoadHeightMapFromImage("Image/Terrain/World/terrainlevel3.bmp") == false)
-		return false;
+	if (i == 4)
+	{
+		// Load greyscale image for the terrain
+		if (LoadHeightMapFromImage("Image/Terrain/World/terrain4.bmp") == false)
+			return false;
+	}
 
 	return true;
 }
@@ -101,6 +91,32 @@ bool CTerrain::InitLevel2(void)
 
 	// Load greyscale image for the terrain
 	if (LoadHeightMapFromImage("Image/Terrain/World/terrain2.bmp") == false)
+		return false;
+
+	return true;
+}
+
+bool CTerrain::InitLevel3(void)
+{
+	// Load all the 5 texture
+	if (LoadLevel3Textures() == false)
+		return false;
+
+	// Load greyscale image for the terrain
+	if (LoadHeightMapFromImage("Image/Terrain/World/terrainlevel3.bmp") == false)
+		return false;
+
+	return true;
+}
+
+bool CTerrain::InitFinalBoss(void)
+{
+	// Load all the 5 textures
+	if (LoadFinalBossTextures() == false)
+		return false;
+
+	// Load greyscale image for the terrain
+	if (LoadHeightMapFromImage("Image/Terrain/World/terrainBoss.bmp") == false)
 		return false;
 
 	return true;
