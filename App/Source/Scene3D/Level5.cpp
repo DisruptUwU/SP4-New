@@ -493,7 +493,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			cSolidObjectManager->Add(cEnemy3D);
 		}
 	}
-	else if ((cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true) && (cSolidObjectManager->cFinalBoss3D->phase = 4))
+	else if ((cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true) && (cSolidObjectManager->cFinalBoss3D->phase == 4))
 	{
 		cSolidObjectManager->cFinalBoss3D->FinalBossHp = 0;
 	}
