@@ -37,6 +37,7 @@ public:
 		STRUCTURE,	// Buildings etc
 		PROJECTILE,
 		DOOR,
+		BLOODBATH,
 		FINALBOSS,
 		NUM_TYPES
 	};
