@@ -40,13 +40,15 @@ using namespace std;
 #include "GameStateManagement/PlayGameState.h"
 // Include CPlay3DGameState
 #include "GameStateManagement/Play3DGameState.h"
-// Include CLevel
+// Include CLevel1
+#include "GameStateManagement/Level1GameState.h"
+// Include CLevel2
 #include "GameStateManagement/Level2GameState.h"
-// Include CLevel
+// Include CLevel3
 #include "GameStateManagement/Level3GameState.h"
 // Include CLevel4
 #include "GameStateManagement/Level4GameState.h"
-// Include CLevel
+// Include CLevel5
 #include "GameStateManagement/Level5GameState.h"
 // Include CPauseState
 #include "GameStateManagement/PauseState.h"
@@ -253,6 +255,7 @@ bool Application::Init(void)
 	CGameStateManager::GetInstance()->AddGameState("MenuState", new CMenuState());
 	CGameStateManager::GetInstance()->AddGameState("PlayGameState", new CPlayGameState());
 	CGameStateManager::GetInstance()->AddGameState("Play3DGameState", new CPlay3DGameState());
+	CGameStateManager::GetInstance()->AddGameState("Level1GameState", new CLevel1GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level2GameState", new CLevel2GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level3GameState", new CLevel3GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level4GameState", new CLevel4GameState());

@@ -183,7 +183,7 @@ bool CLevel5::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitFinalBoss();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
+	cTerrain->SetRenderSize(200.0f, 5.0f, 200.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -192,7 +192,7 @@ bool CLevel5::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+	cPlayer3D->SetPosition(glm::vec3(50.0f, 0.5f, 50.0f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -218,12 +218,19 @@ bool CLevel5::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// Initialise the cEnemy3D
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	cEnemy3D->SetShader("Shader3D");
-	cEnemy3D->Init();
-	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	//cEnemy3D->SetShader("Shader3D");
+	//cEnemy3D->Init();
+	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	cFinalBoss3D->SetShader("Shader3D");
+	cFinalBoss3D->Init();
+	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cFinalBoss3D->SetScale(glm::vec3(1.f));
 
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
@@ -234,10 +241,11 @@ bool CLevel5::Init(void)
 	// Initialise the instance
 	cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
-	cEnemy3D->SetWeapon(0, cEnemyPistol);
+	cFinalBoss3D->SetWeapon(0, cEnemyPistol);
 
 	// Add the cEnemy3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cEnemy3D);
+	cSolidObjectManager->Add(cFinalBoss3D);
+	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
 	// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -254,6 +262,8 @@ bool CLevel5::Init(void)
 	// Store the cGUI_Scene3D singleton instance here
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
 	cGUI_Scene3D->Init();
+
+	cGUI_Scene3D->cFinalBoss3D = cFinalBoss3D;
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
@@ -324,6 +334,24 @@ bool CLevel5::Init(void)
 	return true;
 }
 
+void CLevel5::SpawnHealer(int x, int y, int z)
+{
+	CHealer3D* cHealer3D = new CHealer3D(glm::vec3(x, y, z));
+	cHealer3D->SetShader("Shader3D");
+	cHealer3D->Init();
+	cHealer3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CPistol* cEnemyPistol = new CPistol();
+	// Set the position, rotation and scale of this weapon
+	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	// Initialise the instance
+	cEnemyPistol->Init();
+	cEnemyPistol->SetShader("Shader3D_Model");
+	cHealer3D->SetWeapon(0, cEnemyPistol);
+	cSolidObjectManager->Add(cHealer3D);
+}
+
 /**
  @brief Update Update this instance
  @param dElapsedTime A const double variable contains the time since the last frame
@@ -333,6 +361,77 @@ bool CLevel5::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
+
+	//cout << cSolidObjectManager->cFinalBoss3D->regainPhase1 << endl;
+
+	if (timer >= 0) {
+		timer -= 1 * dElapsedTime;
+	}
+	else if (timer <= 0) {
+		timer = 10;
+	}
+
+	//if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 200) {
+	//	phase = 1;
+	//}
+	if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 100 && cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 200) {
+		cSolidObjectManager->cFinalBoss3D->phase = 2;
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100) {
+		cSolidObjectManager->cFinalBoss3D->phase = 3;
+	}
+
+	if (cSolidObjectManager->cFinalBoss3D->phase == 1) {
+		//cout << "Phase 1 Active" << endl;
+		if (timer <= 0)
+		{
+			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+			CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
+			cEnemy3D->SetShader("Shader3D");
+			cEnemy3D->Init();
+			cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+			CPistol* cEnemyPistol = new CPistol();
+			// Set the position, rotation and scale of this weapon
+			//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+			//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+			cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+			// Initialise the instance
+			cEnemyPistol->Init();
+			cEnemyPistol->SetShader("Shader3D_Model");
+			cEnemy3D->SetWeapon(0, cEnemyPistol);
+			cSolidObjectManager->Add(cEnemy3D);
+		}
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
+		//cout << "Phase 2 Active" << endl;
+		if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0) 
+		{
+
+		}
+		else
+		{
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+		}
+
+		if (spawnedHealers == false) {
+			float fCheckHeight = cTerrain->GetHeight(5.0f, -20.0f);
+			SpawnHealer(20, fCheckHeight, 20);
+			SpawnHealer(20, fCheckHeight, -20);
+			SpawnHealer(-20, fCheckHeight, -20);
+			SpawnHealer(-20, fCheckHeight, 20);
+			spawnedHealers = true;
+		}
+
+		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 300) {
+			cSolidObjectManager->cFinalBoss3D->healersAlive = 4;
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 300;
+			cSolidObjectManager->cFinalBoss3D->phase = 1;
+			cSolidObjectManager->cFinalBoss3D->regainPhase1 = true;
+		}
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
+		//cout << "Phase 3 Active" << endl;
+	}
 
 	//// Get keyboard updates for player3D
 	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))

@@ -14,15 +14,7 @@
 
 #include <iostream>
 
-#include "Hydra.h"
-
-#include "Player3D.h"
-
 using namespace std;
-
-CHydra* cHydra;
-
-CPlayer3D* cPlayer3D;
 
 /**
  @brief Default Constructor
@@ -64,6 +56,8 @@ bool CSolidObjectManager::Init(void)
 	cProjectileManager = CProjectileManager::GetInstance();
 
 	cPlayer3D = CPlayer3D::GetInstance();
+
+	//cFinalBoss3D = CFinalBoss3D::GetInstance();
 
 	return true;
 }
@@ -279,6 +273,15 @@ bool CSolidObjectManager::CheckForCollision(void)
 		if ((*it)->GetStatus() == false)
 			continue;
 
+		if ((*it)->GetType() == CSolidObject::TYPE::FINALHEALBOSS)
+		{
+			if (cFinalBoss3D->regainPhase1 == true);
+			{
+				//(*it)->SetStatus(false);
+				cFinalBoss3D->regainPhase1 = false;
+			}
+		}
+
 		for (unsigned int i = 0; i < cProjectileManager->vProjectile.size(); i++)
 		{
 			// If the entity is not active, then skip it
@@ -322,14 +325,44 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
 				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::FINALHEALBOSS)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					(*it)->SetStatus(false);
+					cFinalBoss3D->healersAlive--;
+					cout << "** RayBoxCollision between Healer and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::FINALBOSS)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(cProjectileManager->vProjectile[i])->SetStatus(false);				
+					cFinalBoss3D->FinalBossHp -= 100;
+
+					if (cFinalBoss3D->FinalBossHp <= 0) {
+						cFinalBoss3D->KilledFinalBoss = true;
+						(*it)->SetStatus(false);
+					}
+
+					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					break;
+				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::HYDRA)
 				{
 					// If this projectile is fired by the NPC, then skip it
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
-					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					hydrakilled = true;
+					cHydra->HydraBossHp -= 10;
+					if (cHydra->HydraBossHp <= 0) {
+						HydraKilled = true;
+						(*it)->SetStatus(false);
+					}
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
 				}

@@ -110,6 +110,10 @@ public:
 
 	//bool hydrakilled = false;
 
+	bool HydraKilled = false;
+
+	double HydraBossHp = 100;
+
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;

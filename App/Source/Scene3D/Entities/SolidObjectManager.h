@@ -14,6 +14,10 @@
 #include <includes/gtc/matrix_transform.hpp>
 #include <includes/gtc/type_ptr.hpp>
 
+#include "Hydra.h"
+#include "FinalBoss3D.h"
+#include "Player3D.h"
+
 // Include list
 #include <list>
 
@@ -52,12 +56,21 @@ public:
 	// Render this class instance
 	virtual void Render(void);
 
-	bool hydrakilled = false;
+	bool HydraKilled = false;
+
+	bool FinalBossKilled = false;
 
 	bool wenttodoor = false;
 
+	bool youlose = false;
+
 	//bool hydrashotplayer = false;
 
+	CHydra* cHydra;
+
+	CFinalBoss3D* cFinalBoss3D;
+
+	CPlayer3D* cPlayer3D;
 protected:
 	// Render Settings
 	glm::mat4 model;

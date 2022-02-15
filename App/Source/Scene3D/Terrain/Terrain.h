@@ -30,6 +30,8 @@ public:
 	// Initialise this class instance
 	bool Init(void);
 
+	bool InitLevel1(void);
+
 	bool InitLevel3(void);
 
 	bool InitLevel2(void);

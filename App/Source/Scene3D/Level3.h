@@ -36,6 +36,8 @@
 #include "Entities\Structure3D.h"
 // Include CStructure3D
 #include "Entities\Door.h"
+// Include CStructure3D
+#include "Entities\Bloodbath.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -74,11 +76,11 @@ public:
 	// PostRender
 	void PostRender(void);
 
-	CHydra* cHydra;
-
 	bool sprintCheck = false;
 
 	bool gotolevel4 = false;
+
+	bool losegame = false;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -122,6 +124,8 @@ protected:
 	int checkportal = 0;
 
 	int checkdeath = 0;
+
+	int losetimer;
 
 	bool playerdies = false;
 

@@ -20,7 +20,7 @@ using namespace std;
 @brief Default Constructor
 */
 CProjectile::CProjectile(void)
-	: dLifetime(0.0f)
+	: dLifetime(20.0f)
 	, fSpeed(1.0f)
 	, pSource(NULL)
 {

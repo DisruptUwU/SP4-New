@@ -119,7 +119,14 @@ public:
 
 	bool healthdownbyhydra = false;
 
+	bool playerhealthbelow30 = false;
+
 	bool playerlostallhealth = false;
+
+	bool NearHydra = false;
+
+	bool NearFinalBoss = false;
+	int FinalBossDialogueStage = 0;
 
 protected:
 	// The handle to the CCamera class instance
