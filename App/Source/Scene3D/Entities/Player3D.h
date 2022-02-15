@@ -119,6 +119,8 @@ public:
 
 	bool healthdownbyhydra = false;
 
+	bool healthdownbyhydramore = false;
+
 	bool playerhealthbelow30 = false;
 
 	bool playerlostallhealth = false;

@@ -302,7 +302,14 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between Player and Projectile ***" << endl;
 					bResult = true;
-					cPlayer3D->healthdownbyhydra = true;
+					if (healthbelow50 == true)
+					{
+						cPlayer3D->healthdownbyhydramore = true;
+					}
+					else
+					{
+						cPlayer3D->healthdownbyhydra = true;
+					}
 					break;
 				}
 				//else if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HYDRA))
@@ -342,7 +349,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);				
-					cFinalBoss3D->FinalBossHp -= 100;
+					cFinalBoss3D->FinalBossHp -= 20;
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
