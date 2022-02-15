@@ -36,6 +36,8 @@ CPlayer3D::CPlayer3D(void)
 	, fCameraSwayDeltaAngle(0.25f)
 	, bCameraSwayDirection(false)	// false = left, true = right
 	, bCameraSwayActive(true)
+	, cInventoryManager(NULL)
+	, cInventoryItem(NULL)
 {
 	// Set the default position so it is above the ground
 	vec3Position = glm::vec3(0.0f, 0.5f, 0.0f);
@@ -110,6 +112,11 @@ CPlayer3D::~CPlayer3D(void)
 		// We set it to NULL only since it was declared somewhere else
 		cCamera = NULL;
 	}
+
+	if (cInventoryManager)
+	{
+		cInventoryManager = NULL;
+	}
 }
 
 /**
@@ -144,6 +151,9 @@ bool CPlayer3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 	// Update the y-axis position of the player
 	vec3Position.y = cTerrain->GetHeight(vec3Position.x, vec3Position.z);
+
+	// Get the handler to the CInventoryManager instance
+	cInventoryManager = CInventoryManager::GetInstance();
 
 	// Set the Physics to fall status by default
 	cPhysics3D.SetStatus(CPhysics3D::STATUS::FALL);
@@ -405,6 +415,13 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			}
 		}
 		bUpdateCameraSway = false;
+	}
+
+	if (healthdownbyhydra == true)
+	{
+		cInventoryItem = cInventoryManager->GetItem("Health");
+		cInventoryItem->Remove(10); //float
+		healthdownbyhydra = false;
 	}
 
 	CSolidObject::Update(dElapsedTime);
