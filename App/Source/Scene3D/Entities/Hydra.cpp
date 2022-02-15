@@ -383,6 +383,15 @@ bool CHydra::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
+	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	{
+		cPlayer3D->NearHydra = true;
+	}
+	else
+	{
+		cPlayer3D->NearHydra = false;
+	}
+
 	switch (sCurrentFSM)
 	{
 	case FSM::IDLE:
