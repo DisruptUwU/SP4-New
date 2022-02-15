@@ -121,6 +121,8 @@ public:
 
 	bool playerlostallhealth = false;
 
+	bool NearHydra = false;
+
 	bool NearFinalBoss = false;
 	int FinalBossDialogueStage = 0;
 

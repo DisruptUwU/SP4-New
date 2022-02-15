@@ -155,7 +155,11 @@ bool CGUI_Scene3D::Init(void)
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
 	// Add a Stamina icon as one of the inventory items
-	cInventoryItem = cInventoryManager->Add("FinalBossHp", "Image/Scene2D_Stamina.tga", 0, 0);
+	cInventoryItem = cInventoryManager->Add("FinalBossHp", "Image/Scene2D_FinalBoss.tga", 0, 0);
+	cInventoryItem->vec2Size = glm::vec2(25, 25);
+
+	// Add a Stamina icon as one of the inventory items
+	cInventoryItem = cInventoryManager->Add("HydraHP", "Image/Scene2D_Stamina.tga", 0, 0);
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
 	// Get the handler to the CPlayer3D instance
@@ -383,6 +387,63 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			//ImGui::TextColored(ImVec4(1, 1, 0, 1), "DIE ?? !!");
 			//ImGui::End();
 		}
+	}
+
+	if (cPlayer3D->NearHydra == true)
+	{
+		ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+
+		ImGuiWindowFlags bossName = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+		ImGui::Begin("Textbox", NULL, bossName);
+		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.05f));
+		ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "LORD OF THE CRIMSON OCEAN");
+		ImGui::End();
+
+		ImGuiWindowFlags bossHp = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+		ImGui::Begin("HydraHP", NULL, bossHp);
+		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.10f));
+		ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		cInventoryItem = cInventoryManager->GetItem("HydraHP");
+		ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+			ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+			ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 1.f, 0.00f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(375.0f * relativeScale_x, 20.0f * relativeScale_y));
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
+		ImGui::End();
+
+		//if (cPlayer3D->FinalBossDialogueStage == 0) {
+		//	//ImGui::Begin("Textbox", NULL, dialogueWindowFlag);
+		//	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.4f, cSettings->iWindowHeight * 0.05f));
+		//	//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+		//	//ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		//	//ImGui::TextColored(ImVec4(1, 1, 0, 1), "DIE ?? !!");
+		//	//ImGui::End();
+		//}
 	}
 
 	ImGui::End();

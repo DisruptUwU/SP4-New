@@ -337,18 +337,18 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
+	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	{
+		cPlayer3D->NearFinalBoss = true;
+	}
+	else
+	{
+		cPlayer3D->NearFinalBoss = false;
+	}
+
 	switch (sCurrentFSM)
 	{
 	case FSM::IDLE:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			cPlayer3D->NearFinalBoss = true;
-		}
-		else
-		{
-			cPlayer3D->NearFinalBoss = false;
-		}
-
 		if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = FSM::PATROL;
@@ -359,16 +359,6 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::PATROL:
-		// Check if the destination position has been reached
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			cPlayer3D->NearFinalBoss = true;
-		}
-		else
-		{
-			cPlayer3D->NearFinalBoss = false;
-		}
-
 		if (cWaypointManager->HasReachedWayPoint(vec3Position))
 		{
 			vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
@@ -401,15 +391,6 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			cPlayer3D->NearFinalBoss = true;
-		}
-		else
-		{
-			cPlayer3D->NearFinalBoss = false;
-		}
-
 		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
