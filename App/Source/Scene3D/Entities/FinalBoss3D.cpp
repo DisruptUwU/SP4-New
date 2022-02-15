@@ -144,7 +144,7 @@ bool CFinalBoss3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 1.5f;
+	fMovementSpeed = 0.f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
