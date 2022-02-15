@@ -448,6 +448,18 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		playerlostallhealth = true;
 	}
 
+	//if (cInventoryItem->GetCount() >= 100) //getmaxcount
+	//{
+	//	cInventoryItem->GetCount() = 100;
+	//}
+
+	if (healthPower == true)
+	{
+		cInventoryItem = cInventoryManager->GetItem("Health");
+		cInventoryItem->Add(40); //float
+		healthPower = false;
+	}
+
 	if (speedPower == false) // later move this in update
 	{
 		speedTimer = 0;

@@ -132,6 +132,8 @@ public:
 
 	bool speedPower = false;
 
+	bool healthPower = false;
+
 	double speedTimer;
 
 protected:
