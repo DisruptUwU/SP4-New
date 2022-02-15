@@ -351,7 +351,18 @@ bool CLevel5::Update(const double dElapsedTime)
 		timer = 10;
 	}
 
-	if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 200) {
+	//if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 200) {
+	//	phase = 1;
+	//}
+	if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 100 && cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 200) {
+		cSolidObjectManager->cFinalBoss3D->phase = 2;
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100) {
+		cSolidObjectManager->cFinalBoss3D->phase = 3;
+	}
+
+	if (cSolidObjectManager->cFinalBoss3D->phase == 1) {
+		cout << "Phase 1 Active" << endl;
 		if (timer <= 0)
 		{
 			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
@@ -370,7 +381,18 @@ bool CLevel5::Update(const double dElapsedTime)
 			cEnemy3D->SetWeapon(0, cEnemyPistol);
 			cSolidObjectManager->Add(cEnemy3D);
 		}
-		cout << timer << endl;
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
+		cout << "Phase 2 Active" << endl;
+		cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+
+		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 300) {
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 300;
+			cSolidObjectManager->cFinalBoss3D->phase = 1;
+		}
+	}
+	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
+		cout << "Phase 3 Active" << endl;
 	}
 
 	//// Get keyboard updates for player3D
