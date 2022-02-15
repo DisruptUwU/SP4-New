@@ -104,7 +104,7 @@ bool CTerrain::InitLevel3(void)
 		return false;
 
 	// Load greyscale image for the terrain
-	if (LoadHeightMapFromImage("Image/Terrain/World/terrainlevel3.bmp") == false)
+	if (LoadHeightMapFromImage("Image/Terrain/World/terrainlevel3new.bmp") == false)
 		return false;
 
 	return true;
