@@ -314,11 +314,7 @@ bool LoadAllTextures(void)
 	return true;
 }
 
-<<<<<<< HEAD
-bool LoadLevel2Textures(void)
-=======
 bool LoadLevel1Textures(void)
->>>>>>> c9e8247e2ca2278f27ad35fa26f5c5984f140945
 {
 	// Load textures
 	string sTextureNames[] = { "hellpoolbase.jpg", "hellgrass.jpg", "hellmountain.jpg", "hellsand.jpg", "path.png" };
@@ -333,6 +329,23 @@ bool LoadLevel1Textures(void)
 
 	return true;
 }
+
+bool LoadLevel2Textures(void)
+{
+	// Load textures
+	string sTextureNames[] = { "hellpoolbase.jpg", "hellgrass.jpg", "hellmountain.jpg", "hellsand.jpg", "path.png" };
+
+	for (int i = 0; i < NUMTEXTURES; i++)
+	{
+		if (tTextures[i].LoadTexture2D("Image/Terrain/textures/" + sTextureNames[i], true) == false)
+			return false;
+
+		tTextures[i].SetFiltering(TEXTURE_FILTER_MAG_BILINEAR, TEXTURE_FILTER_MIN_BILINEAR_MIPMAP);
+	}
+
+	return true;
+}
+
 
 bool LoadLevel3Textures(void)
 {
