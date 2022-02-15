@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Apr 2020
  */
-#include "Enemy3D.h"
+#include "Healer3D.h"
 
 // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
@@ -23,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CEnemy3D::CEnemy3D(void)
+CHealer3D::CHealer3D(void)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
@@ -51,7 +51,7 @@ CEnemy3D::CEnemy3D(void)
  @param yaw A const float variable which contains the yaw of the camera
  @param pitch A const float variable which contains the pitch of the camera
  */
-CEnemy3D::CEnemy3D(	const glm::vec3 vec3Position,
+CHealer3D::CHealer3D(	const glm::vec3 vec3Position,
 					const glm::vec3 vec3Front,
 					const float fYaw,
 					const float fPitch)
@@ -81,7 +81,7 @@ CEnemy3D::CEnemy3D(	const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CEnemy3D::~CEnemy3D(void)
+CHealer3D::~CHealer3D(void)
 {
 	if (cWaypointManager)
 	{
@@ -115,13 +115,13 @@ CEnemy3D::~CEnemy3D(void)
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CEnemy3D::Init(void)
+bool CHealer3D::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::NPC);
+	SetType(CEntity3D::TYPE::FINALHEALBOSS);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
@@ -144,7 +144,7 @@ bool CEnemy3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 1.5f;
+	fMovementSpeed = 0.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -177,7 +177,7 @@ bool CEnemy3D::Init(void)
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CEnemy3D::SetModel(const glm::mat4 model)
+void CHealer3D::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -186,7 +186,7 @@ void CEnemy3D::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CEnemy3D::SetView(const glm::mat4 view)
+void CHealer3D::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -195,7 +195,7 @@ void CEnemy3D::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CEnemy3D::SetProjection(const glm::mat4 projection)
+void CHealer3D::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -204,7 +204,7 @@ void CEnemy3D::SetProjection(const glm::mat4 projection)
  @brief Attach a camera to this class instance
  @param cCamera A CCamera* variable which contains the camera
  */
-void CEnemy3D::AttachCamera(CCamera* cCamera)
+void CHealer3D::AttachCamera(CCamera* cCamera)
 {
 	// Set the camera to the player
 	this->cCamera = cCamera;
@@ -221,7 +221,7 @@ void CEnemy3D::AttachCamera(CCamera* cCamera)
  @brief Check if a camera ia attached to this class instance
  @return true if a camera is attached, else false
  */
-bool CEnemy3D::IsCameraAttached(void)
+bool CHealer3D::IsCameraAttached(void)
 {
 	if (cCamera)
 		return true;
@@ -233,7 +233,7 @@ bool CEnemy3D::IsCameraAttached(void)
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  @param cWeaponInfo A CWeaponInfo* variable which contains the weapon info
  */
-void CEnemy3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
+void CHealer3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
 {
 	if (iSlot == 0)
 		cPrimaryWeapon = cWeaponInfo;
@@ -245,7 +245,7 @@ void CEnemy3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
  @brief Get Weapon of this class instance
  @return The CWeaponInfo* value
  */
-CWeaponInfo* CEnemy3D::GetWeapon(void) const
+CWeaponInfo* CHealer3D::GetWeapon(void) const
 {
 	if (iCurrentWeapon == 0)
 		return cPrimaryWeapon;
@@ -259,7 +259,7 @@ CWeaponInfo* CEnemy3D::GetWeapon(void) const
  @brief Set current weapon
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  */
-void CEnemy3D::SetCurrentWeapon(const int iSlot)
+void CHealer3D::SetCurrentWeapon(const int iSlot)
 {
 	iCurrentWeapon = iSlot;
 }
@@ -268,7 +268,7 @@ void CEnemy3D::SetCurrentWeapon(const int iSlot)
  @brief Discharge weapon
  @return A bool value
  */
-bool CEnemy3D::DischargeWeapon(void) const
+bool CHealer3D::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
@@ -286,7 +286,7 @@ bool CEnemy3D::DischargeWeapon(void) const
  @param direction A const Player_Movement variable which contains the movement direction of the camera
  @param deltaTime A const float variable which contains the delta time for the realtime loop
  */
-void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
+void CHealer3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
 	float velocity = fMovementSpeed* deltaTime;
 	if (direction == ENEMYMOVEMENT::FORWARD)
@@ -312,7 +312,7 @@ void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaT
  @brief Processes input received from a mouse input system as player rotation. Expects the offset value in both the x and y direction.
  @param xoffset A const float variable which contains the x axis of the mouse movement
  */
-void CEnemy3D::ProcessRotate(const float fXOffset)
+void CHealer3D::ProcessRotate(const float fXOffset)
 {
 	// Update the yaw
 	fYaw += fXOffset;// *fRotationSensitivity;
@@ -326,7 +326,7 @@ void CEnemy3D::ProcessRotate(const float fXOffset)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CEnemy3D::Update(const double dElapsedTime)
+bool CHealer3D::Update(const double dElapsedTime)
 {
 	// Don't update if this entity is not active
 	if (bStatus == false)
@@ -349,78 +349,78 @@ bool CEnemy3D::Update(const double dElapsedTime)
 		}
 		iFSMCounter++;
 		break;
-	case FSM::PATROL:
-		// Check if the destination position has been reached
-		if (cWaypointManager->HasReachedWayPoint(vec3Position))
-		{
-			vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
-			UpdateFrontAndYaw();
+	//case FSM::PATROL:
+	//	// Check if the destination position has been reached
+	//	if (cWaypointManager->HasReachedWayPoint(vec3Position))
+	//	{
+	//		vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
+	//		UpdateFrontAndYaw();
 
-			if (_DEBUG_FSM == true)
-				cout << "Reached waypoint: Going to next waypoint" << endl;
-		}
-		else if (iFSMCounter > iMaxFSMCounter)
-		{
-			sCurrentFSM = FSM::IDLE;
-			iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "FSM Counter maxed out: Switching to Idle State" << endl;
-		}
-		else if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			sCurrentFSM = FSM::ATTACK;
-			iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "Target found: Switching to Attack State" << endl;
-		}
-		else
-		{
-			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
-			if (_DEBUG_FSM == true)
-				cout << "Patrolling" << endl;
-		}
-		iFSMCounter++;
-		break;
-	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
-			UpdateFrontAndYaw();
+	//		if (_DEBUG_FSM == true)
+	//			cout << "Reached waypoint: Going to next waypoint" << endl;
+	//	}
+	//	else if (iFSMCounter > iMaxFSMCounter)
+	//	{
+	//		sCurrentFSM = FSM::IDLE;
+	//		iFSMCounter = 0;
+	//		if (_DEBUG_FSM == true)
+	//			cout << "FSM Counter maxed out: Switching to Idle State" << endl;
+	//	}
+	//	else if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	//	{
+	//		sCurrentFSM = FSM::ATTACK;
+	//		iFSMCounter = 0;
+	//		if (_DEBUG_FSM == true)
+	//			cout << "Target found: Switching to Attack State" << endl;
+	//	}
+	//	else
+	//	{
+	//		// Process the movement
+	//		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+	//		if (_DEBUG_FSM == true)
+	//			cout << "Patrolling" << endl;
+	//	}
+	//	iFSMCounter++;
+	//	break;
+	//case FSM::ATTACK:
+	//	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	//	{
+	//		vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
+	//		UpdateFrontAndYaw();
 
-			// Discharge weapon
-			if (DischargeWeapon() == false)
-			{
-				// Check if the weapon mag is empty
-				if (cPrimaryWeapon->GetMagRound() == 0)
-				{
-					if (cPrimaryWeapon->GetTotalRound() != 0)
-					{
-						// Reload the weapon
-						cPrimaryWeapon->Reload();
-					}
-				}
-			}
+	//		// Discharge weapon
+	//		if (DischargeWeapon() == false)
+	//		{
+	//			// Check if the weapon mag is empty
+	//			if (cPrimaryWeapon->GetMagRound() == 0)
+	//			{
+	//				if (cPrimaryWeapon->GetTotalRound() != 0)
+	//				{
+	//					// Reload the weapon
+	//					cPrimaryWeapon->Reload();
+	//				}
+	//			}
+	//		}
 
-			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
-			if (_DEBUG_FSM == true)
-				cout << "Attacking now" << endl;
-		}
-		else
-		{
-			// If NPC loses track of player, then go back to the nearest waypoint
-			vec3Front = glm::normalize((cWaypointManager->GetNearestWaypoint(vec3Position)->GetPosition() - vec3Position));
-			UpdateFrontAndYaw();
+	//		// Process the movement
+	//		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+	//		if (_DEBUG_FSM == true)
+	//			cout << "Attacking now" << endl;
+	//	}
+	//	else
+	//	{
+	//		// If NPC loses track of player, then go back to the nearest waypoint
+	//		vec3Front = glm::normalize((cWaypointManager->GetNearestWaypoint(vec3Position)->GetPosition() - vec3Position));
+	//		UpdateFrontAndYaw();
 
-			// Swtich to patrol mode
-			sCurrentFSM = FSM::PATROL;
-			//iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "Switching to Patrol State" << endl;
-		}
-		iFSMCounter++;
-		break;
+	//		// Swtich to patrol mode
+	//		sCurrentFSM = FSM::PATROL;
+	//		//iFSMCounter = 0;
+	//		if (_DEBUG_FSM == true)
+	//			cout << "Switching to Patrol State" << endl;
+	//	}
+	//	iFSMCounter++;
+	//	break;
 	default:
 		break;
 	}
@@ -454,7 +454,7 @@ bool CEnemy3D::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CEnemy3D::PreRender(void)
+void CHealer3D::PreRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -468,7 +468,7 @@ void CEnemy3D::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CEnemy3D::Render(void)
+void CHealer3D::Render(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -488,7 +488,7 @@ void CEnemy3D::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CEnemy3D::PostRender(void)
+void CHealer3D::PostRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -502,7 +502,7 @@ void CEnemy3D::PostRender(void)
 /**
  @brief Calculates the front vector from the Camera's (updated) Euler Angles
  */
-void CEnemy3D::UpdateEnemyVectors(void)
+void CHealer3D::UpdateEnemyVectors(void)
 {
 	// Calculate the new vec3Front vector
 	glm::vec3 front;
@@ -530,7 +530,7 @@ void CEnemy3D::UpdateEnemyVectors(void)
 /**
  @brief Constraint the player's position
  */
-void CEnemy3D::Constraint(void)
+void CHealer3D::Constraint(void)
 {
 	// Get the new height
 	float fNewYValue = cTerrain->GetHeight(vec3Position.x, vec3Position.z) + fHeightOffset;
@@ -541,7 +541,7 @@ void CEnemy3D::Constraint(void)
 /**
  @brief Update Front Vector and Yaw
  */
-void CEnemy3D::UpdateFrontAndYaw(void)
+void CHealer3D::UpdateFrontAndYaw(void)
 {
 	fYaw = glm::degrees(glm::acos(dot(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front)));
 	if (cross(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front).y < 0.0f)

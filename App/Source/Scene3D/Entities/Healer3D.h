@@ -32,7 +32,7 @@
 using namespace std;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
-class CFinalBoss3D : public CSolidObject, public CFSM
+class CHealer3D : public CSolidObject, public CFSM
 {
 public:
 	// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
@@ -46,16 +46,16 @@ public:
 	};
 
 	// Default Constructor
-	CFinalBoss3D(void);
+	CHealer3D(void);
 
 	// Constructor with vectors
-	CFinalBoss3D(	const glm::vec3 vec3Position,
+	CHealer3D(	const glm::vec3 vec3Position,
 				const glm::vec3 vec3Front = glm::vec3(0.0f, 0.0f, -1.0f),
 				const float fYaw = -90.0f,
 				const float fPitch = 0.0f);
 
 	// Destructor
-	virtual ~CFinalBoss3D(void);
+	virtual ~CHealer3D(void);
 
 	// Initialise this class instance
 	bool Init(void);
@@ -101,14 +101,6 @@ public:
 	virtual void Render(void);
 	// PostRender
 	virtual void PostRender(void);
-
-	bool KilledFinalBoss = false;
-	int phase = 1;
-	int healersAlive = 4;
-
-	bool regainPhase1 = false;
-
-	double FinalBossHp = 300;
 
 protected:
 	// Enemy Attributes

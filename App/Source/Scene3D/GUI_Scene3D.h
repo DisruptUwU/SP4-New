@@ -53,6 +53,9 @@
 // Include CHydra
 #include "Entities\Hydra.h"
 
+// Include CHydra
+#include "Entities\SolidObjectManager.h"
+
 #include <string>
 using namespace std;
 
@@ -87,6 +90,10 @@ public:
 	CFinalBoss3D* cFinalBoss3D;
 
 	CHydra* cHydra;
+
+	CSolidObjectManager* cSolidObjectManager;
+
+	bool gameOver = false;
 
 protected:
 	// Constructor

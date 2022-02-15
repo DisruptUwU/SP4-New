@@ -50,6 +50,8 @@ bool CLevel3GameState::Init(void)
 		return false;
 	}
 
+	gameovertimer = 0;
+
 	return true;
 }
 
@@ -58,6 +60,19 @@ bool CLevel3GameState::Init(void)
  */
 bool CLevel3GameState::Update(const double dElapsedTime)
 {
+	if (CLevel3->losegame == true)
+	{
+		gameovertimer += dElapsedTime;
+	}
+
+	if (gameovertimer >= 2.5)
+	{
+		CLevel3->losegame = false;
+		cout << "Loading MenuState" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
 
 	if (CLevel3->gotolevel4 == true)
 	{

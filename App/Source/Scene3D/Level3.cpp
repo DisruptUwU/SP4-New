@@ -170,6 +170,7 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -250,6 +251,16 @@ bool CLevel3::Init(void)
 	// Add the cStructure3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cStructure3D);
 
+	// Initialise a CStructure3D
+	CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
+	cBloodbath->SetShader("Shader3D");
+	cBloodbath->Init();
+	cBloodbath->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)); // 0.0.1.0
+	cBloodbath->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
+	cBloodbath->SetScale(glm::vec3(15, 15, 15));
+
+	cSolidObjectManager->Add(cBloodbath);
+
 	cSolidObjectManager->cHydra = cHydra;
 
 	// Load the GUI Entities
@@ -258,6 +269,8 @@ bool CLevel3::Init(void)
 	cGUI_Scene3D->Init();
 
 	cGUI_Scene3D->cHydra = cHydra;
+
+	cGUI_Scene3D->cSolidObjectManager = cSolidObjectManager;
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
@@ -499,12 +512,30 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cPlayer3D->playerlostallhealth == true)
 	{
-		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(true);
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		/*losegame = true;*/
+		cout << "you lose" << losegame << endl;
+		cPlayer3D->playerhealthbelow30 = false;
+		cSolidObjectManager->youlose = true;
+
 	}
+
+	if (cSolidObjectManager->youlose == true)
+	{
+		//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		//cout << "you lose" << losegame << endl;
+		losegame = true;
+	}
+
+	//if (cGUI_Scene3D->gameOver == true)
+	//{
+	//	losegame = true;
+	//}
 
 	if (cPlayer3D->playerhealthbelow30 == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		//cSoundController->PlaySoundByID(4);
 	}
 
 	else

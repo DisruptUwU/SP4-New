@@ -30,6 +30,8 @@
 #include "Entities\Player3D.h"
 // Include CEnemy3D
 #include "Entities\Enemy3D.h"
+// Include CHealer3D
+#include "Entities\Healer3D.h"
 // Include CFinalBoss3D
 #include "Entities\FinalBoss3D.h"
 // Include CStructure3D
@@ -72,7 +74,12 @@ public:
 	// PostRender
 	void PostRender(void);
 
+	void SpawnHealer(int x, int y, int z);
+
 	bool sprintCheck = false;
+	double timer = 10;
+
+	bool spawnedHealers = false;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;

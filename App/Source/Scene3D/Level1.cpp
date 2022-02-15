@@ -217,27 +217,56 @@ bool CLevel1::Init(void)
 	cPistol->SetShader("Shader3D_Model");
 	cPlayer3D->SetWeapon(0, cPistol);
 
+
+
+
+
 	// Initialise the cEnemy3D
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	//cEnemy3D->SetShader("Shader3D");
-	//cEnemy3D->Init();
-	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	////cEnemy3D->SetScale(glm::vec3(0.5f));
+	float fCheckHeight = cTerrain->GetHeight(-5.0f, -40.0f);
+	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(-5.0f, fCheckHeight, -40.0f));
+	cEnemy3D->SetShader("Shader3D");
+	cEnemy3D->Init();
+	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
-	//// Assign a cPistol to the cEnemy3D
-	//CPistol* cEnemyPistol = new CPistol();
-	//// Set the position, rotation and scale of this weapon
-	////cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	////cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-	//cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	//// Initialise the instance
-	//cEnemyPistol->Init();
-	//cEnemyPistol->SetShader("Shader3D_Model");
-	//cEnemy3D->SetWeapon(0, cEnemyPistol);
+	// Assign a cPistol to the cEnemy3D
+	CPistol* cEnemyPistol = new CPistol();
+	// Set the position, rotation and scale of this weapon
+	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	// Initialise the instance
+	cEnemyPistol->Init();
+	cEnemyPistol->SetShader("Shader3D_Model");
+	cEnemy3D->SetWeapon(0, cEnemyPistol);
 
-	//// Add the cEnemy3D to the cSolidObjectManager
-	//cSolidObjectManager->Add(cEnemy3D);
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D);
+
+
+
+
+	// Initialise the 2nd cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(5.0f, -40.0f);
+	CEnemy3D* cEnemy3D_2 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight, -40.0f));
+	cEnemy3D_2->SetShader("Shader3D");
+	cEnemy3D_2->Init();
+	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	CPistol* cEnemyPistol2 = new CPistol();
+	// Set the position, rotation and scale of this weapon
+	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+	cEnemyPistol2->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	// Initialise the instance
+	cEnemyPistol2->Init();
+	cEnemyPistol2->SetShader("Shader3D_Model");
+	cEnemy3D_2->SetWeapon(0, cEnemyPistol2);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_2);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -311,7 +340,7 @@ bool CLevel1::Init(void)
 	//CSpinTower::Create();
 
 	// Initialise a CHut_Concrete
-	fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
+	/*fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
 	CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
 	cHut_Concrete->SetShader("Shader3DNoColour");
 	cHut_Concrete->SetLODStatus(true);
@@ -319,7 +348,7 @@ bool CLevel1::Init(void)
 	cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
 	// Add the cHut_Concrete to the cSolidObjectManager
-	cSolidObjectManager->Add(cHut_Concrete);
+	cSolidObjectManager->Add(cHut_Concrete);*/
 
 	return true;
 }

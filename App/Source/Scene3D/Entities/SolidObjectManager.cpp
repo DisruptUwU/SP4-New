@@ -273,6 +273,15 @@ bool CSolidObjectManager::CheckForCollision(void)
 		if ((*it)->GetStatus() == false)
 			continue;
 
+		if ((*it)->GetType() == CSolidObject::TYPE::FINALHEALBOSS)
+		{
+			if (cFinalBoss3D->regainPhase1 == true);
+			{
+				//(*it)->SetStatus(false);
+				cFinalBoss3D->regainPhase1 = false;
+			}
+		}
+
 		for (unsigned int i = 0; i < cProjectileManager->vProjectile.size(); i++)
 		{
 			// If the entity is not active, then skip it
@@ -316,17 +325,30 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
 				}
-				else if ((*it)->GetType() == CSolidObject::TYPE::FINALBOSS)
+				else if ((*it)->GetType() == CSolidObject::TYPE::FINALHEALBOSS)
 				{
 					// If this projectile is fired by the NPC, then skip it
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cFinalBoss3D->FinalBossHp -= 10;
+					(*it)->SetStatus(false);
+					cFinalBoss3D->healersAlive--;
+					cout << "** RayBoxCollision between Healer and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::FINALBOSS)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(cProjectileManager->vProjectile[i])->SetStatus(false);				
+					cFinalBoss3D->FinalBossHp -= 100;
+
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
 						(*it)->SetStatus(false);
 					}
+
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
 				}

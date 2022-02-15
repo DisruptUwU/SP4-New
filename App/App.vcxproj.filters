@@ -251,6 +251,15 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Lowhealth.cpp">
       <Filter>Scene3D\CameraEffects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp">
+      <Filter>Scene3D\CameraEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Healer3D.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -453,6 +462,15 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\CameraEffects\Lowhealth.h">
       <Filter>Scene3D\CameraEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h">
+      <Filter>Scene3D\CameraEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Healer3D.h">
+      <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
