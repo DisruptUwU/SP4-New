@@ -245,6 +245,9 @@
     <ClCompile Include="Source\Scene3D\Terrain\vertexBufferObject.cpp">
       <Filter>Scene3D\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Speed.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -441,6 +444,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Terrain\vertexBufferObject.h">
       <Filter>Scene3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Speed.h">
+      <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

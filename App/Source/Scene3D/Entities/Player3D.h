@@ -130,6 +130,10 @@ public:
 	bool NearFinalBoss = false;
 	int FinalBossDialogueStage = 0;
 
+	bool speedPower = false;
+
+	double speedTimer;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;

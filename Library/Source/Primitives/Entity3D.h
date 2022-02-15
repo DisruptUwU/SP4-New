@@ -37,6 +37,7 @@ public:
 		STRUCTURE,	// Buildings etc
 		PROJECTILE,
 		DOOR,
+		SPEEDPOWER,
 		BLOODBATH,
 		FINALHEALBOSS,
 		FINALBOSS,

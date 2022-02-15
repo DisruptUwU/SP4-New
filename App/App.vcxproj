@@ -53,6 +53,7 @@
     <ClCompile Include="Source\Scene3D\Entities\Player3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObject.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObjectManager.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Speed.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Structure3D.cpp" />
     <ClCompile Include="Source\Scene3D\GUI_Scene3D.cpp" />
     <ClCompile Include="Source\Scene3D\Level1.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="Source\Scene3D\Entities\Player3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObject.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObjectManager.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Speed.h" />
     <ClInclude Include="Source\Scene3D\Entities\Structure3D.h" />
     <ClInclude Include="Source\Scene3D\GUI_Scene3D.h" />
     <ClInclude Include="Source\Scene3D\Level1.h" />
