@@ -252,7 +252,6 @@ bool Application::Init(void)
 	CGameStateManager::GetInstance()->AddGameState("IntroState", new CIntroState());
 	CGameStateManager::GetInstance()->AddGameState("MenuState", new CMenuState());
 	CGameStateManager::GetInstance()->AddGameState("PlayGameState", new CPlayGameState());
-	CGameStateManager::GetInstance()->AddGameState("Play3DGameState", new CPlay3DGameState());
 	CGameStateManager::GetInstance()->AddGameState("Level1GameState", new CLevel1GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level2GameState", new CLevel2GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level3GameState", new CLevel3GameState());
