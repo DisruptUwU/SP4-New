@@ -181,7 +181,7 @@ bool CLevel1::Init(void)
 	// Load the Ground
 	cTerrain = CTerrain::GetInstance();
 	cTerrain->SetShader("Shader3D_Terrain");
-	cTerrain->Init();
+	cTerrain->InitLevel1();
 	// Set the size of the Terrain
 	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
 
