@@ -291,29 +291,6 @@ bool CLevel3::Init(void)
 		delete cRock3D;
 	}
 
-	//// Initialise the CTreeKabak3D
-	//CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
-	//cTreeKabak3D->SetInstancingMode(true);
-	//if (cTreeKabak3D->IsInstancedRendering() == true)
-	//{
-	//	cTreeKabak3D->SetScale(glm::vec3(1.0f));
-	//	cTreeKabak3D->SetNumOfInstance(100);
-	//	cTreeKabak3D->SetSpreadDistance(100.0f);
-
-	//	cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	//}
-	//if (cTreeKabak3D->Init() == true)
-	//{
-	//	cEntityManager->Add(cTreeKabak3D);
-	//}
-	//else
-	//{
-	//	delete cTreeKabak3D;
-	//}
-
-	// Initialise a CSpinTower
-	//CSpinTower::Create();
-
 	// Initialise a CHut_Concrete
 	fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
 	CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
@@ -524,6 +501,17 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(true);
 	}
+
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+	}
+
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
+	}
+
 
 
 	// Update the Solid Objects
