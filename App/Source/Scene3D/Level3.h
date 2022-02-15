@@ -39,6 +39,8 @@
 // Include CStructure3D
 #include "Entities\Speed.h"
 // Include CStructure3D
+#include "Entities\Healthup.h"
+// Include CStructure3D
 #include "Entities\Bloodbath.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"

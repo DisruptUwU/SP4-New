@@ -54,13 +54,15 @@ CEnemy3D::CEnemy3D(void)
 CEnemy3D::CEnemy3D(	const glm::vec3 vec3Position,
 					const glm::vec3 vec3Front,
 					const float fYaw,
-					const float fPitch)
+					const float fPitch,
+					bool isFlying)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
 	, fYaw(fYaw)
 	, fPitch(fPitch)
 	, fRotationSensitivity(0.1f)
+	, bIsFlying(isFlying)
 	, cCamera(NULL)
 	, cPrimaryWeapon(NULL)
 	, cSecondaryWeapon(NULL)
@@ -206,10 +208,9 @@ void CEnemy3D::SetProjection(const glm::mat4 projection)
  */
 void CEnemy3D::AttachCamera(CCamera* cCamera)
 {
-	// Set the camera to the player
 	this->cCamera = cCamera;
 
-	// Update the camera's attributes with the player's attributes
+	// Update the camera's attributes with the enemy's attributes
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
@@ -282,8 +283,8 @@ bool CEnemy3D::DischargeWeapon(void) const
 }
 
 /**
- @brief Processes input received from any keyboard-like input system as player movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
- @param direction A const Player_Movement variable which contains the movement direction of the camera
+ @brief Processes input received from any keyboard-like input system as enemy movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
+ @param direction A const Enemy_Movement variable which contains the movement direction of the camera
  @param deltaTime A const float variable which contains the delta time for the realtime loop
  */
 void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
@@ -298,18 +299,18 @@ void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaT
 	if (direction == ENEMYMOVEMENT::RIGHT)
 		vec3Position += vec3Right * velocity;
 
-	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
 	}
 
-	// Constraint the player's position
-	Constraint();
+	// Constraint the enemy's position if grounded
+	if (bIsFlying)
+		Constraint();
 }
 
 /**
- @brief Processes input received from a mouse input system as player rotation. Expects the offset value in both the x and y direction.
+ @brief Processes input received from a mouse input system as enemy rotation. Expects the offset value in both the x and y direction.
  @param xoffset A const float variable which contains the x axis of the mouse movement
  */
 void CEnemy3D::ProcessRotate(const float fXOffset)
@@ -518,7 +519,6 @@ void CEnemy3D::UpdateEnemyVectors(void)
 	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));  
 	vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
 
-	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Front = vec3Front;
@@ -528,7 +528,7 @@ void CEnemy3D::UpdateEnemyVectors(void)
 }
 
 /**
- @brief Constraint the player's position
+ @brief Constraint the enemy's position
  */
 void CEnemy3D::Constraint(void)
 {

@@ -32,11 +32,13 @@ public:
 
 	bool InitLevel1(void);
 
-	bool InitLevel3(void);
-
 	bool InitLevel2(void);
 
+	bool InitLevel3(void);
+
 	bool InitFinalBoss(void);
+
+	bool InitTerrain(int i);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);

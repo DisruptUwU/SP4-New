@@ -270,6 +270,15 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEALTHPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->healthPower = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** health ***" << endl;
+					break;
+				}
+
 			}
 		}
 	}
