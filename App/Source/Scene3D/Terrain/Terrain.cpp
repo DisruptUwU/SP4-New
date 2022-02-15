@@ -80,7 +80,6 @@ bool CTerrain::InitLevel3(void)
 	return true;
 }
 
-<<<<<<< HEAD
 bool CTerrain::InitLevel2(void)
 {
 	// Load all the 5 texture
@@ -89,7 +88,11 @@ bool CTerrain::InitLevel2(void)
 
 	// Load greyscale image for the terrain
 	if (LoadHeightMapFromImage("Image/Terrain/World/terrain2.bmp") == false)
-=======
+		return false;
+
+	return true;
+}
+
 bool CTerrain::InitLevel1(void)
 {
 	// Load all the 5 texture
@@ -98,7 +101,7 @@ bool CTerrain::InitLevel1(void)
 
 	// Load greyscale image for the terrain
 	if (LoadHeightMapFromImage("Image/Terrain/World/lvl1_terrain.bmp") == false)
->>>>>>> c9e8247e2ca2278f27ad35fa26f5c5984f140945
+
 		return false;
 
 	return true;

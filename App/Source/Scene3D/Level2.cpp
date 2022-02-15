@@ -23,16 +23,6 @@
 
 // Include CPistol
 #include "WeaponInfo\Pistol.h"
-
-// Include CRock3D
-#include "Entities/Rock3D.h"
-// Include CTreeKabak3D
-#include "Entities/TreeKabak3D.h"
-
-// Include CSpinTower
-#include "SceneGraph/SpinTower.h"
-// Include CSpinTower
-#include "Entities/Hut_Concrete.h"
 ///testing
 // Include CCameraShake
 #include "CameraEffects/CameraShake.h"
@@ -322,31 +312,31 @@ bool CLevel2::Init(void)
 	cEntityManager->Init();
 
 	// Initialise the CRock3D
-	CRock3D* cRock3D = new CRock3D();
-	cRock3D->SetInstancingMode(false);
-	if (cRock3D->IsInstancedRendering() == true)
-	{
-		cRock3D->SetScale(glm::vec3(5.0f));
-		cRock3D->SetNumOfInstance(1000);
-		cRock3D->SetSpreadDistance(100.0f);
+	//CRock3D* cRock3D = new CRock3D();
+	//cRock3D->SetInstancingMode(false);
+	//if (cRock3D->IsInstancedRendering() == true)
+	//{
+	//	cRock3D->SetScale(glm::vec3(5.0f));
+	//	cRock3D->SetNumOfInstance(1000);
+	//	cRock3D->SetSpreadDistance(100.0f);
 
-		cRock3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	}
-	else
-	{
-		fCheckHeight = cTerrain->GetHeight(2.0f, 2.0f);
-		cRock3D->SetPosition(glm::vec3(2.0f, fCheckHeight, 2.0f));
-		cRock3D->SetScale(glm::vec3(0.5f));
-		cRock3D->SetShader("Shader3DNoColour");			// FOR NORMAL RENDERING
-	}
-	if (cRock3D->Init() == true)
-	{
-		cEntityManager->Add(cRock3D);
-	}
-	else
-	{
-		delete cRock3D;
-	}
+	//	cRock3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
+	//}
+	//else
+	//{
+	//	fCheckHeight = cTerrain->GetHeight(2.0f, 2.0f);
+	//	cRock3D->SetPosition(glm::vec3(2.0f, fCheckHeight, 2.0f));
+	//	cRock3D->SetScale(glm::vec3(0.5f));
+	//	cRock3D->SetShader("Shader3DNoColour");			// FOR NORMAL RENDERING
+	//}
+	//if (cRock3D->Init() == true)
+	//{
+	//	cEntityManager->Add(cRock3D);
+	//}
+	//else
+	//{
+	//	delete cRock3D;
+	//}
 
 	// Initialise the CTreeKabak3D
 	//CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
