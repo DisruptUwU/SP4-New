@@ -424,6 +424,14 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		healthdownbyhydra = false;
 	}
 
+	cInventoryItem = cInventoryManager->GetItem("Health");
+	if (cInventoryItem->GetCount() <= 0) //getmaxcount
+	{
+		playerlostallhealth = true;
+	}
+
+
+
 	CSolidObject::Update(dElapsedTime);
 
 	return true;

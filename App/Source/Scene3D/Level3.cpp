@@ -514,6 +514,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(false);
 	}
 
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(true);
+	}
+
+
 	// Update the Solid Objects
 	cSolidObjectManager->Update(dElapsedTime);
 

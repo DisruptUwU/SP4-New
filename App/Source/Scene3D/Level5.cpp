@@ -183,7 +183,7 @@ bool CLevel5::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitFinalBoss();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
+	cTerrain->SetRenderSize(200.0f, 5.0f, 200.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -192,7 +192,7 @@ bool CLevel5::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+	cPlayer3D->SetPosition(glm::vec3(50.0f, 0.5f, 50.0f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -218,12 +218,19 @@ bool CLevel5::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// Initialise the cEnemy3D
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	cEnemy3D->SetShader("Shader3D");
-	cEnemy3D->Init();
-	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	//cEnemy3D->SetShader("Shader3D");
+	//cEnemy3D->Init();
+	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	cFinalBoss3D->SetShader("Shader3D");
+	cFinalBoss3D->Init();
+	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(3.0f, 0.0f, 0.0f, 1.0f));
+	cFinalBoss3D->SetScale(glm::vec3(3.f));
 
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
@@ -234,10 +241,10 @@ bool CLevel5::Init(void)
 	// Initialise the instance
 	cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
-	cEnemy3D->SetWeapon(0, cEnemyPistol);
+	cFinalBoss3D->SetWeapon(0, cEnemyPistol);
 
 	// Add the cEnemy3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cEnemy3D);
+	cSolidObjectManager->Add(cFinalBoss3D);
 
 	// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);

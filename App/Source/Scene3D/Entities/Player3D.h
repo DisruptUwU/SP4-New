@@ -119,6 +119,11 @@ public:
 
 	bool healthdownbyhydra = false;
 
+	bool playerlostallhealth = false;
+
+	bool NearFinalBoss = false;
+	int FinalBossDialogueStage = 0;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
