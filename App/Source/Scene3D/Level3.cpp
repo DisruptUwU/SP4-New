@@ -161,6 +161,7 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -472,6 +473,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		/*losegame = true;*/
+		cSoundController->PlaySoundByID(5);
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
 		cSolidObjectManager->youlose = true;
