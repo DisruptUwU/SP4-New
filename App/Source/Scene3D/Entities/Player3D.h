@@ -119,6 +119,8 @@ public:
 
 	bool healthdownbyhydra = false;
 
+	bool playerlostallhealth = false;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
