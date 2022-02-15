@@ -321,8 +321,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 					// If this projectile is fired by the NPC, then skip it
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
-					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cFinalBoss3D->FinalBossHp -= 10;
+					(cProjectileManager->vProjectile[i])->SetStatus(false);				
+					cFinalBoss3D->FinalBossHp -= 100;
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
 						(*it)->SetStatus(false);
@@ -336,7 +336,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cHydra->HydraBossHp -= 10;
+					cHydra->HydraBossHp -= 100;
 					if (cHydra->HydraBossHp <= 0) {
 						HydraKilled = true;
 						(*it)->SetStatus(false);

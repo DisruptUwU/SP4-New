@@ -311,7 +311,7 @@ bool CLevel1::Init(void)
 	//CSpinTower::Create();
 
 	// Initialise a CHut_Concrete
-	fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
+	/*fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
 	CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
 	cHut_Concrete->SetShader("Shader3DNoColour");
 	cHut_Concrete->SetLODStatus(true);
@@ -319,7 +319,7 @@ bool CLevel1::Init(void)
 	cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
 	// Add the cHut_Concrete to the cSolidObjectManager
-	cSolidObjectManager->Add(cHut_Concrete);
+	cSolidObjectManager->Add(cHut_Concrete);*/
 
 	return true;
 }

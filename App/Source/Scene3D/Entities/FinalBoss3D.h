@@ -103,6 +103,7 @@ public:
 	virtual void PostRender(void);
 
 	bool KilledFinalBoss = false;
+	int phase = 1;
 
 	double FinalBossHp = 300;
 

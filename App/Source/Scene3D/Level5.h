@@ -73,6 +73,7 @@ public:
 	void PostRender(void);
 
 	bool sprintCheck = false;
+	double timer = 10;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
