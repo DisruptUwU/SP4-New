@@ -420,8 +420,15 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	if (healthdownbyhydra == true)
 	{
 		cInventoryItem = cInventoryManager->GetItem("Health");
-		cInventoryItem->Remove(30); //float
+		cInventoryItem->Remove(10); //float
 		healthdownbyhydra = false;
+	}
+
+	if (healthdownbyhydramore == true)
+	{
+		cInventoryItem = cInventoryManager->GetItem("Health");
+		cInventoryItem->Remove(30); //float
+		healthdownbyhydramore = false;
 	}
 
 	cInventoryItem = cInventoryManager->GetItem("Health");

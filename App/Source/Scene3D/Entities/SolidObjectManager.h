@@ -64,6 +64,8 @@ public:
 
 	bool youlose = false;
 
+	bool healthbelow50 = false;
+
 	//bool hydrashotplayer = false;
 
 	CHydra* cHydra;

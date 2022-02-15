@@ -314,8 +314,7 @@ bool LoadAllTextures(void)
 	return true;
 }
 
-
-bool LoadLevel2Textures(void)
+bool LoadLevel1Textures(void)
 {
 	// Load textures
 	string sTextureNames[] = { "hellpoolbase.jpg", "hellgrass.jpg", "hellmountain.jpg", "hellsand.jpg", "path.png" };
@@ -331,7 +330,7 @@ bool LoadLevel2Textures(void)
 	return true;
 }
 
-bool LoadLevel1Textures(void)
+bool LoadLevel2Textures(void)
 {
 	// Load textures
 	string sTextureNames[] = { "hellpoolbase.jpg", "hellgrass.jpg", "hellmountain.jpg", "hellsand.jpg", "path.png" };

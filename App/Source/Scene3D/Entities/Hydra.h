@@ -114,6 +114,8 @@ public:
 
 	double HydraBossHp = 100;
 
+	bool healthbelow50 = false;
+
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;

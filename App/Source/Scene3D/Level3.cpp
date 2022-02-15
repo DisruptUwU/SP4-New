@@ -23,16 +23,6 @@
 
 // Include CPistol
 #include "WeaponInfo\Pistol.h"
-
-// Include CRock3D
-#include "Entities/Rock3D.h"
-// Include CTreeKabak3D
-#include "Entities/TreeKabak3D.h"
-
-// Include CSpinTower
-#include "SceneGraph/SpinTower.h"
-// Include CSpinTower
-#include "Entities/Hut_Concrete.h"
 ///testing
 // Include CCameraShake
 #include "CameraEffects/CameraShake.h"
@@ -277,44 +267,6 @@ bool CLevel3::Init(void)
 	cEntityManager = CEntityManager::GetInstance(); //wwdawe
 	cEntityManager->Init();
 
-	// Initialise the CRock3D
-	CRock3D* cRock3D = new CRock3D();
-	cRock3D->SetInstancingMode(false);
-	if (cRock3D->IsInstancedRendering() == true)
-	{
-		cRock3D->SetScale(glm::vec3(5.0f));
-		cRock3D->SetNumOfInstance(1000);
-		cRock3D->SetSpreadDistance(100.0f);
-
-		cRock3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	}
-	else
-	{
-		fCheckHeight = cTerrain->GetHeight(2.0f, 2.0f);
-		cRock3D->SetPosition(glm::vec3(2.0f, fCheckHeight, 2.0f));
-		cRock3D->SetScale(glm::vec3(0.5f));
-		cRock3D->SetShader("Shader3DNoColour");			// FOR NORMAL RENDERING
-	}
-	if (cRock3D->Init() == true)
-	{
-		cEntityManager->Add(cRock3D);
-	}
-	else
-	{
-		delete cRock3D;
-	}
-
-	// Initialise a CHut_Concrete
-	fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
-	CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
-	cHut_Concrete->SetShader("Shader3DNoColour");
-	cHut_Concrete->SetLODStatus(true);
-	cHut_Concrete->Init();
-	cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-
-	// Add the cHut_Concrete to the cSolidObjectManager
-	cSolidObjectManager->Add(cHut_Concrete);
-
 	return true;
 }
 
@@ -416,6 +368,12 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cSolidObjectManager->wenttodoor == true)//push
 	{
 		gotolevel4 = true;
+	}
+
+	if (cSolidObjectManager->cHydra->HydraBossHp <= 50)
+	{
+		cSolidObjectManager->healthbelow50 = true;
+
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))

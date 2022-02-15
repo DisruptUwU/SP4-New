@@ -24,16 +24,6 @@
 // Include CPistol
 #include "WeaponInfo\Pistol.h"
 
-// Include CRock3D
-#include "Entities/Rock3D.h"
-// Include CTreeKabak3D
-#include "Entities/TreeKabak3D.h"
-
-// Include CSpinTower
-#include "SceneGraph/SpinTower.h"
-// Include CSpinTower
-#include "Entities/Hut_Concrete.h"
-///testing
 // Include CCameraShake
 #include "CameraEffects/CameraShake.h"
 

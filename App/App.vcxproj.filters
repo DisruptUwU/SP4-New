@@ -39,9 +39,6 @@
     <Filter Include="Scene3D\WayPoint">
       <UniqueIdentifier>{6a78dca1-5da5-4667-a6ac-2b99b3fb5d47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene3D\Terrain">
-      <UniqueIdentifier>{0e84c673-870f-42ea-9668-e847494596e4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene3D\SceneGraph">
       <UniqueIdentifier>{48d0636e-b5a7-4e83-97a6-663b02566949}</UniqueIdentifier>
     </Filter>
@@ -107,12 +104,6 @@
     <ClCompile Include="Source\GameStateManagement\PauseState.cpp">
       <Filter>GameStateManagement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\Play3DGameState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Scene3D.cpp">
-      <Filter>Scene3D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\Camera.cpp">
       <Filter>Scene3D</Filter>
     </ClCompile>
@@ -155,9 +146,6 @@
     <ClCompile Include="Source\Scene3D\Waypoint\WaypointManager.cpp">
       <Filter>Scene3D\WayPoint</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Rock3D.cpp">
-      <Filter>Scene3D\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\SolidObject.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
@@ -185,18 +173,6 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\CameraShake.cpp">
       <Filter>Scene3D\CameraEffects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Terrain\Terrain.cpp">
-      <Filter>Scene3D\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Terrain\vertexBufferObject.cpp">
-      <Filter>Scene3D\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Terrain\Texture.cpp">
-      <Filter>Scene3D\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\TreeKabak3D.cpp">
-      <Filter>Scene3D\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\SceneGraph\SceneNode.cpp">
       <Filter>Scene3D\SceneGraph</Filter>
     </ClCompile>
@@ -205,9 +181,6 @@
     </ClCompile>
     <ClCompile Include="Source\Scene3D\AI\FSM.cpp">
       <Filter>Scene3D\FSM</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Hut_Concrete.cpp">
-      <Filter>Scene3D\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene3D\Level4.cpp">
       <Filter>Scene3D</Filter>
@@ -319,12 +292,6 @@
     <ClInclude Include="Source\GameStateManagement\PauseState.h">
       <Filter>GameStateManagement</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Play3DGameState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\Scene3D.h">
-      <Filter>Scene3D</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Camera.h">
       <Filter>Scene3D</Filter>
     </ClInclude>
@@ -367,9 +334,6 @@
     <ClInclude Include="Source\Scene3D\Waypoint\WaypointManager.h">
       <Filter>Scene3D\WayPoint</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\Rock3D.h">
-      <Filter>Scene3D\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\SolidObject.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
@@ -397,18 +361,6 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\CameraShake.h">
       <Filter>Scene3D\CameraEffects</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\Terrain\Terrain.h">
-      <Filter>Scene3D\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\Terrain\vertexBufferObject.h">
-      <Filter>Scene3D\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\Terrain\Texture.h">
-      <Filter>Scene3D\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\TreeKabak3D.h">
-      <Filter>Scene3D\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\SceneGraph\SceneNode.h">
       <Filter>Scene3D\SceneGraph</Filter>
     </ClInclude>
@@ -417,9 +369,6 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\AI\FSM.h">
       <Filter>Scene3D\FSM</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\Hut_Concrete.h">
-      <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Level4.h">
       <Filter>Scene3D</Filter>
