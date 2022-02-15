@@ -104,9 +104,6 @@
     <ClCompile Include="Source\GameStateManagement\PauseState.cpp">
       <Filter>GameStateManagement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\Play3DGameState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\Camera.cpp">
       <Filter>Scene3D</Filter>
     </ClCompile>
@@ -293,9 +290,6 @@
       <Filter>Scene2D</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameStateManagement\PauseState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Play3DGameState.h">
       <Filter>GameStateManagement</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Camera.h">

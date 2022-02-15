@@ -9,7 +9,6 @@
 
 #include "GameStateBase.h"
 
-#include "..\Scene3D\Scene3D.h"
 #include "..\Scene3D\Level1.h"
 
 class CLevel1GameState : public CGameStateBase
