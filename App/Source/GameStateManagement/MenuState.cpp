@@ -156,8 +156,8 @@ bool CMenuState::Update(const double dElapsedTime)
 			CKeyboardController::GetInstance()->Reset();
 
 			// Load the menu state
-			cout << "Loading Play3DGameState" << endl;
-			CGameStateManager::GetInstance()->SetActiveGameState("Play3DGameState");
+			cout << "Loading Level1GameState" << endl;
+			CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState"); //level 1
 		}
 		// Add codes for Exit button here
 		if (ImGui::ImageButton((ImTextureID)exitButtonData.textureID,
@@ -185,7 +185,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("PlayGameState");
 		return true;
 	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
+	/*else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
@@ -194,7 +194,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		cout << "Loading CLevel1" << endl;
 		CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
 		return true;
-	}
+	}*/
 	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_LEFT_SHIFT))
 	{
 		// Reset the CKeyboardController

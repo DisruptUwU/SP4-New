@@ -155,7 +155,7 @@ bool CGUI_Scene3D::Init(void)
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
 	// Add a Stamina icon as one of the inventory items
-	cInventoryItem = cInventoryManager->Add("FinalBossHp", "Image/Scene2D_Stamina.tga", 0, 0);
+	cInventoryItem = cInventoryManager->Add("FinalBossHp", "Image/Scene2D_FinalBoss.tga", 0, 0);
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
 	// Add a Stamina icon as one of the inventory items
