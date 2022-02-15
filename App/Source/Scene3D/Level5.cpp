@@ -445,10 +445,10 @@ bool CLevel5::Update(const double dElapsedTime)
 
 		if (spawnedHealers == false) {
 			float fCheckHeight = cTerrain->GetHeight(5.0f, -20.0f);
-			SpawnHealer(20, fCheckHeight, 20);
-			SpawnHealer(20, fCheckHeight, -20);
-			SpawnHealer(-20, fCheckHeight, -20);
-			SpawnHealer(-20, fCheckHeight, 20);
+			SpawnHealer(20, 3, 20);
+			SpawnHealer(20, 3, -20);
+			SpawnHealer(-20, 3, -20);
+			SpawnHealer(-20, 3, 20);
 			spawnedHealers = true;
 		}
 
