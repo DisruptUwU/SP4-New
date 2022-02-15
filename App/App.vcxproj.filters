@@ -45,6 +45,9 @@
     <Filter Include="Scene3D\FSM">
       <UniqueIdentifier>{f10d3ba7-2352-4c82-9644-6c460fb14c10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene3D\Terrain">
+      <UniqueIdentifier>{3ff2f805-66f6-47d4-9c52-b3287caadd64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -233,6 +236,15 @@
     <ClCompile Include="Source\Scene3D\Entities\Healer3D.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Terrain\Terrain.cpp">
+      <Filter>Scene3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Terrain\Texture.cpp">
+      <Filter>Scene3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Terrain\vertexBufferObject.cpp">
+      <Filter>Scene3D\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -420,6 +432,15 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\Healer3D.h">
       <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Terrain\Terrain.h">
+      <Filter>Scene3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Terrain\Texture.h">
+      <Filter>Scene3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Terrain\vertexBufferObject.h">
+      <Filter>Scene3D\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

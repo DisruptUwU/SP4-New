@@ -65,6 +65,9 @@
     <ClCompile Include="Source\Scene3D\SceneGraph\SceneNode.cpp" />
     <ClCompile Include="Source\Scene3D\SceneGraph\SpinTower.cpp" />
     <ClCompile Include="Source\Scene3D\SkyBox\SkyBox.cpp" />
+    <ClCompile Include="Source\Scene3D\Terrain\Terrain.cpp" />
+    <ClCompile Include="Source\Scene3D\Terrain\Texture.cpp" />
+    <ClCompile Include="Source\Scene3D\Terrain\vertexBufferObject.cpp" />
     <ClCompile Include="Source\Scene3D\Waypoint\Waypoint.cpp" />
     <ClCompile Include="Source\Scene3D\Waypoint\WaypointManager.cpp" />
     <ClCompile Include="Source\Scene3D\WeaponInfo\Pistol.cpp" />
@@ -129,6 +132,9 @@
     <ClInclude Include="Source\Scene3D\SceneGraph\SceneNode.h" />
     <ClInclude Include="Source\Scene3D\SceneGraph\SpinTower.h" />
     <ClInclude Include="Source\Scene3D\SkyBox\SkyBox.h" />
+    <ClInclude Include="Source\Scene3D\Terrain\Terrain.h" />
+    <ClInclude Include="Source\Scene3D\Terrain\Texture.h" />
+    <ClInclude Include="Source\Scene3D\Terrain\vertexBufferObject.h" />
     <ClInclude Include="Source\Scene3D\Waypoint\Waypoint.h" />
     <ClInclude Include="Source\Scene3D\Waypoint\WaypointManager.h" />
     <ClInclude Include="Source\Scene3D\WeaponInfo\Pistol.h" />
