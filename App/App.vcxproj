@@ -44,6 +44,7 @@
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\FinalBoss3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Hut_Concrete.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Player3D.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
+    <ClInclude Include="Source\Scene3D\Entities\FinalBoss3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Hut_Concrete.h" />
     <ClInclude Include="Source\Scene3D\Entities\Hydra.h" />
     <ClInclude Include="Source\Scene3D\Entities\Player3D.h" />
