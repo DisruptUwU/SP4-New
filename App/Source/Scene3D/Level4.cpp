@@ -169,9 +169,7 @@ bool CLevel4::Init(void)
 	// Load the sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	//cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -289,40 +287,6 @@ bool CLevel4::Init(void)
 		delete cRock3D;
 	}
 
-	// Initialise the CTreeKabak3D
-	CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
-	cTreeKabak3D->SetInstancingMode(true);
-	if (cTreeKabak3D->IsInstancedRendering() == true)
-	{
-		cTreeKabak3D->SetScale(glm::vec3(1.0f));
-		cTreeKabak3D->SetNumOfInstance(100);
-		cTreeKabak3D->SetSpreadDistance(100.0f);
-
-		cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	}
-	if (cTreeKabak3D->Init() == true)
-	{
-		cEntityManager->Add(cTreeKabak3D);
-	}
-	else
-	{
-		delete cTreeKabak3D;
-	}
-
-	// Initialise a CSpinTower
-	//CSpinTower::Create();
-
-	// Initialise a CHut_Concrete
-	fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
-	CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
-	cHut_Concrete->SetShader("Shader3DNoColour");
-	cHut_Concrete->SetLODStatus(true);
-	cHut_Concrete->Init();
-	cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-
-	// Add the cHut_Concrete to the cSolidObjectManager
-	cSolidObjectManager->Add(cHut_Concrete);
-
 	return true;
 }
 
@@ -336,25 +300,6 @@ bool CLevel4::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
-	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
