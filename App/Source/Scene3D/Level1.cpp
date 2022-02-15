@@ -258,7 +258,7 @@ bool CLevel1::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cEnemy3D_2);
 
-	// Initialise a CStructure3D
+	/*// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
 	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
 	cStructure3D->SetShader("Shader3D");
@@ -267,7 +267,7 @@ bool CLevel1::Init(void)
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	cSolidObjectManager->Add(cStructure3D);*/
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
