@@ -425,6 +425,11 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	}
 
 	cInventoryItem = cInventoryManager->GetItem("Health");
+	if (cInventoryItem->GetCount() <= 30) //getmaxcount
+	{
+		playerhealthbelow30 = true;
+	}
+
 	if (cInventoryItem->GetCount() <= 0) //getmaxcount
 	{
 		playerlostallhealth = true;
