@@ -87,10 +87,10 @@ bool CMenuState::Init(void)
 	startButtonData.fileName = "Image\\GUI\\PlayButton.png";
 	startButtonData.textureID = il->LoadTextureGetID(startButtonData.fileName.c_str(), false);
 
-	play3DButtonData.fileName = "Image\\GUI\\PlayButton_3D.png";
+	play3DButtonData.fileName = "Image\\GUI\\PlayButton_3D2.png";
 	play3DButtonData.textureID = il->LoadTextureGetID(play3DButtonData.fileName.c_str(), false);
 
-	exitButtonData.fileName = "Image\\GUI\\ExitButton.png";
+	exitButtonData.fileName = "Image\\GUI\\ExitButton2.png";
 	exitButtonData.textureID = il->LoadTextureGetID(exitButtonData.fileName.c_str(), false);
 
 	// Enable the cursor
