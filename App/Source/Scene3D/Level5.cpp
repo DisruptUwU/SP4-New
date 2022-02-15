@@ -344,8 +344,33 @@ bool CLevel5::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
+	if (timer >= 0) {
+		timer -= 1 * dElapsedTime;
+	}
+	else if (timer <= 0) {
+		timer = 10;
+	}
+
 	if (cSolidObjectManager->cFinalBoss3D->FinalBossHp > 200) {
-		//std::cout << "HEllO" << endl;
+		if (timer <= 0)
+		{
+			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+			CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
+			cEnemy3D->SetShader("Shader3D");
+			cEnemy3D->Init();
+			cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+			CPistol* cEnemyPistol = new CPistol();
+			// Set the position, rotation and scale of this weapon
+			//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+			//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+			cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+			// Initialise the instance
+			cEnemyPistol->Init();
+			cEnemyPistol->SetShader("Shader3D_Model");
+			cEnemy3D->SetWeapon(0, cEnemyPistol);
+			cSolidObjectManager->Add(cEnemy3D);
+		}
+		cout << timer << endl;
 	}
 
 	//// Get keyboard updates for player3D
