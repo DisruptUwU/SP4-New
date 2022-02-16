@@ -42,6 +42,7 @@
 #include "Entities\Healthup.h"
 // Include CStructure3D
 #include "Entities\Bloodbath.h"
+#include "Entities\Jumpscaretrap.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -117,6 +118,8 @@ protected:
 	CCamera* cCamera;
 
 	CSpeed* cSpeed;
+
+	CJumpscaretrap* cJumpscaretrap;
 	// Handler to the CSkyBox
 	CSkyBox* cSkyBox;
 	// Handler to the CGround

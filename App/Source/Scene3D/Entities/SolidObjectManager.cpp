@@ -297,6 +297,15 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::JUMPSCARETRAP) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->jumpscaretrapped = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEALTHPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
 				{
 					cPlayer3D->healthPower = true;
@@ -338,7 +347,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between Player and Projectile ***" << endl;
 					bResult = true;
-					if (healthbelow50 == true)
+					if (cHydra->moreaggresivepart2 == true) //if (healthbelow50 == true)
 					{
 						cPlayer3D->healthdownbyhydramore = true;
 					}

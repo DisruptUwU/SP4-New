@@ -263,6 +263,9 @@
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDmg.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Jumpscaretrap.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -476,6 +479,9 @@
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDmg.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Jumpscaretrap.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>

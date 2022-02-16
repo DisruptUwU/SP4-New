@@ -231,16 +231,25 @@ bool CLevel3::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
 
+	//// Initialise a CStructure3D
+	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	//cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cSpeed->SetShader("Shader3D");
+	//cSpeed->Init();
+	//cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cStructure3D to the cSolidObjectManager
+	//cSolidObjectManager->Add(cSpeed);
+
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cSpeed->SetShader("Shader3D");
-	cSpeed->Init();
-	cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	cJumpscaretrap = new CJumpscaretrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	cJumpscaretrap->SetShader("Shader3D");
+	cJumpscaretrap->Init();
+	cJumpscaretrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cSpeed);
+	cSolidObjectManager->Add(cJumpscaretrap);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -365,7 +374,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 4.0, 28.9)); //2
+		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 0, 28.9)); //2
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
@@ -536,6 +545,17 @@ bool CLevel3::Update(const double dElapsedTime)
 	else
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
+	}
+
+	if (cPlayer3D->jumpscaretrapped == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		//cSoundController->PlaySoundByID(4);
+	}
+
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
 	}
 
 
