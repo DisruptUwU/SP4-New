@@ -133,9 +133,11 @@ public:
 	bool DefenceIncrease = false;
 
 	bool trapped = false;
+	bool jumpscaretrapped = false;
 
 	double speedTimer;
 	double trapTimer = 3;
+	double jumpscaretraptimer = 3;
 	double DefUpTimer = 3;
 	double DmgUpTimer = 3;
 

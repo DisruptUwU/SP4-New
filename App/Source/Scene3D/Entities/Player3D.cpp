@@ -455,6 +455,18 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		bUpdateCameraSway = false;
 	}
 
+	if (jumpscaretraptimer <= 0)
+	{
+		jumpscaretraptimer = 3;
+		jumpscaretrapped = false;
+	}
+
+	if (jumpscaretrapped == true)
+	{
+		jumpscaretraptimer -= dElapsedTime;
+	}
+
+
 	if (DmgUpTimer <= 0)
 	{
 		AtkIncrease = false;
@@ -496,7 +508,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		if (healthdownbyhydra == true)
 		{
 			cInventoryItem = cInventoryManager->GetItem("Health");
-			cInventoryItem->Remove(10); //float
+			cInventoryItem->Remove(10); //float //10
 			healthdownbyhydra = false;
 		}
 		if (healthdownbyhydramore == true)
