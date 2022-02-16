@@ -270,6 +270,16 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::BEARTRAP) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->trapped = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEALTHPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
 				{
 					cPlayer3D->healthPower = true;

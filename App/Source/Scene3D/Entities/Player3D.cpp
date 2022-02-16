@@ -304,25 +304,57 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 {
 	float velocity = fMovementSpeed * deltaTime;
 
-	if (stamina <= 0) {
-		velocity = fMovementSpeed * 2 * deltaTime;
-	}
-	else
+	if (trapped == true)
 	{
-		if (sprint == false)
+		if (trapTimer > 0)
 		{
-			velocity = fMovementSpeed * 2 * deltaTime;
+			trapTimer -= 1 * deltaTime;
+			velocity = fMovementSpeed * 0 * deltaTime;
 		}
-		else if (sprint == true)
+		else if (trapTimer <= 0)
 		{
-			velocity = fMovementSpeed * 4 * deltaTime;
+			trapTimer = 3;
+			trapped = false;
 		}
-
 	}
-
-	if (speedPower == true)
+	else if (trapped == false)
 	{
-		velocity = fMovementSpeed * 10 * deltaTime;
+		if (stamina <= 0) {
+			if (speedPower == true)
+			{
+				velocity = fMovementSpeed * 5 * deltaTime;
+			}
+			else 
+			{
+				velocity = fMovementSpeed * 2 * deltaTime;
+			}
+		}
+		else
+		{
+			if (sprint == false)
+			{
+				if (speedPower == true)
+				{
+					velocity = fMovementSpeed * 5 * deltaTime;
+				}
+				else
+				{
+					velocity = fMovementSpeed * 2 * deltaTime;
+				}
+			}
+			else if (sprint == true)
+			{
+				if (speedPower == true)
+				{
+					velocity = fMovementSpeed * 10 * deltaTime;
+				}
+				else 
+				{
+					velocity = fMovementSpeed * 4 * deltaTime;
+				}
+			}
+
+		}
 	}
 
 	if (direction == PLAYERMOVEMENT::FORWARD)

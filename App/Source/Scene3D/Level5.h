@@ -38,6 +38,10 @@
 #include "Entities\Structure3D.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
+// Include CSpeed
+#include "Entities\Speed.h"
+// Include CBearTrap
+#include "Entities\BearTrap.h"
 
 // Include CCamera
 #include "Camera.h"

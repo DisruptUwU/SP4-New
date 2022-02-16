@@ -134,7 +134,10 @@ public:
 
 	bool healthPower = false;
 
+	bool trapped = false;
+
 	double speedTimer;
+	double trapTimer = 3;
 
 protected:
 	// The handle to the CCamera class instance

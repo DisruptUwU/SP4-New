@@ -430,7 +430,7 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 				timer -= 1.0f * dElapsedTime;
 			}
 
-			cout << timer << endl;
+			//cout << timer << endl;
 
 			// Process the movement
 			if (goLeft == true) {
