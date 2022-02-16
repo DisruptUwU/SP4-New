@@ -408,7 +408,7 @@ bool CHydra::Update(const double dElapsedTime)
 
 	if (moreaggresivepart1 == true)
 	{
-		fMovementSpeed = 2.0;
+		fMovementSpeed = 3.0;
 	}
 
 	else if (moreaggresivepart1 == false && changingform == true)
@@ -495,7 +495,7 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();
