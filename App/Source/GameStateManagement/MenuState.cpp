@@ -138,7 +138,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		style.FrameRounding = 200.0f;
 		
 		// Add codes for Start button here
-		if (ImGui::ImageButton((ImTextureID)startButtonData.textureID, 
+		/*if (ImGui::ImageButton((ImTextureID)startButtonData.textureID,
 			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0)))
 		{
 			// Reset the CKeyboardController
@@ -147,7 +147,7 @@ bool CMenuState::Update(const double dElapsedTime)
 			// Load the menu state
 			cout << "Loading PlayGameState" << endl;
 			CGameStateManager::GetInstance()->SetActiveGameState("PlayGameState");
-		}
+		}*/
 		// Add codes for Play3D button here
 		if (ImGui::ImageButton((ImTextureID)play3DButtonData.textureID,
 			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0)))
