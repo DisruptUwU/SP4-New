@@ -374,7 +374,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 0.5, 28.9)); //2
+		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 0, 28.9)); //2
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
