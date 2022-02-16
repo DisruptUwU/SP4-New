@@ -318,15 +318,6 @@ bool CSolidObjectManager::CheckForCollision(void)
 		if ((*it)->GetStatus() == false)
 			continue;
 
-		if ((*it)->GetType() == CSolidObject::TYPE::FINALHEALBOSS)
-		{
-			if (cFinalBoss3D->regainPhase1 == true);
-			{
-				//(*it)->SetStatus(false);
-				cFinalBoss3D->regainPhase1 = false;
-			}
-		}
-
 		for (unsigned int i = 0; i < cProjectileManager->vProjectile.size(); i++)
 		{
 			// If the entity is not active, then skip it
@@ -393,7 +384,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					// If this projectile is fired by the NPC, then skip it
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
-					(cProjectileManager->vProjectile[i])->SetStatus(false);				
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
