@@ -347,7 +347,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between Player and Projectile ***" << endl;
 					bResult = true;
-					if (healthbelow50 == true)
+					if (cHydra->moreaggresivepart2 == true) //if (healthbelow50 == true)
 					{
 						cPlayer3D->healthdownbyhydramore = true;
 					}
