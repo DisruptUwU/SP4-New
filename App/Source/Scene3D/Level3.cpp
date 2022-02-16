@@ -211,7 +211,7 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CHydra* cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
+	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
 	cHydra->SetShader("Shader3D");
 	cHydra->Init();
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -253,15 +253,15 @@ bool CLevel3::Init(void)
 	// Add the cStructure3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHealthup);
 
-	// Initialise a CStructure3D
-	CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
-	cBloodbath->SetShader("Shader3D");
-	cBloodbath->Init();
-	cBloodbath->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)); // 0.0.1.0
-	cBloodbath->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
-	cBloodbath->SetScale(glm::vec3(15, 15, 15));
+	//// Initialise a CStructure3D
+	//CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
+	//cBloodbath->SetShader("Shader3D");
+	//cBloodbath->Init();
+	//cBloodbath->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)); // 0.0.1.0
+	//cBloodbath->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
+	//cBloodbath->SetScale(glm::vec3(15, 15, 15));
 
-	cSolidObjectManager->Add(cBloodbath);
+	//cSolidObjectManager->Add(cBloodbath);
 
 	cSolidObjectManager->cHydra = cHydra;
 
@@ -382,10 +382,17 @@ bool CLevel3::Update(const double dElapsedTime)
 		gotolevel4 = true;
 	}
 
-	if (cSolidObjectManager->cHydra->HydraBossHp <= 50)
+	if (cSolidObjectManager->cHydra->HydraBossHp <= 50 && cSolidObjectManager->cHydra->HydraBossHp >= 31)
 	{
-		cSolidObjectManager->healthbelow50 = true;
+		//cSolidObjectManager->healthbelow50 = true;
+		cHydra->moreaggresivepart1 = true;
+	}
 
+	if (cSolidObjectManager->cHydra->HydraBossHp <= 30 && cHydra->moreaggresivepart2 == false)
+	{
+		//cSolidObjectManager->healthbelow50 = true;
+		cHydra->moreaggresivepart1 = false;
+		cHydra->changingform = true;
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))

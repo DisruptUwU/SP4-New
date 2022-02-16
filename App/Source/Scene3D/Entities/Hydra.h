@@ -116,6 +116,14 @@ public:
 
 	bool healthbelow50 = false;
 
+	bool moreaggresivepart1 = false;
+
+	bool changingform = false;
+
+	bool moreaggresivepart2 = false; // form changed
+
+	double formchangetimer;
+
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;

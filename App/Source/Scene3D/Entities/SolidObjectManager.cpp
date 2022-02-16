@@ -383,6 +383,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					/*if (cHydra->moreaggresivepart2 == true)
+					{
+						cHydra->HydraBossHp = 70;
+					}*/
 					cHydra->HydraBossHp -= 10;
 					if (cHydra->HydraBossHp <= 0) {
 						HydraKilled = true;

@@ -561,6 +561,7 @@ void CPlayer3D::Constraint(void)
 		if (fCheckHeight > vec3Position.y)
 			vec3Position.y = fCheckHeight;
 	}
+
 }
 
 /**

@@ -85,6 +85,8 @@ public:
 	bool gotolevel4 = false;
 
 	bool losegame = false;
+
+	CHydra* cHydra;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;

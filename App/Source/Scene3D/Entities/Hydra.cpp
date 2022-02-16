@@ -190,9 +190,11 @@ bool CHydra::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 0.f;
+	fMovementSpeed = 0.5f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
+
+	formchangetimer = 0;
 
 	// Detection distance for player
 	fDetectionDistance = 1000.f;
@@ -379,6 +381,37 @@ bool CHydra::Update(const double dElapsedTime)
 	{
 		return false;
 	}
+
+	if (moreaggresivepart1 == true)
+	{
+		fMovementSpeed = 2.0;
+	}
+
+	else if (moreaggresivepart1 == false && changingform == true)
+	{
+		formchangetimer += dElapsedTime;
+		fMovementSpeed = 0.0;
+		HydraBossHp = 70;
+	}
+
+	if (formchangetimer >= 2)
+	{
+		changingform = false;
+		moreaggresivepart2 = true;
+		formchangetimer = 0;
+	}
+
+	if (moreaggresivepart2 == true)
+	{
+		moreaggresivepart1 = false;
+		fMovementSpeed = 6.0;
+		/*HydraBossHp = 70;*/
+	}
+
+	cout << "timer: " << formchangetimer  << endl;
+
+	cout << "Moreagressivepart2: " << moreaggresivepart2 << endl;
+
 
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
