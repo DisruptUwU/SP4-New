@@ -42,6 +42,8 @@
 #include "Entities\Speed.h"
 // Include CBearTrap
 #include "Entities\BearTrap.h"
+// Include CIncreaseDef
+#include "Entities\IncreaseDef.h"
 
 // Include CCamera
 #include "Camera.h"

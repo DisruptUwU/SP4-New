@@ -454,20 +454,44 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		}
 		bUpdateCameraSway = false;
 	}
-
-	if (healthdownbyhydra == true)
+	
+	if (DefUpTimer <= 0)
 	{
-		cInventoryItem = cInventoryManager->GetItem("Health");
-		cInventoryItem->Remove(10); //float
-		healthdownbyhydra = false;
+		DefenceIncrease = false;
+		DefUpTimer = 3;
 	}
 
-	if (healthdownbyhydramore == true)
-	{
-		cInventoryItem = cInventoryManager->GetItem("Health");
-		cInventoryItem->Remove(30); //float
-		healthdownbyhydramore = false;
+	if (DefenceIncrease == true) {
+		DefUpTimer -= 1 * dElapsedTime;
+		if (healthdownbyhydra == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(5); //float
+			healthdownbyhydra = false;
+		}
+		if (healthdownbyhydramore == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(15); //float
+			healthdownbyhydramore = false;
+		}
 	}
+	else
+	{
+		if (healthdownbyhydra == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(10); //float
+			healthdownbyhydra = false;
+		}
+		if (healthdownbyhydramore == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(30); //float
+			healthdownbyhydramore = false;
+		}
+	}
+
 
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	if (cInventoryItem->GetCount() <= 30) //getmaxcount

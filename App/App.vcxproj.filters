@@ -257,6 +257,9 @@
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\IncreaseDef.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -464,6 +467,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\IncreaseDef.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -196,16 +196,22 @@ bool CLevel5::Init(void)
 	cProjectileManager->Init();
 	cProjectileManager->SetShader("Shader3D");
 
+	// Bear Trap
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CBearTrap* cBearTrap = new CBearTrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cBearTrap->SetShader("Shader3D");
-	cBearTrap->Init();
-	cBearTrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	cout << "Spawn Trap" << endl;
-	//cStructure3D->SetScale(glm::vec3(0.5f));
+	//CBearTrap* cBearTrap = new CBearTrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cBearTrap->SetShader("Shader3D");
+	//cBearTrap->Init();
+	//cBearTrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cBearTrap to the cSolidObjectManager
+	//cSolidObjectManager->Add(cBearTrap);
 
+	// Increase Def
+	CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	cIncreaseDef->SetShader("Shader3D");
+	cIncreaseDef->Init();
+	cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	// Add the cBearTrap to the cSolidObjectManager
-	cSolidObjectManager->Add(cBearTrap);
+	cSolidObjectManager->Add(cIncreaseDef);
 
 	// Assign a cPistol to the cPlayer3D
 	CPistol* cPistol = new CPistol();
