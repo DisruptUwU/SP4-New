@@ -213,7 +213,7 @@ bool CLevel3::Init(void)
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
 	cHydra->SetShader("Shader3D");
-	cHydra->Init();
+	cHydra->Init(1);
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
@@ -393,6 +393,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		//cSolidObjectManager->healthbelow50 = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
+		cHydra->Init(2);
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))

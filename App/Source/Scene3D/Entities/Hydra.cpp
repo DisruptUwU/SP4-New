@@ -160,11 +160,12 @@ bool CHydra::LoadModelAndTexture(const char* filenameModel,
 	return true;
 }
 
+
 /**
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CHydra::Init(void)
+bool CHydra::Init(int type)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
@@ -179,11 +180,24 @@ bool CHydra::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
-		"Models/Pistol/honeycombs_col.png",
-		VAO, iTextureID, iIndicesSize) == false)
+	if (type == 1)
 	{
-		cout << "Unable to load model and texture" << endl;
+		if (LoadModelAndTexture("Models/Sub_bosses/gyrados.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
+	}
+
+	if (type == 2)
+	{
+		if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
 	}
 
 	// Store the handler to the terrain

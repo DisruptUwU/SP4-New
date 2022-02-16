@@ -64,7 +64,7 @@ public:
 	bool LoadModelAndTexture(const char* filenameModel, const char* filenameTexture, GLuint& VAO, GLuint& iTextureID, GLuint& iIndicesSize);
 
 	// Initialise this class instance
-	bool Init(void);
+	bool Init(int type); //bool Init(void);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
