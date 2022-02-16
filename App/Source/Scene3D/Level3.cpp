@@ -396,6 +396,22 @@ bool CLevel3::Update(const double dElapsedTime)
 		cHydra->Init(2); //new place
 	}
 
+	if (cHydra->moreaggresivepart2 == true)
+	{
+		if (checkaggresion == 0)
+		{
+			cHydra->Init(3); //
+			checkaggresion += 1;
+		}
+
+		else
+		{
+			//spawnportal = false;
+		}
+
+		//cHydra->moreaggresivepart2 = false;
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
 

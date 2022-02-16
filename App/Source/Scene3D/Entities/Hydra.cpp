@@ -192,6 +192,16 @@ bool CHydra::Init(int type)
 
 	if (type == 2)
 	{
+		if (LoadModelAndTexture("Models/Objects/Healthkit.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
+	}
+
+	if (type == 3)
+	{
 		if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
 			"Models/Pistol/honeycombs_col.png",
 			VAO, iTextureID, iIndicesSize) == false)

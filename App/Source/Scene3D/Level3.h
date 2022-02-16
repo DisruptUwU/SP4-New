@@ -132,6 +132,8 @@ protected:
 
 	int checkdeath = 0;
 
+	int checkaggresion = 0;
+
 	int losetimer;
 
 	bool playerdies = false;
