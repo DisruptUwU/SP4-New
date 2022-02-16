@@ -393,7 +393,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		//cSolidObjectManager->healthbelow50 = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
-		cHydra->Init(2);
+		cHydra->Init(2); //new place
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
