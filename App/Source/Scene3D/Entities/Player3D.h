@@ -118,11 +118,8 @@ public:
 	bool sprint = false;
 
 	bool healthdownbyhydra = false;
-
 	bool healthdownbyhydramore = false;
-
 	bool playerhealthbelow30 = false;
-
 	bool playerlostallhealth = false;
 
 	bool NearHydra = false;
@@ -131,8 +128,9 @@ public:
 	int FinalBossDialogueStage = 0;
 
 	bool speedPower = false;
-
 	bool healthPower = false;
+	bool AtkIncrease = false;
+	bool DefenceIncrease = false;
 
 	bool trapped = false;
 
