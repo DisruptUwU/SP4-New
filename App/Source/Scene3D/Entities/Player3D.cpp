@@ -457,7 +457,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 
 	if (jumpscaretraptimer <= 0)
 	{
-		jumpscaretraptimer = 3;
+		jumpscaretraptimer = 1.5;
 		jumpscaretrapped = false;
 	}
 

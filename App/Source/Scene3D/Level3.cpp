@@ -374,7 +374,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 0, 28.9)); //2
+		CDoor* cDoor = new CDoor(glm::vec3(-15.1, -0.5, 28.9)); //2
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
@@ -516,12 +516,16 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cPlayer3D->playerlostallhealth == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		/*losegame = true;*/
 		cSoundController->PlaySoundByID(5);
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
 		cSolidObjectManager->youlose = true;
+	}
 
+	if (cPlayer3D->jumpscaretrapped == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		cSoundController->PlaySoundByID(5);
 	}
 
 	if (cSolidObjectManager->youlose == true)
@@ -547,16 +551,16 @@ bool CLevel3::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
 
-	if (cPlayer3D->jumpscaretrapped == true)
-	{
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		//cSoundController->PlaySoundByID(4);
-	}
+	//if (cPlayer3D->jumpscaretrapped == true)
+	//{
+	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+	//	//cSoundController->PlaySoundByID(4);
+	//}
 
-	else
-	{
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
-	}
+	//else
+	//{
+	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
+	//}
 
 
 

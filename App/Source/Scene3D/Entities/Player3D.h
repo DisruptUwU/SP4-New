@@ -137,7 +137,7 @@ public:
 
 	double speedTimer;
 	double trapTimer = 3;
-	double jumpscaretraptimer = 3;
+	double jumpscaretraptimer = 1.5;
 	double DefUpTimer = 3;
 	double DmgUpTimer = 3;
 
