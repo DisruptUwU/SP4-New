@@ -454,6 +454,21 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		}
 		bUpdateCameraSway = false;
 	}
+
+	if (DmgUpTimer <= 0)
+	{
+		AtkIncrease = false;
+		DmgUpTimer = 3;
+	}
+
+	if (AtkIncrease == true) {
+		DmgUpTimer -= 1 * dElapsedTime;
+		Damage = 20;
+	}
+	else
+	{
+		Damage = 10;
+	}
 	
 	if (DefUpTimer <= 0)
 	{

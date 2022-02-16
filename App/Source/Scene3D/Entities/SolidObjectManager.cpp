@@ -279,6 +279,15 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DMGPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->AtkIncrease = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::BEARTRAP) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
 				{
 					cPlayer3D->trapped = true;
@@ -385,7 +394,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);				
-					cFinalBoss3D->FinalBossHp -= 20;
+					cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
@@ -405,7 +414,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					{
 						cHydra->HydraBossHp = 70;
 					}*/
-					cHydra->HydraBossHp -= 10;
+					cHydra->HydraBossHp -= cPlayer3D->Damage;
 					if (cHydra->HydraBossHp <= 0) {
 						HydraKilled = true;
 						(*it)->SetStatus(false);

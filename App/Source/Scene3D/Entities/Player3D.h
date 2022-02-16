@@ -137,6 +137,9 @@ public:
 	double speedTimer;
 	double trapTimer = 3;
 	double DefUpTimer = 3;
+	double DmgUpTimer = 3;
+
+	int Damage = 10;
 
 protected:
 	// The handle to the CCamera class instance

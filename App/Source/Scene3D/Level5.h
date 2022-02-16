@@ -44,6 +44,8 @@
 #include "Entities\BearTrap.h"
 // Include CIncreaseDef
 #include "Entities\IncreaseDef.h"
+// Include CIncreaseDmg
+#include "Entities\IncreaseDmg.h"
 
 // Include CCamera
 #include "Camera.h"
