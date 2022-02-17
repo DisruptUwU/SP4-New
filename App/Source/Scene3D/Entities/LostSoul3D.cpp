@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Apr 2020
  */
-#include "FinalBoss3D.h"
+#include "LostSoul3D.h"
 
 // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
@@ -23,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CFinalBoss3D::CFinalBoss3D(void)
+CLostSoul3D::CLostSoul3D(void)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
@@ -51,16 +51,18 @@ CFinalBoss3D::CFinalBoss3D(void)
  @param yaw A const float variable which contains the yaw of the camera
  @param pitch A const float variable which contains the pitch of the camera
  */
-CFinalBoss3D::CFinalBoss3D(	const glm::vec3 vec3Position,
+CLostSoul3D::CLostSoul3D(	const glm::vec3 vec3Position,
 					const glm::vec3 vec3Front,
 					const float fYaw,
-					const float fPitch)
+					const float fPitch,
+					bool isFlying)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
 	, fYaw(fYaw)
 	, fPitch(fPitch)
 	, fRotationSensitivity(0.1f)
+	, bIsFlying(isFlying)
 	, cCamera(NULL)
 	, cPrimaryWeapon(NULL)
 	, cSecondaryWeapon(NULL)
@@ -81,7 +83,7 @@ CFinalBoss3D::CFinalBoss3D(	const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CFinalBoss3D::~CFinalBoss3D(void)
+CLostSoul3D::~CLostSoul3D(void)
 {
 	if (cWaypointManager)
 	{
@@ -115,13 +117,13 @@ CFinalBoss3D::~CFinalBoss3D(void)
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CFinalBoss3D::Init(void)
+bool CLostSoul3D::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::FINALBOSS);
+	SetType(CEntity3D::TYPE::SOUL);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
@@ -130,7 +132,7 @@ bool CFinalBoss3D::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 0, 0, 1));
+	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
 
 	// load and create a texture 
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
@@ -144,12 +146,12 @@ bool CFinalBoss3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 2.0f;
+	fMovementSpeed = 1.5f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
 	// Detection distance for player
-	fDetectionDistance = 0.0f;
+	fDetectionDistance = 20.0f;
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
@@ -177,7 +179,7 @@ bool CFinalBoss3D::Init(void)
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CFinalBoss3D::SetModel(const glm::mat4 model)
+void CLostSoul3D::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -186,7 +188,7 @@ void CFinalBoss3D::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CFinalBoss3D::SetView(const glm::mat4 view)
+void CLostSoul3D::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -195,7 +197,7 @@ void CFinalBoss3D::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CFinalBoss3D::SetProjection(const glm::mat4 projection)
+void CLostSoul3D::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -204,12 +206,11 @@ void CFinalBoss3D::SetProjection(const glm::mat4 projection)
  @brief Attach a camera to this class instance
  @param cCamera A CCamera* variable which contains the camera
  */
-void CFinalBoss3D::AttachCamera(CCamera* cCamera)
+void CLostSoul3D::AttachCamera(CCamera* cCamera)
 {
-	// Set the camera to the player
 	this->cCamera = cCamera;
 
-	// Update the camera's attributes with the player's attributes
+	// Update the camera's attributes with the enemy's attributes
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
@@ -221,7 +222,7 @@ void CFinalBoss3D::AttachCamera(CCamera* cCamera)
  @brief Check if a camera ia attached to this class instance
  @return true if a camera is attached, else false
  */
-bool CFinalBoss3D::IsCameraAttached(void)
+bool CLostSoul3D::IsCameraAttached(void)
 {
 	if (cCamera)
 		return true;
@@ -233,7 +234,7 @@ bool CFinalBoss3D::IsCameraAttached(void)
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  @param cWeaponInfo A CWeaponInfo* variable which contains the weapon info
  */
-void CFinalBoss3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
+void CLostSoul3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
 {
 	if (iSlot == 0)
 		cPrimaryWeapon = cWeaponInfo;
@@ -245,7 +246,7 @@ void CFinalBoss3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
  @brief Get Weapon of this class instance
  @return The CWeaponInfo* value
  */
-CWeaponInfo* CFinalBoss3D::GetWeapon(void) const
+CWeaponInfo* CLostSoul3D::GetWeapon(void) const
 {
 	if (iCurrentWeapon == 0)
 		return cPrimaryWeapon;
@@ -259,7 +260,7 @@ CWeaponInfo* CFinalBoss3D::GetWeapon(void) const
  @brief Set current weapon
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  */
-void CFinalBoss3D::SetCurrentWeapon(const int iSlot)
+void CLostSoul3D::SetCurrentWeapon(const int iSlot)
 {
 	iCurrentWeapon = iSlot;
 }
@@ -268,7 +269,7 @@ void CFinalBoss3D::SetCurrentWeapon(const int iSlot)
  @brief Discharge weapon
  @return A bool value
  */
-bool CFinalBoss3D::DischargeWeapon(void) const
+bool CLostSoul3D::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
@@ -282,14 +283,13 @@ bool CFinalBoss3D::DischargeWeapon(void) const
 }
 
 /**
- @brief Processes input received from any keyboard-like input system as player movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
- @param direction A const Player_Movement variable which contains the movement direction of the camera
+ @brief Processes input received from any keyboard-like input system as enemy movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
+ @param direction A const Enemy_Movement variable which contains the movement direction of the camera
  @param deltaTime A const float variable which contains the delta time for the realtime loop
  */
-void CFinalBoss3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
+void CLostSoul3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
-	float velocity = fMovementSpeed * 2 * deltaTime;
-
+	float velocity = fMovementSpeed* deltaTime;
 	if (direction == ENEMYMOVEMENT::FORWARD)
 		vec3Position += vec3Front * velocity;
 	if (direction == ENEMYMOVEMENT::BACKWARD)
@@ -299,21 +299,21 @@ void CFinalBoss3D::ProcessMovement(const ENEMYMOVEMENT direction, const float de
 	if (direction == ENEMYMOVEMENT::RIGHT)
 		vec3Position += vec3Right * velocity;
 
-	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
 	}
 
-	// Constraint the player's position
-	Constraint();
+	// Constraint the enemy's position if grounded
+	if (bIsFlying)
+		Constraint();
 }
 
 /**
- @brief Processes input received from a mouse input system as player rotation. Expects the offset value in both the x and y direction.
+ @brief Processes input received from a mouse input system as enemy rotation. Expects the offset value in both the x and y direction.
  @param xoffset A const float variable which contains the x axis of the mouse movement
  */
-void CFinalBoss3D::ProcessRotate(const float fXOffset)
+void CLostSoul3D::ProcessRotate(const float fXOffset)
 {
 	// Update the yaw
 	fYaw += fXOffset;// *fRotationSensitivity;
@@ -327,7 +327,7 @@ void CFinalBoss3D::ProcessRotate(const float fXOffset)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CFinalBoss3D::Update(const double dElapsedTime)
+bool CLostSoul3D::Update(const double dElapsedTime)
 {
 	// Don't update if this entity is not active
 	if (bStatus == false)
@@ -337,15 +337,6 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
-
-	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-	{
-		cPlayer3D->NearFinalBoss = true;
-	}
-	else
-	{
-		cPlayer3D->NearFinalBoss = false;
-	}
 
 	switch (sCurrentFSM)
 	{
@@ -360,6 +351,7 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::PATROL:
+		// Check if the destination position has been reached
 		if (cWaypointManager->HasReachedWayPoint(vec3Position))
 		{
 			vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
@@ -398,51 +390,21 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 			UpdateFrontAndYaw();
 
 			// Discharge weapon
-			if (DischargeWeapon() == false)
-			{
-				// Check if the weapon mag is empty
-				if (cPrimaryWeapon->GetMagRound() == 0)
-				{
-					if (cPrimaryWeapon->GetTotalRound() != 0)
-					{
-						// Reload the weapon
-						cPrimaryWeapon->Reload();
-					}
-				}
-			}
-
-			if (timer <= 0)
-			{
-				if (goRight == true)
-				{
-					goLeft = true;
-					goRight = false;
-				}
-				else if (goLeft == true)
-				{
-					goLeft = false;
-					goRight = true;
-				}
-				timer = 2;
-			}
-			else
-			{
-				timer -= 1.0f * dElapsedTime;
-			}
-
-			//cout << timer << endl;
+			//if (DischargeWeapon() == false)
+			//{
+			//	// Check if the weapon mag is empty
+			//	if (cPrimaryWeapon->GetMagRound() == 0)
+			//	{
+			//		if (cPrimaryWeapon->GetTotalRound() != 0)
+			//		{
+			//			// Reload the weapon
+			//			cPrimaryWeapon->Reload();
+			//		}
+			//	}
+			//}
 
 			// Process the movement
-			if (goLeft == true) {
-				vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
-				UpdateFrontAndYaw();
-				ProcessMovement(ENEMYMOVEMENT::LEFT, (float)dElapsedTime);
-			}
-			else if (goRight == true) {
-				vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
-				UpdateFrontAndYaw();
-				ProcessMovement(ENEMYMOVEMENT::RIGHT, (float)dElapsedTime);
-			}
+			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
 			if (_DEBUG_FSM == true)
 				cout << "Attacking now" << endl;
 		}
@@ -493,7 +455,7 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CFinalBoss3D::PreRender(void)
+void CLostSoul3D::PreRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -507,7 +469,7 @@ void CFinalBoss3D::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CFinalBoss3D::Render(void)
+void CLostSoul3D::Render(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -527,7 +489,7 @@ void CFinalBoss3D::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CFinalBoss3D::PostRender(void)
+void CLostSoul3D::PostRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -541,7 +503,7 @@ void CFinalBoss3D::PostRender(void)
 /**
  @brief Calculates the front vector from the Camera's (updated) Euler Angles
  */
-void CFinalBoss3D::UpdateEnemyVectors(void)
+void CLostSoul3D::UpdateEnemyVectors(void)
 {
 	// Calculate the new vec3Front vector
 	glm::vec3 front;
@@ -557,7 +519,6 @@ void CFinalBoss3D::UpdateEnemyVectors(void)
 	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));  
 	vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
 
-	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Front = vec3Front;
@@ -567,9 +528,9 @@ void CFinalBoss3D::UpdateEnemyVectors(void)
 }
 
 /**
- @brief Constraint the player's position
+ @brief Constraint the enemy's position
  */
-void CFinalBoss3D::Constraint(void)
+void CLostSoul3D::Constraint(void)
 {
 	// Get the new height
 	float fNewYValue = cTerrain->GetHeight(vec3Position.x, vec3Position.z) + fHeightOffset;
@@ -580,7 +541,7 @@ void CFinalBoss3D::Constraint(void)
 /**
  @brief Update Front Vector and Yaw
  */
-void CFinalBoss3D::UpdateFrontAndYaw(void)
+void CLostSoul3D::UpdateFrontAndYaw(void)
 {
 	fYaw = glm::degrees(glm::acos(dot(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front)));
 	if (cross(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front).y < 0.0f)

@@ -376,7 +376,16 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
 			ImGui::End();
 		}
-
+		else if (cPlayer3D->FinalNPCDialoguestage == 2) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Get rid of them and you will be free");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
 	}
 
 	if (cPlayer3D->NearFinalBoss == true)
