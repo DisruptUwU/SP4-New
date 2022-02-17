@@ -335,6 +335,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	if (cPlayer3D->FinalNPCDialogueStage == 8)
 	{
 		cSolidObjectManager->cFinalBoss3D->phase = 1;
+		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
 	}
 
@@ -579,6 +580,11 @@ bool CLevel5::Update(const double dElapsedTime)
 				}
 			}
 		}
+	}
+
+	if (cPlayer3D->stamina <= 0)
+	{
+		cPlayer3D->stamina = 0;
 	}
 
 	if (sprintCheck == true) {
