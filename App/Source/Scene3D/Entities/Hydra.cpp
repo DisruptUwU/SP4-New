@@ -353,7 +353,14 @@ bool CHydra::DischargeWeapon(void) const
 
 		else
 		{
-			return cPrimaryWeapon->Discharge(glm::vec3(vec3Position.x, vec3Position.y + 3.0, vec3Position.z), vec3Front, (CSolidObject*)this);
+			glm::vec3 pos(vec3Position.x, vec3Position.y + 3.0, vec3Position.z);
+			glm::vec3 front = cPlayer3D->GetPosition() - pos;
+			float d = glm::distance(cPlayer3D->GetPosition(), vec3Position);
+			front.x /= d;
+			front.y /= d;
+			front.z /= d;
+			return cPrimaryWeapon->Discharge(pos, front, (CSolidObject*)this);
+			/*return cPrimaryWeapon->Discharge(glm::vec3(vec3Position.x, vec3Position.y + 3.0, vec3Position.z), vec3Front, (CSolidObject*)this);*/
 		}
 	
 	}
