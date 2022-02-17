@@ -90,6 +90,7 @@ public:
 	void SpawnSoul(int x, int y, int z);
 
 	bool sprintCheck = false;
+	bool changeDialogue = false;
 	double timer = 10;
 
 	bool spawnedHealers = false;

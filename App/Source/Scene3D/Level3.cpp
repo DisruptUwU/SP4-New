@@ -361,13 +361,13 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
 		{
-			if (cPlayer3D->FinalNPCDialoguestage <= 6)
+			if (cPlayer3D->FinalNPCDialogueStage <= 6)
 			{
-				cPlayer3D->FinalNPCDialoguestage++;
+				cPlayer3D->FinalNPCDialogueStage++;
 			}
-			if (cPlayer3D->FinalNPCDialoguestage >= 6)
+			if (cPlayer3D->FinalNPCDialogueStage >= 6)
 			{
-				cPlayer3D->FinalNPCDialoguestage = 6;
+				cPlayer3D->FinalNPCDialogueStage = 6;
 			}
 		}
 	}

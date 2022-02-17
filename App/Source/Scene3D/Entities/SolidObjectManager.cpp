@@ -398,6 +398,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(*it)->SetStatus(false);
+					cFinalBoss3D->soulsAlive--;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
@@ -419,7 +420,14 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
+					if (cFinalBoss3D->phase <= 0)
+					{
+
+					}
+					else
+					{
+						cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
+					}
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;

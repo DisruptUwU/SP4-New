@@ -16,6 +16,7 @@
 
 #include "Hydra.h"
 #include "FinalBoss3D.h"
+#include "FinalNPC.h"
 #include "Player3D.h"
 #include "../App/Demon.h"
 
@@ -75,6 +76,8 @@ public:
 	CHydra* cHydra;
 
 	CFinalBoss3D* cFinalBoss3D;
+
+	CFinalNPC* cFinalNPC;
 
 	CDemon* cDemon;
 
