@@ -410,12 +410,16 @@ bool CHydra::Update(const double dElapsedTime)
 	{
 		fMovementSpeed = 3.0;
 	}
-
 	else if (moreaggresivepart1 == false && changingform == true)
 	{
-		formchangetimer += dElapsedTime;
+		//formchangetimer += dElapsedTime;
 		fMovementSpeed = 0.0;
-		HydraBossHp = 70;
+	}
+
+	if (changingform == true)
+	{
+		formchangetimer += dElapsedTime;
+		HydraBossHp += 20 * dElapsedTime;
 	}
 
 	if (formchangetimer >= 2)
