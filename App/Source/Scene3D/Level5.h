@@ -87,6 +87,7 @@ public:
 	void PostRender(void);
 
 	void SpawnHealer(int x, int y, int z);
+	void SpawnSoul(int x, int y, int z);
 
 	bool sprintCheck = false;
 	double timer = 10;

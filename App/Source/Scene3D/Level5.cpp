@@ -182,7 +182,7 @@ bool CLevel5::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(-25.0f, 0.5f, 40.0f));
+	cPlayer3D->SetPosition(glm::vec3(-10.0f, 0.5f, 48.5f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -233,7 +233,7 @@ bool CLevel5::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// FINAL BOSS CODE
-	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -2.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
 	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -250,15 +250,12 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
-	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	cLostSoul3D->SetShader("Shader3D");
-	cLostSoul3D->Init();
-	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	cLostSoul3D->SetWeapon(0, cEnemyPistol);
+	SpawnSoul(35.0f, fCheckHeight, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, 25.0f);
 
-	cSolidObjectManager->Add(cLostSoul3D);
-
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 40.0f));
+	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
 	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -296,6 +293,20 @@ void CLevel5::SpawnHealer(int x, int y, int z)
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cHealer3D->SetWeapon(0, cEnemyPistol);
 	cSolidObjectManager->Add(cHealer3D);
+}
+
+void CLevel5::SpawnSoul(int x, int y, int z)
+{
+	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(x, y, z));
+	cLostSoul3D->SetShader("Shader3D");
+	cLostSoul3D->Init();
+	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CPistol* cEnemyPistol = new CPistol();
+	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cEnemyPistol->Init();
+	cEnemyPistol->SetShader("Shader3D_Model");
+	cLostSoul3D->SetWeapon(0, cEnemyPistol);
+	cSolidObjectManager->Add(cLostSoul3D);
 }
 
 /**
