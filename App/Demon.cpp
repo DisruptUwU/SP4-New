@@ -3,9 +3,9 @@
  By: Toh Da Jun
  Date: Apr 2020
  */
-#include "Enemy3D.h"
+#include "Demon.h"
 
-// Include ShaderManager
+ // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
 
 // Include MeshBuilder
@@ -23,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CEnemy3D::CEnemy3D(void)
+CDemon::CDemon(void)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
@@ -51,18 +51,16 @@ CEnemy3D::CEnemy3D(void)
  @param yaw A const float variable which contains the yaw of the camera
  @param pitch A const float variable which contains the pitch of the camera
  */
-CEnemy3D::CEnemy3D(	const glm::vec3 vec3Position,
-					const glm::vec3 vec3Front,
-					const float fYaw,
-					const float fPitch,
-					bool isFlying)
+CDemon::CDemon(const glm::vec3 vec3Position,
+	const glm::vec3 vec3Front,
+	const float fYaw,
+	const float fPitch)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
 	, fYaw(fYaw)
 	, fPitch(fPitch)
 	, fRotationSensitivity(0.1f)
-	, bIsFlying(isFlying)
 	, cCamera(NULL)
 	, cPrimaryWeapon(NULL)
 	, cSecondaryWeapon(NULL)
@@ -83,7 +81,7 @@ CEnemy3D::CEnemy3D(	const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CEnemy3D::~CEnemy3D(void)
+CDemon::~CDemon(void)
 {
 	if (cWaypointManager)
 	{
@@ -113,17 +111,66 @@ CEnemy3D::~CEnemy3D(void)
 	glDeleteVertexArrays(1, &VAO);
 }
 
+bool CDemon::LoadModelAndTexture(const char* filenameModel,
+	const char* filenameTexture,
+	GLuint& VAO,
+	GLuint& iTextureID,
+	GLuint& iIndicesSize)
+{
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
+	std::vector<ModelVertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	std::string file_path = filenameModel;
+	bool success = CLoadOBJ::LoadOBJ(file_path.c_str(), vertices, uvs, normals, true);
+	if (!success)
+	{
+		cout << "Unable to load " << filenameModel << endl;
+		return false;
+	}
+
+	CLoadOBJ::IndexVBO(vertices, uvs, normals, index_buffer_data, vertex_buffer_data);
+
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &IBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(ModelVertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+	iIndicesSize = index_buffer_data.size();
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(ModelVertex), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(ModelVertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec3)));
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// load and create a texture 
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID(filenameTexture, false);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load " << filenameTexture << endl;
+		return false;
+	}
+
+	return true;
+}
+
 /**
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CEnemy3D::Init(void)
+bool CDemon::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::NPC);
+	SetType(CEntity3D::TYPE::DEMON);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
@@ -132,14 +179,11 @@ bool CEnemy3D::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
-
-	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
-	if (iTextureID == 0)
+	if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
+		"Models/Pistol/honeycombs_col.png",
+		VAO, iTextureID, iIndicesSize) == false)
 	{
-		cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
-		return false;
+		cout << "Unable to load model and texture" << endl;
 	}
 
 	// Store the handler to the terrain
@@ -151,7 +195,7 @@ bool CEnemy3D::Init(void)
 	iMaxNumMovement = 100;
 
 	// Detection distance for player
-	fDetectionDistance = 20.0f;
+	fDetectionDistance = 200.f;
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
@@ -179,7 +223,7 @@ bool CEnemy3D::Init(void)
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CEnemy3D::SetModel(const glm::mat4 model)
+void CDemon::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -188,7 +232,7 @@ void CEnemy3D::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CEnemy3D::SetView(const glm::mat4 view)
+void CDemon::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -197,7 +241,7 @@ void CEnemy3D::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CEnemy3D::SetProjection(const glm::mat4 projection)
+void CDemon::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -206,11 +250,12 @@ void CEnemy3D::SetProjection(const glm::mat4 projection)
  @brief Attach a camera to this class instance
  @param cCamera A CCamera* variable which contains the camera
  */
-void CEnemy3D::AttachCamera(CCamera* cCamera)
+void CDemon::AttachCamera(CCamera* cCamera)
 {
+	// Set the camera to the player
 	this->cCamera = cCamera;
 
-	// Update the camera's attributes with the enemy's attributes
+	// Update the camera's attributes with the player's attributes
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
@@ -222,7 +267,7 @@ void CEnemy3D::AttachCamera(CCamera* cCamera)
  @brief Check if a camera ia attached to this class instance
  @return true if a camera is attached, else false
  */
-bool CEnemy3D::IsCameraAttached(void)
+bool CDemon::IsCameraAttached(void)
 {
 	if (cCamera)
 		return true;
@@ -234,7 +279,7 @@ bool CEnemy3D::IsCameraAttached(void)
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  @param cWeaponInfo A CWeaponInfo* variable which contains the weapon info
  */
-void CEnemy3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
+void CDemon::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
 {
 	if (iSlot == 0)
 		cPrimaryWeapon = cWeaponInfo;
@@ -246,7 +291,7 @@ void CEnemy3D::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
  @brief Get Weapon of this class instance
  @return The CWeaponInfo* value
  */
-CWeaponInfo* CEnemy3D::GetWeapon(void) const
+CWeaponInfo* CDemon::GetWeapon(void) const
 {
 	if (iCurrentWeapon == 0)
 		return cPrimaryWeapon;
@@ -260,7 +305,7 @@ CWeaponInfo* CEnemy3D::GetWeapon(void) const
  @brief Set current weapon
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  */
-void CEnemy3D::SetCurrentWeapon(const int iSlot)
+void CDemon::SetCurrentWeapon(const int iSlot)
 {
 	iCurrentWeapon = iSlot;
 }
@@ -269,7 +314,7 @@ void CEnemy3D::SetCurrentWeapon(const int iSlot)
  @brief Discharge weapon
  @return A bool value
  */
-bool CEnemy3D::DischargeWeapon(void) const
+bool CDemon::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
@@ -283,13 +328,13 @@ bool CEnemy3D::DischargeWeapon(void) const
 }
 
 /**
- @brief Processes input received from any keyboard-like input system as enemy movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
- @param direction A const Enemy_Movement variable which contains the movement direction of the camera
+ @brief Processes input received from any keyboard-like input system as player movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
+ @param direction A const Player_Movement variable which contains the movement direction of the camera
  @param deltaTime A const float variable which contains the delta time for the realtime loop
  */
-void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
+void CDemon::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
-	float velocity = fMovementSpeed* deltaTime;
+	float velocity = fMovementSpeed * deltaTime;
 	if (direction == ENEMYMOVEMENT::FORWARD)
 		vec3Position += vec3Front * velocity;
 	if (direction == ENEMYMOVEMENT::BACKWARD)
@@ -299,21 +344,21 @@ void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaT
 	if (direction == ENEMYMOVEMENT::RIGHT)
 		vec3Position += vec3Right * velocity;
 
+	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
 	}
 
-	// Constraint the enemy's position if grounded
-	if (bIsFlying)
-		Constraint();
+	// Constraint the player's position
+	Constraint();
 }
 
 /**
- @brief Processes input received from a mouse input system as enemy rotation. Expects the offset value in both the x and y direction.
+ @brief Processes input received from a mouse input system as player rotation. Expects the offset value in both the x and y direction.
  @param xoffset A const float variable which contains the x axis of the mouse movement
  */
-void CEnemy3D::ProcessRotate(const float fXOffset)
+void CDemon::ProcessRotate(const float fXOffset)
 {
 	// Update the yaw
 	fYaw += fXOffset;// *fRotationSensitivity;
@@ -327,7 +372,7 @@ void CEnemy3D::ProcessRotate(const float fXOffset)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CEnemy3D::Update(const double dElapsedTime)
+bool CDemon::Update(const double dElapsedTime)
 {
 	// Don't update if this entity is not active
 	if (bStatus == false)
@@ -337,6 +382,15 @@ bool CEnemy3D::Update(const double dElapsedTime)
 
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
+
+	/*if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	{
+		cPlayer3D->NearHydra = true;
+	}
+	else
+	{
+		cPlayer3D->NearHydra = false;
+	}*/
 
 	switch (sCurrentFSM)
 	{
@@ -455,7 +509,7 @@ bool CEnemy3D::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CEnemy3D::PreRender(void)
+void CDemon::PreRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -469,7 +523,7 @@ void CEnemy3D::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CEnemy3D::Render(void)
+void CDemon::Render(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -489,7 +543,7 @@ void CEnemy3D::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CEnemy3D::PostRender(void)
+void CDemon::PostRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -503,7 +557,7 @@ void CEnemy3D::PostRender(void)
 /**
  @brief Calculates the front vector from the Camera's (updated) Euler Angles
  */
-void CEnemy3D::UpdateEnemyVectors(void)
+void CDemon::UpdateEnemyVectors(void)
 {
 	// Calculate the new vec3Front vector
 	glm::vec3 front;
@@ -511,14 +565,15 @@ void CEnemy3D::UpdateEnemyVectors(void)
 	front.y = sin(glm::radians(fPitch));
 	front.z = sin(glm::radians(fYaw)) * cos(glm::radians(fPitch));
 	front = glm::normalize(front);
-	
+
 	vec3Front = front;
 	// Also re-calculate the Right and Up vector
 	// Normalize the vectors, because their length gets closer to 0 the more 
 	// you look up or down which results in slower movement.
-	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));  
+	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));
 	vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
 
+	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Front = vec3Front;
@@ -528,9 +583,9 @@ void CEnemy3D::UpdateEnemyVectors(void)
 }
 
 /**
- @brief Constraint the enemy's position
+ @brief Constraint the player's position
  */
-void CEnemy3D::Constraint(void)
+void CDemon::Constraint(void)
 {
 	// Get the new height
 	float fNewYValue = cTerrain->GetHeight(vec3Position.x, vec3Position.z) + fHeightOffset;
@@ -541,7 +596,7 @@ void CEnemy3D::Constraint(void)
 /**
  @brief Update Front Vector and Yaw
  */
-void CEnemy3D::UpdateFrontAndYaw(void)
+void CDemon::UpdateFrontAndYaw(void)
 {
 	fYaw = glm::degrees(glm::acos(dot(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front)));
 	if (cross(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front).y < 0.0f)

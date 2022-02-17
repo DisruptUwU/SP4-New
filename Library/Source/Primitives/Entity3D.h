@@ -42,6 +42,7 @@ public:
 		BLOODBATH,
 		FINALHEALBOSS,
 		FINALBOSS,
+		DEMON,
 		NUM_TYPES
 	};
 
