@@ -428,6 +428,8 @@ bool CLevel3::Update(const double dElapsedTime)
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
 		cHydra->Init(2); //new place
+		cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+			glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
 		//cHydra->SetScale(glm::vec3(1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime));
 	}
 
