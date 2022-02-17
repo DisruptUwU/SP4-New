@@ -221,7 +221,7 @@ bool CHydra::Init(int type)
 	formchangetimer = 0;
 
 	// Detection distance for player
-	fDetectionDistance = 1000.f;
+	fDetectionDistance = 1000; //1000
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
@@ -408,7 +408,7 @@ bool CHydra::Update(const double dElapsedTime)
 
 	if (moreaggresivepart1 == true)
 	{
-		fMovementSpeed = 3.0;
+		fMovementSpeed = 0; //3
 	}
 	else if (moreaggresivepart1 == false && changingform == true)
 	{
@@ -432,7 +432,7 @@ bool CHydra::Update(const double dElapsedTime)
 	if (moreaggresivepart2 == true)
 	{
 		moreaggresivepart1 = false;
-		fMovementSpeed = 6.0;
+		fMovementSpeed = 0; //6
 		/*HydraBossHp = 70;*/
 	}
 
@@ -499,7 +499,7 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true && moreaggresivepart2 != true)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();
