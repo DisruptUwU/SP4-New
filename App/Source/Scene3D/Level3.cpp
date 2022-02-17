@@ -372,6 +372,11 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
+	if (cPlayer3D->stamina <= 0)
+	{
+		cPlayer3D->stamina = 0;
+	}
+
 	if (sprintCheck == true) {
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
