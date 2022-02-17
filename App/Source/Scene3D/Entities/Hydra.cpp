@@ -353,7 +353,7 @@ bool CHydra::DischargeWeapon(void) const
 
 		else
 		{
-			glm::vec3 pos(vec3Position.x, vec3Position.y + 3.0, vec3Position.z);
+			glm::vec3 pos(vec3Position.x, vec3Position.y + 2, vec3Position.z);
 			glm::vec3 front = cPlayer3D->GetPosition() - pos;
 			float d = glm::distance(cPlayer3D->GetPosition(), vec3Position);
 			front.x /= d;
@@ -426,7 +426,7 @@ bool CHydra::Update(const double dElapsedTime)
 
 	if (moreaggresivepart1 == true)
 	{
-		fMovementSpeed = 0; //3
+		fMovementSpeed = 2.5; //3
 	}
 	else if (moreaggresivepart1 == false && changingform == true)
 	{
@@ -450,7 +450,7 @@ bool CHydra::Update(const double dElapsedTime)
 	if (moreaggresivepart2 == true)
 	{
 		moreaggresivepart1 = false;
-		fMovementSpeed = 0; //6
+		fMovementSpeed = 5; //6
 		/*HydraBossHp = 70;*/
 	}
 
