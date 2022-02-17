@@ -261,6 +261,7 @@ bool CLevel5::Init(void)
 	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
+	cSolidObjectManager->cFinalNPC = cFinalNPC;
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
@@ -320,6 +321,22 @@ bool CLevel5::Update(const double dElapsedTime)
 	cPlayer3D->StorePositionForRollback();
 
 	//cout << cSolidObjectManager->cFinalBoss3D->regainPhase1 << endl;
+
+	if (cSolidObjectManager->cFinalBoss3D->soulsAlive <= 0)
+	{
+		cPlayer3D->AllSoulsKilled = true;
+		if (changeDialogue == false)
+		{
+			cPlayer3D->FinalNPCDialogueStage = 6;
+			changeDialogue = true;
+		}		
+	}
+
+	if (cPlayer3D->FinalNPCDialogueStage == 8)
+	{
+		cSolidObjectManager->cFinalBoss3D->phase = 1;
+		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
+	}
 
 	if (timer >= 0) {
 		timer -= 1 * dElapsedTime;
@@ -535,15 +552,31 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->NearFinalNPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+		if (cPlayer3D->AllSoulsKilled == true)
 		{
-			if (cPlayer3D->FinalNPCDialoguestage <= 6)
+			if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
 			{
-				cPlayer3D->FinalNPCDialoguestage++;
+				if (cPlayer3D->FinalNPCDialogueStage <= 7)
+				{
+					cPlayer3D->FinalNPCDialogueStage++;
+				}
+				if (cPlayer3D->FinalNPCDialogueStage >= 8)
+				{
+					cPlayer3D->FinalNPCDialogueStage = 8;
+				}
 			}
-			if (cPlayer3D->FinalNPCDialoguestage >= 6)
+		}
+		else {
+			if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
 			{
-				cPlayer3D->FinalNPCDialoguestage = 6;
+				if (cPlayer3D->FinalNPCDialogueStage <= 4)
+				{
+					cPlayer3D->FinalNPCDialogueStage++;
+				}
+				if (cPlayer3D->FinalNPCDialogueStage >= 5)
+				{
+					cPlayer3D->FinalNPCDialogueStage = 5;
+				}
 			}
 		}
 	}
