@@ -403,6 +403,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
 		cHydra->Init(2); //new place
+		//cHydra->SetScale(glm::vec3(1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime));
 	}
 
 	if (cHydra->moreaggresivepart2 == true)

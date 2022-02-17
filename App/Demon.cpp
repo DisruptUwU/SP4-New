@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Apr 2020
  */
-#include "Hydra.h"
+#include "Demon.h"
 
  // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
@@ -23,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CHydra::CHydra(void)
+CDemon::CDemon(void)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
@@ -51,7 +51,7 @@ CHydra::CHydra(void)
  @param yaw A const float variable which contains the yaw of the camera
  @param pitch A const float variable which contains the pitch of the camera
  */
-CHydra::CHydra(const glm::vec3 vec3Position,
+CDemon::CDemon(const glm::vec3 vec3Position,
 	const glm::vec3 vec3Front,
 	const float fYaw,
 	const float fPitch)
@@ -81,7 +81,7 @@ CHydra::CHydra(const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CHydra::~CHydra(void)
+CDemon::~CDemon(void)
 {
 	if (cWaypointManager)
 	{
@@ -111,7 +111,7 @@ CHydra::~CHydra(void)
 	glDeleteVertexArrays(1, &VAO);
 }
 
-bool CHydra::LoadModelAndTexture(const char* filenameModel,
+bool CDemon::LoadModelAndTexture(const char* filenameModel,
 	const char* filenameTexture,
 	GLuint& VAO,
 	GLuint& iTextureID,
@@ -160,18 +160,17 @@ bool CHydra::LoadModelAndTexture(const char* filenameModel,
 	return true;
 }
 
-
 /**
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CHydra::Init(int type)
+bool CDemon::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::HYDRA);
+	SetType(CEntity3D::TYPE::DEMON);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
@@ -180,48 +179,23 @@ bool CHydra::Init(int type)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	if (type == 1)
+	if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
+		"Models/Pistol/honeycombs_col.png",
+		VAO, iTextureID, iIndicesSize) == false)
 	{
-		if (LoadModelAndTexture("Models/Sub_bosses/gyrados.obj",
-			"Models/Pistol/honeycombs_col.png",
-			VAO, iTextureID, iIndicesSize) == false)
-		{
-			cout << "Unable to load model and texture" << endl;
-		}
-	}
-
-	if (type == 2)
-	{
-		if (LoadModelAndTexture("Models/Objects/Rocktransform.obj",
-			"Models/Pistol/honeycombs_col.png",
-			VAO, iTextureID, iIndicesSize) == false)
-		{
-			cout << "Unable to load model and texture" << endl;
-		}
-	}
-
-	if (type == 3)
-	{
-		if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
-			"Models/Pistol/honeycombs_col.png",
-			VAO, iTextureID, iIndicesSize) == false)
-		{
-			cout << "Unable to load model and texture" << endl;
-		}
+		cout << "Unable to load model and texture" << endl;
 	}
 
 	// Store the handler to the terrain
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 0.5f;
+	fMovementSpeed = 1.5f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
-	formchangetimer = 0;
-
 	// Detection distance for player
-	fDetectionDistance = 1000.f;
+	fDetectionDistance = 200.f;
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
@@ -249,7 +223,7 @@ bool CHydra::Init(int type)
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CHydra::SetModel(const glm::mat4 model)
+void CDemon::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -258,7 +232,7 @@ void CHydra::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CHydra::SetView(const glm::mat4 view)
+void CDemon::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -267,7 +241,7 @@ void CHydra::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CHydra::SetProjection(const glm::mat4 projection)
+void CDemon::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -276,7 +250,7 @@ void CHydra::SetProjection(const glm::mat4 projection)
  @brief Attach a camera to this class instance
  @param cCamera A CCamera* variable which contains the camera
  */
-void CHydra::AttachCamera(CCamera* cCamera)
+void CDemon::AttachCamera(CCamera* cCamera)
 {
 	// Set the camera to the player
 	this->cCamera = cCamera;
@@ -293,7 +267,7 @@ void CHydra::AttachCamera(CCamera* cCamera)
  @brief Check if a camera ia attached to this class instance
  @return true if a camera is attached, else false
  */
-bool CHydra::IsCameraAttached(void)
+bool CDemon::IsCameraAttached(void)
 {
 	if (cCamera)
 		return true;
@@ -305,7 +279,7 @@ bool CHydra::IsCameraAttached(void)
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  @param cWeaponInfo A CWeaponInfo* variable which contains the weapon info
  */
-void CHydra::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
+void CDemon::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
 {
 	if (iSlot == 0)
 		cPrimaryWeapon = cWeaponInfo;
@@ -317,7 +291,7 @@ void CHydra::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
  @brief Get Weapon of this class instance
  @return The CWeaponInfo* value
  */
-CWeaponInfo* CHydra::GetWeapon(void) const
+CWeaponInfo* CDemon::GetWeapon(void) const
 {
 	if (iCurrentWeapon == 0)
 		return cPrimaryWeapon;
@@ -331,7 +305,7 @@ CWeaponInfo* CHydra::GetWeapon(void) const
  @brief Set current weapon
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  */
-void CHydra::SetCurrentWeapon(const int iSlot)
+void CDemon::SetCurrentWeapon(const int iSlot)
 {
 	iCurrentWeapon = iSlot;
 }
@@ -340,7 +314,7 @@ void CHydra::SetCurrentWeapon(const int iSlot)
  @brief Discharge weapon
  @return A bool value
  */
-bool CHydra::DischargeWeapon(void) const
+bool CDemon::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
@@ -358,7 +332,7 @@ bool CHydra::DischargeWeapon(void) const
  @param direction A const Player_Movement variable which contains the movement direction of the camera
  @param deltaTime A const float variable which contains the delta time for the realtime loop
  */
-void CHydra::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
+void CDemon::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
 	float velocity = fMovementSpeed * deltaTime;
 	if (direction == ENEMYMOVEMENT::FORWARD)
@@ -384,7 +358,7 @@ void CHydra::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTim
  @brief Processes input received from a mouse input system as player rotation. Expects the offset value in both the x and y direction.
  @param xoffset A const float variable which contains the x axis of the mouse movement
  */
-void CHydra::ProcessRotate(const float fXOffset)
+void CDemon::ProcessRotate(const float fXOffset)
 {
 	// Update the yaw
 	fYaw += fXOffset;// *fRotationSensitivity;
@@ -398,7 +372,7 @@ void CHydra::ProcessRotate(const float fXOffset)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CHydra::Update(const double dElapsedTime)
+bool CDemon::Update(const double dElapsedTime)
 {
 	// Don't update if this entity is not active
 	if (bStatus == false)
@@ -406,52 +380,17 @@ bool CHydra::Update(const double dElapsedTime)
 		return false;
 	}
 
-	if (moreaggresivepart1 == true)
-	{
-		fMovementSpeed = 3.0;
-	}
-	else if (moreaggresivepart1 == false && changingform == true)
-	{
-		//formchangetimer += dElapsedTime;
-		fMovementSpeed = 0.0;
-	}
-
-	if (changingform == true)
-	{
-		formchangetimer += dElapsedTime;
-		HydraBossHp += 20 * dElapsedTime;
-	}
-
-	if (formchangetimer >= 2)
-	{
-		changingform = false;
-		moreaggresivepart2 = true;
-		formchangetimer = 0;
-	}
-
-	if (moreaggresivepart2 == true)
-	{
-		moreaggresivepart1 = false;
-		fMovementSpeed = 6.0;
-		/*HydraBossHp = 70;*/
-	}
-
-	cout << "timer: " << formchangetimer  << endl;
-
-	cout << "Moreagressivepart2: " << moreaggresivepart2 << endl;
-
-
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	/*if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 	{
 		cPlayer3D->NearHydra = true;
 	}
 	else
 	{
 		cPlayer3D->NearHydra = false;
-	}
+	}*/
 
 	switch (sCurrentFSM)
 	{
@@ -499,7 +438,7 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();
@@ -570,7 +509,7 @@ bool CHydra::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CHydra::PreRender(void)
+void CDemon::PreRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -584,7 +523,7 @@ void CHydra::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CHydra::Render(void)
+void CDemon::Render(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -604,7 +543,7 @@ void CHydra::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CHydra::PostRender(void)
+void CDemon::PostRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -618,7 +557,7 @@ void CHydra::PostRender(void)
 /**
  @brief Calculates the front vector from the Camera's (updated) Euler Angles
  */
-void CHydra::UpdateEnemyVectors(void)
+void CDemon::UpdateEnemyVectors(void)
 {
 	// Calculate the new vec3Front vector
 	glm::vec3 front;
@@ -646,7 +585,7 @@ void CHydra::UpdateEnemyVectors(void)
 /**
  @brief Constraint the player's position
  */
-void CHydra::Constraint(void)
+void CDemon::Constraint(void)
 {
 	// Get the new height
 	float fNewYValue = cTerrain->GetHeight(vec3Position.x, vec3Position.z) + fHeightOffset;
@@ -657,7 +596,7 @@ void CHydra::Constraint(void)
 /**
  @brief Update Front Vector and Yaw
  */
-void CHydra::UpdateFrontAndYaw(void)
+void CDemon::UpdateFrontAndYaw(void)
 {
 	fYaw = glm::degrees(glm::acos(dot(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front)));
 	if (cross(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front).y < 0.0f)

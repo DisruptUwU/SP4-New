@@ -46,6 +46,7 @@ public:
 		DMGPOWER,
 		FINALHEALBOSS,
 		FINALBOSS,
+		DEMON,
 		NUM_TYPES
 	};
 
