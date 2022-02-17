@@ -34,6 +34,8 @@
 #include "Entities\Healer3D.h"
 // Include CFinalBoss3D
 #include "Entities\FinalBoss3D.h"
+// Include CFinalNPC
+#include "Entities\FinalNPC.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
 // Include CProjectileManager

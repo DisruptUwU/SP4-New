@@ -125,6 +125,8 @@ public:
 	bool NearHydra = false;
 
 	bool NearFinalBoss = false;
+	bool NearFinalNPC = false;
+	int FinalNPCDialoguestage = 0;
 	int FinalBossDialogueStage = 0;
 
 	bool speedPower = false;
