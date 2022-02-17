@@ -208,7 +208,7 @@ bool CLevel4::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// Initialise the cEnemy3D
-	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 10.0f, 5.0f));
+	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 5.0f, 3.0f));
 	cDragon->SetShader("Shader3D");
 	cDragon->Init();
 	cDragon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
