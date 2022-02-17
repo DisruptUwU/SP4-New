@@ -173,7 +173,7 @@ bool CLevel2::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitLevel2();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(70.0f, 5.0f, 70.0f);
+	cTerrain->SetRenderSize(200.0f, 5.0f, 200.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -235,10 +235,10 @@ bool CLevel2::Init(void)
 	cEnemy3D4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D5 = new CEnemy3D(glm::vec3(30.0f, fCheckHeight5, -20.0f));
-	cEnemy3D5->SetShader("Shader3D");
-	cEnemy3D5->Init();
-	cEnemy3D5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
+	cDemon->SetShader("Shader3D");
+	cDemon->Init();
+	cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 
 	// Assign a cPistol to the cEnemy3D
@@ -276,18 +276,20 @@ bool CLevel2::Init(void)
 	cEnemyPistol4->SetShader("Shader3D_Model");
 	cEnemy3D4->SetWeapon(0, cEnemyPistol4);
 
-	CPistol* cEnemyPistol5 = new CPistol();
-	cEnemyPistol5->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	cEnemyPistol5->Init();
-	cEnemyPistol5->SetShader("Shader3D_Model");
-	cEnemy3D5->SetWeapon(0, cEnemyPistol5);
+	CPistol* cDemonPistol = new CPistol();
+	cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cDemonPistol->Init();
+	cDemonPistol->SetShader("Shader3D_Model");
+	cDemon->SetWeapon(0, cDemonPistol);
+
+	cSolidObjectManager->cDemon = cDemon;
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cEnemy3D);
 	cSolidObjectManager->Add(cEnemy3D2);
 	cSolidObjectManager->Add(cEnemy3D3);
 	cSolidObjectManager->Add(cEnemy3D4);
-	cSolidObjectManager->Add(cEnemy3D5);
+	cSolidObjectManager->Add(cDemon);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);

@@ -346,6 +346,39 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 	ImGui::End();
 	ImGui::PopStyleColor();
 
+	if (cPlayer3D->NearFinalNPC == true)
+	{
+		ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+
+		if (cPlayer3D->FinalNPCDialoguestage == 0) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Hello, You almost made it to the end");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialoguestage == 1) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Only the lost souls are in your way");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+
+	}
+
 	if (cPlayer3D->NearFinalBoss == true)
 	{
 		ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
@@ -371,7 +404,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.1f));
 			ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "DESTROYER OF WORLDS");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "GUARDIAN OF THE GATE");
 			ImGui::End();
 
 			if (cFinalBoss3D->phase == 1) 

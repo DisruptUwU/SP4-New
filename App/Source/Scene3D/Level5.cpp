@@ -173,7 +173,7 @@ bool CLevel5::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitFinalBoss();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(200.0f, 5.0f, 200.0f);
+	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -182,7 +182,7 @@ bool CLevel5::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(50.0f, 0.5f, 50.0f));
+	cPlayer3D->SetPosition(glm::vec3(-25.0f, 0.5f, 40.0f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -252,6 +252,14 @@ bool CLevel5::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
+
+	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 40.0f));
+	cFinalNPC->SetShader("Shader3D");
+	cFinalNPC->Init();
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	//cNPC->SetScale(glm::vec3(0.5f));
+	// Add the cGenerator to the cSolidObjectManager
+	cSolidObjectManager->Add(cFinalNPC);
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
@@ -409,11 +417,11 @@ bool CLevel5::Update(const double dElapsedTime)
 		{
 			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 4 && cSolidObjectManager->cFinalBoss3D->healersAlive >= 1)
 			{			
-				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 50.0f * dElapsedTime;
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 30.0f * dElapsedTime;
 			}
 			else
 			{
-				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 25.f * dElapsedTime;
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
 			}
 		}
 		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)
@@ -507,6 +515,21 @@ bool CLevel5::Update(const double dElapsedTime)
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
+		}
+	}
+
+	if (cPlayer3D->NearFinalNPC == true)
+	{
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+		{
+			if (cPlayer3D->FinalNPCDialoguestage <= 6)
+			{
+				cPlayer3D->FinalNPCDialoguestage++;
+			}
+			if (cPlayer3D->FinalNPCDialoguestage >= 6)
+			{
+				cPlayer3D->FinalNPCDialoguestage = 6;
+			}
 		}
 	}
 

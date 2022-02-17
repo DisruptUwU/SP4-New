@@ -150,7 +150,7 @@ bool CEnemy3D::Init(void)
 	iMaxNumMovement = 100;
 
 	// Detection distance for player
-	fDetectionDistance = 1000.0f;
+	fDetectionDistance = 20.0f;
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;

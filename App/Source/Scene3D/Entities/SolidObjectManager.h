@@ -17,6 +17,7 @@
 #include "Hydra.h"
 #include "FinalBoss3D.h"
 #include "Player3D.h"
+#include "../App/Demon.h"
 
 // Include list
 #include <list>
@@ -66,12 +67,16 @@ public:
 
 	bool healthbelow50 = false;
 
+	bool DemonKilled = false;
+
 	//bool hydrashotplayer = false;
 	bool moreaggresivepart2 = false;
 
 	CHydra* cHydra;
 
 	CFinalBoss3D* cFinalBoss3D;
+
+	CDemon* cDemon;
 
 	CPlayer3D* cPlayer3D;
 protected:

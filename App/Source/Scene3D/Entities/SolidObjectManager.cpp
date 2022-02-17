@@ -414,9 +414,30 @@ bool CSolidObjectManager::CheckForCollision(void)
 					{
 						cHydra->HydraBossHp = 70;
 					}*/
-					cHydra->HydraBossHp -= cPlayer3D->Damage;
+					if (cHydra->changingform == true)
+					{
+						
+					}
+					else 
+					{
+						cHydra->HydraBossHp -= cPlayer3D->Damage;
+					}
 					if (cHydra->HydraBossHp <= 0) {
 						HydraKilled = true;
+						(*it)->SetStatus(false);
+					}
+					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::DEMON)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					cDemon->DemonHp -= 25;
+					if (cDemon->DemonHp <= 0) {
+						DemonKilled = true;
 						(*it)->SetStatus(false);
 					}
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
