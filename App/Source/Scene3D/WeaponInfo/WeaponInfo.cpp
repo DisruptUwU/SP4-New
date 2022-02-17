@@ -258,7 +258,7 @@ bool CWeaponInfo::Discharge(glm::vec3 vec3Position,
 {
 	if (bFire)
 	{
-		// If there is still ammo in the magazine, then fire
+		// If there is still ammo in the magazine, then fire \\ glm::normalise(playerpos - enemypos)
 		if (iMagRounds > 0)
 		{
 			// Create a projectile. 

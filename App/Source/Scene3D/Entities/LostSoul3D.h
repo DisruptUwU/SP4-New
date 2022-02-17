@@ -32,7 +32,7 @@
 using namespace std;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
-class CFinalBoss3D : public CSolidObject, public CFSM
+class CLostSoul3D : public CSolidObject, public CFSM
 {
 public:
 	// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
@@ -46,16 +46,17 @@ public:
 	};
 
 	// Default Constructor
-	CFinalBoss3D(void);
+	CLostSoul3D(void);
 
 	// Constructor with vectors
-	CFinalBoss3D(	const glm::vec3 vec3Position,
+	CLostSoul3D(	const glm::vec3 vec3Position,
 				const glm::vec3 vec3Front = glm::vec3(0.0f, 0.0f, -1.0f),
 				const float fYaw = -90.0f,
-				const float fPitch = 0.0f);
+				const float fPitch = 0.0f,
+				bool isFlying = false);
 
 	// Destructor
-	virtual ~CFinalBoss3D(void);
+	virtual ~CLostSoul3D(void);
 
 	// Initialise this class instance
 	bool Init(void);
@@ -102,20 +103,6 @@ public:
 	// PostRender
 	virtual void PostRender(void);
 
-	bool KilledFinalBoss = false;
-	int phase = 0;
-	int healersAlive = 4;
-
-	double timer = 2;
-
-	bool goLeft = false;
-	bool goRight = true;
-
-	bool enraged = false;
-	bool regainPhase1 = false;
-
-	double FinalBossHp = 300;
-
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;
@@ -126,6 +113,7 @@ protected:
 	float fPitch;
 	// Enemy options
 	float fRotationSensitivity;
+	bool bIsFlying;
 
 	// Movement Control
 	int iCurrentNumMovement;

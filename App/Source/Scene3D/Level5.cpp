@@ -182,7 +182,7 @@ bool CLevel5::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(-25.0f, 0.5f, 40.0f));
+	cPlayer3D->SetPosition(glm::vec3(-10.0f, 0.5f, 48.5f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -232,17 +232,14 @@ bool CLevel5::Init(void)
 	cPistol->SetShader("Shader3D_Model");
 	cPlayer3D->SetWeapon(0, cPistol);
 
-	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	// FINAL BOSS CODE
+	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -2.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
 	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	//cFinalBoss3D->SetScale(glm::vec3(1.f));
-
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
-	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
 	cEnemyPistol->Init();
@@ -253,11 +250,15 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 40.0f));
+	SpawnSoul(35.0f, fCheckHeight, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, 25.0f);
+
+	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
 	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	//cNPC->SetScale(glm::vec3(0.5f));
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
 
@@ -292,6 +293,20 @@ void CLevel5::SpawnHealer(int x, int y, int z)
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cHealer3D->SetWeapon(0, cEnemyPistol);
 	cSolidObjectManager->Add(cHealer3D);
+}
+
+void CLevel5::SpawnSoul(int x, int y, int z)
+{
+	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(x, y, z));
+	cLostSoul3D->SetShader("Shader3D");
+	cLostSoul3D->Init();
+	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CPistol* cEnemyPistol = new CPistol();
+	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cEnemyPistol->Init();
+	cEnemyPistol->SetShader("Shader3D_Model");
+	cLostSoul3D->SetWeapon(0, cEnemyPistol);
+	cSolidObjectManager->Add(cLostSoul3D);
 }
 
 /**

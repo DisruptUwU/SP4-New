@@ -32,6 +32,8 @@
 #include "Entities\Enemy3D.h"
 // Include CHealer3D
 #include "Entities\Healer3D.h"
+// Include CLostSoul3d
+#include "Entities\LostSoul3D.h"
 // Include CFinalBoss3D
 #include "Entities\FinalBoss3D.h"
 // Include CFinalNPC
@@ -85,6 +87,7 @@ public:
 	void PostRender(void);
 
 	void SpawnHealer(int x, int y, int z);
+	void SpawnSoul(int x, int y, int z);
 
 	bool sprintCheck = false;
 	double timer = 10;

@@ -249,7 +249,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				{
 					(*it)->RollbackPosition();
 					if (((*it)->GetType() == CSolidObject::TYPE::PLAYER))
-						bResult = true;
+						//bResult = true;
 					cout << "** Collision between Entity and Structure ***" << endl;
 					break;
 				}
@@ -258,6 +258,21 @@ bool CSolidObjectManager::CheckForCollision(void)
 				{
 					wenttodoor = true;
 					cout << "** teleporting! ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::SOUL))
+				{
+					cPlayer3D->healthdownbyhydra = true;
+					(*it)->RollbackPosition();
+					(*it_other)->RollbackPosition();
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::FINALBOSS))
+				{
+					(*it)->RollbackPosition();
+					(*it_other)->RollbackPosition();
 					break;
 				}
 
@@ -368,6 +383,16 @@ bool CSolidObjectManager::CheckForCollision(void)
 				//	break;
 				//}
 				else if ((*it)->GetType() == CSolidObject::TYPE::NPC)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(*it)->SetStatus(false);
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::SOUL)
 				{
 					// If this projectile is fired by the NPC, then skip it
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
