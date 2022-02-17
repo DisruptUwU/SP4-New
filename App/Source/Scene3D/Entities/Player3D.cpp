@@ -487,37 +487,79 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		DefUpTimer = 3;
 	}
 
+	if (Hit == true)
+	{
+		ImmunityTimer -= 1 * dElapsedTime;
+	}
+
+	if (ImmunityTimer <= 0)
+	{
+		ImmunityTimer = 1;
+		Hit = false;
+	}
+
 	if (DefenceIncrease == true) {
 		DefUpTimer -= 1 * dElapsedTime;
 		if (healthdownbyhydra == true)
 		{
-			cInventoryItem = cInventoryManager->GetItem("Health");
-			cInventoryItem->Remove(5); //float
-			healthdownbyhydra = false;
+			if (Hit == false)
+			{
+				cInventoryItem = cInventoryManager->GetItem("Health");
+				cInventoryItem->Remove(5); //float
+				healthdownbyhydra = false;
+				Hit = true;
+			}
+			else
+			{
+
+			}
 		}
 		if (healthdownbyhydramore == true)
 		{
-			cInventoryItem = cInventoryManager->GetItem("Health");
-			cInventoryItem->Remove(15); //float
-			healthdownbyhydramore = false;
+			if (Hit == false)
+			{
+				cInventoryItem = cInventoryManager->GetItem("Health");
+				cInventoryItem->Remove(15); //float
+				healthdownbyhydramore = false;
+				Hit = true;
+			}
+			else
+			{
+
+			}
 		}
 	}
 	else
 	{
 		if (healthdownbyhydra == true)
 		{
-			cInventoryItem = cInventoryManager->GetItem("Health");
-			cInventoryItem->Remove(10); //float //10
-			healthdownbyhydra = false;
+			if (Hit == false)
+			{
+				cInventoryItem = cInventoryManager->GetItem("Health");
+				cInventoryItem->Remove(10); //float //10
+				healthdownbyhydra = false;
+				Hit = true;
+			}
+			else
+			{
+
+			}
 		}
 		if (healthdownbyhydramore == true)
 		{
-			cInventoryItem = cInventoryManager->GetItem("Health");
-			cInventoryItem->Remove(15); //float
-			healthdownbyhydramore = false;
+			if (Hit == false)
+			{
+				cInventoryItem = cInventoryManager->GetItem("Health");
+				cInventoryItem->Remove(15); //float
+				healthdownbyhydramore = false;
+				Hit = true;
+			}
+			else
+			{
+
+			}
 		}
 	}
-
 
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	if (cInventoryItem->GetCount() <= 30) //getmaxcount

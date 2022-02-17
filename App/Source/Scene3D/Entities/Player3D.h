@@ -137,6 +137,9 @@ public:
 	bool trapped = false;
 	bool jumpscaretrapped = false;
 
+	bool Hit = false;
+	double ImmunityTimer = 1;
+
 	double speedTimer;
 	double trapTimer = 3;
 	double jumpscaretraptimer = 1.5;
