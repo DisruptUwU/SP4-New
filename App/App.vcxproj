@@ -58,6 +58,7 @@
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDef.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDmg.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Jumpscaretrap.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\LostSoul3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Player3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObject.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObjectManager.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDef.h" />
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDmg.h" />
     <ClInclude Include="Source\Scene3D\Entities\Jumpscaretrap.h" />
+    <ClInclude Include="Source\Scene3D\Entities\LostSoul3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Player3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObject.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObjectManager.h" />

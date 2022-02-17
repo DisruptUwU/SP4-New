@@ -32,6 +32,8 @@
 #include "Entities\Enemy3D.h"
 // Include CHealer3D
 #include "Entities\Healer3D.h"
+// Include CLostSoul3d
+#include "Entities\LostSoul3D.h"
 // Include CFinalBoss3D
 #include "Entities\FinalBoss3D.h"
 // Include CFinalNPC
