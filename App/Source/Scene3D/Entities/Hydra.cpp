@@ -160,11 +160,12 @@ bool CHydra::LoadModelAndTexture(const char* filenameModel,
 	return true;
 }
 
+
 /**
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CHydra::Init(void)
+bool CHydra::Init(int type)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
@@ -179,20 +180,45 @@ bool CHydra::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
-		"Models/Pistol/honeycombs_col.png",
-		VAO, iTextureID, iIndicesSize) == false)
+	if (type == 1)
 	{
-		cout << "Unable to load model and texture" << endl;
+		if (LoadModelAndTexture("Models/Sub_bosses/gyrados.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
+	}
+
+	if (type == 2)
+	{
+		if (LoadModelAndTexture("Models/Objects/Healthkit.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
+	}
+
+	if (type == 3)
+	{
+		if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
 	}
 
 	// Store the handler to the terrain
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 0.f;
+	fMovementSpeed = 0.5f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
+
+	formchangetimer = 0;
 
 	// Detection distance for player
 	fDetectionDistance = 1000.f;
@@ -380,6 +406,41 @@ bool CHydra::Update(const double dElapsedTime)
 		return false;
 	}
 
+	if (moreaggresivepart1 == true)
+	{
+		fMovementSpeed = 3.0;
+	}
+	else if (moreaggresivepart1 == false && changingform == true)
+	{
+		//formchangetimer += dElapsedTime;
+		fMovementSpeed = 0.0;
+	}
+
+	if (changingform == true)
+	{
+		formchangetimer += dElapsedTime;
+		HydraBossHp += 20 * dElapsedTime;
+	}
+
+	if (formchangetimer >= 2)
+	{
+		changingform = false;
+		moreaggresivepart2 = true;
+		formchangetimer = 0;
+	}
+
+	if (moreaggresivepart2 == true)
+	{
+		moreaggresivepart1 = false;
+		fMovementSpeed = 6.0;
+		/*HydraBossHp = 70;*/
+	}
+
+	cout << "timer: " << formchangetimer  << endl;
+
+	cout << "Moreagressivepart2: " << moreaggresivepart2 << endl;
+
+
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
@@ -438,7 +499,7 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();

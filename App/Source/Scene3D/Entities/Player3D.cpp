@@ -304,25 +304,57 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 {
 	float velocity = fMovementSpeed * deltaTime;
 
-	if (stamina <= 0) {
-		velocity = fMovementSpeed * 2 * deltaTime;
-	}
-	else
+	if (trapped == true)
 	{
-		if (sprint == false)
+		if (trapTimer > 0)
 		{
-			velocity = fMovementSpeed * 2 * deltaTime;
+			trapTimer -= 1 * deltaTime;
+			velocity = fMovementSpeed * 0 * deltaTime;
 		}
-		else if (sprint == true)
+		else if (trapTimer <= 0)
 		{
-			velocity = fMovementSpeed * 4 * deltaTime;
+			trapTimer = 3;
+			trapped = false;
 		}
-
 	}
-
-	if (speedPower == true)
+	else if (trapped == false)
 	{
-		velocity = fMovementSpeed * 10 * deltaTime;
+		if (stamina <= 0) {
+			if (speedPower == true)
+			{
+				velocity = fMovementSpeed * 5 * deltaTime;
+			}
+			else 
+			{
+				velocity = fMovementSpeed * 2 * deltaTime;
+			}
+		}
+		else
+		{
+			if (sprint == false)
+			{
+				if (speedPower == true)
+				{
+					velocity = fMovementSpeed * 5 * deltaTime;
+				}
+				else
+				{
+					velocity = fMovementSpeed * 2 * deltaTime;
+				}
+			}
+			else if (sprint == true)
+			{
+				if (speedPower == true)
+				{
+					velocity = fMovementSpeed * 10 * deltaTime;
+				}
+				else 
+				{
+					velocity = fMovementSpeed * 4 * deltaTime;
+				}
+			}
+
+		}
 	}
 
 	if (direction == PLAYERMOVEMENT::FORWARD)
@@ -423,24 +455,78 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		bUpdateCameraSway = false;
 	}
 
-	if (healthdownbyhydra == true)
+	if (jumpscaretraptimer <= 0)
 	{
-		cInventoryItem = cInventoryManager->GetItem("Health");
-		cInventoryItem->Remove(10); //float
-		healthdownbyhydra = false;
+		jumpscaretraptimer = 1.5;
+		jumpscaretrapped = false;
 	}
 
-	if (healthdownbyhydramore == true)
+	if (jumpscaretrapped == true)
 	{
-		cInventoryItem = cInventoryManager->GetItem("Health");
-		cInventoryItem->Remove(30); //float
-		healthdownbyhydramore = false;
+		jumpscaretraptimer -= dElapsedTime;
 	}
+
+	if (DmgUpTimer <= 0)
+	{
+		AtkIncrease = false;
+		DmgUpTimer = 3;
+	}
+
+	if (AtkIncrease == true) {
+		DmgUpTimer -= 1 * dElapsedTime;
+		Damage = 20;
+	}
+	else
+	{
+		Damage = 10;
+	}
+	
+	if (DefUpTimer <= 0)
+	{
+		DefenceIncrease = false;
+		DefUpTimer = 3;
+	}
+
+	if (DefenceIncrease == true) {
+		DefUpTimer -= 1 * dElapsedTime;
+		if (healthdownbyhydra == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(5); //float
+			healthdownbyhydra = false;
+		}
+		if (healthdownbyhydramore == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(15); //float
+			healthdownbyhydramore = false;
+		}
+	}
+	else
+	{
+		if (healthdownbyhydra == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(10); //float //10
+			healthdownbyhydra = false;
+		}
+		if (healthdownbyhydramore == true)
+		{
+			cInventoryItem = cInventoryManager->GetItem("Health");
+			cInventoryItem->Remove(15); //float
+			healthdownbyhydramore = false;
+		}
+	}
+
 
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	if (cInventoryItem->GetCount() <= 30) //getmaxcount
 	{
 		playerhealthbelow30 = true;
+	}
+	else
+	{
+		playerhealthbelow30 = false;
 	}
 
 	if (cInventoryItem->GetCount() <= 0) //getmaxcount
@@ -561,6 +647,7 @@ void CPlayer3D::Constraint(void)
 		if (fCheckHeight > vec3Position.y)
 			vec3Position.y = fCheckHeight;
 	}
+
 }
 
 /**

@@ -42,6 +42,7 @@
 #include "Entities\Healthup.h"
 // Include CStructure3D
 #include "Entities\Bloodbath.h"
+#include "Entities\Jumpscaretrap.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -85,6 +86,8 @@ public:
 	bool gotolevel4 = false;
 
 	bool losegame = false;
+
+	CHydra* cHydra;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -115,6 +118,8 @@ protected:
 	CCamera* cCamera;
 
 	CSpeed* cSpeed;
+
+	CJumpscaretrap* cJumpscaretrap;
 	// Handler to the CSkyBox
 	CSkyBox* cSkyBox;
 	// Handler to the CGround
@@ -129,6 +134,8 @@ protected:
 	int checkportal = 0;
 
 	int checkdeath = 0;
+
+	int checkaggresion = 0;
 
 	int losetimer;
 

@@ -196,6 +196,31 @@ bool CLevel5::Init(void)
 	cProjectileManager->Init();
 	cProjectileManager->SetShader("Shader3D");
 
+	// Bear Trap
+	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	//CBearTrap* cBearTrap = new CBearTrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cBearTrap->SetShader("Shader3D");
+	//cBearTrap->Init();
+	//cBearTrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cBearTrap to the cSolidObjectManager
+	//cSolidObjectManager->Add(cBearTrap);
+
+	// Increase Def
+	//CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cIncreaseDef->SetShader("Shader3D");
+	//cIncreaseDef->Init();
+	//cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cIncreaseDef to the cSolidObjectManager
+	//cSolidObjectManager->Add(cIncreaseDef);
+
+	// Increase Dmg
+	CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	cIncreaseDmg->SetShader("Shader3D");
+	cIncreaseDmg->Init();
+	cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	// Add the cIncreaseDmg to the cSolidObjectManager
+	cSolidObjectManager->Add(cIncreaseDmg);
+
 	// Assign a cPistol to the cPlayer3D
 	CPistol* cPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
@@ -207,15 +232,6 @@ bool CLevel5::Init(void)
 	cPistol->SetShader("Shader3D_Model");
 	cPlayer3D->SetWeapon(0, cPistol);
 
-	// Initialise the cEnemy3D
-	//float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	//cEnemy3D->SetShader("Shader3D");
-	//cEnemy3D->Init();
-	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	//cEnemy3D->SetScale(glm::vec3(0.5f));
-
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
@@ -237,17 +253,6 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
-	// Initialise a CStructure3D
-	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	//CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cStructure3D->SetShader("Shader3D");
-	//cStructure3D->Init();
-	//cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//cStructure3D->SetScale(glm::vec3(0.5f));
-
-	// Add the cStructure3D to the cSolidObjectManager
-	//cSolidObjectManager->Add(cStructure3D);
-
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
@@ -259,67 +264,6 @@ bool CLevel5::Init(void)
 	// Initialise the CEntityManager
 	cEntityManager = CEntityManager::GetInstance(); //wwdawe
 	cEntityManager->Init();
-
-	//// Initialise the CRock3D
-	//CRock3D* cRock3D = new CRock3D();
-	//cRock3D->SetInstancingMode(false);
-	//if (cRock3D->IsInstancedRendering() == true)
-	//{
-	//	cRock3D->SetScale(glm::vec3(5.0f));
-	//	cRock3D->SetNumOfInstance(1000);
-	//	cRock3D->SetSpreadDistance(100.0f);
-
-	//	cRock3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	//}
-	//else
-	//{
-	//	fCheckHeight = cTerrain->GetHeight(2.0f, 2.0f);
-	//	cRock3D->SetPosition(glm::vec3(2.0f, fCheckHeight, 2.0f));
-	//	cRock3D->SetScale(glm::vec3(0.5f));
-	//	cRock3D->SetShader("Shader3DNoColour");			// FOR NORMAL RENDERING
-	//}
-	//if (cRock3D->Init() == true)
-	//{
-	//	cEntityManager->Add(cRock3D);
-	//}
-	//else
-	//{
-	//	delete cRock3D;
-	//}
-
-	// Initialise the CTreeKabak3D
-	//CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
-	//cTreeKabak3D->SetInstancingMode(true);
-	//if (cTreeKabak3D->IsInstancedRendering() == true)
-	//{
-	//	cTreeKabak3D->SetScale(glm::vec3(1.0f));
-	//	cTreeKabak3D->SetNumOfInstance(100);
-	//	cTreeKabak3D->SetSpreadDistance(100.0f);
-
-	//	cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	//}
-	//if (cTreeKabak3D->Init() == true)
-	//{
-	//	cEntityManager->Add(cTreeKabak3D);
-	//}
-	//else
-	//{
-	//	delete cTreeKabak3D;
-	//}
-
-	// Initialise a CSpinTower
-	//CSpinTower::Create();
-
-	// Initialise a CHut_Concrete
-	//fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
-	//CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
-	//cHut_Concrete->SetShader("Shader3DNoColour");
-	//cHut_Concrete->SetLODStatus(true);
-	//cHut_Concrete->Init();
-	//cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-
-	// Add the cHut_Concrete to the cSolidObjectManager
-	//cSolidObjectManager->Add(cHut_Concrete);
 
 	return true;
 }
@@ -398,7 +342,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
-		cout << "Phase 2 Active" << endl;
+		//cout << "Phase 2 Active" << endl;
 		if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0) 
 		{
 			if (timer <= 0)
@@ -422,7 +366,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 		else
 		{
-			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
 			if (timer <= 0)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
@@ -445,10 +389,10 @@ bool CLevel5::Update(const double dElapsedTime)
 
 		if (spawnedHealers == false) {
 			float fCheckHeight = cTerrain->GetHeight(5.0f, -20.0f);
-			SpawnHealer(20, fCheckHeight, 20);
-			SpawnHealer(20, fCheckHeight, -20);
-			SpawnHealer(-20, fCheckHeight, -20);
-			SpawnHealer(-20, fCheckHeight, 20);
+			SpawnHealer(20, 3, 20);
+			SpawnHealer(20, 3, -20);
+			SpawnHealer(-20, 3, -20);
+			SpawnHealer(-20, 3, 20);
 			spawnedHealers = true;
 		}
 
@@ -460,14 +404,17 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
-		cout << "Phase 3 Active" << endl;
+		//cout << "Phase 3 Active" << endl;
 		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100)
 		{
-			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0)
-			{
-				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.5f * dElapsedTime;
+			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 4 && cSolidObjectManager->cFinalBoss3D->healersAlive >= 1)
+			{			
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 50.0f * dElapsedTime;
 			}
-			cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
+			else
+			{
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 25.f * dElapsedTime;
+			}
 		}
 		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)
 		{

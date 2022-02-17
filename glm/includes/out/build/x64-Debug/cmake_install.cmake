@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/zshaq/source/repos/SP4-New2/glm/includes
+# Install script for directory: C:/Users/zshaq/source/repos/SP4-New3/glm/includes
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/zshaq/Source/Repos/SP4-New2/glm/includes/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/zshaq/Source/Repos/SP4-New3/glm/includes/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/zshaq/source/repos/SP4-New2/glm/includes/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/zshaq/source/repos/SP4-New3/glm/includes/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

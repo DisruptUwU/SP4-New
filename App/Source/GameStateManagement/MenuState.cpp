@@ -138,7 +138,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		style.FrameRounding = 200.0f;
 		
 		// Add codes for Start button here
-		if (ImGui::ImageButton((ImTextureID)startButtonData.textureID, 
+		/*if (ImGui::ImageButton((ImTextureID)startButtonData.textureID,
 			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0)))
 		{
 			// Reset the CKeyboardController
@@ -147,7 +147,7 @@ bool CMenuState::Update(const double dElapsedTime)
 			// Load the menu state
 			cout << "Loading PlayGameState" << endl;
 			CGameStateManager::GetInstance()->SetActiveGameState("PlayGameState");
-		}
+		}*/
 		// Add codes for Play3D button here
 		if (ImGui::ImageButton((ImTextureID)play3DButtonData.textureID,
 			ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0)))
@@ -175,14 +175,14 @@ bool CMenuState::Update(const double dElapsedTime)
 	}
 
 	//For keyboard controls
-	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_SPACE))
+	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_1)) //space
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
 
 		// Load the menu state
 		cout << "Loading PlayGameState" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("PlayGameState");
+		CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
 		return true;
 	}
 	/*else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
@@ -195,7 +195,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
 		return true;
 	}*/
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_LEFT_SHIFT))
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_2))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
@@ -205,7 +205,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("Level2GameState");
 		return true;
 	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_LEFT_CONTROL)) 
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_3))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
@@ -215,7 +215,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("Level3GameState");
 		return true;
 	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ENTER))
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_4))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
@@ -225,7 +225,7 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
 		return true;
 	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_LEFT_ALT))
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_5))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();

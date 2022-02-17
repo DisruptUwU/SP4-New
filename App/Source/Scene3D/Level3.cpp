@@ -211,9 +211,9 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CHydra* cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
+	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
 	cHydra->SetShader("Shader3D");
-	cHydra->Init();
+	cHydra->Init(1);
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
@@ -231,16 +231,25 @@ bool CLevel3::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
 
+	//// Initialise a CStructure3D
+	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	//cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cSpeed->SetShader("Shader3D");
+	//cSpeed->Init();
+	//cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cStructure3D to the cSolidObjectManager
+	//cSolidObjectManager->Add(cSpeed);
+
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cSpeed->SetShader("Shader3D");
-	cSpeed->Init();
-	cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	cJumpscaretrap = new CJumpscaretrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	cJumpscaretrap->SetShader("Shader3D");
+	cJumpscaretrap->Init();
+	cJumpscaretrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cSpeed);
+	cSolidObjectManager->Add(cJumpscaretrap);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -253,15 +262,15 @@ bool CLevel3::Init(void)
 	// Add the cStructure3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHealthup);
 
-	// Initialise a CStructure3D
-	CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
-	cBloodbath->SetShader("Shader3D");
-	cBloodbath->Init();
-	cBloodbath->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)); // 0.0.1.0
-	cBloodbath->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
-	cBloodbath->SetScale(glm::vec3(15, 15, 15));
+	//// Initialise a CStructure3D
+	//CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
+	//cBloodbath->SetShader("Shader3D");
+	//cBloodbath->Init();
+	//cBloodbath->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)); // 0.0.1.0
+	//cBloodbath->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
+	//cBloodbath->SetScale(glm::vec3(15, 15, 15));
 
-	cSolidObjectManager->Add(cBloodbath);
+	//cSolidObjectManager->Add(cBloodbath);
 
 	cSolidObjectManager->cHydra = cHydra;
 
@@ -365,7 +374,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoor* cDoor = new CDoor(glm::vec3(-15.1, 4.0, 28.9)); //2
+		CDoor* cDoor = new CDoor(glm::vec3(-15.1, -0.5, 28.9)); //2
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
@@ -382,10 +391,36 @@ bool CLevel3::Update(const double dElapsedTime)
 		gotolevel4 = true;
 	}
 
-	if (cSolidObjectManager->cHydra->HydraBossHp <= 50)
+	if (cSolidObjectManager->cHydra->HydraBossHp <= 50 && cSolidObjectManager->cHydra->HydraBossHp >= 31)
 	{
-		cSolidObjectManager->healthbelow50 = true;
+		//cSolidObjectManager->healthbelow50 = true;
+		cHydra->moreaggresivepart1 = true;
+	}
 
+	if (cSolidObjectManager->cHydra->HydraBossHp <= 30 && cHydra->moreaggresivepart2 == false)
+	{
+		//cSolidObjectManager->healthbelow50 = true;
+		cHydra->moreaggresivepart1 = false;
+		cHydra->changingform = true;
+		cHydra->Init(2); //new place
+	}
+
+	if (cHydra->moreaggresivepart2 == true)
+	{
+		cSolidObjectManager->moreaggresivepart2 = true;
+
+		if (checkaggresion == 0)
+		{
+			cHydra->Init(3); //
+			checkaggresion += 1;
+		}
+
+		else
+		{
+			//spawnportal = false;
+		}
+
+		//cHydra->moreaggresivepart2 = false;
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
@@ -483,12 +518,16 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cPlayer3D->playerlostallhealth == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		/*losegame = true;*/
 		cSoundController->PlaySoundByID(5);
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
 		cSolidObjectManager->youlose = true;
+	}
 
+	if (cPlayer3D->jumpscaretrapped == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		cSoundController->PlaySoundByID(5);
 	}
 
 	if (cSolidObjectManager->youlose == true)
@@ -513,6 +552,17 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
+
+	//if (cPlayer3D->jumpscaretrapped == true)
+	//{
+	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+	//	//cSoundController->PlaySoundByID(4);
+	//}
+
+	//else
+	//{
+	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
+	//}
 
 
 

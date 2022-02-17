@@ -70,6 +70,7 @@ public:
 	bool DemonKilled = false;
 
 	//bool hydrashotplayer = false;
+	bool moreaggresivepart2 = false;
 
 	CHydra* cHydra;
 

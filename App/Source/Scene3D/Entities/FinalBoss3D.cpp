@@ -430,13 +430,17 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 				timer -= 1.0f * dElapsedTime;
 			}
 
-			cout << timer << endl;
+			//cout << timer << endl;
 
 			// Process the movement
 			if (goLeft == true) {
+				vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
+				UpdateFrontAndYaw();
 				ProcessMovement(ENEMYMOVEMENT::LEFT, (float)dElapsedTime);
 			}
 			else if (goRight == true) {
+				vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
+				UpdateFrontAndYaw();
 				ProcessMovement(ENEMYMOVEMENT::RIGHT, (float)dElapsedTime);
 			}
 			if (_DEBUG_FSM == true)

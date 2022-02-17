@@ -64,7 +64,7 @@ public:
 	bool LoadModelAndTexture(const char* filenameModel, const char* filenameTexture, GLuint& VAO, GLuint& iTextureID, GLuint& iIndicesSize);
 
 	// Initialise this class instance
-	bool Init(void);
+	bool Init(int type); //bool Init(void);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
@@ -115,6 +115,14 @@ public:
 	double HydraBossHp = 100;
 
 	bool healthbelow50 = false;
+
+	bool moreaggresivepart1 = false;
+
+	bool changingform = false;
+
+	bool moreaggresivepart2 = false; // form changed
+
+	double formchangetimer;
 
 protected:
 	// Enemy Attributes
