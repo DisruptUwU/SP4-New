@@ -118,11 +118,8 @@ public:
 	bool sprint = false;
 
 	bool healthdownbyhydra = false;
-
 	bool healthdownbyhydramore = false;
-
 	bool playerhealthbelow30 = false;
-
 	bool playerlostallhealth = false;
 
 	bool NearHydra = false;
@@ -131,10 +128,20 @@ public:
 	int FinalBossDialogueStage = 0;
 
 	bool speedPower = false;
-
 	bool healthPower = false;
+	bool AtkIncrease = false;
+	bool DefenceIncrease = false;
+
+	bool trapped = false;
+	bool jumpscaretrapped = false;
 
 	double speedTimer;
+	double trapTimer = 3;
+	double jumpscaretraptimer = 1.5;
+	double DefUpTimer = 3;
+	double DmgUpTimer = 3;
+
+	int Damage = 10;
 
 protected:
 	// The handle to the CCamera class instance

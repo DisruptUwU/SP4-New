@@ -1,0 +1,47 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl Material_#140
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\zshaq\\Downloads\\10521\\Pokemon XY\\Gyarados\\images\\pm0130_00_BodyB1.png
+
+newmtl Material_#141
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\zshaq\\Downloads\\10521\\Pokemon XY\\Gyarados\\images\\pm0130_00_Eye1.png
+
+newmtl Material_#142
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\zshaq\\Downloads\\10521\\Pokemon XY\\Gyarados\\images\\pm0130_00_BodyA1.png
+
+newmtl Material_#143
+Ns 18.000005
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\zshaq\\Downloads\\10521\\Pokemon XY\\Gyarados\\images\\pm0130_00_Iris1.png
+map_d C:\\Users\\zshaq\\Downloads\\10521\\Pokemon XY\\Gyarados\\images\\pm0130_00_Iris1.png

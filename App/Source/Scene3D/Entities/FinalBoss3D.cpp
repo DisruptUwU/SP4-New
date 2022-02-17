@@ -144,7 +144,7 @@ bool CFinalBoss3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 0.f;
+	fMovementSpeed = 2.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -288,7 +288,8 @@ bool CFinalBoss3D::DischargeWeapon(void) const
  */
 void CFinalBoss3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
-	float velocity = fMovementSpeed* deltaTime;
+	float velocity = fMovementSpeed * 2 * deltaTime;
+
 	if (direction == ENEMYMOVEMENT::FORWARD)
 		vec3Position += vec3Front * velocity;
 	if (direction == ENEMYMOVEMENT::BACKWARD)
@@ -410,8 +411,38 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 				}
 			}
 
+			if (timer <= 0)
+			{
+				if (goRight == true)
+				{
+					goLeft = true;
+					goRight = false;
+				}
+				else if (goLeft == true)
+				{
+					goLeft = false;
+					goRight = true;
+				}
+				timer = 2;
+			}
+			else
+			{
+				timer -= 1.0f * dElapsedTime;
+			}
+
+			//cout << timer << endl;
+
 			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+			if (goLeft == true) {
+				vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
+				UpdateFrontAndYaw();
+				ProcessMovement(ENEMYMOVEMENT::LEFT, (float)dElapsedTime);
+			}
+			else if (goRight == true) {
+				vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
+				UpdateFrontAndYaw();
+				ProcessMovement(ENEMYMOVEMENT::RIGHT, (float)dElapsedTime);
+			}
 			if (_DEBUG_FSM == true)
 				cout << "Attacking now" << endl;
 		}

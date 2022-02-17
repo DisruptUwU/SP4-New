@@ -270,6 +270,42 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DEFPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->DefenceIncrease = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DMGPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->AtkIncrease = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::BEARTRAP) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->trapped = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::JUMPSCARETRAP) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->jumpscaretrapped = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Trapped ***" << endl;
+					break;
+				}
+
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEALTHPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
 				{
 					cPlayer3D->healthPower = true;
@@ -291,15 +327,6 @@ bool CSolidObjectManager::CheckForCollision(void)
 		if ((*it)->GetStatus() == false)
 			continue;
 
-		if ((*it)->GetType() == CSolidObject::TYPE::FINALHEALBOSS)
-		{
-			if (cFinalBoss3D->regainPhase1 == true);
-			{
-				//(*it)->SetStatus(false);
-				cFinalBoss3D->regainPhase1 = false;
-			}
-		}
-
 		for (unsigned int i = 0; i < cProjectileManager->vProjectile.size(); i++)
 		{
 			// If the entity is not active, then skip it
@@ -320,7 +347,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between Player and Projectile ***" << endl;
 					bResult = true;
-					if (healthbelow50 == true)
+					if (cHydra->moreaggresivepart2 == true) //if (healthbelow50 == true)
 					{
 						cPlayer3D->healthdownbyhydramore = true;
 					}
@@ -366,8 +393,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 					// If this projectile is fired by the NPC, then skip it
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
-					(cProjectileManager->vProjectile[i])->SetStatus(false);				
-					cFinalBoss3D->FinalBossHp -= 20;
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
@@ -383,7 +410,11 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cHydra->HydraBossHp -= 10;
+					/*if (cHydra->moreaggresivepart2 == true)
+					{
+						cHydra->HydraBossHp = 70;
+					}*/
+					cHydra->HydraBossHp -= cPlayer3D->Damage;
 					if (cHydra->HydraBossHp <= 0) {
 						HydraKilled = true;
 						(*it)->SetStatus(false);
