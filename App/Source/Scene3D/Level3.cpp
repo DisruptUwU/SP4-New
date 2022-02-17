@@ -214,10 +214,12 @@ bool CLevel3::Init(void)
 	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
 	cHydra->SetShader("Shader3D");
 	cHydra->Init(1);
-	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(-2, 1.5, -0.5), glm::vec3(0.25, 3, 0.5));
+	//cHydra->bIsDisplayed = false;
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
-
 	// Assign a cPistol to the cEnemy3D
+
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
 	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
@@ -230,6 +232,14 @@ bool CLevel3::Init(void)
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
+
+	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(10.0f, fCheckHeight, -5));
+	cFinalNPC->SetShader("Shader3D");
+	cFinalNPC->Init();
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	//cNPC->SetScale(glm::vec3(0.5f));
+	// Add the cGenerator to the cSolidObjectManager
+	cSolidObjectManager->Add(cFinalNPC);
 
 	//// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -346,6 +356,21 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
+	if (cPlayer3D->NearFinalNPC == true)
+	{
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+		{
+			if (cPlayer3D->FinalNPCDialoguestage <= 6)
+			{
+				cPlayer3D->FinalNPCDialoguestage++;
+			}
+			if (cPlayer3D->FinalNPCDialoguestage >= 6)
+			{
+				cPlayer3D->FinalNPCDialoguestage = 6;
+			}
+		}
+	}
+
 	if (sprintCheck == true) {
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
@@ -413,6 +438,8 @@ bool CLevel3::Update(const double dElapsedTime)
 		if (checkaggresion == 0)
 		{
 			cHydra->Init(3); //
+			cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));
 			checkaggresion += 1;
 		}
 
