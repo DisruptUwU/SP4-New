@@ -146,7 +146,7 @@ bool CLostSoul3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 1.5f;
+	fMovementSpeed = 10.f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -158,12 +158,14 @@ bool CLostSoul3D::Init(void)
 	cWaypointManager->Init();
 
 	// Add in some test Waypoints
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -30.0f);
-	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, fCheckHeight, -30.0f));
-	fCheckHeight = cTerrain->GetHeight(20.0f, -20.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(30.0f, fCheckHeight, 0.0f));
-	fCheckHeight = cTerrain->GetHeight(-20.0f, -30.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-30.0f, fCheckHeight, 0.0f));
+	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(35.0f, 3, 25.0f));
+	fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(35.0f, 3, -25.0f));
+	fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-35.0f, 3, -25.0f));
+	fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-35.0f, 3, 25.0f));
 
 	cWaypointManager->PrintSelf();
 

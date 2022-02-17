@@ -103,7 +103,7 @@ public:
 	virtual void PostRender(void);
 
 	bool KilledFinalBoss = false;
-	int phase = 1;
+	int phase = 0;
 	int healersAlive = 4;
 
 	double timer = 2;

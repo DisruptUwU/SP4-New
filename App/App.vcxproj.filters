@@ -251,9 +251,6 @@
     <ClCompile Include="Source\Scene3D\Entities\Healthup.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
@@ -276,6 +273,9 @@
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\LostSoul3D.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -481,9 +481,6 @@
     <ClInclude Include="Source\Scene3D\Entities\Healthup.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\Dragon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
@@ -506,6 +503,9 @@
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\LostSoul3D.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Dragon.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>

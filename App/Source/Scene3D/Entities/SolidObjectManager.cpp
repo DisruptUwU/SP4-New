@@ -266,7 +266,13 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cPlayer3D->healthdownbyhydra = true;
 					(*it)->RollbackPosition();
 					(*it_other)->RollbackPosition();
-					cout << "Soul Hit" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::FINALBOSS))
+				{
+					(*it)->RollbackPosition();
+					(*it_other)->RollbackPosition();
 					break;
 				}
 
