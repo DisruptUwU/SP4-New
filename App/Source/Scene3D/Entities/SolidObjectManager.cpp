@@ -414,7 +414,14 @@ bool CSolidObjectManager::CheckForCollision(void)
 					{
 						cHydra->HydraBossHp = 70;
 					}*/
-					cHydra->HydraBossHp -= cPlayer3D->Damage;
+					if (cHydra->changingform == true)
+					{
+						
+					}
+					else 
+					{
+						cHydra->HydraBossHp -= cPlayer3D->Damage;
+					}
 					if (cHydra->HydraBossHp <= 0) {
 						HydraKilled = true;
 						(*it)->SetStatus(false);
