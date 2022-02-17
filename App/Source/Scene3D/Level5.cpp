@@ -407,7 +407,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		//cout << "Phase 3 Active" << endl;
 		if (cSolidObjectManager->cFinalBoss3D->FinalBossHp <= 100)
 		{
-			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 0)
+			if (cSolidObjectManager->cFinalBoss3D->healersAlive <= 4 && cSolidObjectManager->cFinalBoss3D->healersAlive >= 1)
 			{			
 				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 50.0f * dElapsedTime;
 			}
