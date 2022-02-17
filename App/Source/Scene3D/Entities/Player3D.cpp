@@ -466,7 +466,6 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		jumpscaretraptimer -= dElapsedTime;
 	}
 
-
 	if (DmgUpTimer <= 0)
 	{
 		AtkIncrease = false;
