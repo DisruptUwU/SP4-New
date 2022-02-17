@@ -407,6 +407,8 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cHydra->moreaggresivepart2 == true)
 	{
+		cSolidObjectManager->moreaggresivepart2 = true;
+
 		if (checkaggresion == 0)
 		{
 			cHydra->Init(3); //

@@ -67,6 +67,7 @@ public:
 	bool healthbelow50 = false;
 
 	//bool hydrashotplayer = false;
+	bool moreaggresivepart2 = false;
 
 	CHydra* cHydra;
 
