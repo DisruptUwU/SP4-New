@@ -344,7 +344,18 @@ bool CHydra::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
-		return cPrimaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
+
+		if (moreaggresivepart2 == true)
+		{
+			//return cPrimaryWeapon->Discharge(glm::vec3(vec3Position.x, vec3Position.y + 3.0, vec3Position.z), vec3Front, (CSolidObject*)this);
+			return cPrimaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
+		}
+
+		else
+		{
+			return cPrimaryWeapon->Discharge(glm::vec3(vec3Position.x, vec3Position.y + 3.0, vec3Position.z), vec3Front, (CSolidObject*)this);
+		}
+	
 	}
 	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
 	{
@@ -499,7 +510,7 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true && moreaggresivepart2 != true)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true /*&& moreaggresivepart2 != true*/)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();
