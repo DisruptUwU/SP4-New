@@ -49,8 +49,7 @@ CDragon::CDragon(void)
 CDragon::CDragon(const glm::vec3 vec3Position,
 	const glm::vec3 vec3Front,
 	const float fYaw,
-	const float fPitch,
-	bool isFlying)
+	const float fPitch)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
