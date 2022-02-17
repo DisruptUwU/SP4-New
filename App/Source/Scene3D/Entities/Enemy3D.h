@@ -113,7 +113,6 @@ protected:
 	float fPitch;
 	// Enemy options
 	float fRotationSensitivity;
-	bool bIsFlying;
 
 	// Movement Control
 	int iCurrentNumMovement;

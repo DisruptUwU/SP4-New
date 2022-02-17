@@ -207,27 +207,26 @@ bool CLevel4::Init(void)
 	cPistol->SetShader("Shader3D_Model");
 	cPlayer3D->SetWeapon(0, cPistol);
 
-	//// Initialise the cEnemy3D
-	//float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
-	//cEnemy3D->SetShader("Shader3D");
-	//cEnemy3D->Init();
-	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	////cEnemy3D->SetScale(glm::vec3(0.5f));
+	// Initialise the cEnemy3D
+	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 10.0f, 5.0f));
+	cDragon->SetShader("Shader3D");
+	cDragon->Init();
+	cDragon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cDragon->SetScale(glm::vec3(1.0f));
 
-	//// Assign a cPistol to the cEnemy3D
-	//CPistol* cEnemyPistol = new CPistol();
-	//// Set the position, rotation and scale of this weapon
-	////cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	////cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-	//cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	//// Initialise the instance
-	//cEnemyPistol->Init();
-	//cEnemyPistol->SetShader("Shader3D_Model");
-	//cEnemy3D->SetWeapon(0, cEnemyPistol);
+	// Assign a cPistol to the cEnemy3D
+	CPistol* cEnemyPistol = new CPistol();
+	// Set the position, rotation and scale of this weapon
+	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
+	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
+	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	// Initialise the instance
+	cEnemyPistol->Init();
+	cEnemyPistol->SetShader("Shader3D_Model");
+	cDragon->SetWeapon(0, cEnemyPistol);
 
-	//// Add the cEnemy3D to the cSolidObjectManager
-	//cSolidObjectManager->Add(cEnemy3D);
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cDragon);
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here

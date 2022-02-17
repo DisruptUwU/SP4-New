@@ -62,7 +62,6 @@ CEnemy3D::CEnemy3D(	const glm::vec3 vec3Position,
 	, fYaw(fYaw)
 	, fPitch(fPitch)
 	, fRotationSensitivity(0.1f)
-	, bIsFlying(isFlying)
 	, cCamera(NULL)
 	, cPrimaryWeapon(NULL)
 	, cSecondaryWeapon(NULL)
@@ -305,8 +304,7 @@ void CEnemy3D::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaT
 	}
 
 	// Constraint the enemy's position if grounded
-	if (bIsFlying)
-		Constraint();
+	Constraint();
 }
 
 /**
@@ -479,11 +477,14 @@ void CEnemy3D::Render(void)
 
 	CSolidObject::Render();
 
-	cPrimaryWeapon->SetView(view);
-	cPrimaryWeapon->SetProjection(projection);
-	cPrimaryWeapon->PreRender();
-	cPrimaryWeapon->Render();
-	cPrimaryWeapon->PostRender();
+	if (cPrimaryWeapon)
+	{
+		cPrimaryWeapon->SetView(view);
+		cPrimaryWeapon->SetProjection(projection);
+		cPrimaryWeapon->PreRender();
+		cPrimaryWeapon->Render();
+		cPrimaryWeapon->PostRender();
+	}
 }
 
 /**
