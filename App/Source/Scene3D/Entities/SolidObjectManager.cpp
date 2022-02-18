@@ -186,6 +186,7 @@ bool CSolidObjectManager::Update(const double dElapsedTime)
 bool CSolidObjectManager::CheckForCollision(void)
 {
 	bool bResult = false;
+	//DeadEnemies = 0;
 
 	std::list<CSolidObject*>::iterator it, end;
 	std::list<CSolidObject*>::iterator it_other;
@@ -275,6 +276,13 @@ bool CSolidObjectManager::CheckForCollision(void)
 				{
 					wenttodoor = true;
 					cout << "** teleporting! ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL2))
+				{
+					Doorlevel2 = true;
+					cout << "** teleporting to level 2 ***" << endl;
 					break;
 				}
 
@@ -406,7 +414,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					DeadEnemies += 1;
+					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::ENEMY_LVL1)
@@ -501,7 +510,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						DemonKilled = true;
 						(*it)->SetStatus(false);
 					}
-					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
 					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::STRUCTURE)

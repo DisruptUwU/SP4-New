@@ -269,13 +269,16 @@
     <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Demon.cpp">
-      <Filter>Scene3D\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\LostSoul3D.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Demon.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl2.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\Level3NPC.cpp">
@@ -502,13 +505,16 @@
     <ClInclude Include="Source\Scene3D\Entities\Dragon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Demon.h">
-      <Filter>Scene3D\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\LostSoul3D.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\Dragon.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Demon.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\doorlvl2.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\Level3NPC.h">

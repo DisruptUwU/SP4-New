@@ -162,6 +162,7 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroar.ogg"), 6, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -359,21 +360,38 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)//IsKeyPressed
 		{
+			//npctobosstimer += dElapsedTime;
 			if (cPlayer3D->Level3NPCDialogueStage <= 0)
 			{
 				cPlayer3D->Level3NPCDialogueStage++;
+				timeractivate = true;
 			}
 
-			else // when dialog over
-			{
-				cHydra->npctoboss = true;
-			}
+			//else // when dialog over
+			//{
+			//	timeractivate = true;
+			//}
 		}
 	}
 
-	cout << "npctoboss:" << cHydra->npctoboss << endl;
+	if (timeractivate == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		npctobosstimer += dElapsedTime;
+		cSoundController->PlaySoundByID(6);
+	}
+
+	if (npctobosstimer >= 2.2)
+	{
+		cHydra->npctoboss = true;
+		npctobosstimer = 0;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
+		timeractivate = false;
+	}
+
+	cout << "npctobosstimer: " << npctobosstimer << endl;
 
 	if (cHydra->npctoboss == true)
 	{

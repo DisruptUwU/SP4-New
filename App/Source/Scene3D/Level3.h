@@ -134,6 +134,10 @@ protected:
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
 
+	bool timeractivate = false;
+
+	double npctobosstimer = 0;
+
 	int checkportal = 0;
 
 	int checkdeath = 0;
