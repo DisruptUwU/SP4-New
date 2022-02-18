@@ -230,7 +230,7 @@ bool CLevel3::Init(void)
 	//cEnemyPistol->SetRotation(60, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
-	cEnemyPistol->Init();
+	//cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cHydra->SetWeapon(0, cEnemyPistol);
 
