@@ -273,13 +273,6 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
-				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOOR))
-				{
-					wenttodoor = true;
-					cout << "** teleporting! ***" << endl;
-					break;
-				}
-
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL2))
 				{
 					Doorlevel2 = true;
@@ -356,6 +349,12 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL3))
+				{
+					wenttodoor = true;
+					cout << "** teleporting! ***" << endl;
+					break;
+				}
 			}
 		}
 	}
@@ -477,28 +476,31 @@ bool CSolidObjectManager::CheckForCollision(void)
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::HYDRA)
 				{
-					// If this projectile is fired by the NPC, then skip it
-					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
-						continue;
-					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					/*if (cHydra->moreaggresivepart2 == true)
+					if (cHydra->nonattackphase == false)
 					{
-						cHydra->HydraBossHp = 70;
-					}*/
-					if (cHydra->changingform == true)
-					{
-						
+						// If this projectile is fired by the NPC, then skip it
+						if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+							continue;
+						(cProjectileManager->vProjectile[i])->SetStatus(false);
+						/*if (cHydra->moreaggresivepart2 == true)
+						{
+							cHydra->HydraBossHp = 70;
+						}*/
+						if (cHydra->changingform == true)
+						{
+
+						}
+						else
+						{
+							cHydra->HydraBossHp -= cPlayer3D->Damage;
+						}
+						if (cHydra->HydraBossHp <= 0) {
+							HydraKilled = true;
+							(*it)->SetStatus(false);
+						}
+						cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+						break;
 					}
-					else 
-					{
-						cHydra->HydraBossHp -= cPlayer3D->Damage;
-					}
-					if (cHydra->HydraBossHp <= 0) {
-						HydraKilled = true;
-						(*it)->SetStatus(false);
-					}
-					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
-					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::DEMON)
 				{

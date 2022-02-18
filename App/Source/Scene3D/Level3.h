@@ -44,6 +44,7 @@
 #include "Entities\Bloodbath.h"
 #include "Entities\Jumpscaretrap.h"
 #include "Entities\Level3NPC.h"
+#include "Entities\doorlvl3.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 

@@ -50,6 +50,7 @@ public:
 		SOUL,
 		DEMON,
 		DOORLVL2,
+		DOORLVL3,
 		NUM_TYPES
 	};
 

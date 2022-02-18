@@ -284,6 +284,9 @@
     <ClCompile Include="Source\Scene3D\Entities\Level3NPC.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -518,6 +521,9 @@
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\Level3NPC.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\doorlvl3.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
