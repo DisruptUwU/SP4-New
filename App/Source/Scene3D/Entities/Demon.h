@@ -30,7 +30,7 @@
 
 // Include WaypointManager
 #include "../App/Source/Scene3D/Waypoint/Waypoint.h"
-#include "Source/Scene3D/Waypoint/WaypointManager.h"
+#include "../App/Source/Scene3D/Waypoint/WaypointManager.h"
 
 #include <string>
 

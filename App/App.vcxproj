@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Demon.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp" />
     <ClCompile Include="Source\GameStateManagement\IntroState.cpp" />
@@ -46,7 +45,9 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Demon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl2.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
@@ -88,7 +89,6 @@
     <ClCompile Include="Source\SoundController\SoundInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Demon.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateBase.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateManager.h" />
@@ -123,7 +123,9 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h" />
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h" />
     <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Demon.h" />
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
+    <ClInclude Include="Source\Scene3D\Entities\doorlvl2.h" />
     <ClInclude Include="Source\Scene3D\Entities\Dragon.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
