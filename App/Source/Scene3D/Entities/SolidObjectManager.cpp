@@ -430,6 +430,17 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** RayBoxCollision between lvl 1 enemy and Projectile ***" << endl;
 					break;
 				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::ENEMYLVL2)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(*it)->SetStatus(false);
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					DeadEnemies += 1;
+					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
+					break;
+				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::SOUL)
 				{
 					// If this projectile is fired by the NPC, then skip it
@@ -506,10 +517,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cDemon->DemonHp -= 25;
+					cDemon->DemonHp -= 10;
 					if (cDemon->DemonHp <= 0) {
 						DemonKilled = true;
-						(*it)->SetStatus(false);
+						(*it)->SetStatus(false); 
 					}
 					cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
 					break;
