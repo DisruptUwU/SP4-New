@@ -32,6 +32,8 @@
 #include "Entities\Enemy3D.h"
 // Include CHealthup
 #include "Entities\Healthup.h"
+// Include CDoor
+#include "Entities\door.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
 // Include CProjectileManager
