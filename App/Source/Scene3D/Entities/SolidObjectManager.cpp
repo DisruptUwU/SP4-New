@@ -210,6 +210,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 		// Set door to false first
 		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count > 0)
 		{
+			cout << "** Level 1 portal set false ***" << endl;
 			(*it)->SetStatus(false);
 		}
 			
