@@ -214,7 +214,7 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
+	cHydra = new CHydra(glm::vec3(0.0f, 0.0f, 0.0f)); //0.5f
 	cHydra->SetShader("Shader3D");
 	cHydra->Init(1); //1
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
@@ -438,7 +438,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->HydraKilled == true)
 	{
-		cSoundController->StopSound();
+		//cSoundController->StopSound();
 		if (checkportal == 0)
 		{
 			spawnportal = true;
