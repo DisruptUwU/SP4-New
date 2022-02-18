@@ -234,13 +234,13 @@ bool CLevel3::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
 
-	cLevel3NPC = new CLevel3NPC(glm::vec3(10.0f, fCheckHeight, -5));
-	cLevel3NPC->SetShader("Shader3D");
-	cLevel3NPC->Init(1);
-	cLevel3NPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	//cNPC->SetScale(glm::vec3(0.5f));
-	// Add the cGenerator to the cSolidObjectManager
-	cSolidObjectManager->Add(cLevel3NPC);
+	//cLevel3NPC = new CLevel3NPC(glm::vec3(10.0f, fCheckHeight, -5));
+	//cLevel3NPC->SetShader("Shader3D");
+	//cLevel3NPC->Init(1);
+	//cLevel3NPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	////cNPC->SetScale(glm::vec3(0.5f));
+	//// Add the cGenerator to the cSolidObjectManager
+	//cSolidObjectManager->Add(cLevel3NPC);
 
 	//// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -359,7 +359,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)
 		{
 			if (cPlayer3D->Level3NPCDialogueStage <= 0)
 			{
