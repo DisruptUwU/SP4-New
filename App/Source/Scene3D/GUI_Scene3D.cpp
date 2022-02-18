@@ -356,34 +356,92 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGuiWindowFlags_NoCollapse |
 			ImGuiWindowFlags_NoScrollbar;
 
-		if (cPlayer3D->FinalNPCDialoguestage == 0) {
+		if (cPlayer3D->FinalNPCDialogueStage == 0) {
 			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
 			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Hello, You almost made it to the end");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Hello, You almost made it to the end.");
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
 			ImGui::End();
 		}
-		else if (cPlayer3D->FinalNPCDialoguestage == 1) {
+		else if (cPlayer3D->FinalNPCDialogueStage == 1) {
 			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
 			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Only the lost souls are in your way");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Only the lost souls are in your way.");
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
 			ImGui::End();
 		}
-		else if (cPlayer3D->FinalNPCDialoguestage == 2) {
+		else if (cPlayer3D->FinalNPCDialogueStage == 2) {
 			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
 			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Get rid of them and you will be free");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Get rid of them and you will be free.");
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialogueStage == 3) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Be careful not to wake up the sleeping guardian in the center.");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialogueStage == 4) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Return to me once all the souls have been vanquished.");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialogueStage == 5) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "I will be waiting.");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialogueStage == 6) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "The sounds of the souls have woken him up.");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialogueStage == 7) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Kill him to be free.");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+		else if (cPlayer3D->FinalNPCDialogueStage == 8) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Good Luck.");
 			ImGui::End();
 		}
 	}
@@ -500,6 +558,33 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			//ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 			//ImGui::TextColored(ImVec4(1, 1, 0, 1), "DIE ?? !!");
 			//ImGui::End();
+		}
+	}
+
+	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
+	{
+		ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+
+		if (cPlayer3D->Level3NPCDialogueStage == 0) {
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Traveller, Welcome to your demise");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'E' To Continue");
+			ImGui::End();
+		}
+
+		else if (cPlayer3D->Level3NPCDialogueStage >= 1)
+		{
+			//
 		}
 	}
 

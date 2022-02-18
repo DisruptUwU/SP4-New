@@ -13,6 +13,15 @@
 #include <includes/gtc/matrix_transform.hpp>
 #include <includes/gtc/type_ptr.hpp>
 
+// Include IMGUI
+// Important: GLEW and GLFW must be included before IMGUI
+#ifndef IMGUI_ACTIVE
+#include "GUI\imgui.h"
+#include "GUI\backends\imgui_impl_glfw.h"
+#include "GUI\backends\imgui_impl_opengl3.h"
+#define IMGUI_ACTIVE
+#endif
+
 // Include Camera
 #include "../Camera.h"
 
@@ -32,7 +41,7 @@
 using namespace std;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
-class CFinalBoss3D : public CSolidObject, public CFSM
+class CLevel3NPC : public CSolidObject, public CFSM
 {
 public:
 	// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
@@ -46,19 +55,19 @@ public:
 	};
 
 	// Default Constructor
-	CFinalBoss3D(void);
+	CLevel3NPC(void);
 
 	// Constructor with vectors
-	CFinalBoss3D(	const glm::vec3 vec3Position,
+	CLevel3NPC(	const glm::vec3 vec3Position,
 				const glm::vec3 vec3Front = glm::vec3(0.0f, 0.0f, -1.0f),
 				const float fYaw = -90.0f,
 				const float fPitch = 0.0f);
 
 	// Destructor
-	virtual ~CFinalBoss3D(void);
+	virtual ~CLevel3NPC(void);
 
 	// Initialise this class instance
-	bool Init(void);
+	bool Init(int type);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
@@ -102,22 +111,9 @@ public:
 	// PostRender
 	virtual void PostRender(void);
 
-	bool KilledFinalBoss = false;
-	int phase = 0;
-	int healersAlive = 4;
-	int soulsAlive = 4;
+	//bool nearGenerator = false;
 
-	double timer = 2;
-
-	bool goLeft = false;
-	bool goRight = true;
-
-	bool enraged = false;
-	bool regainPhase1 = false;
-
-	double FinalBossHp = 300;
-	// Detection distance for player
-	float fDetectionDistance;
+	//double percent = 0;
 
 protected:
 	// Enemy Attributes
@@ -133,6 +129,9 @@ protected:
 	// Movement Control
 	int iCurrentNumMovement;
 	int iMaxNumMovement;
+
+	// Detection distance for player
+	float fDetectionDistance;
 
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
@@ -150,6 +149,9 @@ protected:
 
 	// WaypointManager
 	CWaypointManager* cWaypointManager;
+
+	// Flags for IMGUI
+	ImGuiWindowFlags window_flags;
 
     // Calculates the front vector from the Enemy's (updated) Euler Angles
 	void UpdateEnemyVectors(void);

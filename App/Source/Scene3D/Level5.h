@@ -90,6 +90,7 @@ public:
 	void SpawnSoul(int x, int y, int z);
 
 	bool sprintCheck = false;
+	bool changeDialogue = false;
 	double timer = 10;
 
 	bool spawnedHealers = false;
@@ -132,6 +133,8 @@ protected:
 
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
+
+	double Enddialogtimer = 0;
 
 	// Constructor
 	CLevel5(void);

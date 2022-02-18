@@ -182,7 +182,7 @@ bool CHydra::Init(int type)
 
 	if (type == 1)
 	{
-		if (LoadModelAndTexture("Models/Sub_bosses/gyrados.obj",
+		if (LoadModelAndTexture("Models/Objects/Healthkit.obj",
 			"Models/Pistol/honeycombs_col.png",
 			VAO, iTextureID, iIndicesSize) == false)
 		{
@@ -192,7 +192,7 @@ bool CHydra::Init(int type)
 
 	if (type == 2)
 	{
-		if (LoadModelAndTexture("Models/Objects/Rocktransform.obj",
+		if (LoadModelAndTexture("Models/Sub_bosses/gyrados.obj",
 			"Models/Pistol/honeycombs_col.png",
 			VAO, iTextureID, iIndicesSize) == false)
 		{
@@ -202,6 +202,16 @@ bool CHydra::Init(int type)
 
 	if (type == 3)
 	{
+		if (LoadModelAndTexture("Models/Objects/Rocktransform.obj",
+			"Models/Pistol/honeycombs_col.png",
+			VAO, iTextureID, iIndicesSize) == false)
+		{
+			cout << "Unable to load model and texture" << endl;
+		}
+	}
+
+	if (type == 4)
+	{
 		if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
 			"Models/Pistol/honeycombs_col.png",
 			VAO, iTextureID, iIndicesSize) == false)
@@ -209,6 +219,7 @@ bool CHydra::Init(int type)
 			cout << "Unable to load model and texture" << endl;
 		}
 	}
+
 
 	// Store the handler to the terrain
 	cTerrain = CTerrain::GetInstance();
@@ -221,7 +232,7 @@ bool CHydra::Init(int type)
 	formchangetimer = 0;
 
 	// Detection distance for player
-	fDetectionDistance = 1000; //1000
+	fDetectionDistance = 4; //1000  //
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
@@ -353,7 +364,14 @@ bool CHydra::DischargeWeapon(void) const
 
 		else
 		{
-			return cPrimaryWeapon->Discharge(glm::vec3(vec3Position.x, vec3Position.y + 3.0, vec3Position.z), vec3Front, (CSolidObject*)this);
+			glm::vec3 pos(vec3Position.x, vec3Position.y + 2, vec3Position.z);
+			glm::vec3 front = cPlayer3D->GetPosition() - pos;
+			float d = glm::distance(cPlayer3D->GetPosition(), vec3Position);
+			front.x /= d;
+			front.y /= d;
+			front.z /= d;
+			return cPrimaryWeapon->Discharge(pos, front, (CSolidObject*)this);
+			/*return cPrimaryWeapon->Discharge(glm::vec3(vec3Position.x, vec3Position.y + 3.0, vec3Position.z), vec3Front, (CSolidObject*)this);*/
 		}
 	
 	}
@@ -417,24 +435,38 @@ bool CHydra::Update(const double dElapsedTime)
 		return false;
 	}
 
+	if (npctoboss == true)
+	{
+		nonattackphase = false;
+		fDetectionDistance = 1000.0f;
+		//cPlayer3D->NearHydra = true;
+		fMovementSpeed = 0.5f;
+	}
+
+	cout << "non attack phase: " << nonattackphase << endl;
+
 	if (moreaggresivepart1 == true)
 	{
-		fMovementSpeed = 0; //3
+		fDetectionDistance = 1000.0f;
+		fMovementSpeed = 2.5; //3
 	}
 	else if (moreaggresivepart1 == false && changingform == true)
 	{
+		fDetectionDistance = 1000.0f;
 		//formchangetimer += dElapsedTime;
 		fMovementSpeed = 0.0;
 	}
 
 	if (changingform == true)
 	{
+		fDetectionDistance = 1000.0f;
 		formchangetimer += dElapsedTime;
 		HydraBossHp += 20 * dElapsedTime;
 	}
 
 	if (formchangetimer >= 2)
 	{
+		fDetectionDistance = 1000.0f;
 		changingform = false;
 		moreaggresivepart2 = true;
 		formchangetimer = 0;
@@ -442,8 +474,9 @@ bool CHydra::Update(const double dElapsedTime)
 
 	if (moreaggresivepart2 == true)
 	{
+		fDetectionDistance = 1000.0f;
 		moreaggresivepart1 = false;
-		fMovementSpeed = 0; //6
+		fMovementSpeed = 5; //6
 		/*HydraBossHp = 70;*/
 	}
 
@@ -455,13 +488,21 @@ bool CHydra::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance /*&& npctoboss != true*/)
 	{
-		cPlayer3D->NearHydra = true;
+		cPlayer3D->NearLevel3BOSSWHENHENPC = true;
+
+		//if (npctoboss == false)
+		//{
+		//	cPlayer3D->NearHydra = true;
+		//}
+		//cPlayer3D->NearHydra = true;
+		//cPlayer3D->NearHydra = false;
 	}
 	else
 	{
-		cPlayer3D->NearHydra = false;
+		cPlayer3D->NearLevel3BOSSWHENHENPC = false;
+		//cPlayer3D->NearHydra = false; // false
 	}
 
 	switch (sCurrentFSM)
@@ -510,7 +551,8 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true /*&& moreaggresivepart2 != true*/)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance 
+			&& changingform != true && nonattackphase == false)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();
