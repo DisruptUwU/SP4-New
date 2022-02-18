@@ -43,7 +43,7 @@
 // Include CStructure3D
 #include "Entities\Bloodbath.h"
 #include "Entities\Jumpscaretrap.h"
-#include "Entities\FinalNPC.h"
+#include "Entities\Level3NPC.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 

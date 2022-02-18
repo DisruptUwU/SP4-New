@@ -234,13 +234,13 @@ bool CLevel3::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
 
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(10.0f, fCheckHeight, -5));
-	cFinalNPC->SetShader("Shader3D");
-	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	CLevel3NPC* cLevel3NPC = new CLevel3NPC(glm::vec3(10.0f, fCheckHeight, -5));
+	cLevel3NPC->SetShader("Shader3D");
+	cLevel3NPC->Init();
+	cLevel3NPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	//cNPC->SetScale(glm::vec3(0.5f));
 	// Add the cGenerator to the cSolidObjectManager
-	cSolidObjectManager->Add(cFinalNPC);
+	cSolidObjectManager->Add(cLevel3NPC);
 
 	//// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -357,17 +357,22 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
-	if (cPlayer3D->NearFinalNPC == true)
+	if (cPlayer3D->NearLevel3NPC == true)
 	{
 		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
 		{
-			/*if (cPlayer3D->FinalNPCDialogueStage <= 6)
+			if (cPlayer3D->Level3NPCDialogueStage == 0)
 			{
-				cPlayer3D->FinalNPCDialogueStage++;
+				cPlayer3D->Level3NPCDialogueStage++;
 			}
-			if (cPlayer3D->FinalNPCDialogueStage >= 6)
+
+			else
 			{
-				cPlayer3D->FinalNPCDialogueStage = 6;
+
+			}
+			/*if (cPlayer3D->FinalNPCDialogueStage >= 8)
+			{
+				cPlayer3D->FinalNPCDialogueStage = 8;
 			}*/
 		}
 	}
