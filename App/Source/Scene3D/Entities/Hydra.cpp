@@ -437,10 +437,13 @@ bool CHydra::Update(const double dElapsedTime)
 
 	if (npctoboss == true)
 	{
+		nonattackphase = false;
 		fDetectionDistance = 1000.0f;
 		//cPlayer3D->NearHydra = true;
 		fMovementSpeed = 0.5f;
 	}
+
+	cout << "non attack phase: " << nonattackphase << endl;
 
 	if (moreaggresivepart1 == true)
 	{
@@ -548,7 +551,8 @@ bool CHydra::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance && changingform != true /*&& moreaggresivepart2 != true*/)
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance 
+			&& changingform != true && nonattackphase == false)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
 			UpdateFrontAndYaw();

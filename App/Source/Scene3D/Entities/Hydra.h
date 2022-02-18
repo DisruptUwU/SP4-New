@@ -116,6 +116,8 @@ public:
 
 	bool healthbelow50 = false;
 
+	bool nonattackphase = true;
+
 	bool npctoboss = false;
 
 	bool moreaggresivepart1 = false;
