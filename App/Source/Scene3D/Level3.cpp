@@ -397,6 +397,11 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cHydra->npctoboss == true && cHydra->moreaggresivepart2 == false)
 	{
+		cPlayer3D->stamina = 100;
+		CPlayer3D::GetInstance()->GetWeapon()->iMagRounds = 80;
+		CPlayer3D::GetInstance()->GetWeapon()->iTotalRounds = 400;
+		//CPlayer3D::GetInstance()->GetWeapon()->AddRounds(30);
+		//cPlayer3D->
 		//cSoundController->PlaySoundByID(7);
 		cPlayer3D->SetPosition(glm::vec3(-2.4f, 5.7f, -28.1f));
 		cPlayer3D->NearHydra = true;

@@ -87,7 +87,6 @@ public:
 	// Print Self
 	virtual void PrintSelf(void);
 
-protected:
 	// The number of ammunition in a magazine for this weapon
 	int iMagRounds;
 	// The maximum number of ammunition for this magazine for this weapon
@@ -96,6 +95,16 @@ protected:
 	int iTotalRounds;
 	// The max total number of rounds currently carried by this player
 	int iMaxTotalRounds;
+
+protected:
+	//// The number of ammunition in a magazine for this weapon
+	//int iMagRounds;
+	//// The maximum number of ammunition for this magazine for this weapon
+	//int iMaxMagRounds;
+	//// The current total number of rounds currently carried by this player
+	//int iTotalRounds;
+	//// The max total number of rounds currently carried by this player
+	//int iMaxTotalRounds;
 
 	// The time between shots in milliseconds
 	double dTimeBetweenShots;
