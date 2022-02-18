@@ -195,23 +195,22 @@ bool CSolidObjectManager::CheckForCollision(void)
 	end = lSolidObject.end();
 	for (it = lSolidObject.begin(); it != end; ++it)
 	{
-		// If the entity is not active, then skip it
+		// If the entity is not active, then skip it (Unless entity is door for lvl 1, which will activate upon killing of all four enemies in lvl 1)
 		if ((*it)->GetStatus() == false)
-			continue;
-
-		// If enemy_lvl1_count reaches 0, activate door
-		if ((*it)->GetType() == CSolidObject::TYPE::DOOR)
 		{
-			if (enemy_lvl1_count > 0)
-			{
-				(*it)->SetStatus(false);
-			}
-
-			else if (enemy_lvl1_count <= 0)
+			if (enemy_lvl1_count <= 0 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
 			{
 				(*it)->SetStatus(true);
 				cout << "** Level 1 portal activated ***" << endl;
+				//continue;
 			}
+			continue; // Go to next entity in loop
+		}
+
+		// Set door to false first
+		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count > 0)
+		{
+			(*it)->SetStatus(false);
 		}
 			
 
