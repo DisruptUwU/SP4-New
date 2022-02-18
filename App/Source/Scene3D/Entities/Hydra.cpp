@@ -512,46 +512,46 @@ bool CHydra::Update(const double dElapsedTime)
 		case FSM::IDLE:
 			if (iFSMCounter > iMaxFSMCounter)
 			{
-				sCurrentFSM = FSM::ATTACK;
+				sCurrentFSM = FSM::PATROL;
 				iFSMCounter = 0;
 				if (_DEBUG_FSM == true)
 					cout << "Rested: Switching to Patrol State" << endl;
 			}
 			iFSMCounter++;
 			break;
-		//case FSM::PATROL:
-		//	// Check if the destination position has been reached
-		//	if (cWaypointManager->HasReachedWayPoint(vec3Position))
-		//	{
-		//		vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
-		//		UpdateFrontAndYaw();
+		case FSM::PATROL:
+			// Check if the destination position has been reached
+			if (cWaypointManager->HasReachedWayPoint(vec3Position))
+			{
+				vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
+				UpdateFrontAndYaw();
 
-		//		if (_DEBUG_FSM == true)
-		//			cout << "Reached waypoint: Going to next waypoint" << endl;
-		//	}
-		//	else if (iFSMCounter > iMaxFSMCounter)
-		//	{
-		//		sCurrentFSM = FSM::IDLE;
-		//		iFSMCounter = 0;
-		//		if (_DEBUG_FSM == true)
-		//			cout << "FSM Counter maxed out: Switching to Idle State" << endl;
-		//	}
-		//	else if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		//	{
-		//		sCurrentFSM = FSM::ATTACK;
-		//		iFSMCounter = 0;
-		//		if (_DEBUG_FSM == true)
-		//			cout << "Target found: Switching to Attack State" << endl;
-		//	}
-		//	else
-		//	{
-		//		// Process the movement
-		//		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
-		//		if (_DEBUG_FSM == true)
-		//			cout << "Patrolling" << endl;
-		//	}
-		//	iFSMCounter++;
-		//	break;
+				if (_DEBUG_FSM == true)
+					cout << "Reached waypoint: Going to next waypoint" << endl;
+			}
+			else if (iFSMCounter > iMaxFSMCounter)
+			{
+				sCurrentFSM = FSM::IDLE;
+				iFSMCounter = 0;
+				if (_DEBUG_FSM == true)
+					cout << "FSM Counter maxed out: Switching to Idle State" << endl;
+			}
+			else if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+			{
+				sCurrentFSM = FSM::ATTACK;
+				iFSMCounter = 0;
+				if (_DEBUG_FSM == true)
+					cout << "Target found: Switching to Attack State" << endl;
+			}
+			else
+			{
+				// Process the movement
+				ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+				if (_DEBUG_FSM == true)
+					cout << "Patrolling" << endl;
+			}
+			iFSMCounter++;
+			break;
 		case FSM::ATTACK:
 			if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance
 				&& changingform != true && nonattackphase == false)

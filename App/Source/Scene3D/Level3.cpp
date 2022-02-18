@@ -219,7 +219,7 @@ bool CLevel3::Init(void)
 	cHydra->Init(1); //1
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec3(-2, 1.5, -0.5), glm::vec3(0.25, 3, 0.5));
-	//cHydra->bIsDisplayed = false;
+	cHydra->bIsDisplayed = false;
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 	// Assign a cPistol to the cEnemy3D
 
