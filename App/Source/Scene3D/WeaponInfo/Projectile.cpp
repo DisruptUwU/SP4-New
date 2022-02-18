@@ -58,7 +58,7 @@ bool CProjectile::Init(	glm::vec3 vec3Position,
 	this->vec3Front = vec3Front;
 	this->dLifetime = dLifetime;
 	this->fSpeed = fSpeed;
-	vec4Colour = glm::vec4(1.0f, 0.5f, 0.0f, 1.0f);
+	vec4Colour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate and bind the VAO
 	glGenVertexArrays(1, &VAO);
@@ -68,10 +68,10 @@ bool CProjectile::Init(	glm::vec3 vec3Position,
 	mesh = CMeshBuilder::GenerateBox(vec4Colour, 0.1f, 0.1f, 0.1f);
 
 	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Player.tga", false);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/red_rock.tga", false);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/Scene3D_Player.tga" << endl;
+		cout << "Unable to load Image/red_rock.tga" << endl;
 		return false;
 	}
 
