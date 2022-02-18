@@ -366,20 +366,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		if (timer <= 0)
 		{
 			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-			CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
-			cEnemy3D->SetShader("Shader3D");
-			cEnemy3D->Init();
-			cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-			CPistol* cEnemyPistol = new CPistol();
-			// Set the position, rotation and scale of this weapon
-			//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-			//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-			cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-			// Initialise the instance
-			cEnemyPistol->Init();
-			cEnemyPistol->SetShader("Shader3D_Model");
-			cEnemy3D->SetWeapon(0, cEnemyPistol);
-			cSolidObjectManager->Add(cEnemy3D);
+			SpawnSoul(0, fCheckHeight, 0);
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
@@ -487,24 +474,6 @@ bool CLevel5::Update(const double dElapsedTime)
 	}
 
 	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
