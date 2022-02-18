@@ -109,7 +109,7 @@ CLevel3NPC::~CLevel3NPC(void)
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CLevel3NPC::Init(void)
+bool CLevel3NPC::Init(int type)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
@@ -124,15 +124,32 @@ bool CLevel3NPC::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
-
-	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
-	if (iTextureID == 0)
+	if (type == 1)
 	{
-		cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
-		return false;
+		mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
+
+		// load and create a texture 
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
+		if (iTextureID == 0)
+		{
+			cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
+			return false;
+		}
 	}
+
+	if (type == 2)
+	{
+		mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
+
+		// load and create a texture 
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
+		if (iTextureID == 0)
+		{
+			cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
+			return false;
+		}
+	}
+
 
 	// Store the handler to the terrain
 	cTerrain = CTerrain::GetInstance();
@@ -319,11 +336,11 @@ bool CLevel3NPC::Update(const double dElapsedTime)
 		//cout << glm::distance(vec3Position, cPlayer3D->GetPosition()) << " vs " << fDetectionDistance << endl;
 		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 		{
-			cPlayer3D->NearLevel3NPC = true;  //NearFinalNpc
+			//cPlayer3D->NearLevel3BOSSWHENHENPC = true;  //NearFinalNpc
 		}
 		else 
 		{
-			cPlayer3D->NearLevel3NPC = false;
+			//cPlayer3D->NearLevel3BOSSWHENHENPC = false;
 		}
 		iFSMCounter++;
 		break;

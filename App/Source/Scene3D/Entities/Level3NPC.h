@@ -67,7 +67,7 @@ public:
 	virtual ~CLevel3NPC(void);
 
 	// Initialise this class instance
-	bool Init(void);
+	bool Init(int type);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);

@@ -561,7 +561,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		}
 	}
 
-	if (cPlayer3D->NearLevel3NPC == true)
+	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
 		ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
 			ImGuiWindowFlags_NoBackground |

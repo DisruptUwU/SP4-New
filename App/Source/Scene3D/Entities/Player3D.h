@@ -126,7 +126,7 @@ public:
 
 	bool NearFinalBoss = false;
 	bool NearFinalNPC = false;
-	bool NearLevel3NPC = false;
+	bool NearLevel3BOSSWHENHENPC = false; //NearLevel3NPC
 	bool AllSoulsKilled = false;
 	int Level3NPCDialogueStage = 0;
 	int FinalNPCDialogueStage = 0;
