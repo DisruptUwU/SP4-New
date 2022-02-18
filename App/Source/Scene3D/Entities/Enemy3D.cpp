@@ -130,13 +130,13 @@ bool CEnemy3D::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
+	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 0.5f, 0, 1));
 
 	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/gold_rock.tga", false);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
+		cout << "Unable to load Image/gold_rock.tga" << endl;
 		return false;
 	}
 
@@ -156,11 +156,13 @@ bool CEnemy3D::Init(void)
 	cWaypointManager->Init();
 
 	// Add in some test Waypoints
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -30.0f);
-	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, fCheckHeight, -30.0f));
-	fCheckHeight = cTerrain->GetHeight(20.0f, -20.0f);
+	float fCheckHeight = cTerrain->GetHeight(0.0f, -35.0f);
+	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, fCheckHeight, -35.0f));
+
+	fCheckHeight = cTerrain->GetHeight(30.0f, 0.0f);
 	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(30.0f, fCheckHeight, 0.0f));
-	fCheckHeight = cTerrain->GetHeight(-20.0f, -30.0f);
+
+	fCheckHeight = cTerrain->GetHeight(-30.0f, 0.0f);
 	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-30.0f, fCheckHeight, 0.0f));
 
 	cWaypointManager->PrintSelf();

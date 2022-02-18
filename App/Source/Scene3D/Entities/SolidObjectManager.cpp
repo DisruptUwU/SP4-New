@@ -209,6 +209,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 			else if (enemy_lvl1_count <= 0)
 			{
 				(*it)->SetStatus(true);
+				cout << "** Level 1 portal activated ***" << endl;
 			}
 		}
 			
@@ -417,7 +418,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
-					cout << "** RayBoxCollision between lvl enemy and Projectile ***" << endl;
+					cout << "** RayBoxCollision between lvl 1 enemy and Projectile ***" << endl;
 					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::SOUL)
