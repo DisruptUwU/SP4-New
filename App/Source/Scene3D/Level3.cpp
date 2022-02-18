@@ -162,6 +162,9 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroar.ogg"), 6, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 7, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase2.ogg"), 8, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -211,12 +214,12 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
+	cHydra = new CHydra(glm::vec3(0.0f, 0.0f, 0.0f)); //0.5f
 	cHydra->SetShader("Shader3D");
 	cHydra->Init(1); //1
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec3(-2, 1.5, -0.5), glm::vec3(0.25, 3, 0.5));
-	//cHydra->bIsDisplayed = false;
+	cHydra->bIsDisplayed = false;
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 	// Assign a cPistol to the cEnemy3D
 
@@ -227,7 +230,7 @@ bool CLevel3::Init(void)
 	//cEnemyPistol->SetRotation(60, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
-	cEnemyPistol->Init();
+	//cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cHydra->SetWeapon(0, cEnemyPistol);
 
@@ -359,24 +362,47 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)//IsKeyPressed
 		{
+			//npctobosstimer += dElapsedTime;
 			if (cPlayer3D->Level3NPCDialogueStage <= 0)
 			{
 				cPlayer3D->Level3NPCDialogueStage++;
+				timeractivate = true;
 			}
 
-			else // when dialog over
-			{
-				cHydra->npctoboss = true;
-			}
+			//else // when dialog over
+			//{
+			//	timeractivate = true;
+			//}
 		}
 	}
 
-	cout << "npctoboss:" << cHydra->npctoboss << endl;
-
-	if (cHydra->npctoboss == true)
+	if (timeractivate == true)
 	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		npctobosstimer += dElapsedTime;
+		cSoundController->PlaySoundByID(6);
+	}
+
+	if (npctobosstimer >= 2.2) // 2
+	{
+		cHydra->npctoboss = true;
+		npctobosstimer = 0;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
+		timeractivate = false;
+	}
+
+	cout << "npctobosstimer: " << npctobosstimer << endl;
+
+	if (cHydra->npctoboss == true && cHydra->moreaggresivepart2 == false)
+	{
+		cPlayer3D->stamina = 100;
+		CPlayer3D::GetInstance()->GetWeapon()->iMagRounds = 80;
+		CPlayer3D::GetInstance()->GetWeapon()->iTotalRounds = 400;
+		//CPlayer3D::GetInstance()->GetWeapon()->AddRounds(30);
+		//cPlayer3D->
+		//cSoundController->PlaySoundByID(7);
 		cPlayer3D->SetPosition(glm::vec3(-2.4f, 5.7f, -28.1f));
 		cPlayer3D->NearHydra = true;
 		if (checknpctohydra == 0)
@@ -417,6 +443,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->HydraKilled == true)
 	{
+		//cSoundController->StopSound();
 		if (checkportal == 0)
 		{
 			spawnportal = true;
@@ -433,10 +460,10 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoor* cDoor = new CDoor(glm::vec3(-15.1, -0.5, 28.9)); //2
+		CDoorLvl3* cDoor = new CDoorLvl3(glm::vec3(-15.1, -0.4, 28.9)); //y = -0.5
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
-		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
+		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		//cSpeed->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
 		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
@@ -467,8 +494,10 @@ bool CLevel3::Update(const double dElapsedTime)
 		//cHydra->SetScale(glm::vec3(1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime));
 	}
 
-	if (cHydra->moreaggresivepart2 == true)
+	if (cHydra->moreaggresivepart2 == true && cHydra->HydraKilled == false)
 	{
+		//cSoundController->PlaySoundByID(8);
+		//cSoundController->
 		cSolidObjectManager->moreaggresivepart2 = true;
 
 		if (checkaggresion == 0)

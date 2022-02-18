@@ -51,6 +51,7 @@ public:
 		ENEMYLVL2,
 		DEMON,
 		DOORLVL2,
+		DOORLVL3,
 		NUM_TYPES
 	};
 

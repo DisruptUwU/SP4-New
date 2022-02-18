@@ -44,6 +44,7 @@
 #include "Entities\Bloodbath.h"
 #include "Entities\Jumpscaretrap.h"
 #include "Entities\Level3NPC.h"
+#include "Entities\doorlvl3.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -133,6 +134,10 @@ protected:
 
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
+
+	bool timeractivate = false;
+
+	double npctobosstimer = 0;
 
 	int checkportal = 0;
 
