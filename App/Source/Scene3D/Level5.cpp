@@ -334,9 +334,19 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->FinalNPCDialogueStage == 8)
 	{
-		cSolidObjectManager->cFinalBoss3D->phase = 1;
-		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
+
+		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
+		//cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		Enddialogtimer += dElapsedTime;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
+	}
+
+	if (Enddialogtimer >= 2.5)
+	{
+		cPlayer3D->FinalNPCDialogueStage = 9; // set it to 9 (think of it as a bool set to false)
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false); //stop spawning screen
+		Enddialogtimer = 0;
 	}
 
 	if (timer >= 0) {

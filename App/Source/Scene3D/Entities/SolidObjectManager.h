@@ -82,6 +82,9 @@ public:
 	CDemon* cDemon;
 
 	CPlayer3D* cPlayer3D;
+
+	// Hardcode int value fpr keeping track of lvl 1 eneimes
+	int enemy_lvl1_count;
 protected:
 	// Render Settings
 	glm::mat4 model;

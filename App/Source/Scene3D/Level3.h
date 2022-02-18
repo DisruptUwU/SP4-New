@@ -43,7 +43,7 @@
 // Include CStructure3D
 #include "Entities\Bloodbath.h"
 #include "Entities\Jumpscaretrap.h"
-#include "Entities\FinalNPC.h"
+#include "Entities\Level3NPC.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -120,6 +120,8 @@ protected:
 
 	CSpeed* cSpeed;
 
+	CLevel3NPC* cLevel3NPC;
+
 	CJumpscaretrap* cJumpscaretrap;
 	// Handler to the CSkyBox
 	CSkyBox* cSkyBox;
@@ -135,6 +137,8 @@ protected:
 	int checkportal = 0;
 
 	int checkdeath = 0;
+
+	int checknpctohydra = 0;
 
 	int checkaggresion = 0;
 

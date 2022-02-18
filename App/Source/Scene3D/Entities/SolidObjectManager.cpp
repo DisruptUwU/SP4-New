@@ -59,6 +59,8 @@ bool CSolidObjectManager::Init(void)
 
 	//cFinalBoss3D = CFinalBoss3D::GetInstance();
 
+	enemy_lvl1_count = 4; // Set this to number of enemies in lvl 1
+
 	return true;
 }
 
@@ -195,6 +197,21 @@ bool CSolidObjectManager::CheckForCollision(void)
 		// If the entity is not active, then skip it
 		if ((*it)->GetStatus() == false)
 			continue;
+
+		// If enemy_lvl1_count reaches 0, activate door
+		if ((*it)->GetType() == CSolidObject::TYPE::DOOR)
+		{
+			if (enemy_lvl1_count > 0)
+			{
+				(*it)->SetStatus(false);
+			}
+
+			else if (enemy_lvl1_count <= 0)
+			{
+				(*it)->SetStatus(true);
+			}
+		}
+			
 
 		for (it_other = lSolidObject.begin(); it_other != end; ++it_other)
 		{
@@ -390,6 +407,17 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::ENEMY_LVL1)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(*it)->SetStatus(false);
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
+					cout << "** RayBoxCollision between lvl enemy and Projectile ***" << endl;
 					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::SOUL)

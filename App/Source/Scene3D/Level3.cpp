@@ -213,7 +213,7 @@ bool CLevel3::Init(void)
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
 	cHydra->SetShader("Shader3D");
-	cHydra->Init(1);
+	cHydra->Init(1); //1
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec3(-2, 1.5, -0.5), glm::vec3(0.25, 3, 0.5));
 	//cHydra->bIsDisplayed = false;
@@ -234,13 +234,13 @@ bool CLevel3::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
 
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(10.0f, fCheckHeight, -5));
-	cFinalNPC->SetShader("Shader3D");
-	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	cLevel3NPC = new CLevel3NPC(glm::vec3(10.0f, fCheckHeight, -5));
+	cLevel3NPC->SetShader("Shader3D");
+	cLevel3NPC->Init(1);
+	cLevel3NPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	//cNPC->SetScale(glm::vec3(0.5f));
 	// Add the cGenerator to the cSolidObjectManager
-	cSolidObjectManager->Add(cFinalNPC);
+	cSolidObjectManager->Add(cLevel3NPC);
 
 	//// Initialise a CStructure3D
 	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -357,19 +357,52 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
-	if (cPlayer3D->NearFinalNPC == true)
+	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
 		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
 		{
-			if (cPlayer3D->FinalNPCDialogueStage <= 6)
+			if (cPlayer3D->Level3NPCDialogueStage <= 0)
 			{
-				cPlayer3D->FinalNPCDialogueStage++;
+				cPlayer3D->Level3NPCDialogueStage++;
 			}
-			if (cPlayer3D->FinalNPCDialogueStage >= 6)
+
+			else // when dialog over
 			{
-				cPlayer3D->FinalNPCDialogueStage = 6;
+				cHydra->npctoboss = true;
 			}
 		}
+	}
+
+	cout << "npctoboss:" << cHydra->npctoboss << endl;
+
+	if (cHydra->npctoboss == true)
+	{
+		cPlayer3D->SetPosition(glm::vec3(-2.4f, 5.7f, -28.1f));
+		cPlayer3D->NearHydra = true;
+		if (checknpctohydra == 0)
+		{
+			cHydra->Init(2);
+			/*cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));*/
+			checknpctohydra += 1;
+		}
+
+		else
+		{
+			//spawnportal = false;
+			cHydra->npctoboss = false;
+		}
+	}
+
+	//if (cPlayer3D->Level3NPCDialogueStage >= 1)
+	//{
+	//	cLevel3NPC->Init(2);
+	//	//cLevel3NPC-> SetScale(glm::vec3(0.1, 0.1, 0.1));
+	//}
+
+	if (cPlayer3D->stamina <= 0)
+	{
+		cPlayer3D->stamina = 0;
 	}
 
 	if (sprintCheck == true) {
@@ -428,7 +461,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		//cSolidObjectManager->healthbelow50 = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
-		cHydra->Init(2); //new place
+		cHydra->Init(3); //new place
 		cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 			glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
 		//cHydra->SetScale(glm::vec3(1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime));
@@ -440,7 +473,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 		if (checkaggresion == 0)
 		{
-			cHydra->Init(3); //
+			cHydra->Init(4); //
 			cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));
 			checkaggresion += 1;

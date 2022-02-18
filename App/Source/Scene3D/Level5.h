@@ -134,6 +134,8 @@ protected:
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
 
+	double Enddialogtimer = 0;
+
 	// Constructor
 	CLevel5(void);
 	// Destructor
