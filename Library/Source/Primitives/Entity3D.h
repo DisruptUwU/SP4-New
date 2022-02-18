@@ -49,6 +49,7 @@ public:
 		FINALBOSS,
 		SOUL,
 		DEMON,
+		DOORLVL2,
 		NUM_TYPES
 	};
 

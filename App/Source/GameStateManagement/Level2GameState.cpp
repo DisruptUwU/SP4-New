@@ -58,6 +58,15 @@ bool CLevel2GameState::Init(void)
  */
 bool CLevel2GameState::Update(const double dElapsedTime)
 {
+	if (CLevel2->gotolevel3 == true)
+	{
+		CLevel2->gotolevel3 = false;
+		cout << "Loading level 3" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("Level3GameState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
 		// Reset the CKeyboardController

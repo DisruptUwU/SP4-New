@@ -18,7 +18,7 @@
 #include "FinalBoss3D.h"
 #include "FinalNPC.h"
 #include "Player3D.h"
-#include "../App/Demon.h"
+#include "Demon.h"
 
 // Include list
 #include <list>
@@ -64,11 +64,15 @@ public:
 
 	bool wenttodoor = false;
 
+	bool Doorlevel2 = false;
+
 	bool youlose = false;
 
 	bool healthbelow50 = false;
 
 	bool DemonKilled = false;
+
+	int DeadEnemies = 0;
 
 	//bool hydrashotplayer = false;
 	bool moreaggresivepart2 = false;
