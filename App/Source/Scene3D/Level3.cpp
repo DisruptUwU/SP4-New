@@ -163,8 +163,9 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroar.ogg"), 6, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 7, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase2.ogg"), 8, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroaraggressive.ogg"), 7, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 8, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase2.ogg"), 9, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -509,6 +510,7 @@ bool CLevel3::Update(const double dElapsedTime)
 			cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));
 			checkaggresion += 1;
+			cSoundController->PlaySoundByID(7);
 		}
 
 		else
