@@ -255,16 +255,16 @@ bool CLevel3::Init(void)
 	//// Add the cStructure3D to the cSolidObjectManager
 	//cSolidObjectManager->Add(cSpeed);
 
-	// Initialise a CStructure3D
-	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	cJumpscaretrap = new CJumpscaretrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cJumpscaretrap->SetShader("Shader3D");
-	cJumpscaretrap->Init();
-	cJumpscaretrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//cStructure3D->SetScale(glm::vec3(0.5f));
+	//// Initialise a CStructure3D
+	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	//cJumpscaretrap = new CJumpscaretrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cJumpscaretrap->SetShader("Shader3D");
+	//cJumpscaretrap->Init();
+	//cJumpscaretrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	////cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cJumpscaretrap);
+	//cSolidObjectManager->Add(cJumpscaretrap);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -383,11 +383,21 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		npctobosstimer += dElapsedTime;
-		cSoundController->PlaySoundByID(6);
+		/*cSoundController->PlaySoundByID(6);*/
 		cPlayer3D->cantMove = true;
+		if (checkfirstroar == 0)
+		{
+			cSoundController->PlaySoundByID(6);
+			checkfirstroar += 1;
+		}
+
+		else
+		{
+
+		}
 	}
 
-	if (npctobosstimer >= 2.2) // 2
+	if (npctobosstimer >= 2.2) // 2.2
 	{
 		cPlayer3D->cantMove = false; //either here
 		cHydra->npctoboss = true;

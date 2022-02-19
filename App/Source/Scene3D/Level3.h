@@ -141,6 +141,8 @@ protected:
 
 	double npctobosstimer = 0;
 
+	int checkfirstroar = 0;
+
 	int checkportal = 0;
 
 	int checkdeath = 0;
