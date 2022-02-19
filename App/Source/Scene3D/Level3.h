@@ -137,6 +137,8 @@ protected:
 
 	bool timeractivate = false;
 
+	bool changesongsequence = false;
+
 	double npctobosstimer = 0;
 
 	int checkportal = 0;

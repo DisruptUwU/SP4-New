@@ -165,7 +165,7 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroar.ogg"), 6, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroaraggressive.ogg"), 7, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 8, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase2.ogg"), 9, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\OP.ogg"), 9, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -415,6 +415,7 @@ bool CLevel3::Update(const double dElapsedTime)
 			/*cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));*/
 			checknpctohydra += 1;
+			cSoundController->PlaySoundByID(8);
 		}
 
 		else
@@ -489,7 +490,9 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->cHydra->HydraBossHp <= 30 && cHydra->moreaggresivepart2 == false)
 	{
+		/*cSoundController->StopSound();*/
 		//cSolidObjectManager->healthbelow50 = true;
+		changesongsequence = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
 		cHydra->Init(3); //new place
@@ -498,9 +501,15 @@ bool CLevel3::Update(const double dElapsedTime)
 		//cHydra->SetScale(glm::vec3(1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime));
 	}
 
-	if (cHydra->moreaggresivepart2 == true && cHydra->HydraKilled == false)
+	if (changesongsequence == true && cHydra->changingform == false)
 	{
-		//cSoundController->PlaySoundByID(8);
+		cSoundController->StopSound();
+	}
+
+	if (cHydra->moreaggresivepart2 == true && cSolidObjectManager->HydraKilled == false)
+	{
+		changesongsequence = false;
+		//cSoundController->StopSound();
 		//cSoundController->
 		cSolidObjectManager->moreaggresivepart2 = true;
 
@@ -511,6 +520,7 @@ bool CLevel3::Update(const double dElapsedTime)
 				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));
 			checkaggresion += 1;
 			cSoundController->PlaySoundByID(7);
+			cSoundController->PlaySoundByID(9);
 		}
 
 		else
@@ -519,6 +529,11 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 
 		//cHydra->moreaggresivepart2 = false;
+	}
+
+	if (cSolidObjectManager->HydraKilled == true && checkaggresion == 1)
+	{
+		cSoundController->StopSound();
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))

@@ -110,7 +110,7 @@ public:
 
 	//bool hydrakilled = false;
 
-	bool HydraKilled = false;
+	//bool HydraKilled = false;
 
 	double HydraBossHp = 100;
 
