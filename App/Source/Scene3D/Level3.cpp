@@ -641,7 +641,15 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cPlayer3D->playerlostallhealth == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		cSoundController->PlaySoundByID(5);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->PlaySoundByID(5);
+		}
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
 		cSolidObjectManager->youlose = true;

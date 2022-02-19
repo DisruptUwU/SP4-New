@@ -153,6 +153,8 @@ protected:
 
 	int losetimer;
 
+	int checkplayerdie = 0;
+
 	bool playerdies = false;
 
 	bool spawnportal = false;

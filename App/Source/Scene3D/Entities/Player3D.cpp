@@ -546,7 +546,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			if (Hit == false)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
-				cInventoryItem->Remove(10); //float //10
+				cInventoryItem->Remove(50); //float //10 //50
 				healthdownbyhydra = false;
 				Hit = true;
 			}
