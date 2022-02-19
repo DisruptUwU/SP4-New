@@ -676,7 +676,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cPlayer3D->playerhealthbelow30 == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
-		//cSoundController->PlaySoundByID(4);
+		cSoundController->PlaySoundByID(4);
 	}
 
 	else
