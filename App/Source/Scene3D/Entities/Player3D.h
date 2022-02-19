@@ -150,6 +150,7 @@ public:
 	double DmgUpTimer = 3;
 
 	int Damage = 10;
+	bool cantMove = false;
 
 protected:
 	// The handle to the CCamera class instance

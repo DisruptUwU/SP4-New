@@ -302,37 +302,31 @@ void CPlayer3D::SetToJump(void)
  */
 void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float deltaTime)
 {
-	float velocity = fMovementSpeed * deltaTime;
-
-	if (trapped == true)
+	if (cantMove == true)
 	{
-		if (trapTimer > 0)
-		{
-			trapTimer -= 1 * deltaTime;
-			velocity = fMovementSpeed * 0 * deltaTime;
-		}
-		else if (trapTimer <= 0)
-		{
-			trapTimer = 3;
-			trapped = false;
-		}
+		//
 	}
-	else if (trapped == false)
+
+	else
 	{
-		if (stamina <= 0) {
-			if (speedPower == true)
+		float velocity = fMovementSpeed * deltaTime;
+
+		if (trapped == true)
+		{
+			if (trapTimer > 0)
 			{
-				velocity = fMovementSpeed * 5 * deltaTime;
+				trapTimer -= 1 * deltaTime;
+				velocity = fMovementSpeed * 0 * deltaTime;
 			}
-			else 
+			else if (trapTimer <= 0)
 			{
-				velocity = fMovementSpeed * 2 * deltaTime;
+				trapTimer = 3;
+				trapped = false;
 			}
 		}
-		else
+		else if (trapped == false)
 		{
-			if (sprint == false)
-			{
+			if (stamina <= 0) {
 				if (speedPower == true)
 				{
 					velocity = fMovementSpeed * 5 * deltaTime;
@@ -342,33 +336,49 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 					velocity = fMovementSpeed * 2 * deltaTime;
 				}
 			}
-			else if (sprint == true)
+			else
 			{
-				if (speedPower == true)
+				if (sprint == false)
 				{
-					velocity = fMovementSpeed * 10 * deltaTime;
+					if (speedPower == true)
+					{
+						velocity = fMovementSpeed * 5 * deltaTime;
+					}
+					else
+					{
+						velocity = fMovementSpeed * 2 * deltaTime;
+					}
 				}
-				else 
+				else if (sprint == true)
 				{
-					velocity = fMovementSpeed * 4 * deltaTime;
+					if (speedPower == true)
+					{
+						velocity = fMovementSpeed * 10 * deltaTime;
+					}
+					else
+					{
+						velocity = fMovementSpeed * 4 * deltaTime;
+					}
 				}
-			}
 
+			}
 		}
+
+		if (direction == PLAYERMOVEMENT::FORWARD)
+			vec3Position += vec3Front * velocity;
+		if (direction == PLAYERMOVEMENT::BACKWARD)
+			vec3Position -= vec3Front * velocity;
+		if (direction == PLAYERMOVEMENT::LEFT)
+			vec3Position -= vec3Right * velocity;
+		if (direction == PLAYERMOVEMENT::RIGHT)
+			vec3Position += vec3Right * velocity;
+
+		// Indicate that camera sway is to be updated
+		if (bCameraSwayActive)
+			bUpdateCameraSway = true;
 	}
 
-	if (direction == PLAYERMOVEMENT::FORWARD)
-		vec3Position += vec3Front * velocity;
-	if (direction == PLAYERMOVEMENT::BACKWARD)
-		vec3Position -= vec3Front * velocity;
-	if (direction == PLAYERMOVEMENT::LEFT)
-		vec3Position -= vec3Right * velocity;
-	if (direction == PLAYERMOVEMENT::RIGHT)
-		vec3Position += vec3Right * velocity;
-
-	// Indicate that camera sway is to be updated
-	if (bCameraSwayActive)
-		bUpdateCameraSway = true;
+	
 }
 
 /**

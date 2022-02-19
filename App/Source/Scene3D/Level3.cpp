@@ -383,10 +383,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		npctobosstimer += dElapsedTime;
 		cSoundController->PlaySoundByID(6);
+		cPlayer3D->cantMove = true;
 	}
 
 	if (npctobosstimer >= 2.2) // 2
 	{
+		cPlayer3D->cantMove = false; //either here
 		cHydra->npctoboss = true;
 		npctobosstimer = 0;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
@@ -397,6 +399,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cHydra->npctoboss == true && cHydra->moreaggresivepart2 == false)
 	{
+		//cPlayer3D->cantMove = false; //or here
 		cPlayer3D->stamina = 100;
 		CPlayer3D::GetInstance()->GetWeapon()->iMagRounds = 80;
 		CPlayer3D::GetInstance()->GetWeapon()->iTotalRounds = 400;
