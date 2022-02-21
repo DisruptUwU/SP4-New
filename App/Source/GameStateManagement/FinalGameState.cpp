@@ -7,7 +7,7 @@
 // Include GLFW
 #include <GLFW/glfw3.h>
 
-#include "Level3GameState.h"
+#include "FinalGameState.h"
 
 // Include CGameStateManager
 #include "GameStateManager.h"
@@ -21,8 +21,8 @@ using namespace std;
 /**
  @brief Constructor
  */
-CLevel3GameState::CLevel3GameState(void)
-	: CLevel3(NULL)
+CFinalState::CFinalState(void)
+	: CLevelFinal(NULL)
 {
 
 }
@@ -30,7 +30,7 @@ CLevel3GameState::CLevel3GameState(void)
 /**
  @brief Destructor
  */
-CLevel3GameState::~CLevel3GameState(void)
+CFinalState::~CFinalState(void)
 {
 
 }
@@ -38,19 +38,17 @@ CLevel3GameState::~CLevel3GameState(void)
 /**
  @brief Init this class instance
  */
-bool CLevel3GameState::Init(void)
+bool CFinalState::Init(void)
 {
 	cout << "CPlay3DGameState::Init()\n" << endl;
 
 	// Initialise the CScene3D instance
-	CLevel3 = CLevel3::GetInstance();
-	if (CLevel3->Init() == false)
+	CLevelFinal = CLevelFinal::GetInstance();
+	if (CLevelFinal->Init() == false)
 	{
-		cout << "Failed to load CLevel3" << endl;
+		cout << "Failed to load CLevel4" << endl;
 		return false;
 	}
-
-	gameovertimer = 0;
 
 	return true;
 }
@@ -58,30 +56,16 @@ bool CLevel3GameState::Init(void)
 /**
  @brief Update this class instance
  */
-bool CLevel3GameState::Update(const double dElapsedTime)
+bool CFinalState::Update(const double dElapsedTime)
 {
-	if (CLevel3->losegame == true)
+	/*if (CLevelFinal->gotolevel3 == true)
 	{
-		gameovertimer += dElapsedTime;
-	}
-
-	if (gameovertimer >= 2.5)
-	{
-		CLevel3->losegame = false;
-		cout << "Loading MenuState" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CLevelFinal->gotolevel3 = false;
+		cout << "Loading level 3" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("Level3GameState");
 		CGameStateManager::GetInstance()->OffPauseGameState();
 		return true;
-	}
-
-	if (CLevel3->gotolevel4 == true)
-	{
-		CLevel3->gotolevel4 = false;
-		cout << "Loading level 4" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("FinalGameState");
-		CGameStateManager::GetInstance()->OffPauseGameState();
-		return true;
-	}
+	}*/
 
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
@@ -105,7 +89,7 @@ bool CLevel3GameState::Update(const double dElapsedTime)
 	}
 
 	// Call the CScene3D's Update method
-	CLevel3->Update(dElapsedTime);
+	CLevelFinal->Update(dElapsedTime);
 
 	return true;
 }
@@ -113,31 +97,31 @@ bool CLevel3GameState::Update(const double dElapsedTime)
 /**
  @brief Render this class instance
  */
-void CLevel3GameState::Render(void)
+void CFinalState::Render(void)
 {
 	//cout << "CPlay3DGameState::Render()\n" << endl;
 
 	// Call the CScene3D's Pre-Render method
-	CLevel3->PreRender();
+	CLevelFinal->PreRender();
 
 	// Call the CScene3D's Render method
-	CLevel3->Render();
+	CLevelFinal->Render();
 
 	// Call the CScene3D's PostRender method
-	CLevel3->PostRender();
+	CLevelFinal->PostRender();
 }
 
 /**
  @brief Destroy this class instance
  */
-void CLevel3GameState::Destroy(void)
+void CFinalState::Destroy(void)
 {
 	cout << "CPlay3DGameState::Destroy()\n" << endl;
 
 	// Destroy the CScene3D instance
-	if (CLevel3)
+	if (CLevelFinal)
 	{
-		CLevel3->Destroy();
-		CLevel3 = NULL;
+		CLevelFinal->Destroy();
+		CLevelFinal = NULL;
 	}
 }
