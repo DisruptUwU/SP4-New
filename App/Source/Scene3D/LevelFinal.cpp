@@ -160,6 +160,7 @@ bool CLevelFinal::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\wingame.ogg"), 4, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -296,6 +297,7 @@ bool CLevelFinal::Update(const double dElapsedTime)
 		winGame = true;
 		cGUI_Scene3D->gameOver = true;
 		cPlayer3D->cantMove = true;
+		cSoundController->PlaySoundByID(4);
 		CCameraEffectsManager::GetInstance()->Get("Youwin")->SetStatus(true);
 	}
 
