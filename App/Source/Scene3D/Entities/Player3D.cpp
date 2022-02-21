@@ -484,11 +484,11 @@ bool CPlayer3D::Update(const double dElapsedTime)
 
 	if (AtkIncrease == true) {
 		DmgUpTimer -= 1 * dElapsedTime;
-		Damage = 20;
+		Damage = 200;
 	}
 	else
 	{
-		Damage = 10;
+		Damage = 100;
 	}
 	
 	if (DefUpTimer <= 0)
@@ -546,7 +546,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			if (Hit == false)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
-				cInventoryItem->Remove(40); //float //10 //40
+				cInventoryItem->Remove(10); //float //10 //40
 				healthdownbyhydra = false;
 				Hit = true;
 			}
@@ -560,7 +560,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			if (Hit == false)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
-				cInventoryItem->Remove(15); //float
+				cInventoryItem->Remove(30); //float
 				healthdownbyhydramore = false;
 				Hit = true;
 			}
