@@ -399,7 +399,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		// Render the inventory items
 		cInventoryItem = cInventoryManager->GetItem("Pistol");
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
-		inventoryWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags inventoryWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
 			ImGuiWindowFlags_NoTitleBar |
 			ImGuiWindowFlags_NoMove |
 			ImGuiWindowFlags_NoResize |
