@@ -258,7 +258,7 @@ bool CLevel5::Init(void)
 	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
 	cSolidObjectManager->cFinalNPC = cFinalNPC;
@@ -301,10 +301,10 @@ void CLevel5::SpawnSoul(int x, int y, int z)
 	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(x, y, z));
 	cLostSoul3D->SetShader("Shader3D");
 	cLostSoul3D->Init();
-	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	CPistol* cEnemyPistol = new CPistol();
-	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	cEnemyPistol->Init();
+	cEnemyPistol->SetScale(glm::vec3(0.f, 0.f, 0.f));
+	//cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cLostSoul3D->SetWeapon(0, cEnemyPistol);
 	cSolidObjectManager->Add(cLostSoul3D);
@@ -336,7 +336,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	{
 
 		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
-		//cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
+		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		Enddialogtimer += dElapsedTime;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;

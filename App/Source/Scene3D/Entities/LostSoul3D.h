@@ -28,6 +28,9 @@
 // Include WaypointManager
 #include "../Waypoint/WaypointManager.h"
 
+ // Include LoadOBJ
+#include "System/LoadOBJ.h"
+
 #include <string>
 using namespace std;
 
@@ -60,6 +63,8 @@ public:
 
 	// Initialise this class instance
 	bool Init(void);
+
+	bool LoadModelAndTexture(const char* filenameModel, const char* filenameTexture, GLuint& VAO, GLuint& iTextureID, GLuint& iIndicesSize);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
