@@ -1,10 +1,15 @@
-#include "Dragon.h"
+/**
+ CEnemy3D
+ By: Toh Da Jun
+ Date: Apr 2020
+ */
+#include "FinalKing.h"
 
  // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
 
- // Include LoadOBJ
-#include "System/LoadOBJ.h"
+// Include MeshBuilder
+#include "Primitives/MeshBuilder.h"
 
 // Include ImageLoader
 #include "System\ImageLoader.h"
@@ -18,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CDragon::CDragon(void)
+CFinalKing::CFinalKing(void)
 	: vec3Up(glm::vec3(0.0f, 1.0f, 0.0f))
 	, vec3Right(glm::vec3(1.0f, 1.0f, 0.0f))
 	, vec3WorldUp(glm::vec3(0.0f, 1.0f, 0.0f))
@@ -46,7 +51,7 @@ CDragon::CDragon(void)
  @param yaw A const float variable which contains the yaw of the camera
  @param pitch A const float variable which contains the pitch of the camera
  */
-CDragon::CDragon(const glm::vec3 vec3Position,
+CFinalKing::CFinalKing(const glm::vec3 vec3Position,
 	const glm::vec3 vec3Front,
 	const float fYaw,
 	const float fPitch)
@@ -76,14 +81,8 @@ CDragon::CDragon(const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CDragon::~CDragon(void)
+CFinalKing::~CFinalKing(void)
 {
-	if (cWaypointManager)
-	{
-		// We set it to NULL only since it was declared somewhere else
-		cWaypointManager = NULL;
-	}
-
 	if (cTerrain)
 	{
 		// We set it to NULL only since it was declared somewhere else
@@ -110,28 +109,59 @@ CDragon::~CDragon(void)
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CDragon::Init(void)
+bool CFinalKing::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::NPC);
+	SetType(CEntity3D::TYPE::HEAVENLYKING);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
 
+	// Generate and bind the VAO
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	if (LoadModelAndTexture("Models/Final/HeavnlyKing.obj",
+		"Models/Pistol/honeycombs_col.png",
+		VAO, iTextureID, iIndicesSize) == false)
+	{
+		cout << "Unable to load model and texture" << endl;
+	}
+
+	// Store the handler to the terrain
+	cTerrain = CTerrain::GetInstance();
+
+	// Movement Control
+	fMovementSpeed = 1.5f;
+	iCurrentNumMovement = 0;
+	iMaxNumMovement = 100;
+
+	// Detection distance for player
+	fDetectionDistance = 3.f;
+
+	return true;
+}
+
+bool CFinalKing::LoadModelAndTexture(const char* filenameModel,
+	const char* filenameTexture,
+	GLuint& VAO,
+	GLuint& iTextureID,
+	GLuint& iIndicesSize)
+{
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
 	std::vector<ModelVertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 
-	std::string file_path = "Models/Dragon/Dragon.obj";
+	std::string file_path = filenameModel;
 	bool success = CLoadOBJ::LoadOBJ(file_path.c_str(), vertices, uvs, normals, true);
 	if (!success)
 	{
-		cout << "Unable to load Models/Dragon/Dragon.obj" << endl;
+		cout << "Unable to load " << filenameModel << endl;
 		return false;
 	}
 
@@ -154,36 +184,12 @@ bool CDragon::Init(void)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Models/Dragon/dragontexture.tga", false);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID(filenameTexture, false);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Models/dragontexture.tga" << endl;
+		cout << "Unable to load " << filenameTexture << endl;
 		return false;
 	}
-
-	// Store the handler to the terrain
-	cTerrain = CTerrain::GetInstance();
-
-	// Movement Control
-	fMovementSpeed = 5.0f;
-	iCurrentNumMovement = 0;
-	iMaxNumMovement = 100;
-
-	// Detection distance for player
-	fDetectionDistance = 0.0f;
-
-	bIsDisplayed = false;
-
-	// Init cWaypointManager
-	cWaypointManager = new CWaypointManager;
-	cWaypointManager->Init();
-
-	// Add in some test Waypoints
-	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, vec3Position.y, -30.0f));
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(30.0f, vec3Position.y, 0.0f));
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-30.0f, vec3Position.y, 0.0f));
-
-	cWaypointManager->PrintSelf();
 
 	return true;
 }
@@ -193,7 +199,7 @@ bool CDragon::Init(void)
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CDragon::SetModel(const glm::mat4 model)
+void CFinalKing::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -202,7 +208,7 @@ void CDragon::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CDragon::SetView(const glm::mat4 view)
+void CFinalKing::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -211,7 +217,7 @@ void CDragon::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CDragon::SetProjection(const glm::mat4 projection)
+void CFinalKing::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -220,11 +226,12 @@ void CDragon::SetProjection(const glm::mat4 projection)
  @brief Attach a camera to this class instance
  @param cCamera A CCamera* variable which contains the camera
  */
-void CDragon::AttachCamera(CCamera* cCamera)
+void CFinalKing::AttachCamera(CCamera* cCamera)
 {
+	// Set the camera to the player
 	this->cCamera = cCamera;
 
-	// Update the camera's attributes with the enemy's attributes
+	// Update the camera's attributes with the player's attributes
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
@@ -236,7 +243,7 @@ void CDragon::AttachCamera(CCamera* cCamera)
  @brief Check if a camera ia attached to this class instance
  @return true if a camera is attached, else false
  */
-bool CDragon::IsCameraAttached(void)
+bool CFinalKing::IsCameraAttached(void)
 {
 	if (cCamera)
 		return true;
@@ -248,7 +255,7 @@ bool CDragon::IsCameraAttached(void)
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  @param cWeaponInfo A CWeaponInfo* variable which contains the weapon info
  */
-void CDragon::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
+void CFinalKing::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
 {
 	if (iSlot == 0)
 		cPrimaryWeapon = cWeaponInfo;
@@ -260,7 +267,7 @@ void CDragon::SetWeapon(const int iSlot, CWeaponInfo* cWeaponInfo)
  @brief Get Weapon of this class instance
  @return The CWeaponInfo* value
  */
-CWeaponInfo* CDragon::GetWeapon(void) const
+CWeaponInfo* CFinalKing::GetWeapon(void) const
 {
 	if (iCurrentWeapon == 0)
 		return cPrimaryWeapon;
@@ -274,7 +281,7 @@ CWeaponInfo* CDragon::GetWeapon(void) const
  @brief Set current weapon
  @param iSlot A const int variable which contains the weapon info to check for. 0 == Primary, 1 == Secondary
  */
-void CDragon::SetCurrentWeapon(const int iSlot)
+void CFinalKing::SetCurrentWeapon(const int iSlot)
 {
 	iCurrentWeapon = iSlot;
 }
@@ -283,41 +290,51 @@ void CDragon::SetCurrentWeapon(const int iSlot)
  @brief Discharge weapon
  @return A bool value
  */
-bool CDragon::DischargeWeapon(void) const
+bool CFinalKing::DischargeWeapon(void) const
 {
-	glm::vec3 pos(vec3Position.x, vec3Position.y + 4.7, vec3Position.z);
-
-	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
-	{
-		return cPrimaryWeapon->Discharge(pos, vec3Front, (CSolidObject*)this);
-	}
-	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
-	{
-		return cSecondaryWeapon->Discharge(pos, vec3Front, (CSolidObject*)this);
-	}
+	//if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
+	//{
+	//	return cPrimaryWeapon->Discharge(0, vec3Position, vec3Front, (CSolidObject*)this);
+	//}
+	//else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
+	//{
+	//	return cSecondaryWeapon->Discharge(0, vec3Position, vec3Front, (CSolidObject*)this);
+	//}
+	return false;
 }
 
 /**
- @brief Processes input received from any keyboard-like input system as enemy movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
- @param direction A const Enemy_Movement variable which contains the movement direction of the camera
+ @brief Processes input received from any keyboard-like input system as player movements. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
+ @param direction A const Player_Movement variable which contains the movement direction of the camera
  @param deltaTime A const float variable which contains the delta time for the realtime loop
  */
-void CDragon::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
+void CFinalKing::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
 	float velocity = fMovementSpeed * deltaTime;
-	vec3Position += vec3Front * velocity;
+	if (direction == ENEMYMOVEMENT::FORWARD)
+		vec3Position += vec3Front * velocity;
+	if (direction == ENEMYMOVEMENT::BACKWARD)
+		vec3Position -= vec3Front * velocity;
+	if (direction == ENEMYMOVEMENT::LEFT)
+		vec3Position -= vec3Right * velocity;
+	if (direction == ENEMYMOVEMENT::RIGHT)
+		vec3Position += vec3Right * velocity;
 
+	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Position = vec3Position;
 	}
+
+	// Constraint the player's position
+	Constraint();
 }
 
 /**
- @brief Processes input received from a mouse input system as enemy rotation. Expects the offset value in both the x and y direction.
+ @brief Processes input received from a mouse input system as player rotation. Expects the offset value in both the x and y direction.
  @param xoffset A const float variable which contains the x axis of the mouse movement
  */
-void CDragon::ProcessRotate(const float fXOffset)
+void CFinalKing::ProcessRotate(const float fXOffset)
 {
 	// Update the yaw
 	fYaw += fXOffset;// *fRotationSensitivity;
@@ -331,7 +348,7 @@ void CDragon::ProcessRotate(const float fXOffset)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CDragon::Update(const double dElapsedTime)
+bool CFinalKing::Update(const double dElapsedTime)
 {
 	// Don't update if this entity is not active
 	if (bStatus == false)
@@ -342,36 +359,22 @@ bool CDragon::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	if (true)
+	switch (sCurrentFSM)
 	{
-		glm::vec3 tempPos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
-		glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - tempPos));
-		float dot = glm::dot(targetFront, vec3Front);
-		cout << dot << endl;
-		if (dot >= 0.25)
+	case FSM::IDLE:
+		//cout << glm::distance(vec3Position, cPlayer3D->GetPosition()) << " vs " << fDetectionDistance << endl;
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 		{
-			vec3Front = targetFront;
-			DischargeWeapon();
-
-			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+			cPlayer3D->NeartheKing = true;
 		}
-		else if (dot >= 0)
+		else 
 		{
-			// rotate slowly
+			cPlayer3D->NeartheKing = false;
 		}
-		else
-		{
-			if (true)
-			{
-				//fly to edge of map
-			}
-			else
-			{
-				// fly circle
-			}
-		}
-		UpdateFrontAndYaw();
+		iFSMCounter++;
+		break;
+	default:
+		break;
 	}
 
 	// Update the model
@@ -380,30 +383,13 @@ bool CDragon::Update(const double dElapsedTime)
 	model = glm::scale(model, vec3Scale);
 	model = glm::rotate(model, glm::radians(fYaw), glm::vec3(0.0f, 1.0f, 0.0f));
 
-	// Update the weapon's position
-	if (cPrimaryWeapon)
-	{
-		//cPrimaryWeapon->SetPosition(vec3Position + glm::vec3(0.05f, -0.075f, 0.5f));
-		cPrimaryWeapon->Update(dElapsedTime);
-		glm::mat4 gunModel = model;
-		gunModel = glm::rotate(gunModel, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		gunModel = glm::translate(gunModel, glm::vec3(0.05f, -0.075f, 0.5f));
-		cPrimaryWeapon->SetModel(gunModel);
-	}
-	if (cSecondaryWeapon)
-	{
-		cSecondaryWeapon->SetPosition(vec3Position + glm::vec3(0.05f, -0.075f, 0.5f));
-		cSecondaryWeapon->SetRotation(fYaw, glm::vec3(0.0f, 1.0f, 0.0f));
-		cSecondaryWeapon->Update(dElapsedTime);
-	}
-
 	return true;
 }
 
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CDragon::PreRender(void)
+void CFinalKing::PreRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -417,7 +403,7 @@ void CDragon::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CDragon::Render(void)
+void CFinalKing::Render(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -431,7 +417,7 @@ void CDragon::Render(void)
 /**
  @brief PostRender Set up the OpenGL display environment after rendering.
  */
-void CDragon::PostRender(void)
+void CFinalKing::PostRender(void)
 {
 	// If this entity is not active, then skip this
 	if (bStatus == false)
@@ -445,7 +431,7 @@ void CDragon::PostRender(void)
 /**
  @brief Calculates the front vector from the Camera's (updated) Euler Angles
  */
-void CDragon::UpdateEnemyVectors(void)
+void CFinalKing::UpdateEnemyVectors(void)
 {
 	// Calculate the new vec3Front vector
 	glm::vec3 front;
@@ -461,6 +447,7 @@ void CDragon::UpdateEnemyVectors(void)
 	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));
 	vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
 
+	// If the camera is attached to this player, then update the camera
 	if (cCamera)
 	{
 		cCamera->vec3Front = vec3Front;
@@ -470,9 +457,9 @@ void CDragon::UpdateEnemyVectors(void)
 }
 
 /**
- @brief Constraint the enemy's position
+ @brief Constraint the player's position
  */
-void CDragon::Constraint(void)
+void CFinalKing::Constraint(void)
 {
 	// Get the new height
 	float fNewYValue = cTerrain->GetHeight(vec3Position.x, vec3Position.z) + fHeightOffset;
@@ -483,7 +470,7 @@ void CDragon::Constraint(void)
 /**
  @brief Update Front Vector and Yaw
  */
-void CDragon::UpdateFrontAndYaw(void)
+void CFinalKing::UpdateFrontAndYaw(void)
 {
 	fYaw = glm::degrees(glm::acos(dot(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front)));
 	if (cross(glm::vec3(1.0f, 0.0f, 0.0f), vec3Front).y < 0.0f)

@@ -355,6 +355,16 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** teleporting! ***" << endl;
 					break;
 				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEAVENLYKING))
+				{
+					(*it)->RollbackPosition();
+					if (((*it)->GetType() == CSolidObject::TYPE::PLAYER))
+						//bResult = true;
+						cout << "** Collision between Entity and King ***" << endl;
+					break;
+				}
+
 			}
 		}
 	}
@@ -550,6 +560,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::NPC)
 				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** BoxBoxCollision between NPC and Projectile ***" << endl;
