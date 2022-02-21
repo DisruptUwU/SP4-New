@@ -349,6 +349,17 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::COIN))
+				{
+					/*cInventoryItem = cInventoryManager->GetItem("Coins");
+					cInventoryItem->Add(1);*/
+					cPlayer3D->collectCoin = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** Letsago ***" << endl;
+					break;
+				}
+
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL3))
 				{
 					wenttodoor = true;

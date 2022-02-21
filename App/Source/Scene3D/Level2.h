@@ -33,6 +33,7 @@
 #include "Entities\Enemylvl2.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
+#include "Entities\Coin.h"
 // Include CStructure3D
 #include "Entities\doorlvl2.h"
 // Include CProjectileManager

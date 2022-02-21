@@ -46,6 +46,7 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Coin.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Demon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\doorlvl2.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h" />
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h" />
     <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Coin.h" />
     <ClInclude Include="Source\Scene3D\Entities\Demon.h" />
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
     <ClInclude Include="Source\Scene3D\Entities\doorlvl2.h" />

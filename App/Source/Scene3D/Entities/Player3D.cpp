@@ -571,6 +571,14 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		}
 	}
 
+	if (collectCoin == true)
+	{
+		cInventoryItem = cInventoryManager->GetItem("Coins");
+		cInventoryItem->Add(1);
+		collectCoin = false;
+	}
+
+
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	if (cInventoryItem->GetCount() <= 30) //getmaxcount
 	{
