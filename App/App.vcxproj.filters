@@ -83,6 +83,7 @@
     <ClCompile Include="Source\Scene3D\LevelFinal.cpp" />
     <ClCompile Include="Source\GameStateManagement\FinalGameState.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalKing.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\DoorLvl5.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -401,6 +402,7 @@
     <ClInclude Include="Source\Scene3D\LevelFinal.h" />
     <ClInclude Include="Source\GameStateManagement\FinalGameState.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalKing.h" />
+    <ClInclude Include="Source\Scene3D\Entities\DoorLvl5.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">

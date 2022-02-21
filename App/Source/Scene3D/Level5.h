@@ -50,6 +50,8 @@
 #include "Entities\IncreaseDef.h"
 // Include CIncreaseDmg
 #include "Entities\IncreaseDmg.h"
+// Include CDoorLvl5
+#include "Entities\DoorLvl5.h"
 
 // Include CCamera
 #include "Camera.h"
@@ -93,6 +95,10 @@ public:
 	bool changeDialogue = false;
 	bool losegame = false;
 	double timer = 10;
+
+	int checkportal = 0;
+	bool spawnportal = false;
+	bool gotolevel6 = false;
 
 	bool spawnedHealers = false;
 protected:

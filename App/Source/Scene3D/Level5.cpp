@@ -221,6 +221,13 @@ bool CLevel5::Init(void)
 	// Add the cIncreaseDmg to the cSolidObjectManager
 	cSolidObjectManager->Add(cIncreaseDmg);
 
+	CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
+	cDoor->SetShader("Shader3D");
+	cDoor->Init();
+	cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+	cSolidObjectManager->Add(cDoor);
+
 	// Assign a cPistol to the cPlayer3D
 	CPistol* cPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
@@ -250,10 +257,10 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
-	SpawnSoul(35.0f, fCheckHeight, 25.0f);
-	SpawnSoul(35.0f, fCheckHeight, -25.0f);
-	SpawnSoul(-35.0f, fCheckHeight, -25.0f);
-	SpawnSoul(-35.0f, fCheckHeight, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight + 1, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight + 1, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight + 1, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight + 1, 25.0f);
 
 	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
@@ -328,7 +335,36 @@ bool CLevel5::Update(const double dElapsedTime)
 		losegame = true;
 	}
 
-	//cout << cSolidObjectManager->cFinalBoss3D->regainPhase1 << endl;
+	if (cSolidObjectManager->FinalBossKilled == true)
+	{
+		//cSoundController->StopSound();
+		if (checkportal == 0)
+		{
+			spawnportal = true;
+			checkportal += 1;
+		}
+
+		else
+		{
+			spawnportal = false;
+		}
+	}
+
+	if (spawnportal == true)
+	{
+		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
+		cDoor->SetShader("Shader3D");
+		cDoor->Init();
+		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		cSolidObjectManager->Add(cDoor);
+	}
+
+	if (cSolidObjectManager->wenttodoorlvl5 == true)//push
+	{
+		gotolevel6 = true;
+	}
 
 	if (cSolidObjectManager->cFinalBoss3D->soulsAlive <= 0)
 	{
@@ -345,7 +381,7 @@ bool CLevel5::Update(const double dElapsedTime)
 
 		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
 		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		Enddialogtimer += dElapsedTime;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
 	}
@@ -384,7 +420,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		if (timer <= 0)
 		{
 			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-			SpawnSoul(0, fCheckHeight, 0);
+			SpawnSoul(0, fCheckHeight + 1, 0);
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
@@ -394,20 +430,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			if (timer <= 0)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-				CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
-				cEnemy3D->SetShader("Shader3D");
-				cEnemy3D->Init();
-				cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-				CPistol* cEnemyPistol = new CPistol();
-				// Set the position, rotation and scale of this weapon
-				//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-				//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-				cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-				// Initialise the instance
-				cEnemyPistol->Init();
-				cEnemyPistol->SetShader("Shader3D_Model");
-				cEnemy3D->SetWeapon(0, cEnemyPistol);
-				cSolidObjectManager->Add(cEnemy3D);
+				SpawnSoul(0, fCheckHeight + 1, 0);
 			}
 		}
 		else
@@ -416,20 +439,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			if (timer <= 0)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-				CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
-				cEnemy3D->SetShader("Shader3D");
-				cEnemy3D->Init();
-				cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-				CPistol* cEnemyPistol = new CPistol();
-				// Set the position, rotation and scale of this weapon
-				//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-				//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-				cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-				// Initialise the instance
-				cEnemyPistol->Init();
-				cEnemyPistol->SetShader("Shader3D_Model");
-				cEnemy3D->SetWeapon(0, cEnemyPistol);
-				cSolidObjectManager->Add(cEnemy3D);
+				SpawnSoul(0, fCheckHeight + 1, 0);
 			}
 		}
 
@@ -470,20 +480,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		if (timer <= 0)
 		{
 			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-			CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
-			cEnemy3D->SetShader("Shader3D");
-			cEnemy3D->Init();
-			cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-			CPistol* cEnemyPistol = new CPistol();
-			// Set the position, rotation and scale of this weapon
-			//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-			//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-			cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-			// Initialise the instance
-			cEnemyPistol->Init();
-			cEnemyPistol->SetShader("Shader3D_Model");
-			cEnemy3D->SetWeapon(0, cEnemyPistol);
-			cSolidObjectManager->Add(cEnemy3D);
+			SpawnSoul(0, fCheckHeight + 1, 0);
 		}
 	}
 	else if ((cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true) && (cSolidObjectManager->cFinalBoss3D->phase == 4))

@@ -356,6 +356,13 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL5))
+				{
+					wenttodoorlvl5 = true;
+					cout << "** teleporting! ***" << endl;
+					break;
+				}
+
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEAVENLYKING))
 				{
 					(*it)->RollbackPosition();
@@ -489,6 +496,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
+						FinalBossKilled = true;
 						(*it)->SetStatus(false);
 					}
 
