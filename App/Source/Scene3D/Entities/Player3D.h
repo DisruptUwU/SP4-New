@@ -132,6 +132,7 @@ public:
 	int FinalNPCDialogueStage = 0;
 	int FinalBossDialogueStage = 0;
 
+	bool collectCoin = false;
 	bool speedPower = false;
 	bool healthPower = false;
 	bool AtkIncrease = false;
