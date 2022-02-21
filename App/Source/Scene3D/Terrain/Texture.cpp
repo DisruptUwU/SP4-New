@@ -381,7 +381,7 @@ bool LoadFinalBossTextures(void)
 bool LoadFreedom(void)
 {
 	// Load textures
-	string sTextureNames[] = { "hellpoolbase.jpg", "hellgrass.jpg", "hellmountain.jpg", "hellsand.jpg", "pathBoss.png" };
+	string sTextureNames[] = { "white.jpg", "white.jpg", "white.jpg", "white.jpg", "white.jpg" };
 
 	for (int i = 0; i < NUMTEXTURES; i++)
 	{
