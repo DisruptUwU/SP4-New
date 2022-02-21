@@ -182,7 +182,7 @@ bool CLevel2::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+	cPlayer3D->SetPosition(glm::vec3(-85.0f, 5.5f, -57.0f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -214,8 +214,6 @@ bool CLevel2::Init(void)
 	cEnemy3D->Init();
 	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
-	cout << cEnemy3D->GetStatus() << endl;
-	cout << "lol"<< endl;
 
 	// Initialise the cEnemy3D
 	float fCheckHeight2 = cTerrain->GetHeight(0.0f, -10.0f);
@@ -236,6 +234,25 @@ bool CLevel2::Init(void)
 	cEnemy3D4->Init();
 	cEnemy3D4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
+	
+		float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
+		CEnemylvl2* cEnemy3D5 = new CEnemylvl2(glm::vec3(-40.0f, fCheckHeight4, -60.0f));
+		cEnemy3D5->SetShader("Shader3D");
+		cEnemy3D5->Init();
+		cEnemy3D5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		float fCheckHeight6 = cTerrain->GetHeight(0.0f, -10.0f);
+		CEnemylvl2* cEnemy3D6 = new CEnemylvl2(glm::vec3(-60.0f, fCheckHeight4, -50.0f));
+		cEnemy3D6->SetShader("Shader3D");
+		cEnemy3D6->Init();
+		cEnemy3D6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		float fCheckHeight7 = cTerrain->GetHeight(0.0f, -10.0f);
+		CEnemylvl2* cEnemy3D7 = new CEnemylvl2(glm::vec3(-17.0f, fCheckHeight4, -50.0f));
+		cEnemy3D7->SetShader("Shader3D");
+		cEnemy3D7->Init();
+		cEnemy3D7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	
 	if (wavedead) 
 {
 		float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
@@ -291,6 +308,24 @@ bool CLevel2::Init(void)
 	cEnemyPistol4->SetShader("Shader3D_Model");
 	cEnemy3D4->SetWeapon(0, cEnemyPistol4);
 
+	CPistol* cEnemyPistol5 = new CPistol();
+	cEnemyPistol5->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cEnemyPistol5->Init();
+	cEnemyPistol5->SetShader("Shader3D_Model");
+	cEnemy3D5->SetWeapon(0, cEnemyPistol5);
+
+	CPistol* cEnemyPistol6 = new CPistol();
+	cEnemyPistol6->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cEnemyPistol6->Init();
+	cEnemyPistol6->SetShader("Shader3D_Model");
+	cEnemy3D6->SetWeapon(0, cEnemyPistol6);
+
+	CPistol* cEnemyPistol7 = new CPistol();
+	cEnemyPistol7->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cEnemyPistol7->Init();
+	cEnemyPistol7->SetShader("Shader3D_Model");
+	cEnemy3D7->SetWeapon(0, cEnemyPistol7);
+
 
 
 	 //Add the cEnemy3D to the cSolidObjectManager
@@ -298,6 +333,9 @@ bool CLevel2::Init(void)
 	cSolidObjectManager->Add(cEnemy3D2);
 	cSolidObjectManager->Add(cEnemy3D3);
 	cSolidObjectManager->Add(cEnemy3D4);
+	cSolidObjectManager->Add(cEnemy3D5);
+	cSolidObjectManager->Add(cEnemy3D6);
+	cSolidObjectManager->Add(cEnemy3D7);
 
 
 	//// Initialise a CStructure3D
@@ -312,17 +350,16 @@ bool CLevel2::Init(void)
 	//// Add the cStructure3D to the cSolidObjectManager
 	//cSolidObjectManager->Add(cStructure3D);
 
-	// Initialise a CStructure3D
+	// Initialise a coin
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CCoin* cStructure3D = new CCoin(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cStructure3D->SetShader("Shader3D");
-	cStructure3D->Init();
-	cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-
-	cStructure3D->SetScale(glm::vec3(0.5f));
+	CCoin* ccoin1 = new CCoin(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	ccoin1->SetShader("Shader3D");
+	ccoin1->Init();
+	ccoin1->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	ccoin1->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	cSolidObjectManager->Add(ccoin1);
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
