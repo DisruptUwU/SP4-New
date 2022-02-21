@@ -70,6 +70,19 @@ bool CTerrain::InitTerrain(int i)
 	return true;
 }
 
+bool CTerrain::InitFreedom(void)
+{
+	// Load all the 5 texture
+	if (LoadFreedom() == false)
+		return false;
+
+	// Load greyscale image for the terrain
+	if (LoadHeightMapFromImage("Image/Terrain/World/freedom.bmp") == false)
+		return false;
+
+	return true;
+}
+
 bool CTerrain::InitLevel1(void)
 {
 	// Load all the 5 texture

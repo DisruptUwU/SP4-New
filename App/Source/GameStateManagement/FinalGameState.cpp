@@ -58,6 +58,19 @@ bool CFinalState::Init(void)
  */
 bool CFinalState::Update(const double dElapsedTime)
 {
+	if (CLevelFinal->winGame == true)
+	{
+		winGametimer += dElapsedTime;
+	}
+
+	if (winGametimer >= 3)
+	{
+		CLevelFinal->winGame = false;
+		cout << "Loading MenuState" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
 	/*if (CLevelFinal->gotolevel3 == true)
 	{
 		CLevelFinal->gotolevel3 = false;

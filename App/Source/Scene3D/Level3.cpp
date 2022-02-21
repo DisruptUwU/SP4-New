@@ -231,40 +231,12 @@ bool CLevel3::Init(void)
 	//cEnemyPistol->SetRotation(60, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
-	//cEnemyPistol->Init();
+	cEnemyPistol->Init(); 
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cHydra->SetWeapon(0, cEnemyPistol);
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
-
-	//cLevel3NPC = new CLevel3NPC(glm::vec3(10.0f, fCheckHeight, -5));
-	//cLevel3NPC->SetShader("Shader3D");
-	//cLevel3NPC->Init(1);
-	//cLevel3NPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	////cNPC->SetScale(glm::vec3(0.5f));
-	//// Add the cGenerator to the cSolidObjectManager
-	//cSolidObjectManager->Add(cLevel3NPC);
-
-	//// Initialise a CStructure3D
-	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	//cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cSpeed->SetShader("Shader3D");
-	//cSpeed->Init();
-	//cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//// Add the cStructure3D to the cSolidObjectManager
-	//cSolidObjectManager->Add(cSpeed);
-
-	//// Initialise a CStructure3D
-	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	//cJumpscaretrap = new CJumpscaretrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cJumpscaretrap->SetShader("Shader3D");
-	//cJumpscaretrap->Init();
-	//cJumpscaretrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	////cStructure3D->SetScale(glm::vec3(0.5f));
-
-	// Add the cStructure3D to the cSolidObjectManager
-	//cSolidObjectManager->Add(cJumpscaretrap);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -652,7 +624,9 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
-		cSolidObjectManager->youlose = true;
+		//cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
+		losegame = true;
 	}
 
 	if (cPlayer3D->jumpscaretrapped == true)
@@ -661,12 +635,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		cSoundController->PlaySoundByID(5);
 	}
 
-	if (cSolidObjectManager->youlose == true)
-	{
-		//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		//cout << "you lose" << losegame << endl;
-		losegame = true;
-	}
+	//if (cSolidObjectManager->youlose == true)
+	//{
+	//	//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+	//	//cout << "you lose" << losegame << endl;
+	//	losegame = true;
+	//}
 
 	//if (cGUI_Scene3D->gameOver == true)
 	//{
@@ -683,19 +657,6 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
-
-	//if (cPlayer3D->jumpscaretrapped == true)
-	//{
-	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-	//	//cSoundController->PlaySoundByID(4);
-	//}
-
-	//else
-	//{
-	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
-	//}
-
-
 
 	// Update the Solid Objects
 	cSolidObjectManager->Update(dElapsedTime);

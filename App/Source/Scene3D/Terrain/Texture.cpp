@@ -377,3 +377,19 @@ bool LoadFinalBossTextures(void)
 
 	return true;
 }
+
+bool LoadFreedom(void)
+{
+	// Load textures
+	string sTextureNames[] = { "white.jpg", "white.jpg", "white.jpg", "white.jpg", "white.jpg" };
+
+	for (int i = 0; i < NUMTEXTURES; i++)
+	{
+		if (tTextures[i].LoadTexture2D("Image/Terrain/textures/" + sTextureNames[i], true) == false)
+			return false;
+
+		tTextures[i].SetFiltering(TEXTURE_FILTER_MAG_BILINEAR, TEXTURE_FILTER_MIN_BILINEAR_MIPMAP);
+	}
+
+	return true;
+}
