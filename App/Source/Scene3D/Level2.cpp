@@ -293,21 +293,33 @@ bool CLevel2::Init(void)
 
 
 
-	// Add the cEnemy3D to the cSolidObjectManager
+	 //Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cEnemy3D);
 	cSolidObjectManager->Add(cEnemy3D2);
 	cSolidObjectManager->Add(cEnemy3D3);
 	cSolidObjectManager->Add(cEnemy3D4);
 
 
+	//// Initialise a CStructure3D
+	////fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	////CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	////cStructure3D->SetShader("Shader3D");
+	////cStructure3D->Init();
+	////cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+
+	////cStructure3D->SetScale(glm::vec3(0.5f));
+
+	//// Add the cStructure3D to the cSolidObjectManager
+	//cSolidObjectManager->Add(cStructure3D);
+
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	CCoin* cStructure3D = new CCoin(glm::vec3(2.0f, fCheckHeight, -2.0f));
 	cStructure3D->SetShader("Shader3D");
 	cStructure3D->Init();
 	cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
-	//cStructure3D->SetScale(glm::vec3(0.5f));
+	cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cStructure3D);

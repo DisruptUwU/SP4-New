@@ -88,6 +88,10 @@ public:
 
 	CPlayer3D* cPlayer3D;
 
+	CInventoryManager* cInventoryManager;
+
+	CInventoryItem* cInventoryItem;
+
 	// Hardcode int value fpr keeping track of lvl 1 eneimes
 	int enemy_lvl1_count;
 protected:
