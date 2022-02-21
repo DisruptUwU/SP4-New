@@ -618,7 +618,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	//	wavedead = true;
 	//}
 
-	if (cSolidObjectManager->DeadEnemies >= 4)
+	if (cSolidObjectManager->DeadEnemies >= 7)
 	{
 		if (checkDemonspawn == 0)
 		{
@@ -688,7 +688,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoorlvl2* cDoor = new CDoorlvl2(glm::vec3(20, fCheckHeight, -30)); //2
+		CDoorlvl2* cDoor = new CDoorlvl2(glm::vec3(10, fCheckHeight, -30)); //2
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
