@@ -65,7 +65,7 @@ bool CPistol::Init(void)
 	std::vector<ModelVertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 
-	std::string file_path = "Models/Pistol/gun_tkpe64_01.obj"; // on purpose
+	std::string file_path = "Models/Pistol/gun_type64_01.obj";
 	bool success = CLoadOBJ::LoadOBJ(file_path.c_str(), vertices, uvs, normals, true);
 	if (!success)
 	{

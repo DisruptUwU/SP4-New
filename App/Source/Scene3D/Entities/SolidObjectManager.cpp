@@ -24,6 +24,7 @@ CSolidObjectManager::CSolidObjectManager(void)
 	, view(glm::mat4(1.0f))
 	, projection(glm::mat4(1.0f))
 	, cProjectileManager(NULL)
+	//, teleport2lvl2(false)
 {
 }
 
@@ -270,6 +271,19 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if (((*it)->GetType() == CSolidObject::TYPE::PLAYER))
 						//bResult = true;
 					cout << "** Collision between Entity and Structure ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOOR)) // Teleporting to lvl 2
+				{
+					//Doorlevel2 = true;
+					cout << "** teleporting from lvl 1 to lvl 2 ***" << endl;
+					// Reset the CKeyboardController
+					//CKeyboardController::GetInstance()->Reset();
+
+					// Load the menu state
+					cout << "Loading lvl 2 state" << endl;
+					//CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
 					break;
 				}
 

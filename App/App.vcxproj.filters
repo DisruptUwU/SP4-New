@@ -42,9 +42,6 @@
     <ClCompile Include="Source\SoundController\SoundInfo.cpp">
       <Filter>SoundController</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Camera.cpp">
-      <Filter>Scene3D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene3D\GUI_Scene3D.cpp">
       <Filter>Scene3D</Filter>
     </ClCompile>
@@ -103,9 +100,6 @@
       <Filter>Scene3D</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\Healthup.cpp">
-      <Filter>Scene3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp">
       <Filter>Scene3D</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDef.cpp">
@@ -201,9 +195,26 @@
     <ClCompile Include="Source\Scene3D\Minimap\Minimap.cpp">
       <Filter>Scene3D\Minimap</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Coin.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Enemylvl2.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\FinalKing.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Coin.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\DoorLvl5.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Scene3D\AI\FSM.cpp">
-      <Filter>GameSceneManagement\AI</Filter>
+      <Filter>Scene3D\AI</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp">
       <Filter>GameSceneManagement</Filter>
@@ -235,16 +246,12 @@
     <ClCompile Include="Source\GameStateManagement\PlayGameState.cpp">
       <Filter>GameSceneManagement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp">
-      <Filter>Scene3D\Entities</Filter>
+    <ClCompile Include="Source\Scene3D\Camera.cpp">
+      <Filter>Scene3D</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Enemylvl2.cpp">
-      <Filter>Scene3D\Entities</Filter>
+    <ClCompile Include="Source\Scene3D\CameraEffects\Youwin.cpp">
+      <Filter>Scene3D\CameraEffects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\FinalKing.cpp">
-      <Filter>Scene3D\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\CameraEffects\Youwin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -290,14 +297,11 @@
     <ClInclude Include="Source\Scene3D\Entities\SolidObjectManager.h" />
     <ClInclude Include="Source\Scene3D\Entities\Speed.h" />
     <ClInclude Include="Source\Scene3D\Entities\Structure3D.h" />
-    <ClInclude Include="Source\Scene3D\GUI_Scene3D.h" />
-    <ClInclude Include="Source\Scene3D\Level1.h" />
     <ClInclude Include="Source\Scene3D\Level2.h" />
     <ClInclude Include="Source\Scene3D\Level3.h" />
     <ClInclude Include="Source\Scene3D\Level4.h" />
     <ClInclude Include="Source\Scene3D\Level5.h" />
     <ClInclude Include="Source\Scene3D\Minimap\Minimap.h" />
-    <ClInclude Include="Source\Scene3D\Physics3D.h" />
     <ClInclude Include="Source\Scene3D\SceneGraph\SceneNode.h" />
     <ClInclude Include="Source\Scene3D\SceneGraph\SpinTower.h" />
     <ClInclude Include="Source\Scene3D\SkyBox\SkyBox.h" />
@@ -615,39 +619,6 @@
     <ClInclude Include="Source\Scene3D\Physics3D.h">
       <Filter>Scene3D</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\IntroState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level2GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level3GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level4GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level5GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\MenuState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PauseState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h">
       <Filter>Scene3D</Filter>
     </ClInclude>
@@ -780,7 +751,6 @@
     <ClInclude Include="Source\Scene3D\Minimap\Minimap.h">
       <Filter>Scene3D\Minimap</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\Coin.h" />
     <ClInclude Include="Source\Scene3D\AI\FSM.h">
       <Filter>GameSceneManagement\AI</Filter>
     </ClInclude>
@@ -826,8 +796,60 @@
     <ClInclude Include="Source\Scene3D\Entities\FinalKing.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\AI\FSM.h" />
-    <ClInclude Include="Source\Scene3D\CameraEffects\Youwin.h" />
+    <ClInclude Include="Source\Scene3D\GUI_Scene3D.h">
+      <Filter>Scene3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Coin.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\DoorLvl5.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Level1.h">
+      <Filter>Scene3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\AI\FSM.h">
+      <Filter>Scene3D\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\IntroState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level2GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level3GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level4GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level5GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\MenuState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\PauseState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Physics3D.h">
+      <Filter>Scene3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\CameraEffects\Youwin.h">
+      <Filter>Scene3D\CameraEffects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -1093,17 +1115,17 @@
     <Filter Include="Scene3D\SkyBox">
       <UniqueIdentifier>{dde4fc3c-dd1b-47bf-937c-e4ea5865c7c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene3D\Terrain">
-      <UniqueIdentifier>{cfbfb563-7375-4922-aa0b-25f1a159de82}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene3D\Waypoint">
       <UniqueIdentifier>{56a5d6fd-5337-4280-9dae-84f1c4cb6a6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene3D\WeaponInfo">
       <UniqueIdentifier>{a8aaa5a5-ecd8-46b1-a0fa-a2f6ad179fba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameSceneManagement\AI">
-      <UniqueIdentifier>{a25422ef-8278-4af3-a83f-f684a82af2c3}</UniqueIdentifier>
+    <Filter Include="Scene3D\AI">
+      <UniqueIdentifier>{1c0dad4e-5e84-48c3-9f14-fa0a80c1d933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene3D\Terrain">
+      <UniqueIdentifier>{cfbfb563-7375-4922-aa0b-25f1a159de82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
