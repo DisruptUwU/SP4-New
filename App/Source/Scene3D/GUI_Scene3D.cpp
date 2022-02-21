@@ -419,29 +419,6 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			cPlayer3D->GetWeapon()->GetTotalRound(), cPlayer3D->GetWeapon()->GetMaxTotalRound());
 		ImGui::End();
 		ImGui::PopStyleColor();
-		// Render the inventory items
-		cInventoryItem = cInventoryManager->GetItem("Pistol");
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
-		ImGuiWindowFlags inventoryWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
-			ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoMove |
-			ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoCollapse |
-			ImGuiWindowFlags_NoScrollbar;
-		ImGui::Begin("Image", NULL, inventoryWindowFlags);
-		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.9f));
-		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-		ImGui::Image((void*)(intptr_t)cPlayer3D->GetWeapon()->GetTextureID(),
-			ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
-			ImVec2(0, 1), ImVec2(1, 0));
-		ImGui::SameLine();
-		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Ammo : %d / %d",
-			cPlayer3D->GetWeapon()->GetMagRound(), cPlayer3D->GetWeapon()->GetMaxMagRound());
-		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Total Ammo : %d / %d",
-			cPlayer3D->GetWeapon()->GetTotalRound(), cPlayer3D->GetWeapon()->GetMaxTotalRound());
-		ImGui::End();
-		ImGui::PopStyleColor();
 
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
 		ImGui::Begin("PlayerPos", NULL, inventoryWindowFlags);
