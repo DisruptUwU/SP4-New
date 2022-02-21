@@ -295,6 +295,7 @@ bool CLevelFinal::Update(const double dElapsedTime)
 	{
 		winGame = true;
 		cGUI_Scene3D->gameOver = true;
+		cPlayer3D->cantMove = true;
 		CCameraEffectsManager::GetInstance()->Get("Youwin")->SetStatus(true);
 	}
 
