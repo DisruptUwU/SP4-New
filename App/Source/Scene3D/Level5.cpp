@@ -320,6 +320,14 @@ bool CLevel5::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
+		losegame = true;
+	}
+
 	//cout << cSolidObjectManager->cFinalBoss3D->regainPhase1 << endl;
 
 	if (cSolidObjectManager->cFinalBoss3D->soulsAlive <= 0)

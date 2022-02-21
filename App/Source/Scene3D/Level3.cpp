@@ -625,6 +625,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
 		cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
 	}
 
 	if (cPlayer3D->jumpscaretrapped == true)

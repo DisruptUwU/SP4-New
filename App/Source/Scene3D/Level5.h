@@ -91,6 +91,7 @@ public:
 
 	bool sprintCheck = false;
 	bool changeDialogue = false;
+	bool losegame = false;
 	double timer = 10;
 
 	bool spawnedHealers = false;
