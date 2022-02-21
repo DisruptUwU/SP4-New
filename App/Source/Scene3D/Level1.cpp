@@ -227,7 +227,7 @@ bool CLevel1::Init(void)
 	cDoor->SetShader("Shader3D");
 	cDoor->Init();
 	cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	// Add the health pickup to the cSolidObjectManager
+	// Add the door (portal) to the cSolidObjectManager
 	cSolidObjectManager->Add(cDoor);
 
 
@@ -303,16 +303,16 @@ bool CLevel1::Init(void)
 	cSolidObjectManager->Add(cEnemy3D_4);
 
 
-	/*// Initialise a CStructure3D
-	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	// Initialise CStructureBoundary3D entities 
+	fCheckHeight = cTerrain->GetHeight(0.0f, 50.0f);
+	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(0.0f, fCheckHeight, 50.0f));
 	cStructure3D->SetShader("Shader3D");
 	cStructure3D->Init();
 	cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);*/
+	cSolidObjectManager->Add(cStructure3D);
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
