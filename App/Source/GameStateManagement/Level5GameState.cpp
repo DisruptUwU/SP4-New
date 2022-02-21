@@ -58,6 +58,20 @@ bool CLevel5GameState::Init(void)
  */
 bool CLevel5GameState::Update(const double dElapsedTime)
 {
+	if (CLevel5->losegame == true)
+	{
+		gameovertimer += dElapsedTime;
+	}
+
+	if (gameovertimer >= 2.5)
+	{
+		CLevel5->losegame = false;
+		cout << "Loading MenuState" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
 		// Reset the CKeyboardController
