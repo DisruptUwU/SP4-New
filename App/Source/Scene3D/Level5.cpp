@@ -301,10 +301,10 @@ void CLevel5::SpawnSoul(int x, int y, int z)
 	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(x, y, z));
 	cLostSoul3D->SetShader("Shader3D");
 	cLostSoul3D->Init();
-	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	CPistol* cEnemyPistol = new CPistol();
-	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	cEnemyPistol->Init();
+	cEnemyPistol->SetScale(glm::vec3(0.f, 0.f, 0.f));
+	//cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cLostSoul3D->SetWeapon(0, cEnemyPistol);
 	cSolidObjectManager->Add(cLostSoul3D);
