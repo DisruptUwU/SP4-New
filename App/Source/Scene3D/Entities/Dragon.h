@@ -17,9 +17,6 @@
 // Include CTerrain
 #include "../Terrain/Terrain.h"
 
-// Include FSM
-#include "../AI/FSM.h"
-
 // Include WaypointManager
 #include "../Waypoint/WaypointManager.h"
 
@@ -27,7 +24,7 @@
 using namespace std;
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
-class CDragon : public CSolidObject, public CFSM
+class CDragon : public CSolidObject
 {
 public:
 	// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods

@@ -491,6 +491,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::NPC)
 				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** BoxBoxCollision between NPC and Projectile ***" << endl;

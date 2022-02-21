@@ -211,8 +211,8 @@ bool CLevel4::Init(void)
 	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 5.0f, 3.0f));
 	cDragon->SetShader("Shader3D");
 	cDragon->Init();
-	cDragon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	cDragon->SetScale(glm::vec3(1.0f));
+	cDragon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-1.5, 0, -2.5), glm::vec3(1.5, 5.5, 2.5));
+	cDragon->SetScale(glm::vec3(0.1f));
 
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
