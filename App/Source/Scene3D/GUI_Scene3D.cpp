@@ -319,25 +319,21 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 
 	if (cPlayer3D->AtkIncrease == true)
 	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
 		ImGui::Begin("POWPickup", NULL, PickupWindowFlag);
 		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.16f));
 		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Attack PowerUp: %f", cPlayer3D->DmgUpTimer);
 		ImGui::End();
-		ImGui::PopStyleColor();
 	}
 	if (cPlayer3D->DefenceIncrease == true) 
 	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
 		ImGui::Begin("POWPickup", NULL, PickupWindowFlag);
 		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.16f));
 		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Defence PowerUp: %f", cPlayer3D->DefUpTimer);
 		ImGui::End();
-		ImGui::PopStyleColor();
 	}
 
 	// Render the inventory items
