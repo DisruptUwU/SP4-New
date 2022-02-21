@@ -624,8 +624,9 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
-		cSolidObjectManager->youlose = true;
+		//cSolidObjectManager->youlose = true;
 		cGUI_Scene3D->gameOver = true;
+		losegame = true;
 	}
 
 	if (cPlayer3D->jumpscaretrapped == true)
@@ -634,12 +635,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		cSoundController->PlaySoundByID(5);
 	}
 
-	if (cSolidObjectManager->youlose == true)
-	{
-		//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		//cout << "you lose" << losegame << endl;
-		losegame = true;
-	}
+	//if (cSolidObjectManager->youlose == true)
+	//{
+	//	//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+	//	//cout << "you lose" << losegame << endl;
+	//	losegame = true;
+	//}
 
 	//if (cGUI_Scene3D->gameOver == true)
 	//{
