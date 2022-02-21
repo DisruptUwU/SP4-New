@@ -477,11 +477,11 @@ bool CPlayer3D::Update(const double dElapsedTime)
 
 	if (AtkIncrease == true) {
 		DmgUpTimer -= 1 * dElapsedTime;
-		Damage = 200;
+		Damage = 200; 
 	}
 	else
 	{
-		Damage = 100;
+		Damage = 10; //100
 	}
 	
 	if (DefUpTimer <= 0)
@@ -493,6 +493,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	if (Hit == true)
 	{
 		ImmunityTimer -= 1 * dElapsedTime;
+		cInventoryItem->Remove(0);
 	}
 
 	if (ImmunityTimer <= 0)
@@ -509,12 +510,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(5); //float
-				healthdownbyhydra = false;
 				Hit = true;
+				healthdownbyhydra = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 		if (healthdownbyhydramore == true)
@@ -523,12 +524,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(15); //float
-				healthdownbyhydramore = false;
 				Hit = true;
+				healthdownbyhydramore = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 	}
@@ -540,12 +541,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(10); //float //10 //40
-				healthdownbyhydra = false;
 				Hit = true;
+				healthdownbyhydra = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 		if (healthdownbyhydramore == true)
@@ -554,12 +555,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(30); //float
-				healthdownbyhydramore = false;
 				Hit = true;
+				healthdownbyhydramore = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 	}

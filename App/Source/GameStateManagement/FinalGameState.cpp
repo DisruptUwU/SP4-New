@@ -63,7 +63,7 @@ bool CFinalState::Update(const double dElapsedTime)
 		winGametimer += dElapsedTime;
 	}
 
-	if (winGametimer >= 3)
+	if (winGametimer >= 5.2)
 	{
 		CLevelFinal->winGame = false;
 		cout << "Loading MenuState" << endl;

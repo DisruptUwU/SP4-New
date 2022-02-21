@@ -50,6 +50,9 @@
 // Include CFinalBoss3D
 #include "Entities\FinalBoss3D.h"
 
+// Include CDemon
+#include "Entities\Demon.h"
+
 // Include CHydra
 #include "Entities\Hydra.h"
 
@@ -86,6 +89,8 @@ public:
 
 	// PostRender
 	virtual void PostRender(void);
+
+	CDemon* cDemon;
 
 	CFinalBoss3D* cFinalBoss3D;
 
