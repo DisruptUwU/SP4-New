@@ -355,6 +355,16 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** teleporting! ***" << endl;
 					break;
 				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEAVENLYKING))
+				{
+					(*it)->RollbackPosition();
+					if (((*it)->GetType() == CSolidObject::TYPE::PLAYER))
+						//bResult = true;
+						cout << "** Collision between Entity and King ***" << endl;
+					break;
+				}
+
 			}
 		}
 	}
