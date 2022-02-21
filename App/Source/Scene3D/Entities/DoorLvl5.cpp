@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Sep 2021
  */
-#include "door.h"
+#include "DoorLvl5.h"
 
  // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
@@ -23,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CDoor::CDoor(void)
+CDoorLvl5::CDoorLvl5(void)
 {
 	// Set the default position to the origin
 	vec3Position = glm::vec3(0.0f, fHeightOffset, 0.0f);
@@ -34,7 +34,7 @@ CDoor::CDoor(void)
  @param vec3Position A const glm::vec3 variable which contains the position of the camera
  @param vec3Front A const glm::vec3 variable which contains the up direction of the camera
  */
-CDoor::CDoor(const glm::vec3 vec3Position,
+CDoorLvl5::CDoorLvl5(const glm::vec3 vec3Position,
 	const glm::vec3 vec3Front)
 {
 	this->vec3Position = glm::vec3(vec3Position.x, vec3Position.y + fHeightOffset, vec3Position.z);
@@ -44,7 +44,7 @@ CDoor::CDoor(const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CDoor::~CDoor(void)
+CDoorLvl5::~CDoorLvl5(void)
 {
 }
 
@@ -52,16 +52,16 @@ CDoor::~CDoor(void)
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CDoor::Init(void)
+bool CDoorLvl5::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::DOOR);
+	SetType(CEntity3D::TYPE::DOORLVL5);
 
-	if (LoadModelAndTexture("Models/Dead_Tree/DeadTree.obj",
-		"Models/Portal_Placeholder/door.png",
+	if (LoadModelAndTexture("Models/Level5/Heart.obj",
+		"Models/Sub_bosses/door.jpg",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
 		cout << "Unable to load model and texture" << endl;
@@ -80,7 +80,7 @@ bool CDoor::Init(void)
  @param iIndicesSize A GLuint& variable containing the iIndicesSize to be returned
  @return A bool variable
  */
-bool CDoor::LoadModelAndTexture(const char* filenameModel,
+bool CDoorLvl5::LoadModelAndTexture(const char* filenameModel,
 	const char* filenameTexture,
 	GLuint& VAO,
 	GLuint& iTextureID,
@@ -134,7 +134,7 @@ bool CDoor::LoadModelAndTexture(const char* filenameModel,
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CDoor::SetModel(const glm::mat4 model)
+void CDoorLvl5::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -143,7 +143,7 @@ void CDoor::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CDoor::SetView(const glm::mat4 view)
+void CDoorLvl5::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -152,7 +152,7 @@ void CDoor::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CDoor::SetProjection(const glm::mat4 projection)
+void CDoorLvl5::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -162,7 +162,7 @@ void CDoor::SetProjection(const glm::mat4 projection)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CDoor::Update(const double dElapsedTime)
+bool CDoorLvl5::Update(const double dElapsedTime)
 {
 	CSolidObject::Update(dElapsedTime);
 
@@ -183,7 +183,7 @@ bool CDoor::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CDoor::PreRender(void)
+void CDoorLvl5::PreRender(void)
 {
 	CSolidObject::PreRender();
 }
@@ -191,7 +191,7 @@ void CDoor::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CDoor::Render(void)
+void CDoorLvl5::Render(void)
 {
 	if (m_bLODStatus == false)
 	{
@@ -232,7 +232,7 @@ void CDoor::Render(void)
 /**
 @brief PostRender Set up the OpenGL display environment after rendering.
 */
-void CDoor::PostRender(void)
+void CDoorLvl5::PostRender(void)
 {
 	CSolidObject::PostRender();
 }
@@ -240,7 +240,7 @@ void CDoor::PostRender(void)
 /**
  @brief Print Self
  */
-void CDoor::PrintSelf(void)
+void CDoorLvl5::PrintSelf(void)
 {
 	cout << "CHut_Concrete::PrintSelf()" << endl;
 	cout << "========================" << endl;

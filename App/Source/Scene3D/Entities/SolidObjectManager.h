@@ -63,6 +63,7 @@ public:
 	bool FinalBossKilled = false;
 
 	bool wenttodoor = false;
+	bool wenttodoorlvl5 = false;
 
 	bool Doorlevel2 = false;
 

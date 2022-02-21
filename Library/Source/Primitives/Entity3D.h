@@ -53,6 +53,7 @@ public:
 		COIN,
 		DOORLVL2,
 		DOORLVL3,
+		DOORLVL5,
 		HEAVENLYKING,
 		NUM_TYPES
 	};

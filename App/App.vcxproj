@@ -44,6 +44,7 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Lowhealth.cpp" />
     <ClCompile Include="Source\Scene3D\CameraEffects\ScopeScreen.cpp" />
     <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp" />
+    <ClCompile Include="Source\Scene3D\CameraEffects\Youwin.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Coin.cpp" />
@@ -51,6 +52,7 @@
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\doorlvl2.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\DoorLvl5.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemylvl2.cpp" />
@@ -129,6 +131,7 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\Lowhealth.h" />
     <ClInclude Include="Source\Scene3D\CameraEffects\ScopeScreen.h" />
     <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h" />
+    <ClInclude Include="Source\Scene3D\CameraEffects\Youwin.h" />
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h" />
     <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
     <ClInclude Include="Source\Scene3D\Entities\Coin.h" />
@@ -136,6 +139,7 @@
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
     <ClInclude Include="Source\Scene3D\Entities\doorlvl2.h" />
     <ClInclude Include="Source\Scene3D\Entities\doorlvl3.h" />
+    <ClInclude Include="Source\Scene3D\Entities\DoorLvl5.h" />
     <ClInclude Include="Source\Scene3D\Entities\Dragon.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemylvl2.h" />
