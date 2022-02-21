@@ -377,3 +377,19 @@ bool LoadFinalBossTextures(void)
 
 	return true;
 }
+
+bool LoadFreedom(void)
+{
+	// Load textures
+	string sTextureNames[] = { "hellpoolbase.jpg", "hellgrass.jpg", "hellmountain.jpg", "hellsand.jpg", "pathBoss.png" };
+
+	for (int i = 0; i < NUMTEXTURES; i++)
+	{
+		if (tTextures[i].LoadTexture2D("Image/Terrain/textures/" + sTextureNames[i], true) == false)
+			return false;
+
+		tTextures[i].SetFiltering(TEXTURE_FILTER_MAG_BILINEAR, TEXTURE_FILTER_MIN_BILINEAR_MIPMAP);
+	}
+
+	return true;
+}
