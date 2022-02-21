@@ -31,6 +31,8 @@ public:
 	// Initialise this class instance
 	bool Init(void);
 
+	bool InitFreedom(void);
+
 	// Set model
 	virtual void SetModel(glm::mat4 model);
 	// Set view

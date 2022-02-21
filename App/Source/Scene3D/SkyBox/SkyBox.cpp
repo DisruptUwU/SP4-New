@@ -126,6 +126,96 @@ bool CSkyBox::Init(void)
 	return true;
 }
 
+bool CSkyBox::InitFreedom(void)
+{
+	// Call the parent's Init()
+	CEntity3D::Init();
+
+	// Set the type
+	SetType(CEntity3D::TYPE::OTHERS);
+
+	float vertices[] = {
+		// positions     
+		// Rear
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		// Left
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		// Right
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		// Front
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		// Top
+		-1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		// Bottom
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f
+	};
+
+	// skybox VAO and VBO
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+	//// Create the vector of skybox textures
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_rt.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_lf.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_up.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_dn.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_ft.png");
+	//skyboxTexture.push_back("Image/SkyBox/gloomy_bk.png");
+
+	// Create the vector of skybox textures
+	skyboxTexture.push_back("Image/SkyBox/sunny_right.png");
+	skyboxTexture.push_back("Image/SkyBox/sunny_left.png");
+	skyboxTexture.push_back("Image/SkyBox/sunny_top.png");
+	skyboxTexture.push_back("Image/SkyBox/sunny_bottom.png");
+	skyboxTexture.push_back("Image/SkyBox/sunny_front.png");
+	skyboxTexture.push_back("Image/SkyBox/sunny_back.png");
+
+	// Load the skybox textures into the Graphics Card
+	iTextureID = LoadSkyBoxTextures();
+
+	return true;
+}
+
 /**
  @brief Set model
  @param model A glm::mat4 variable containing the model for this class instance

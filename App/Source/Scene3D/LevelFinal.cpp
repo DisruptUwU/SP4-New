@@ -166,12 +166,12 @@ bool CLevelFinal::Init(void)
 	cSkyBox = CSkyBox::GetInstance();
 	// Set a shader to this class instance of CSkyBox
 	cSkyBox->SetShader("Shader3D_SkyBox");
-	cSkyBox->Init();
+	cSkyBox->InitFreedom();
 
 	// Load the Ground
 	cTerrain = CTerrain::GetInstance();
 	cTerrain->SetShader("Shader3D_Terrain");
-	cTerrain->Init();
+	cTerrain->InitFreedom();
 	// Set the size of the Terrain
 	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
 
@@ -231,16 +231,16 @@ bool CLevelFinal::Init(void)
 	//// Add the cEnemy3D to the cSolidObjectManager
 	//cSolidObjectManager->Add(cEnemy3D);
 
-	// Initialise a CStructure3D
-	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cStructure3D->SetShader("Shader3D");
-	cStructure3D->Init();
-	cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//cStructure3D->SetScale(glm::vec3(0.5f));
+	//// Initialise a CStructure3D
+	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+	//CStructure3D* cStructure3D = new CStructure3D(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cStructure3D->SetShader("Shader3D");
+	//cStructure3D->Init();
+	//cStructure3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	////cStructure3D->SetScale(glm::vec3(0.5f));
 
-	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	//// Add the cStructure3D to the cSolidObjectManager
+	//cSolidObjectManager->Add(cStructure3D);
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
