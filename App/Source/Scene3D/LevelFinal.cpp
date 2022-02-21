@@ -212,13 +212,13 @@ bool CLevelFinal::Init(void)
 	float fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
 
 
-	CHeavenlyKing* cHeavenlyKing = new CHeavenlyKing(glm::vec3(0.0f, 5.5f, 0.0f));
-	cHeavenlyKing->SetShader("Shader3D");
-	cHeavenlyKing->Init();
-	cHeavenlyKing->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	CFinalKing* cFinalKing = new CFinalKing(glm::vec3(0.0f, 5.5f, 0.0f));
+	cFinalKing->SetShader("Shader3D");
+	cFinalKing->Init();
+	cFinalKing->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
-	cSolidObjectManager->Add(cHeavenlyKing);
+	cSolidObjectManager->Add(cFinalKing);
 
 	////will remove later
 	//// Assign a cPistol to the cEnemy3D

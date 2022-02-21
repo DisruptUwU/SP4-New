@@ -63,7 +63,7 @@ bool CHeavenlyKing::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	if (LoadModelAndTexture("Models/Final/HeavnlyKing.obj",
+	if (LoadModelAndTexture("Models/Sub_bosses/HeavnlyKing.obj",
 		"Models/Sub_bosses/door.jpg",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
