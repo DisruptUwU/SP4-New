@@ -247,7 +247,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
 	ImGui::Begin("Health", NULL, healthWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.03f));
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.04f));
 	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 	cInventoryItem = cInventoryManager->GetItem("Health");
@@ -272,7 +272,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
 	ImGui::Begin("Stamina", NULL, staminaWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.09f));
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.1f));
 	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 	cInventoryItem = cInventoryManager->GetItem("Stamina");
@@ -288,26 +288,53 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 	ImGui::End();
 
 	// Render the Lives
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
-	ImGuiWindowFlags livesWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+	//ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color
+	//ImGuiWindowFlags livesWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+	//	ImGuiWindowFlags_NoTitleBar |
+	//	ImGuiWindowFlags_NoMove |
+	//	ImGuiWindowFlags_NoResize |
+	//	ImGuiWindowFlags_NoCollapse |
+	//	ImGuiWindowFlags_NoScrollbar;
+	//ImGui::Begin("Lives", NULL, livesWindowFlags);
+	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.15f));
+	//ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+	//cInventoryItem = cInventoryManager->GetItem("Lives");
+	//ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+	//	ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+	//	ImVec2(0, 1), ImVec2(1, 0));
+	//ImGui::SameLine();
+	//ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+	//ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d / %d",
+	//	cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
+	//ImGui::End();
+	//ImGui::PopStyleColor();
+
+	ImGuiWindowFlags PickupWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoBackground |
 		ImGuiWindowFlags_NoTitleBar |
 		ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
-	ImGui::Begin("Lives", NULL, livesWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.15f));
-	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
-	cInventoryItem = cInventoryManager->GetItem("Lives");
-	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
-		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
-		ImVec2(0, 1), ImVec2(1, 0));
-	ImGui::SameLine();
-	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-	ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d / %d",
-		cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	ImGui::End();
-	ImGui::PopStyleColor();
+
+	if (cPlayer3D->AtkIncrease == true)
+	{
+		ImGui::Begin("POWPickup", NULL, PickupWindowFlag);
+		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.16f));
+		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Attack PowerUp: %f", cPlayer3D->DmgUpTimer);
+		ImGui::End();
+	}
+	if (cPlayer3D->DefenceIncrease == true) 
+	{
+		ImGui::Begin("POWPickup", NULL, PickupWindowFlag);
+		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.16f));
+		ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Defence PowerUp: %f", cPlayer3D->DefUpTimer);
+		ImGui::End();
+	}
 
 	// Render the inventory items
 	cInventoryItem = cInventoryManager->GetItem("Pistol");
