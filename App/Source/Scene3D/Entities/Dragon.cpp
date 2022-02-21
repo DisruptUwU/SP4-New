@@ -154,10 +154,10 @@ bool CDragon::Init(void)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Models/Dragon/dragontexture.tga", false);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
+		cout << "Unable to load Models/dragontexture.tga" << endl;
 		return false;
 	}
 
@@ -165,16 +165,23 @@ bool CDragon::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 1.5f;
+	fMovementSpeed = 5.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
 	// Detection distance for player
 	fDetectionDistance = 0.0f;
 
+	bIsDisplayed = false;
+
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
 	cWaypointManager->Init();
+
+	// Add in some test Waypoints
+	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, vec3Position.y, -30.0f));
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(30.0f, vec3Position.y, 0.0f));
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-30.0f, vec3Position.y, 0.0f));
 
 	cWaypointManager->PrintSelf();
 
@@ -278,15 +285,16 @@ void CDragon::SetCurrentWeapon(const int iSlot)
  */
 bool CDragon::DischargeWeapon(void) const
 {
+	glm::vec3 pos(vec3Position.x, vec3Position.y + 4.7, vec3Position.z);
+
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
-		return cPrimaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
+		return cPrimaryWeapon->Discharge(pos, vec3Front, (CSolidObject*)this);
 	}
 	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
 	{
-		return cSecondaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
+		return cSecondaryWeapon->Discharge(pos, vec3Front, (CSolidObject*)this);
 	}
-	//return NULL;
 }
 
 /**
@@ -297,14 +305,7 @@ bool CDragon::DischargeWeapon(void) const
 void CDragon::ProcessMovement(const ENEMYMOVEMENT direction, const float deltaTime)
 {
 	float velocity = fMovementSpeed * deltaTime;
-	if (direction == ENEMYMOVEMENT::FORWARD)
-		vec3Position += vec3Front * velocity;
-	if (direction == ENEMYMOVEMENT::BACKWARD)
-		vec3Position -= vec3Front * velocity;
-	if (direction == ENEMYMOVEMENT::LEFT)
-		vec3Position -= vec3Right * velocity;
-	if (direction == ENEMYMOVEMENT::RIGHT)
-		vec3Position += vec3Right * velocity;
+	vec3Position += vec3Front * velocity;
 
 	if (cCamera)
 	{
@@ -341,92 +342,36 @@ bool CDragon::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	switch (sCurrentFSM)
+	if (true)
 	{
-	case FSM::IDLE:
-		if (iFSMCounter > iMaxFSMCounter)
+		glm::vec3 tempPos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
+		glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - tempPos));
+		float dot = glm::dot(targetFront, vec3Front);
+		cout << dot << endl;
+		if (dot >= 0.25)
 		{
-			sCurrentFSM = FSM::PATROL;
-			iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "Rested: Switching to Patrol State" << endl;
-		}
-		iFSMCounter++;
-		break;
-	case FSM::PATROL:
-		// Check if the destination position has been reached
-		if (cWaypointManager->HasReachedWayPoint(vec3Position))
-		{
-			vec3Front = glm::normalize((cWaypointManager->GetNextWaypoint()->GetPosition() - vec3Position));
-			UpdateFrontAndYaw();
+			vec3Front = targetFront;
+			DischargeWeapon();
 
-			if (_DEBUG_FSM == true)
-				cout << "Reached waypoint: Going to next waypoint" << endl;
+			// Process the movement
+			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
 		}
-		else if (iFSMCounter > iMaxFSMCounter)
+		else if (dot >= 0)
 		{
-			sCurrentFSM = FSM::IDLE;
-			iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "FSM Counter maxed out: Switching to Idle State" << endl;
-		}
-		else if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			sCurrentFSM = FSM::ATTACK;
-			iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "Target found: Switching to Attack State" << endl;
+			// rotate slowly
 		}
 		else
 		{
-			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
-			if (_DEBUG_FSM == true)
-				cout << "Patrolling" << endl;
-		}
-		iFSMCounter++;
-		break;
-	case FSM::ATTACK:
-		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-		{
-			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));
-			UpdateFrontAndYaw();
-
-			// Discharge weapon
-			if (DischargeWeapon() == false)
+			if (true)
 			{
-				// Check if the weapon mag is empty
-				if (cPrimaryWeapon->GetMagRound() == 0)
-				{
-					if (cPrimaryWeapon->GetTotalRound() != 0)
-					{
-						// Reload the weapon
-						cPrimaryWeapon->Reload();
-					}
-				}
+				//fly to edge of map
 			}
-
-			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
-			if (_DEBUG_FSM == true)
-				cout << "Attacking now" << endl;
+			else
+			{
+				// fly circle
+			}
 		}
-		else
-		{
-			// If NPC loses track of player, then go back to the nearest waypoint
-			vec3Front = glm::normalize((cWaypointManager->GetNearestWaypoint(vec3Position)->GetPosition() - vec3Position));
-			UpdateFrontAndYaw();
-
-			// Swtich to patrol mode
-			sCurrentFSM = FSM::PATROL;
-			//iFSMCounter = 0;
-			if (_DEBUG_FSM == true)
-				cout << "Switching to Patrol State" << endl;
-		}
-		iFSMCounter++;
-		break;
-	default:
-		break;
+		UpdateFrontAndYaw();
 	}
 
 	// Update the model
@@ -481,15 +426,6 @@ void CDragon::Render(void)
 	}
 
 	CSolidObject::Render();
-
-	if (cPrimaryWeapon)
-	{
-		cPrimaryWeapon->SetView(view);
-		cPrimaryWeapon->SetProjection(projection);
-		cPrimaryWeapon->PreRender();
-		cPrimaryWeapon->Render();
-		cPrimaryWeapon->PostRender();
-	}
 }
 
 /**
