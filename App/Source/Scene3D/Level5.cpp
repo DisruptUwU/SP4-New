@@ -258,7 +258,7 @@ bool CLevel5::Init(void)
 	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
 	cSolidObjectManager->cFinalNPC = cFinalNPC;
@@ -336,7 +336,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	{
 
 		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
-		//cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
+		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		Enddialogtimer += dElapsedTime;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;

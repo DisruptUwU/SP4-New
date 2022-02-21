@@ -22,6 +22,9 @@
 #define IMGUI_ACTIVE
 #endif
 
+ // Include LoadOBJ
+#include "System/LoadOBJ.h"
+
 // Include Camera
 #include "../Camera.h"
 
@@ -65,6 +68,8 @@ public:
 
 	// Destructor
 	virtual ~CFinalNPC(void);
+
+	bool LoadModelAndTexture(const char* filenameModel, const char* filenameTexture, GLuint& VAO, GLuint& iTextureID, GLuint& iIndicesSize);
 
 	// Initialise this class instance
 	bool Init(void);
