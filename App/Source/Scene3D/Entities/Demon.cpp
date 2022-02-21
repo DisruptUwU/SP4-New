@@ -195,7 +195,7 @@ bool CDemon::Init(void)
 	iMaxNumMovement = 100;
 
 	// Detection distance for player
-	fDetectionDistance = 200.f;
+	fDetectionDistance = 2000.f;
 
 	// Init cWaypointManager
 	cWaypointManager = new CWaypointManager;
@@ -395,6 +395,15 @@ bool CDemon::Update(const double dElapsedTime)
 	switch (sCurrentFSM)
 	{
 	case FSM::IDLE:
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+		{
+			cPlayer3D->NearDemon = true;
+		}
+		else
+		{
+			cPlayer3D->NearDemon = false;
+		}
+
 		if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = FSM::PATROL;
@@ -405,6 +414,15 @@ bool CDemon::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::PATROL:
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+		{
+			cPlayer3D->NearDemon = true;
+		}
+		else
+		{
+			cPlayer3D->NearDemon = false;
+		}
+
 		// Check if the destination position has been reached
 		if (cWaypointManager->HasReachedWayPoint(vec3Position))
 		{
@@ -438,6 +456,15 @@ bool CDemon::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case FSM::ATTACK:
+		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+		{
+			cPlayer3D->NearDemon = true;
+		}
+		else
+		{
+			cPlayer3D->NearDemon = false;
+		}
+
 		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 		{
 			vec3Front = glm::normalize((cPlayer3D->GetPosition() - vec3Position));

@@ -667,6 +667,8 @@ bool CLevel2::Update(const double dElapsedTime)
 		cSolidObjectManager->cDemon = cDemon;
 
 		cSolidObjectManager->Add(cDemon);
+
+		cGUI_Scene3D->cDemon = cDemon;
 		cout << "Die" << endl;
 	}
 

@@ -303,30 +303,40 @@ void CPlayer3D::SetToJump(void)
 void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float deltaTime)
 {
 	if (cantMove == true)
-	{
-		//
-	}
+		return;
 
-	else
-	{
-		float velocity = fMovementSpeed * deltaTime;
+	float velocity = fMovementSpeed * deltaTime;
 
-		if (trapped == true)
+	if (trapped == true)
+	{
+		if (trapTimer > 0)
 		{
-			if (trapTimer > 0)
+			trapTimer -= 1 * deltaTime;
+			velocity = fMovementSpeed * 0 * deltaTime;
+		}
+		else if (trapTimer <= 0)
+		{
+			trapTimer = 3;
+			trapped = false;
+		}
+	}
+	else if (trapped == false)
+	{
+		if (stamina <= 0)
+		{
+			if (speedPower == true)
 			{
-				trapTimer -= 1 * deltaTime;
-				velocity = fMovementSpeed * 0 * deltaTime;
+				velocity = fMovementSpeed * 5 * deltaTime;
 			}
-			else if (trapTimer <= 0)
+			else
 			{
-				trapTimer = 3;
-				trapped = false;
+				velocity = fMovementSpeed * 2 * deltaTime;
 			}
 		}
-		else if (trapped == false)
+		else
 		{
-			if (stamina <= 0) {
+			if (sprint == false)
+			{
 				if (speedPower == true)
 				{
 					velocity = fMovementSpeed * 5 * deltaTime;
@@ -336,49 +346,32 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 					velocity = fMovementSpeed * 2 * deltaTime;
 				}
 			}
-			else
+			else if (sprint == true)
 			{
-				if (sprint == false)
+				if (speedPower == true)
 				{
-					if (speedPower == true)
-					{
-						velocity = fMovementSpeed * 5 * deltaTime;
-					}
-					else
-					{
-						velocity = fMovementSpeed * 2 * deltaTime;
-					}
+					velocity = fMovementSpeed * 10 * deltaTime;
 				}
-				else if (sprint == true)
+				else
 				{
-					if (speedPower == true)
-					{
-						velocity = fMovementSpeed * 10 * deltaTime;
-					}
-					else
-					{
-						velocity = fMovementSpeed * 4 * deltaTime;
-					}
+					velocity = fMovementSpeed * 4 * deltaTime;
 				}
-
 			}
 		}
-
-		if (direction == PLAYERMOVEMENT::FORWARD)
-			vec3Position += vec3Front * velocity;
-		if (direction == PLAYERMOVEMENT::BACKWARD)
-			vec3Position -= vec3Front * velocity;
-		if (direction == PLAYERMOVEMENT::LEFT)
-			vec3Position -= vec3Right * velocity;
-		if (direction == PLAYERMOVEMENT::RIGHT)
-			vec3Position += vec3Right * velocity;
-
-		// Indicate that camera sway is to be updated
-		if (bCameraSwayActive)
-			bUpdateCameraSway = true;
 	}
 
-	
+	if (direction == PLAYERMOVEMENT::FORWARD)
+		vec3Position += vec3Front * velocity;
+	if (direction == PLAYERMOVEMENT::BACKWARD)
+		vec3Position -= vec3Front * velocity;
+	if (direction == PLAYERMOVEMENT::LEFT)
+		vec3Position -= vec3Right * velocity;
+	if (direction == PLAYERMOVEMENT::RIGHT)
+		vec3Position += vec3Right * velocity;
+
+	// Indicate that camera sway is to be updated
+	if (bCameraSwayActive)
+		bUpdateCameraSway = true;
 }
 
 /**
@@ -500,6 +493,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	if (Hit == true)
 	{
 		ImmunityTimer -= 1 * dElapsedTime;
+		cInventoryItem->Remove(0);
 	}
 
 	if (ImmunityTimer <= 0)
@@ -516,12 +510,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(5); //float
-				healthdownbyhydra = false;
 				Hit = true;
+				healthdownbyhydra = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 		if (healthdownbyhydramore == true)
@@ -530,12 +524,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(15); //float
-				healthdownbyhydramore = false;
 				Hit = true;
+				healthdownbyhydramore = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 	}
@@ -547,12 +541,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(10); //float //10 //40
-				healthdownbyhydra = false;
 				Hit = true;
+				healthdownbyhydra = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 		if (healthdownbyhydramore == true)
@@ -561,12 +555,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 			{
 				cInventoryItem = cInventoryManager->GetItem("Health");
 				cInventoryItem->Remove(30); //float
-				healthdownbyhydramore = false;
 				Hit = true;
+				healthdownbyhydramore = false;
 			}
 			else
 			{
-
+				cInventoryItem->Remove(0);
 			}
 		}
 	}
@@ -692,6 +686,24 @@ void CPlayer3D::UpdatePlayerVectors(void)
  */
 void CPlayer3D::Constraint(void)
 {
+	// Prevent player from leaving map
+	if (vec3Position.x < cTerrain->GetMinPos().x + 1)
+	{
+		vec3Position.x = cTerrain->GetMinPos().x + 1;
+	}
+	else if (vec3Position.x > cTerrain->GetMaxPos().x - 1)
+	{
+		vec3Position.x = cTerrain->GetMaxPos().x - 1;
+	}
+	if (vec3Position.z < cTerrain->GetMinPos().z + 1)
+	{
+		vec3Position.z = cTerrain->GetMinPos().z + 1;
+	}
+	else if (vec3Position.z > cTerrain->GetMaxPos().z -1)
+	{
+		vec3Position.z = cTerrain->GetMaxPos().z - 1;
+	}
+
 	// If the player is not jumping nor falling, then we snap his position to the terrain
 	if (cPhysics3D.GetStatus() == CPhysics3D::STATUS::IDLE)
 	{
