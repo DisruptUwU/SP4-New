@@ -140,7 +140,7 @@ bool CFinalKing::Init(void)
 	iMaxNumMovement = 100;
 
 	// Detection distance for player
-	fDetectionDistance = 4.f;
+	fDetectionDistance = 3.f;
 
 	return true;
 }
@@ -365,11 +365,11 @@ bool CFinalKing::Update(const double dElapsedTime)
 		//cout << glm::distance(vec3Position, cPlayer3D->GetPosition()) << " vs " << fDetectionDistance << endl;
 		if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 		{
-			//cPlayer3D->NearFinalNPC = true;
+			cPlayer3D->NeartheKing = true;
 		}
 		else 
 		{
-			//cPlayer3D->NearFinalNPC = false;
+			cPlayer3D->NeartheKing = false;
 		}
 		iFSMCounter++;
 		break;
