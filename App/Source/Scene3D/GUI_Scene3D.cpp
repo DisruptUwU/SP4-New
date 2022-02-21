@@ -642,6 +642,25 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			}
 		}
 
+		if (cPlayer3D->NeartheKing == true)
+		{
+			ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+				ImGuiWindowFlags_NoBackground |
+				ImGuiWindowFlags_NoTitleBar |
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoCollapse |
+				ImGuiWindowFlags_NoScrollbar;
+
+				ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+				ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+				//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+				ImGui::TextColored(ImVec4(0, 0, 0, 1), "Press 'E'");
+				ImGui::End();
+		}
+
 		if (cPlayer3D->NearHydra == true)
 		{
 			ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |

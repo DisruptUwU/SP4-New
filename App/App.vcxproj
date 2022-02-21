@@ -55,10 +55,10 @@
     <ClCompile Include="Source\Scene3D\Entities\Enemylvl2.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalBoss3D.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\FinalKing.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalNPC.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Healer3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Healthup.cpp" />
-    <ClCompile Include="Source\Scene3D\Entities\HeavenlyKing.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDef.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDmg.cpp" />
@@ -139,10 +139,10 @@
     <ClInclude Include="Source\Scene3D\Entities\Enemylvl2.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalBoss3D.h" />
+    <ClInclude Include="Source\Scene3D\Entities\FinalKing.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalNPC.h" />
     <ClInclude Include="Source\Scene3D\Entities\Healer3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Healthup.h" />
-    <ClInclude Include="Source\Scene3D\Entities\HeavenlyKing.h" />
     <ClInclude Include="Source\Scene3D\Entities\Hydra.h" />
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDef.h" />
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDmg.h" />

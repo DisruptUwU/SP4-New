@@ -32,6 +32,8 @@
 #include "Entities\Enemy3D.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
+// Include CStructure3D
+#include "Entities\FinalKing.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -69,6 +71,8 @@ public:
 
 	// PostRender
 	void PostRender(void);
+
+	bool winGame = false;
 
 protected:
 	// The handler to the CSettings
