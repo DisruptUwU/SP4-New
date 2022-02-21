@@ -126,6 +126,7 @@ public:
 
 	bool NearFinalBoss = false;
 	bool NearFinalNPC = false;
+	bool NearDemon = false;
 	bool NearLevel3BOSSWHENHENPC = false; //NearLevel3NPC
 	bool NeartheKing = false;
 	bool AllSoulsKilled = false;
