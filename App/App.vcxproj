@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Demon.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\GameStateManagement\FinalGameState.cpp" />
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp" />
     <ClCompile Include="Source\GameStateManagement\IntroState.cpp" />
     <ClCompile Include="Source\GameStateManagement\Level1GameState.cpp" />
@@ -46,18 +46,24 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Youlose.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Demon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl2.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Dragon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemy3D.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Enemylvl2.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\EntityManager.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalBoss3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\FinalNPC.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Healer3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Healthup.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\HeavenlyKing.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Hydra.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDef.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\IncreaseDmg.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Jumpscaretrap.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Level3NPC.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\LostSoul3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Player3D.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\SolidObject.cpp" />
@@ -70,6 +76,7 @@
     <ClCompile Include="Source\Scene3D\Level3.cpp" />
     <ClCompile Include="Source\Scene3D\Level4.cpp" />
     <ClCompile Include="Source\Scene3D\Level5.cpp" />
+    <ClCompile Include="Source\Scene3D\LevelFinal.cpp" />
     <ClCompile Include="Source\Scene3D\Minimap\Minimap.cpp" />
     <ClCompile Include="Source\Scene3D\Physics3D.cpp" />
     <ClCompile Include="Source\Scene3D\SceneGraph\SceneNode.cpp" />
@@ -88,8 +95,8 @@
     <ClCompile Include="Source\SoundController\SoundInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Demon.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\GameStateManagement\FinalGameState.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateBase.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateManager.h" />
     <ClInclude Include="Source\GameStateManagement\IntroState.h" />
@@ -123,18 +130,24 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\Youlose.h" />
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h" />
     <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Demon.h" />
     <ClInclude Include="Source\Scene3D\Entities\door.h" />
+    <ClInclude Include="Source\Scene3D\Entities\doorlvl2.h" />
+    <ClInclude Include="Source\Scene3D\Entities\doorlvl3.h" />
     <ClInclude Include="Source\Scene3D\Entities\Dragon.h" />
     <ClInclude Include="Source\Scene3D\Entities\Enemy3D.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Enemylvl2.h" />
     <ClInclude Include="Source\Scene3D\Entities\EntityManager.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalBoss3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\FinalNPC.h" />
     <ClInclude Include="Source\Scene3D\Entities\Healer3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Healthup.h" />
+    <ClInclude Include="Source\Scene3D\Entities\HeavenlyKing.h" />
     <ClInclude Include="Source\Scene3D\Entities\Hydra.h" />
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDef.h" />
     <ClInclude Include="Source\Scene3D\Entities\IncreaseDmg.h" />
     <ClInclude Include="Source\Scene3D\Entities\Jumpscaretrap.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Level3NPC.h" />
     <ClInclude Include="Source\Scene3D\Entities\LostSoul3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\Player3D.h" />
     <ClInclude Include="Source\Scene3D\Entities\SolidObject.h" />
@@ -147,6 +160,7 @@
     <ClInclude Include="Source\Scene3D\Level3.h" />
     <ClInclude Include="Source\Scene3D\Level4.h" />
     <ClInclude Include="Source\Scene3D\Level5.h" />
+    <ClInclude Include="Source\Scene3D\LevelFinal.h" />
     <ClInclude Include="Source\Scene3D\Minimap\Minimap.h" />
     <ClInclude Include="Source\Scene3D\Physics3D.h" />
     <ClInclude Include="Source\Scene3D\SceneGraph\SceneNode.h" />

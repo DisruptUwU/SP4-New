@@ -16,8 +16,9 @@
 
 #include "Hydra.h"
 #include "FinalBoss3D.h"
+#include "FinalNPC.h"
 #include "Player3D.h"
-#include "../App/Demon.h"
+#include "Demon.h"
 
 // Include list
 #include <list>
@@ -63,11 +64,15 @@ public:
 
 	bool wenttodoor = false;
 
+	bool Doorlevel2 = false;
+
 	bool youlose = false;
 
 	bool healthbelow50 = false;
 
 	bool DemonKilled = false;
+
+	int DeadEnemies = 0;
 
 	//bool hydrashotplayer = false;
 	bool moreaggresivepart2 = false;
@@ -76,9 +81,14 @@ public:
 
 	CFinalBoss3D* cFinalBoss3D;
 
+	CFinalNPC* cFinalNPC;
+
 	CDemon* cDemon;
 
 	CPlayer3D* cPlayer3D;
+
+	// Hardcode int value fpr keeping track of lvl 1 eneimes
+	int enemy_lvl1_count;
 protected:
 	// Render Settings
 	glm::mat4 model;

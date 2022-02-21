@@ -144,7 +144,7 @@ bool CFinalBoss3D::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 2.0f;
+	fMovementSpeed = 0.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -157,13 +157,13 @@ bool CFinalBoss3D::Init(void)
 
 	// Add in some test Waypoints
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -20.0f);
-	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(5.0f, fCheckHeight, -5.0f));
 	fCheckHeight = cTerrain->GetHeight(20.0f, -20.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(2.0f, fCheckHeight, 2.0f));
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(5.0f, fCheckHeight, 5.0f));
 	fCheckHeight = cTerrain->GetHeight(-20.0f, -30.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-2.0f, fCheckHeight, 2.0f));
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-5.0f, fCheckHeight, 5.0f));
 	fCheckHeight = cTerrain->GetHeight(-20.0f, -30.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-2.0f, fCheckHeight, -2.0f));
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-5.0f, fCheckHeight, -5.0f));
 
 	cWaypointManager->PrintSelf();
 

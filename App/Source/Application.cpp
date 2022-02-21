@@ -48,6 +48,8 @@ using namespace std;
 #include "GameStateManagement/Level4GameState.h"
 // Include CLevel5
 #include "GameStateManagement/Level5GameState.h"
+// Include CFinalLevel
+#include "GameStateManagement/FinalGameState.h"
 // Include CPauseState
 #include "GameStateManagement/PauseState.h"
 
@@ -257,6 +259,7 @@ bool Application::Init(void)
 	CGameStateManager::GetInstance()->AddGameState("Level3GameState", new CLevel3GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level4GameState", new CLevel4GameState());
 	CGameStateManager::GetInstance()->AddGameState("Level5GameState", new CLevel5GameState());
+	CGameStateManager::GetInstance()->AddGameState("FinalGameState", new CFinalState());
 	CGameStateManager::GetInstance()->AddGameState("PauseState", new CPauseState());
 
 	// Set the active scene

@@ -72,3 +72,5 @@ bool LoadLevel2Textures(void);
 bool LoadLevel3Textures(void);
 
 bool LoadFinalBossTextures(void);
+
+bool LoadFreedom(void);

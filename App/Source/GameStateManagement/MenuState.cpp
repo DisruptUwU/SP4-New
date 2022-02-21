@@ -235,6 +235,16 @@ bool CMenuState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetActiveGameState("Level5GameState");
 		return true;
 	}
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_6))
+	{
+		// Reset the CKeyboardController
+		CKeyboardController::GetInstance()->Reset();
+
+		// Load the menu state
+		cout << "Loading CLevel5" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("FinalGameState");
+		return true;
+	}
 	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
 		// Reset the CKeyboardController

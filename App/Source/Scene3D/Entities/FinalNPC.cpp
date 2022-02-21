@@ -124,14 +124,11 @@ bool CFinalNPC::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 1, 1, 1));
-
-	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Scene3D_Enemy_01.tga", false);
-	if (iTextureID == 0)
+	if (LoadModelAndTexture("Models/Level5/Reaper.obj",
+		"Models/Pistol/honeycombs_col.png",
+		VAO, iTextureID, iIndicesSize) == false)
 	{
-		cout << "Unable to load Image/Scene3D_Enemy_01.tga" << endl;
-		return false;
+		cout << "Unable to load model and texture" << endl;
 	}
 
 	// Store the handler to the terrain
@@ -144,6 +141,55 @@ bool CFinalNPC::Init(void)
 
 	// Detection distance for player
 	fDetectionDistance = 4.f;
+
+	return true;
+}
+
+bool CFinalNPC::LoadModelAndTexture(const char* filenameModel,
+	const char* filenameTexture,
+	GLuint& VAO,
+	GLuint& iTextureID,
+	GLuint& iIndicesSize)
+{
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
+	std::vector<ModelVertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	std::string file_path = filenameModel;
+	bool success = CLoadOBJ::LoadOBJ(file_path.c_str(), vertices, uvs, normals, true);
+	if (!success)
+	{
+		cout << "Unable to load " << filenameModel << endl;
+		return false;
+	}
+
+	CLoadOBJ::IndexVBO(vertices, uvs, normals, index_buffer_data, vertex_buffer_data);
+
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &IBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(ModelVertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+	iIndicesSize = index_buffer_data.size();
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(ModelVertex), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(ModelVertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec3)));
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// load and create a texture 
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID(filenameTexture, false);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load " << filenameTexture << endl;
+		return false;
+	}
 
 	return true;
 }

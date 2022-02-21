@@ -209,36 +209,51 @@ bool CLevel2::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -10.0f));
+	CEnemylvl2* cEnemy3D = new CEnemylvl2(glm::vec3(0.0f, fCheckHeight, -10.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
 	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
+	cout << cEnemy3D->GetStatus() << endl;
+	cout << "lol"<< endl;
 
 	// Initialise the cEnemy3D
 	float fCheckHeight2 = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D2 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight2, -10.0f));
+	CEnemylvl2* cEnemy3D2 = new CEnemylvl2(glm::vec3(5.0f, fCheckHeight2, -10.0f));
 	cEnemy3D2->SetShader("Shader3D");
 	cEnemy3D2->Init();
 	cEnemy3D2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	float fCheckHeight3 = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D3 = new CEnemy3D(glm::vec3(10.0f, fCheckHeight3, -20.0f));
+	CEnemylvl2* cEnemy3D3 = new CEnemylvl2(glm::vec3(10.0f, fCheckHeight3, -20.0f));
 	cEnemy3D3->SetShader("Shader3D");
 	cEnemy3D3->Init();
 	cEnemy3D3->InitCollider("Shader3D_Line", glm::vec4(10.0f, 0.0f, 0.0f, 1.0f));
 
 	float fCheckHeight4 = cTerrain->GetHeight(0.0f, -10.0f);
-	CEnemy3D* cEnemy3D4 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight4, -50.0f));
+	CEnemylvl2* cEnemy3D4 = new CEnemylvl2(glm::vec3(5.0f, fCheckHeight4, -50.0f));
 	cEnemy3D4->SetShader("Shader3D");
 	cEnemy3D4->Init();
 	cEnemy3D4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
-	float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
-	CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
-	cDemon->SetShader("Shader3D");
-	cDemon->Init();
-	cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	if (wavedead) 
+{
+		float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
+		CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
+		cDemon->SetShader("Shader3D");
+		cDemon->Init();
+		cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+			CPistol* cDemonPistol = new CPistol();
+	cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+	cDemonPistol->Init();
+	cDemonPistol->SetShader("Shader3D_Model");
+	cDemon->SetWeapon(0, cDemonPistol);
+
+	cSolidObjectManager->cDemon = cDemon;
+
+	cSolidObjectManager->Add(cDemon);
+	}
 
 
 	// Assign a cPistol to the cEnemy3D
@@ -276,20 +291,14 @@ bool CLevel2::Init(void)
 	cEnemyPistol4->SetShader("Shader3D_Model");
 	cEnemy3D4->SetWeapon(0, cEnemyPistol4);
 
-	CPistol* cDemonPistol = new CPistol();
-	cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	cDemonPistol->Init();
-	cDemonPistol->SetShader("Shader3D_Model");
-	cDemon->SetWeapon(0, cDemonPistol);
 
-	cSolidObjectManager->cDemon = cDemon;
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cEnemy3D);
 	cSolidObjectManager->Add(cEnemy3D2);
 	cSolidObjectManager->Add(cEnemy3D3);
 	cSolidObjectManager->Add(cEnemy3D4);
-	cSolidObjectManager->Add(cDemon);
+
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -553,6 +562,100 @@ bool CLevel2::Update(const double dElapsedTime)
 		cCamera->fZoom = 45.0f;
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(false);
 	}
+
+
+	//if (CEnemy3D::GetStatus == false)
+	//{
+	//	wavedead = true;
+	//}
+
+	if (cSolidObjectManager->DeadEnemies >= 4)
+	{
+		if (checkDemonspawn == 0)
+		{
+			////wavedead = true;
+			//float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
+			//CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
+			//cDemon->SetShader("Shader3D");
+			//cDemon->Init();
+			//cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+			//CPistol* cDemonPistol = new CPistol();
+			//cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+			//cDemonPistol->Init();
+			//cDemonPistol->SetShader("Shader3D_Model");
+			//cDemon->SetWeapon(0, cDemonPistol);
+
+			//cSolidObjectManager->cDemon = cDemon;
+
+			//cSolidObjectManager->Add(cDemon);
+			//cout << "Die" << endl;
+			//checkDemonspawn += 1;
+			Demonspawn = true;
+			checkDemonspawn += 1;
+		}
+		else
+		{
+			Demonspawn = false;
+		}
+	}
+
+	if (Demonspawn == true)
+	{
+		//wavedead = true;
+		float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
+		CDemon* cDemon = new CDemon(glm::vec3(20.0f, fCheckHeight5, -30.0f));
+		cDemon->SetShader("Shader3D");
+		cDemon->Init();
+		cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		CPistol* cDemonPistol = new CPistol();
+		cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+		cDemonPistol->Init();
+		cDemonPistol->SetShader("Shader3D_Model");
+		cDemon->SetWeapon(0, cDemonPistol);
+
+		cSolidObjectManager->cDemon = cDemon;
+
+		cSolidObjectManager->Add(cDemon);
+		cout << "Die" << endl;
+	}
+
+	if (cSolidObjectManager->DemonKilled == true)
+	{
+		if (portalcheck == 0)
+		{
+			portalspawn = true;
+			portalcheck += 1;
+		}
+
+		else
+		{
+			portalspawn = false;
+		}
+	}
+
+	if (portalspawn == true)
+	{
+		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+		CDoorlvl2* cDoor = new CDoorlvl2(glm::vec3(20, fCheckHeight, -30)); //2
+		cDoor->SetShader("Shader3D");
+		cDoor->Init();
+		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
+		//cSpeed->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
+		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
+
+		cSolidObjectManager->Add(cDoor);
+		cout << "door2" << endl;
+
+	}
+
+	if (cSolidObjectManager->Doorlevel2 == true)//push
+	{
+ 		gotolevel3 = true;
+	}
+
 
 	// Update the Solid Objects
 	cSolidObjectManager->Update(dElapsedTime);

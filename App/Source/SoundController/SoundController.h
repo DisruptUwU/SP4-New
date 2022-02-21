@@ -49,6 +49,8 @@ public:
 	bool VolumeIncrease(const int ID);
 	// Decrease volume of a ISoundSource
 	bool VolumeDecrease(const int ID);
+	//stop sound
+	void StopSound();
 
 	// For 3D sounds only
 	// Set Listener position

@@ -40,6 +40,8 @@ public:
 
 	bool InitTerrain(int i);
 
+	bool InitFreedom(void);
+
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
 	// Set view

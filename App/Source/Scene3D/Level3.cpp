@@ -162,6 +162,10 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroar.ogg"), 6, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroaraggressive.ogg"), 7, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 8, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\OP.ogg"), 9, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -211,12 +215,12 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	cHydra = new CHydra(glm::vec3(0.0f, 0.5f, 0.0f));
+	cHydra = new CHydra(glm::vec3(0.0f, 0.0f, 0.0f)); //0.5f
 	cHydra->SetShader("Shader3D");
-	cHydra->Init(1);
+	cHydra->Init(1); //1
 	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec3(-2, 1.5, -0.5), glm::vec3(0.25, 3, 0.5));
-	//cHydra->bIsDisplayed = false;
+	cHydra->bIsDisplayed = false;
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 	// Assign a cPistol to the cEnemy3D
 
@@ -227,40 +231,12 @@ bool CLevel3::Init(void)
 	//cEnemyPistol->SetRotation(60, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
-	cEnemyPistol->Init();
+	cEnemyPistol->Init(); 
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cHydra->SetWeapon(0, cEnemyPistol);
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
-
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(10.0f, fCheckHeight, -5));
-	cFinalNPC->SetShader("Shader3D");
-	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	//cNPC->SetScale(glm::vec3(0.5f));
-	// Add the cGenerator to the cSolidObjectManager
-	cSolidObjectManager->Add(cFinalNPC);
-
-	//// Initialise a CStructure3D
-	//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	//cSpeed = new CSpeed(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cSpeed->SetShader("Shader3D");
-	//cSpeed->Init();
-	//cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//// Add the cStructure3D to the cSolidObjectManager
-	//cSolidObjectManager->Add(cSpeed);
-
-	// Initialise a CStructure3D
-	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	cJumpscaretrap = new CJumpscaretrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cJumpscaretrap->SetShader("Shader3D");
-	cJumpscaretrap->Init();
-	cJumpscaretrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//cStructure3D->SetScale(glm::vec3(0.5f));
-
-	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cJumpscaretrap);
 
 	// Initialise a CStructure3D
 	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
@@ -357,19 +333,89 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
-	if (cPlayer3D->NearFinalNPC == true)
+	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)//IsKeyPressed
 		{
-			if (cPlayer3D->FinalNPCDialoguestage <= 6)
+			//npctobosstimer += dElapsedTime;
+			if (cPlayer3D->Level3NPCDialogueStage <= 0)
 			{
-				cPlayer3D->FinalNPCDialoguestage++;
+				cPlayer3D->Level3NPCDialogueStage++;
+				timeractivate = true;
 			}
-			if (cPlayer3D->FinalNPCDialoguestage >= 6)
-			{
-				cPlayer3D->FinalNPCDialoguestage = 6;
-			}
+
+			//else // when dialog over
+			//{
+			//	timeractivate = true;
+			//}
 		}
+	}
+
+	if (timeractivate == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		npctobosstimer += dElapsedTime;
+		/*cSoundController->PlaySoundByID(6);*/
+		cPlayer3D->cantMove = true;
+		if (checkfirstroar == 0)
+		{
+			cSoundController->PlaySoundByID(6);
+			checkfirstroar += 1;
+		}
+
+		else
+		{
+
+		}
+	}
+
+	if (npctobosstimer >= 2.2) // 2.2
+	{
+		cPlayer3D->cantMove = false; //either here
+		cHydra->npctoboss = true;
+		npctobosstimer = 0;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
+		timeractivate = false;
+	}
+
+	cout << "npctobosstimer: " << npctobosstimer << endl;
+
+	if (cHydra->npctoboss == true && cHydra->moreaggresivepart2 == false)
+	{
+		//cPlayer3D->cantMove = false; //or here
+		cPlayer3D->stamina = 100;
+		CPlayer3D::GetInstance()->GetWeapon()->iMagRounds = 80;
+		CPlayer3D::GetInstance()->GetWeapon()->iTotalRounds = 400;
+		//CPlayer3D::GetInstance()->GetWeapon()->AddRounds(30);
+		//cPlayer3D->
+		//cSoundController->PlaySoundByID(7);
+		cPlayer3D->SetPosition(glm::vec3(-2.4f, 5.7f, -28.1f));
+		cPlayer3D->NearHydra = true;
+		if (checknpctohydra == 0)
+		{
+			cHydra->Init(2);
+			/*cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));*/
+			checknpctohydra += 1;
+			cSoundController->PlaySoundByID(8);
+		}
+
+		else
+		{
+			//spawnportal = false;
+			cHydra->npctoboss = false;
+		}
+	}
+
+	//if (cPlayer3D->Level3NPCDialogueStage >= 1)
+	//{
+	//	cLevel3NPC->Init(2);
+	//	//cLevel3NPC-> SetScale(glm::vec3(0.1, 0.1, 0.1));
+	//}
+
+	if (cPlayer3D->stamina <= 0)
+	{
+		cPlayer3D->stamina = 0;
 	}
 
 	if (sprintCheck == true) {
@@ -384,6 +430,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->HydraKilled == true)
 	{
+		//cSoundController->StopSound();
 		if (checkportal == 0)
 		{
 			spawnportal = true;
@@ -400,10 +447,10 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 		fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CDoor* cDoor = new CDoor(glm::vec3(-15.1, -0.5, 28.9)); //2
+		CDoorLvl3* cDoor = new CDoorLvl3(glm::vec3(-15.1, -0.4, 28.9)); //y = -0.5
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
-		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
+		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		//cSpeed->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
 		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
@@ -425,25 +472,37 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->cHydra->HydraBossHp <= 30 && cHydra->moreaggresivepart2 == false)
 	{
+		/*cSoundController->StopSound();*/
 		//cSolidObjectManager->healthbelow50 = true;
+		changesongsequence = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
-		cHydra->Init(2); //new place
+		cHydra->Init(3); //new place
 		cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 			glm::vec3(0, 0, 0), glm::vec3(0, 0, 0));
 		//cHydra->SetScale(glm::vec3(1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime, 1 * 3 * dElapsedTime));
 	}
 
-	if (cHydra->moreaggresivepart2 == true)
+	if (changesongsequence == true && cHydra->changingform == false)
 	{
+		cSoundController->StopSound();
+	}
+
+	if (cHydra->moreaggresivepart2 == true && cSolidObjectManager->HydraKilled == false)
+	{
+		changesongsequence = false;
+		//cSoundController->StopSound();
+		//cSoundController->
 		cSolidObjectManager->moreaggresivepart2 = true;
 
 		if (checkaggresion == 0)
 		{
-			cHydra->Init(3); //
+			cHydra->Init(4); //
 			cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 				glm::vec3(-2.5, -0.3, -0.5), glm::vec3(0, 1.5, 0.5));
 			checkaggresion += 1;
+			cSoundController->PlaySoundByID(7);
+			cSoundController->PlaySoundByID(9);
 		}
 
 		else
@@ -452,6 +511,11 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 
 		//cHydra->moreaggresivepart2 = false;
+	}
+
+	if (cSolidObjectManager->HydraKilled == true && checkaggresion == 1)
+	{
+		cSoundController->StopSound();
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
@@ -549,10 +613,19 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cPlayer3D->playerlostallhealth == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-		cSoundController->PlaySoundByID(5);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->PlaySoundByID(5);
+		}
 		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
 		cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
 	}
 
 	if (cPlayer3D->jumpscaretrapped == true)
@@ -576,26 +649,13 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cPlayer3D->playerhealthbelow30 == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
-		//cSoundController->PlaySoundByID(4);
+		cSoundController->PlaySoundByID(4);
 	}
 
 	else
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
-
-	//if (cPlayer3D->jumpscaretrapped == true)
-	//{
-	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-	//	//cSoundController->PlaySoundByID(4);
-	//}
-
-	//else
-	//{
-	//	CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
-	//}
-
-
 
 	// Update the Solid Objects
 	cSolidObjectManager->Update(dElapsedTime);

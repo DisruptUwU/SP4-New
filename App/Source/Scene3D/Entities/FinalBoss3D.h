@@ -105,6 +105,7 @@ public:
 	bool KilledFinalBoss = false;
 	int phase = 0;
 	int healersAlive = 4;
+	int soulsAlive = 4;
 
 	double timer = 2;
 
@@ -115,6 +116,8 @@ public:
 	bool regainPhase1 = false;
 
 	double FinalBossHp = 300;
+	// Detection distance for player
+	float fDetectionDistance;
 
 protected:
 	// Enemy Attributes
@@ -130,9 +133,6 @@ protected:
 	// Movement Control
 	int iCurrentNumMovement;
 	int iMaxNumMovement;
-
-	// Detection distance for player
-	float fDetectionDistance;
 
 	// The handle to the CCamera class instance
 	CCamera* cCamera;

@@ -32,6 +32,7 @@ public:
 	{
 		PLAYER = 0,
 		NPC,
+		ENEMY_LVL1, // This one will be used for lvl 1 enemies
 		HYDRA,
 		OTHERS,		// Default value: Other entities such as ground and skybox
 		STRUCTURE,	// Buildings etc
@@ -47,7 +48,11 @@ public:
 		FINALHEALBOSS,
 		FINALBOSS,
 		SOUL,
+		ENEMYLVL2,
 		DEMON,
+		DOORLVL2,
+		DOORLVL3,
+		HEAVENLYKING,
 		NUM_TYPES
 	};
 
@@ -114,6 +119,8 @@ public:
 	// PostRender
 	virtual void PostRender(void) = 0;
 
+	// Movement speed
+	float fMovementSpeed;
 protected:
 	// The handle to the CSettings instance
 	CSettings* cSettings;
@@ -151,8 +158,6 @@ protected:
 	glm::vec3 vec3RotationAxis;
 	// Colour
 	glm::vec4 vec4Colour;
-	// Movement speed
-	float fMovementSpeed;
 	// Height of this entity above the CTerrain
 	float fHeightOffset = 0.5f;
 

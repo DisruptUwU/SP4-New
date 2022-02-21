@@ -30,8 +30,11 @@
 #include "Entities\Player3D.h"
 // Include CEnemy3D
 #include "Entities\Enemy3D.h"
+#include "Entities\Enemylvl2.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
+// Include CStructure3D
+#include "Entities\doorlvl2.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -71,6 +74,11 @@ public:
 	void PostRender(void);
 
 	bool sprintCheck = false;
+	bool wavedead = false;
+	bool notdead = true;
+	bool status;
+	bool gotolevel3 = false;
+
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -115,5 +123,10 @@ protected:
 	CLevel2(void);
 	// Destructor
 	virtual ~CLevel2(void);
+
+	int checkDemonspawn = 0;
+	bool Demonspawn = false;
+	int portalcheck = 0;
+	bool portalspawn;
 };
 

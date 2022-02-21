@@ -43,7 +43,8 @@
 // Include CStructure3D
 #include "Entities\Bloodbath.h"
 #include "Entities\Jumpscaretrap.h"
-#include "Entities\FinalNPC.h"
+#include "Entities\Level3NPC.h"
+#include "Entities\doorlvl3.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
@@ -120,6 +121,8 @@ protected:
 
 	CSpeed* cSpeed;
 
+	CLevel3NPC* cLevel3NPC;
+
 	CJumpscaretrap* cJumpscaretrap;
 	// Handler to the CSkyBox
 	CSkyBox* cSkyBox;
@@ -132,13 +135,25 @@ protected:
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
 
+	bool timeractivate = false;
+
+	bool changesongsequence = false;
+
+	double npctobosstimer = 0;
+
+	int checkfirstroar = 0;
+
 	int checkportal = 0;
 
 	int checkdeath = 0;
 
+	int checknpctohydra = 0;
+
 	int checkaggresion = 0;
 
 	int losetimer;
+
+	int checkplayerdie = 0;
 
 	bool playerdies = false;
 

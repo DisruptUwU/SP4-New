@@ -237,6 +237,11 @@ bool CSoundController::VolumeDecrease(const int ID)
 	return true;
 }
 
+void CSoundController::StopSound()
+{
+	cSoundEngine->stopAllSounds();
+}
+
 // For 3D sounds only
 /**
  @brief Set Listener position

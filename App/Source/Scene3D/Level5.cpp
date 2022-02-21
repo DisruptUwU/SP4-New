@@ -206,14 +206,14 @@ bool CLevel5::Init(void)
 	//cSolidObjectManager->Add(cBearTrap);
 
 	// Increase Def
-	//CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cIncreaseDef->SetShader("Shader3D");
-	//cIncreaseDef->Init();
-	//cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//// Add the cIncreaseDef to the cSolidObjectManager
-	//cSolidObjectManager->Add(cIncreaseDef);
+	CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(4.0f, fCheckHeight, -2.0f));
+	cIncreaseDef->SetShader("Shader3D");
+	cIncreaseDef->Init();
+	cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	// Add the cIncreaseDef to the cSolidObjectManager
+	cSolidObjectManager->Add(cIncreaseDef);
 
-	// Increase Dmg
+	//Increase Dmg
 	CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(2.0f, fCheckHeight, -2.0f));
 	cIncreaseDmg->SetShader("Shader3D");
 	cIncreaseDmg->Init();
@@ -258,9 +258,10 @@ bool CLevel5::Init(void)
 	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
+	cSolidObjectManager->cFinalNPC = cFinalNPC;
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
@@ -300,10 +301,10 @@ void CLevel5::SpawnSoul(int x, int y, int z)
 	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(x, y, z));
 	cLostSoul3D->SetShader("Shader3D");
 	cLostSoul3D->Init();
-	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	CPistol* cEnemyPistol = new CPistol();
-	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	cEnemyPistol->Init();
+	cEnemyPistol->SetScale(glm::vec3(0.f, 0.f, 0.f));
+	//cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
 	cLostSoul3D->SetWeapon(0, cEnemyPistol);
 	cSolidObjectManager->Add(cLostSoul3D);
@@ -319,7 +320,42 @@ bool CLevel5::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
+		losegame = true;
+	}
+
 	//cout << cSolidObjectManager->cFinalBoss3D->regainPhase1 << endl;
+
+	if (cSolidObjectManager->cFinalBoss3D->soulsAlive <= 0)
+	{
+		cPlayer3D->AllSoulsKilled = true;
+		if (changeDialogue == false)
+		{
+			cPlayer3D->FinalNPCDialogueStage = 6;
+			changeDialogue = true;
+		}		
+	}
+
+	if (cPlayer3D->FinalNPCDialogueStage == 8)
+	{
+
+		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
+		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		Enddialogtimer += dElapsedTime;
+		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
+	}
+
+	if (Enddialogtimer >= 2.5)
+	{
+		cPlayer3D->FinalNPCDialogueStage = 9; // set it to 9 (think of it as a bool set to false)
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false); //stop spawning screen
+		Enddialogtimer = 0;
+	}
 
 	if (timer >= 0) {
 		timer -= 1 * dElapsedTime;
@@ -348,20 +384,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		if (timer <= 0)
 		{
 			float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-			CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(rand() % 30 + 1, fCheckHeight, rand() % 1 - 30));
-			cEnemy3D->SetShader("Shader3D");
-			cEnemy3D->Init();
-			cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-			CPistol* cEnemyPistol = new CPistol();
-			// Set the position, rotation and scale of this weapon
-			//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-			//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
-			cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-			// Initialise the instance
-			cEnemyPistol->Init();
-			cEnemyPistol->SetShader("Shader3D_Model");
-			cEnemy3D->SetWeapon(0, cEnemyPistol);
-			cSolidObjectManager->Add(cEnemy3D);
+			SpawnSoul(0, fCheckHeight, 0);
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 2) {
@@ -469,24 +492,6 @@ bool CLevel5::Update(const double dElapsedTime)
 	}
 
 	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
@@ -535,17 +540,38 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->NearFinalNPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+		if (cPlayer3D->AllSoulsKilled == true)
 		{
-			if (cPlayer3D->FinalNPCDialoguestage <= 6)
+			if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
 			{
-				cPlayer3D->FinalNPCDialoguestage++;
-			}
-			if (cPlayer3D->FinalNPCDialoguestage >= 6)
-			{
-				cPlayer3D->FinalNPCDialoguestage = 6;
+				if (cPlayer3D->FinalNPCDialogueStage <= 7)
+				{
+					cPlayer3D->FinalNPCDialogueStage++;
+				}
+				if (cPlayer3D->FinalNPCDialogueStage >= 8)
+				{
+					cPlayer3D->FinalNPCDialogueStage = 8;
+				}
 			}
 		}
+		else {
+			if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E))
+			{
+				if (cPlayer3D->FinalNPCDialogueStage <= 4)
+				{
+					cPlayer3D->FinalNPCDialogueStage++;
+				}
+				if (cPlayer3D->FinalNPCDialogueStage >= 5)
+				{
+					cPlayer3D->FinalNPCDialogueStage = 5;
+				}
+			}
+		}
+	}
+
+	if (cPlayer3D->stamina <= 0)
+	{
+		cPlayer3D->stamina = 0;
 	}
 
 	if (sprintCheck == true) {

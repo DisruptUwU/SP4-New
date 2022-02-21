@@ -59,6 +59,8 @@ bool CSolidObjectManager::Init(void)
 
 	//cFinalBoss3D = CFinalBoss3D::GetInstance();
 
+	enemy_lvl1_count = 4; // Set this to number of enemies in lvl 1
+
 	return true;
 }
 
@@ -184,6 +186,7 @@ bool CSolidObjectManager::Update(const double dElapsedTime)
 bool CSolidObjectManager::CheckForCollision(void)
 {
 	bool bResult = false;
+	//DeadEnemies = 0;
 
 	std::list<CSolidObject*>::iterator it, end;
 	std::list<CSolidObject*>::iterator it_other;
@@ -192,9 +195,25 @@ bool CSolidObjectManager::CheckForCollision(void)
 	end = lSolidObject.end();
 	for (it = lSolidObject.begin(); it != end; ++it)
 	{
-		// If the entity is not active, then skip it
+		// If the entity is not active, then skip it (Unless entity is door for lvl 1, which will activate upon killing of all four enemies in lvl 1)
 		if ((*it)->GetStatus() == false)
-			continue;
+		{
+			if (enemy_lvl1_count <= 0 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
+			{
+				(*it)->SetStatus(true);
+				cout << "** Level 1 portal activated ***" << endl;
+				//continue;
+			}
+			continue; // Go to next entity in loop
+		}
+
+		// Set door to false first
+		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count > 0)
+		{
+			cout << "** Level 1 portal set false ***" << endl;
+			(*it)->SetStatus(false);
+		}
+			
 
 		for (it_other = lSolidObject.begin(); it_other != end; ++it_other)
 		{
@@ -254,10 +273,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
-				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOOR))
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL2))
 				{
-					wenttodoor = true;
-					cout << "** teleporting! ***" << endl;
+					Doorlevel2 = true;
+					cout << "** teleporting to level 2 ***" << endl;
 					break;
 				}
 
@@ -330,6 +349,22 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL3))
+				{
+					wenttodoor = true;
+					cout << "** teleporting! ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HEAVENLYKING))
+				{
+					(*it)->RollbackPosition();
+					if (((*it)->GetType() == CSolidObject::TYPE::PLAYER))
+						//bResult = true;
+						cout << "** Collision between Entity and King ***" << endl;
+					break;
+				}
+
 			}
 		}
 	}
@@ -389,7 +424,30 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					DeadEnemies += 1;
+					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::ENEMY_LVL1)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(*it)->SetStatus(false);
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
+					cout << "** RayBoxCollision between lvl 1 enemy and Projectile ***" << endl;
+					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::ENEMYLVL2)
+				{
+					// If this projectile is fired by the NPC, then skip it
+					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+						continue;
+					(*it)->SetStatus(false);
+					(cProjectileManager->vProjectile[i])->SetStatus(false);
+					DeadEnemies += 1;
+					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::SOUL)
@@ -398,6 +456,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(*it)->SetStatus(false);
+					cFinalBoss3D->soulsAlive--;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
 					break;
@@ -419,7 +478,14 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
+					if (cFinalBoss3D->phase <= 0)
+					{
+
+					}
+					else
+					{
+						cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
+					}
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
 						cFinalBoss3D->KilledFinalBoss = true;
@@ -431,28 +497,31 @@ bool CSolidObjectManager::CheckForCollision(void)
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::HYDRA)
 				{
-					// If this projectile is fired by the NPC, then skip it
-					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
-						continue;
-					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					/*if (cHydra->moreaggresivepart2 == true)
+					if (cHydra->nonattackphase == false)
 					{
-						cHydra->HydraBossHp = 70;
-					}*/
-					if (cHydra->changingform == true)
-					{
-						
+						// If this projectile is fired by the NPC, then skip it
+						if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+							continue;
+						(cProjectileManager->vProjectile[i])->SetStatus(false);
+						/*if (cHydra->moreaggresivepart2 == true)
+						{
+							cHydra->HydraBossHp = 70;
+						}*/
+						if (cHydra->changingform == true)
+						{
+
+						}
+						else
+						{
+							cHydra->HydraBossHp -= cPlayer3D->Damage;
+						}
+						if (cHydra->HydraBossHp <= 0) {
+							HydraKilled = true;
+							(*it)->SetStatus(false);
+						}
+						cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+						break;
 					}
-					else 
-					{
-						cHydra->HydraBossHp -= cPlayer3D->Damage;
-					}
-					if (cHydra->HydraBossHp <= 0) {
-						HydraKilled = true;
-						(*it)->SetStatus(false);
-					}
-					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
-					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::DEMON)
 				{
@@ -460,12 +529,12 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cDemon->DemonHp -= 25;
+					cDemon->DemonHp -= 10;
 					if (cDemon->DemonHp <= 0) {
 						DemonKilled = true;
-						(*it)->SetStatus(false);
+						(*it)->SetStatus(false); 
 					}
-					cout << "** RayBoxCollision between NPC and Projectile ***" << endl;
+					cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
 					break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::STRUCTURE)

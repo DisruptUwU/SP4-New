@@ -110,11 +110,15 @@ public:
 
 	//bool hydrakilled = false;
 
-	bool HydraKilled = false;
+	//bool HydraKilled = false;
 
 	double HydraBossHp = 100;
 
 	bool healthbelow50 = false;
+
+	bool nonattackphase = true;
+
+	bool npctoboss = false;
 
 	bool moreaggresivepart1 = false;
 
