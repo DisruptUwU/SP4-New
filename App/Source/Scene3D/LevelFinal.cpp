@@ -295,7 +295,7 @@ bool CLevelFinal::Update(const double dElapsedTime)
 	{
 		winGame = true;
 		cGUI_Scene3D->gameOver = true;
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		CCameraEffectsManager::GetInstance()->Get("Youwin")->SetStatus(true);
 	}
 
 	// Get keyboard updates for camera

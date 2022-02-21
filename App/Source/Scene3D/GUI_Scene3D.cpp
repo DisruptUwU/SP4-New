@@ -11,6 +11,8 @@
 #include "CameraEffects/Lowhealth.h"
 // Include CBloodScreen
 #include "CameraEffects/Youlose.h"
+// Include CBloodScreen
+#include "CameraEffects/Youwin.h"
 // Include CScopeScreen
 #include "CameraEffects/ScopeScreen.h"
 // Include CCrossHair
@@ -107,6 +109,11 @@ bool CGUI_Scene3D::Init(void)
 	cYoulose->Init();
 	cYoulose->SetShader("Shader_GUI");
 	cCameraEffectsManager->Add("Youlose", cYoulose);
+	// Add Lowhealth
+	CYouwin* cYouwin = new CYouwin();
+	cYouwin->Init();
+	cYouwin->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("Youwin", cYouwin);
 	// Add ScopeScreen
 	CScopeScreen* cScopeScreen = new CScopeScreen();
 	cScopeScreen->Init();
