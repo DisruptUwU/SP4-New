@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\GameStateManagement\FinalGameState.cpp" />
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp" />
     <ClCompile Include="Source\GameStateManagement\IntroState.cpp" />
     <ClCompile Include="Source\GameStateManagement\Level1GameState.cpp" />
@@ -74,6 +75,7 @@
     <ClCompile Include="Source\Scene3D\Level3.cpp" />
     <ClCompile Include="Source\Scene3D\Level4.cpp" />
     <ClCompile Include="Source\Scene3D\Level5.cpp" />
+    <ClCompile Include="Source\Scene3D\LevelFinal.cpp" />
     <ClCompile Include="Source\Scene3D\Minimap\Minimap.cpp" />
     <ClCompile Include="Source\Scene3D\Physics3D.cpp" />
     <ClCompile Include="Source\Scene3D\SceneGraph\SceneNode.cpp" />
@@ -93,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\GameStateManagement\FinalGameState.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateBase.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateManager.h" />
     <ClInclude Include="Source\GameStateManagement\IntroState.h" />
@@ -155,6 +158,7 @@
     <ClInclude Include="Source\Scene3D\Level3.h" />
     <ClInclude Include="Source\Scene3D\Level4.h" />
     <ClInclude Include="Source\Scene3D\Level5.h" />
+    <ClInclude Include="Source\Scene3D\LevelFinal.h" />
     <ClInclude Include="Source\Scene3D\Minimap\Minimap.h" />
     <ClInclude Include="Source\Scene3D\Physics3D.h" />
     <ClInclude Include="Source\Scene3D\SceneGraph\SceneNode.h" />

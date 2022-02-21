@@ -79,6 +79,9 @@
     <ClCompile Include="Source\SoundController\SoundController.cpp" />
     <ClCompile Include="Source\SoundController\SoundInfo.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Enemylvl2.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp" />
+    <ClCompile Include="Source\Scene3D\LevelFinal.cpp" />
+    <ClCompile Include="Source\GameStateManagement\FinalGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -393,9 +396,9 @@
     <ClCompile Include="Source\Scene3D\Entities\Level3NPC.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\doorlvl3.cpp">
-      <Filter>Scene3D\Entities</Filter>
-    </ClCompile>
+    <ClInclude Include="Source\Scene3D\Entities\doorlvl3.h" />
+    <ClInclude Include="Source\Scene3D\LevelFinal.h" />
+    <ClInclude Include="Source\GameStateManagement\FinalGameState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -630,9 +633,6 @@
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\Level3NPC.h">
-      <Filter>Scene3D\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\Entities\doorlvl3.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
