@@ -165,7 +165,7 @@ bool CDragon::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 1.5f;
+	fMovementSpeed = 5.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -348,13 +348,17 @@ bool CDragon::Update(const double dElapsedTime)
 		glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - tempPos));
 		float dot = glm::dot(targetFront, vec3Front);
 		cout << dot << endl;
-		if (dot >= 0.45)
+		if (dot >= 0.25)
 		{
 			vec3Front = targetFront;
 			DischargeWeapon();
 
 			// Process the movement
 			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+		}
+		else if (dot >= 0)
+		{
+			// rotate slowly
 		}
 		else
 		{
