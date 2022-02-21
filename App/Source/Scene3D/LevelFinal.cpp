@@ -294,6 +294,7 @@ bool CLevelFinal::Update(const double dElapsedTime)
 	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_E))
 	{
 		winGame = true;
+		cGUI_Scene3D->gameOver = true;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 	}
 
