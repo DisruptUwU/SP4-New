@@ -173,7 +173,7 @@ bool CLevel1::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitLevel1();
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
+	cTerrain->SetRenderSize(200.0f, 5.0f, 200.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
