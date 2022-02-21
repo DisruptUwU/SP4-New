@@ -182,7 +182,7 @@ bool CLevelFinal::Init(void)
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
-	cPlayer3D->SetPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+	cPlayer3D->SetPosition(glm::vec3(10.0f, 0.5f, 0.0f));
 	cPlayer3D->SetShader("Shader3D");
 	cPlayer3D->Init();
 	cPlayer3D->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -209,12 +209,16 @@ bool CLevelFinal::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// Initialise the cEnemy3D
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	//CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(0.0f, fCheckHeight, -50.0f));
-	//cEnemy3D->SetShader("Shader3D");
-	//cEnemy3D->Init();
-	//cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	////cEnemy3D->SetScale(glm::vec3(0.5f));
+	float fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+
+
+	CHeavenlyKing* cHeavenlyKing = new CHeavenlyKing(glm::vec3(0.0f, 5.5f, 0.0f));
+	cHeavenlyKing->SetShader("Shader3D");
+	cHeavenlyKing->Init();
+	cHeavenlyKing->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	cSolidObjectManager->Add(cHeavenlyKing);
 
 	////will remove later
 	//// Assign a cPistol to the cEnemy3D

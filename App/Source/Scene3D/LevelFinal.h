@@ -32,6 +32,8 @@
 #include "Entities\Enemy3D.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
+// Include CStructure3D
+#include "Entities\HeavenlyKing.h"
 // Include CProjectileManager
 #include "WeaponInfo/ProjectileManager.h"
 
