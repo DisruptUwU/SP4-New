@@ -72,6 +72,8 @@ public:
 	// PostRender
 	void PostRender(void);
 
+	bool winGame = false;
+
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;

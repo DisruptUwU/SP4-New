@@ -291,6 +291,12 @@ bool CLevelFinal::Update(const double dElapsedTime)
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
 
+	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_E))
+	{
+		winGame = true;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+	}
+
 	// Get keyboard updates for camera
 	if (!cPlayer3D->IsCameraAttached())
 	{
