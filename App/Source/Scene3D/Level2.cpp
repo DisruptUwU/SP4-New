@@ -679,14 +679,22 @@ bool CLevel2::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->DemonKilled == true)
 	{
-		cSoundController->StopSound();
+		//cSoundController->StopSound();
 		if (portalcheck == 0)
 		{
+			cSoundController->StopSound();
 			portalspawn = true;
 			portalcheck += 1;
 		}
 
-		else
+		else if (portalcheck == 1)
+		{
+			cSoundController->PlaySoundByID(5);
+			portalspawn = false;
+			portalcheck += 1;
+		}
+
+		else if (portalcheck >= 2)
 		{
 			portalspawn = false;
 		}
@@ -708,7 +716,7 @@ bool CLevel2::Update(const double dElapsedTime)
 
 	}
 
-	if (cSolidObjectManager->Doorlevel2 == true && portalcheck == 1)//extra check
+	if (cSolidObjectManager->Doorlevel2 == true && portalcheck >= 1)//extra check
 	{
  		gotolevel3 = true;
 	}
