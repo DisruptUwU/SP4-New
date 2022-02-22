@@ -64,8 +64,8 @@ bool CLevel1GameState::Update(const double dElapsedTime)
 		CKeyboardController::GetInstance()->Reset();
 
 		// Load the menu state
-		cout << "Loading MenuState" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		cout << "Loading Level 2" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("Level2GameState");
 		CGameStateManager::GetInstance()->OffPauseGameState();
 		return true;
 	}
