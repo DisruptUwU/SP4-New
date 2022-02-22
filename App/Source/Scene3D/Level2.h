@@ -132,6 +132,7 @@ protected:
 	int checkSound2 = 0;
 	int checkSound3 = 0;
 	int checkSound4 = 0;
+	bool playSounds = true;
 	bool Demonspawn = false;
 	int portalcheck = 0;
 	bool portalspawn;

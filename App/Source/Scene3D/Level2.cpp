@@ -454,7 +454,15 @@ bool CLevel2::Update(const double dElapsedTime)
 	cPlayer3D->StorePositionForRollback();
 
 	//if gametimer >= 0
-	gametimer += dElapsedTime;
+	if (playSounds == true)
+	{
+		gametimer += dElapsedTime;
+	}
+
+	else
+	{
+		gametimer = 0;
+	}
 
 	if (gametimer >= 5) //10
 	{
@@ -738,6 +746,7 @@ bool CLevel2::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(4);
 			portalspawn = false;
+			playSounds = false;
 			portalcheck += 1;
 		}
 
