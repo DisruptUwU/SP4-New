@@ -354,6 +354,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (timeractivate == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		cGUI_Scene3D->gameOver = true;
 		npctobosstimer += dElapsedTime;
 		/*cSoundController->PlaySoundByID(6);*/
 		cPlayer3D->cantMove = true;
@@ -376,6 +377,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		npctobosstimer = 0;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
 		timeractivate = false;
+		cGUI_Scene3D->gameOver = false;
 	}
 
 	cout << "npctobosstimer: " << npctobosstimer << endl;
