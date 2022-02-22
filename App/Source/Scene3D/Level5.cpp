@@ -160,6 +160,7 @@ bool CLevel5::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -398,6 +399,16 @@ bool CLevel5::Update(const double dElapsedTime)
 		cSolidObjectManager->youlose = true;
 		cGUI_Scene3D->gameOver = true;
 		losegame = true;
+	}
+
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		cSoundController->PlaySoundByID(4);
+	}
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
 
 	if (cSolidObjectManager->FinalBossKilled == true)
