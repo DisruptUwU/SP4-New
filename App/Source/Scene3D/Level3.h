@@ -159,6 +159,13 @@ protected:
 
 	bool spawnportal = false;
 
+	double gametimer = 0;
+	int checkSound1 = 0;
+	int checkSound2 = 0;
+	int checkSound3 = 0;
+	int checkSound4 = 0;
+	bool playSounds = true;
+
 	// Constructor
 	CLevel3(void);
 	// Destructor
