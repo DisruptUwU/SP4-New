@@ -101,6 +101,17 @@ public:
 	bool gotolevel6 = false;
 
 	bool spawnedHealers = false;
+
+	bool spawnCheckAtk = false;
+	bool spawnCheckDef = false;
+	bool spawnCheckHP = false;
+	bool spawnCheckSpeed = false;
+
+	double spawnCheckAtkTimer = 10;
+	double spawnCheckDefTimer = 10;
+	double spawnCheckHPTimer = 10;
+	double spawnCheckSpeedTimer = 10;
+
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
