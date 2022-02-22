@@ -395,7 +395,8 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->playerlostallhealth == true)
 	{
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);\
+		cSoundController->StopSound();
 		cSolidObjectManager->youlose = true;
 		cGUI_Scene3D->gameOver = true;
 		losegame = true;
