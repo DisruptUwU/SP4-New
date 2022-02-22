@@ -92,8 +92,8 @@ public:
 
 	CInventoryItem* cInventoryItem;
 
-	// Hardcode int value fpr keeping track of lvl 1 eneimes
-	int enemy_lvl1_count;
+	// Lvl1 to 2 portal bool
+	bool lvl1_portal_bool;
 protected:
 	// Render Settings
 	glm::mat4 model;
@@ -105,6 +105,9 @@ protected:
 
 	// Handler to the CProjectileManager
 	CProjectileManager* cProjectileManager;
+
+	// Hardcode int value fpr keeping track of lvl 1 eneimes
+	int enemy_lvl1_count;
 
 	// Default Constructor
 	CSolidObjectManager(void);

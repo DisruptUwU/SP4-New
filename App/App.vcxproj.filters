@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\GameStateManagement\FinalGameState.cpp">
       <Filter>GameSceneManagement</Filter>
     </ClCompile>
@@ -252,9 +250,14 @@
     <ClCompile Include="Source\Scene3D\CameraEffects\Youwin.cpp">
       <Filter>Scene3D\CameraEffects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Scene2D\BackgroundEntity.h" />
     <ClInclude Include="Source\Scene2D\Enemy2D.h" />
     <ClInclude Include="Source\Scene2D\GameManager.h" />
@@ -850,6 +853,9 @@
     <ClInclude Include="Source\Scene3D\CameraEffects\Youwin.h">
       <Filter>Scene3D\CameraEffects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -1126,6 +1132,12 @@
     </Filter>
     <Filter Include="Scene3D\Terrain">
       <UniqueIdentifier>{cfbfb563-7375-4922-aa0b-25f1a159de82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8c94921d-197a-4095-8f0d-a7040da4320e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{690ee5d4-cef6-448f-aaf2-74828bcb7f9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
