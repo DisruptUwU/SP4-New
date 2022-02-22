@@ -160,6 +160,8 @@ bool CLevel2::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\devilspawn.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Screech\\devilscream.ogg"), 5, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -618,7 +620,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	//	wavedead = true;
 	//}
 
-	if (cSolidObjectManager->DeadEnemies >= 7)
+	if (cSolidObjectManager->DeadEnemies >= 2) //change back to 7 later
 	{
 		if (checkDemonspawn == 0)
 		{
@@ -640,6 +642,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			//cSolidObjectManager->Add(cDemon);
 			//cout << "Die" << endl;
 			//checkDemonspawn += 1;
+			cSoundController->PlaySoundByID(4);
 			Demonspawn = true;
 			checkDemonspawn += 1;
 		}
@@ -676,6 +679,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	{
 		if (portalcheck == 0)
 		{
+			cSoundController->PlaySoundByID(5);
 			portalspawn = true;
 			portalcheck += 1;
 		}
