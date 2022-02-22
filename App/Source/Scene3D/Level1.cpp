@@ -45,6 +45,7 @@ CLevel1::CLevel1(void)
 	, cCamera(NULL)
 	, cSkyBox(NULL)
 	, cTerrain(NULL)
+	, teleport_2_lvl2(false)
 {
 }
 
@@ -512,6 +513,10 @@ bool CLevel1::Update(const double dElapsedTime)
 
 	// Check for collisions among Entities and also with Projectiles
 	cSolidObjectManager->CheckForCollision();
+	if (cSolidObjectManager->lvl1_portal_bool == true)
+	{
+		teleport_2_lvl2 = true;
+	}
 
 	// Update the entities
 	cEntityManager->Update(dElapsedTime);

@@ -156,14 +156,17 @@ bool CEnemy3D::Init(void)
 	cWaypointManager->Init();
 
 	// Add in some test Waypoints
-	float fCheckHeight = cTerrain->GetHeight(0.0f, -35.0f);
-	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, fCheckHeight, -35.0f));
+	float fCheckHeight = cTerrain->GetHeight(0.0f, -70.0f);
+	int m_iWayPointID = cWaypointManager->AddWaypoint(glm::vec3(0.0f, fCheckHeight, -70.0f));
 
-	fCheckHeight = cTerrain->GetHeight(30.0f, 0.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(30.0f, fCheckHeight, 0.0f));
+	fCheckHeight = cTerrain->GetHeight(70.0f, 0.0f);
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(70.0f, fCheckHeight, 0.0f));
 
-	fCheckHeight = cTerrain->GetHeight(-30.0f, 0.0f);
-	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-30.0f, fCheckHeight, 0.0f));
+	fCheckHeight = cTerrain->GetHeight(0.0f, 70.0f);
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(0.0f, fCheckHeight, 70.0f));
+
+	fCheckHeight = cTerrain->GetHeight(-70.0f, 0.0f);
+	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-70.0f, fCheckHeight, 0.0f));
 
 	cWaypointManager->PrintSelf();
 

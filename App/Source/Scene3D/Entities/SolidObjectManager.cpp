@@ -24,7 +24,7 @@ CSolidObjectManager::CSolidObjectManager(void)
 	, view(glm::mat4(1.0f))
 	, projection(glm::mat4(1.0f))
 	, cProjectileManager(NULL)
-	//, teleport2lvl2(false)
+	, lvl1_portal_bool(false)
 {
 }
 
@@ -283,6 +283,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 
 					// Load the menu state
 					cout << "Loading lvl 2 state" << endl;
+					lvl1_portal_bool = true;
 					//CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
 					break;
 				}

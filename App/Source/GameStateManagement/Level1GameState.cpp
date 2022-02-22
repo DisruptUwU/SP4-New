@@ -46,7 +46,7 @@ bool CLevel1GameState::Init(void)
 	CLevel1 = CLevel1::GetInstance();
 	if (CLevel1->Init() == false)
 	{
-		cout << "Failed to load CLevel4" << endl;
+		cout << "Failed to load CLevel1" << endl;
 		return false;
 	}
 
@@ -58,7 +58,18 @@ bool CLevel1GameState::Init(void)
  */
 bool CLevel1GameState::Update(const double dElapsedTime)
 {
-	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
+	if (CLevel1->teleport_2_lvl2 == true)
+	{
+		// Reset the CKeyboardController
+		CKeyboardController::GetInstance()->Reset();
+
+		// Load the menu state
+		cout << "Loading MenuState" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
+	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();

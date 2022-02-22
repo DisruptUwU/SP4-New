@@ -75,6 +75,8 @@ public:
 	void PostRender(void);
 
 	bool sprintCheck = false;
+
+	bool teleport_2_lvl2;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
