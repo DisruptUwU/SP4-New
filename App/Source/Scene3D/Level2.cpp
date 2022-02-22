@@ -464,7 +464,7 @@ bool CLevel2::Update(const double dElapsedTime)
 		gametimer = 0;
 	}
 
-	if (gametimer >= 5) //10
+	if (gametimer >= 10) //10
 	{
 		if (checkSound1 == 0)
 		{
@@ -476,7 +476,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			//return;
 		}
 	}
-	if (gametimer >= 10)
+	if (gametimer >= 20)
 	{
 		if (checkSound2 == 0)
 		{
@@ -488,7 +488,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			//return;
 		}
 	}
-	if (gametimer >= 15)
+	if (gametimer >= 30)
 	{
 		if (checkSound3 == 0)
 		{
@@ -500,7 +500,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			//return;
 		}
 	}
-	if (gametimer >= 20)
+	if (gametimer >= 40)
 	{
 		if (checkSound4 == 0)
 		{
@@ -513,7 +513,7 @@ bool CLevel2::Update(const double dElapsedTime)
 		}
 	}
 
-	if (gametimer >= 25)
+	if (gametimer >= 60)
 	{
 		gametimer = 0;
 		checkSound1 = 0;
