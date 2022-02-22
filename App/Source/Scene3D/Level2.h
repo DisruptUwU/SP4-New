@@ -80,6 +80,8 @@ public:
 	bool status;
 	bool gotolevel3 = false;
 
+	double gametimer = 0;
+
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -126,6 +128,10 @@ protected:
 	virtual ~CLevel2(void);
 
 	int checkDemonspawn = 0;
+	int checkSound1 = 0;
+	int checkSound2 = 0;
+	int checkSound3 = 0;
+	int checkSound4 = 0;
 	bool Demonspawn = false;
 	int portalcheck = 0;
 	bool portalspawn;
