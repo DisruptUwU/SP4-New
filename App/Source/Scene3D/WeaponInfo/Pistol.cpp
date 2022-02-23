@@ -47,7 +47,7 @@ bool CPistol::Init(void)
 	iMaxTotalRounds = 400;
 
 	// The time between shots
-	dTimeBetweenShots = 0.3333;
+	dTimeBetweenShots = 0.75;
 	// The elapsed time (between shots)
 	dElapsedTime = 0.0;
 	// Boolean flag to indicate if weapon can fire now
