@@ -322,13 +322,19 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
-				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST) && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F))
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST) /* && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
 				{
-					cPlayer3D->speedPower = true;
-					(*it_other)->RollbackPosition();
-					(*it_other)->SetStatus(false);
-					cout << "** chest bonus ***" << endl;
-					break;
+					cPlayer3D->chest_near = true;
+					(*it)->RollbackPosition();
+					if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F))
+					{
+						//cPlayer3D->chest_near = true;
+						//(*it_other)->RollbackPosition();
+						//(*it_other)->SetStatus(false);
+						cout << "** chest bonus received ***" << endl;
+						cPlayer3D->chest_near = false;
+						break;
+					}
 				}
 
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DEFPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)

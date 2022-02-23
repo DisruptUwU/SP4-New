@@ -156,6 +156,9 @@ public:
 	int DamagetoHydra = 5;
 	bool cantMove = false;
 
+	// Check if player is near chest
+	bool chest_near = false;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;

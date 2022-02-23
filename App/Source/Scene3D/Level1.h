@@ -24,6 +24,9 @@
 // Include CSoundController
 #include "..\SoundController\SoundController.h"
 
+// Include CChest
+#include "Entities\Chest.h"
+
 // Include CSolidObjectManager
 #include "Entities\SolidObjectManager.h"
 // Include CPlayer3D
