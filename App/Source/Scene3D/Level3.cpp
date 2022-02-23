@@ -835,7 +835,7 @@ void CLevel3::Render(void)
 
 	// Part 2: Render the entire scene as per normal
 	// Get the camera view and projection
-	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
+	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();
 	glm::mat4 projection = glm::perspective(glm::radians(CCamera::GetInstance()->fZoom),
 		(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
 		0.1f, 1000.0f);
