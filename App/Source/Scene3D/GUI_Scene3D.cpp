@@ -766,7 +766,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 				ImGuiWindowFlags_NoCollapse |
 				ImGuiWindowFlags_NoScrollbar;
 
-			if (cHydra->HydraBossHp <= 0) {
+			if (cHydra->HydraBossHp <= 1) {
 
 			}
 			else {
