@@ -485,7 +485,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			}
 			else if (cPlayer3D->FinalNPCDialogueStage == 3) {
 				ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.1f, cSettings->iWindowHeight * 0.8f));
 				ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 				//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
@@ -495,7 +495,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			}
 			else if (cPlayer3D->FinalNPCDialogueStage == 4) {
 				ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.1f, cSettings->iWindowHeight * 0.8f));
 				ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 				//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
