@@ -300,7 +300,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
 		ImGui::ProgressBar(cInventoryItem->GetCount() /
-			(float)cInventoryItem->GetMaxCount(), ImVec2(100.0f * relativeScale_x, 20.0f * relativeScale_y));
+			(float)cInventoryItem->GetMaxCount(), ImVec2(200.0f * relativeScale_x, 20.0f * relativeScale_y));
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 		ImGui::End();
@@ -324,7 +324,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.8f, 0.98f, 0.05f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(100.0f * relativeScale_x, 20.0f * relativeScale_y));
+		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(200.0f * relativeScale_x, 20.0f * relativeScale_y));
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 		ImGui::End();
@@ -375,6 +375,15 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Defence PowerUp: %0.2f", cPlayer3D->DefUpTimer);
+			ImGui::End();
+		}
+		if (cPlayer3D->speedPower == true)
+		{
+			ImGui::Begin("POWPickup", NULL, PickupWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.22f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Speed PowerUp: %0.2f", cPlayer3D->speedTimer);
 			ImGui::End();
 		}
 
