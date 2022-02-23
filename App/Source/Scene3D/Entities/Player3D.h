@@ -149,8 +149,8 @@ public:
 	double speedTimer;
 	double trapTimer = 3;
 	double jumpscaretraptimer = 1.5;
-	double DefUpTimer = 3;
-	double DmgUpTimer = 3;
+	double DefUpTimer = 10;
+	double DmgUpTimer = 10;
 
 	int Damage = 10;
 	int DamagetoHydra = 5;

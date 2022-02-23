@@ -340,14 +340,14 @@ bool CDragon::Update(const double dElapsedTime)
 		return false;
 	}
 
-	// Store the enemy's current position, if rollback is needed.
+	// Store the enemy's current position, if rollback is needed
 	StorePositionForRollback();
 
-	glm::vec3 tempPos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
-	glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - tempPos));
+	glm::vec3 pos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
+	glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - pos));
 	float dot = glm::dot(targetFront, vec3Front);
 	cout << dot << endl;
-	if (dot >= 0.1)
+	if (dot >= 0.9)
 	{
 		vec3Front = targetFront;
 		DischargeWeapon();
@@ -357,8 +357,16 @@ bool CDragon::Update(const double dElapsedTime)
 	}
 	else if (dot >= 0)
 	{
-		// rotate slowly
-		//glm::vec3 side = glm::rotateY(targetFront, glm::radians(90));
+		if (glm::dot(vec3Right, targetFront) > 0)
+		{
+			double angle = 10 * dElapsedTime;
+			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
+		}
+		else
+		{
+			double angle = -10 * dElapsedTime;
+			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
+		}
 	}
 	else
 	{

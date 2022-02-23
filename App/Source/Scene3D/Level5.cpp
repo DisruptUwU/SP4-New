@@ -328,6 +328,36 @@ bool CLevel5::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
+	{ // HealthPOW Spawn Check
+		if (cPlayer3D->healthPower == true)
+		{
+			spawnCheckHP = false;
+		}
+
+		if (spawnCheckHPTimer <= 0)
+		{
+			if (spawnCheckHP == false)
+			{
+				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+				// Initialise a CHealth
+				CHealthup* cHealthup = new CHealthup(glm::vec3(-15, fCheckHeight, 45));
+				cHealthup->SetShader("Shader3D");
+				cHealthup->Init();
+				cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cSolidObjectManager->Add(cHealthup);
+				spawnCheckHP = true;
+				spawnCheckHPTimer = 10;
+			}
+			else
+			{
+				spawnCheckHPTimer = 10;
+			}
+		}
+		else
+		{
+			spawnCheckHPTimer -= 1 * dElapsedTime;
+		}
+	}
 
 	{ // AttackPOW Spawn Check
 		if (cPlayer3D->AtkIncrease == true)
@@ -546,7 +576,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			}
 			else
 			{
-				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.f * dElapsedTime;
 			}
 		}
 		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)
