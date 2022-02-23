@@ -244,17 +244,6 @@ bool CLevel3::Init(void)
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
 
-	// Initialise a CStructure3D
-	fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-	CHealthup* cHealthup = new CHealthup(glm::vec3(5, fCheckHeight, -5));
-	cHealthup->SetShader("Shader3D");
-	cHealthup->Init();
-	cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//cStructure3D->SetScale(glm::vec3(0.5f));
-
-	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cHealthup);
-
 	//// Initialise a CStructure3D
 	//CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
 	//cBloodbath->SetShader("Shader3D");
@@ -311,10 +300,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(13);
 			checkSound1 += 1;
+			spawnpower1 = true;
 		}
 		else
 		{
 			//return;
+			spawnpower1 = false;
 		}
 	}
 	if (gametimer >= 20)
@@ -335,10 +326,12 @@ bool CLevel3::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(14);
 			checkSound3 += 1;
+			spawnpower2 = true;
 		}
 		else
 		{
 			//return;
+			spawnpower2 = false;
 		}
 	}
 	if (gametimer >= 40)
@@ -361,6 +354,34 @@ bool CLevel3::Update(const double dElapsedTime)
 		checkSound2 = 0;
 		checkSound3 = 0;
 		checkSound4 = 0;
+		spawnpower1 = false;
+		spawnpower2 = false;
+	}
+
+	if (spawnpower1 == true)
+	{
+		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+		CHealthup* cHealthup = new CHealthup(glm::vec3(5, -0.2, -5));
+		cHealthup->SetShader("Shader3D");
+		cHealthup->Init();
+		cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		//cStructure3D->SetScale(glm::vec3(0.5f));
+
+		// Add the cStructure3D to the cSolidObjectManager
+		cSolidObjectManager->Add(cHealthup);
+	}
+
+	if (spawnpower2 == true)
+	{
+		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+		CSpeed* cSpeed = new CSpeed(glm::vec3(8, -0.2, -8));
+		cSpeed->SetShader("Shader3D");
+		cSpeed->Init();
+		cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		//cStructure3D->SetScale(glm::vec3(0.5f));
+
+		// Add the cStructure3D to the cSolidObjectManager
+		cSolidObjectManager->Add(cSpeed);
 	}
 
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
