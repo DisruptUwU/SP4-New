@@ -223,18 +223,19 @@ bool CLevel1::Init(void)
 
 
 	// Initialise door (portal) that goes to next level
-	fCheckHeight = cTerrain->GetHeight(0.0f, -40.0f);
-	CDoor* cDoor = new CDoor(glm::vec3(0.0f, fCheckHeight, -40.0f));
+	fCheckHeight = cTerrain->GetHeight(0.0f, -90.0f);
+	CDoor* cDoor = new CDoor(glm::vec3(0.0f, fCheckHeight - 1.0f, -90.0f));
 	cDoor->SetShader("Shader3D");
 	cDoor->Init();
 	cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	// Add the door (portal) to the cSolidObjectManager
+	cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 	cSolidObjectManager->Add(cDoor);
 
 
 	// Initialise the first cEnemy3D
-	fCheckHeight = cTerrain->GetHeight(-5.0f, -40.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(-5.0f, fCheckHeight, -40.0f));
+	fCheckHeight = cTerrain->GetHeight(-5.0f, -90.0f);
+	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(-5.0f, fCheckHeight, -90.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
 	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -258,8 +259,8 @@ bool CLevel1::Init(void)
 
 
 	// Initialise the 2nd cEnemy3D
-	fCheckHeight = cTerrain->GetHeight(5.0f, -40.0f);
-	CEnemy3D* cEnemy3D_2 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight, -40.0f));
+	fCheckHeight = cTerrain->GetHeight(5.0f, -90.0f);
+	CEnemy3D* cEnemy3D_2 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight, -90.0f));
 	cEnemy3D_2->SetShader("Shader3D");
 	cEnemy3D_2->Init();
 	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
