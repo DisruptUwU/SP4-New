@@ -547,7 +547,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						}
 						else
 						{
-							cHydra->HydraBossHp -= cPlayer3D->Damage;
+							cHydra->HydraBossHp -= cPlayer3D->DamagetoHydra;
 						}
 						if (cHydra->HydraBossHp <= 1) {
 							HydraKilled = true;
