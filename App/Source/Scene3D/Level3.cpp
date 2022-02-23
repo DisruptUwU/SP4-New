@@ -371,7 +371,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		cSolidObjectManager->Add(cHealthup);
 	}
 
-	if (spawnpower2 == true) //
+	if (spawnpower2 == true) // //
 	{
 		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
 		CSpeed* cSpeed = new CSpeed(glm::vec3(8, -0.2, -8));
