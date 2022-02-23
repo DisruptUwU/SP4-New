@@ -37,6 +37,7 @@ public:
 		OTHERS,		// Default value: Other entities such as ground and skybox
 		STRUCTURE,	// Buildings etc
 		PROJECTILE,
+		CHEST, // Chest that gives a random power-up upon interaction
 		DOOR,
 		SPEEDPOWER,
 		HEALTHPOWER,
