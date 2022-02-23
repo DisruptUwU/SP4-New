@@ -60,8 +60,8 @@ bool CDoor::Init(void)
 	// Set the type
 	SetType(CEntity3D::TYPE::DOOR);
 
-	if (LoadModelAndTexture("Models/Dead_Tree/DeadTree.obj",
-		"Models/Portal_Placeholder/door.png",
+	if (LoadModelAndTexture("Models/Sub_bosses/door.obj",
+		"Models/Sub_bosses/door.jpg",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
 		cout << "Unable to load model and texture" << endl;
