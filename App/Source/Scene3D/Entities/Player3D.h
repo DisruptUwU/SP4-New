@@ -156,6 +156,12 @@ public:
 	int DamagetoHydra = 5;
 	bool cantMove = false;
 
+	double ult = 0;
+	bool ultActive = false;
+	double ultTimer = 3;
+	double ultSpeed = 1;
+	double ultDamage = 0;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;

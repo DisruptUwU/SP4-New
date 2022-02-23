@@ -8,6 +8,9 @@
 // Include CSolidObject
 #include "SolidObject.h"
 
+ // Include LoadOBJ
+#include "System/LoadOBJ.h"
+
 // Include GLM
 #include <includes/glm.hpp>
 #include <includes/gtc/matrix_transform.hpp>
@@ -56,6 +59,8 @@ public:
 
 	// Destructor
 	virtual ~CEnemylvl2(void);
+
+	bool LoadModelAndTexture(const char* filenameModel, const char* filenameTexture, GLuint& VAO, GLuint& iTextureID, GLuint& iIndicesSize);
 
 	// Initialise this class instance
 	bool Init(void);

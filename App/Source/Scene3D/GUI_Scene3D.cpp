@@ -191,6 +191,10 @@ bool CGUI_Scene3D::Init(void)
 	cInventoryItem = cInventoryManager->Add("DemonBossHp", "Image/Scene2D_DemonIcon.tga", 0, 0);
 	cInventoryItem->vec2Size = glm::vec2(25, 25);
 
+	// Add a Stamina icon as one of the inventory items
+	cInventoryItem = cInventoryManager->Add("Ulti", "Image/Scene2D_Stamina.tga", 0, 0);
+	cInventoryItem->vec2Size = glm::vec2(25, 25);
+
 	// Get the handler to the CPlayer3D instance
 	cPlayer3D = CPlayer3D::GetInstance();
 
@@ -400,6 +404,29 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::End();
 		ImGui::PopStyleColor();
 
+		// Render the ulti
+		ImGuiWindowFlags ultWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+		ImGui::Begin("Ulti", NULL, ultWindowFlags);
+		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f, cSettings->iWindowHeight * 0.9f));
+		ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+		ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+		cInventoryItem = cInventoryManager->GetItem("Ulti");
+		ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+			ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+			ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.8f, 0.98f, 0.05f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+		ImGui::ProgressBar(cPlayer3D->ult / 100, ImVec2(100.0f * relativeScale_x, 20.0f * relativeScale_y));
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
+		ImGui::End();
 		//// Render the inventory items
 		//cInventoryItem = cInventoryManager->GetItem("Pistol");
 		//ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.0f));  // Set a background color

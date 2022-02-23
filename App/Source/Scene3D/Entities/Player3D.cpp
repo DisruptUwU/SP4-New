@@ -326,11 +326,11 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 		{
 			if (speedPower == true)
 			{
-				velocity = fMovementSpeed * 5 * deltaTime;
+				velocity = fMovementSpeed * 5 * deltaTime * ultSpeed;
 			}
 			else
 			{
-				velocity = fMovementSpeed * 2 * deltaTime;
+				velocity = fMovementSpeed * 2 * deltaTime * ultSpeed;
 			}
 		}
 		else
@@ -339,22 +339,22 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 			{
 				if (speedPower == true)
 				{
-					velocity = fMovementSpeed * 5 * deltaTime;
+					velocity = fMovementSpeed * 5 * deltaTime * ultSpeed;
 				}
 				else
 				{
-					velocity = fMovementSpeed * 2 * deltaTime;
+					velocity = fMovementSpeed * 2 * deltaTime * ultSpeed;
 				}
 			}
 			else if (sprint == true)
 			{
 				if (speedPower == true)
 				{
-					velocity = fMovementSpeed * 10 * deltaTime;
+					velocity = fMovementSpeed * 10 * deltaTime * ultSpeed;
 				}
 				else
 				{
-					velocity = fMovementSpeed * 4 * deltaTime;
+					velocity = fMovementSpeed * 4 * deltaTime * ultSpeed;
 				}
 			}
 		}
@@ -492,6 +492,15 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		DefUpTimer = 10;
 	}
 
+	if (ultTimer <= 0)
+	{
+		ultTimer = 3;
+		ultActive = false;
+		ultSpeed = 1;
+		ultDamage = 0;
+		cout << "power down" << endl;
+	}
+
 	if (Hit == true)
 	{
 		ImmunityTimer -= 1 * dElapsedTime;
@@ -572,6 +581,14 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		cInventoryItem = cInventoryManager->GetItem("Coins");
 		cInventoryItem->Add(1);
 		collectCoin = false;
+	}
+
+	if (ultActive == true)
+	{
+		ultTimer -= 1 * dElapsedTime;
+		ultSpeed = 5;
+		ultDamage = 30;
+
 	}
 
 

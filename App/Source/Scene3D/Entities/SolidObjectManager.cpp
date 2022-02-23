@@ -457,7 +457,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					DeadEnemies += 1;
+					//DeadEnemies += 1;
 					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
@@ -517,7 +517,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					}
 					else
 					{
-						cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
+						cFinalBoss3D->FinalBossHp -= (cPlayer3D->Damage + cPlayer3D->ultDamage);
 					}
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
@@ -547,7 +547,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						}
 						else
 						{
-							cHydra->HydraBossHp -= cPlayer3D->DamagetoHydra;
+							cHydra->HydraBossHp -= (cPlayer3D->DamagetoHydra + cPlayer3D->ultDamage);
 						}
 						if (cHydra->HydraBossHp <= 1) {
 							HydraKilled = true;
@@ -563,7 +563,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cDemon->DemonHp -= 10;
+					cDemon->DemonHp -= (10 + cPlayer3D->ultDamage) ;
 					if (cDemon->DemonHp <= 0) {
 						DemonKilled = true;
 						(*it)->SetStatus(false); 

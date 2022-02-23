@@ -111,6 +111,56 @@ CEnemylvl2::~CEnemylvl2(void)
 	glDeleteVertexArrays(1, &VAO);
 }
 
+bool CEnemylvl2::LoadModelAndTexture(const char* filenameModel,
+	const char* filenameTexture,
+	GLuint& VAO,
+	GLuint& iTextureID,
+	GLuint& iIndicesSize)
+{
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
+	std::vector<ModelVertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	std::string file_path = filenameModel;
+	bool success = CLoadOBJ::LoadOBJ(file_path.c_str(), vertices, uvs, normals, true);
+	if (!success)
+	{
+		cout << "Unable to load " << filenameModel << endl;
+		return false;
+	}
+
+	CLoadOBJ::IndexVBO(vertices, uvs, normals, index_buffer_data, vertex_buffer_data);
+
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &IBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(ModelVertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+	iIndicesSize = index_buffer_data.size();
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(ModelVertex), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(ModelVertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec3)));
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// load and create a texture 
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID(filenameTexture, false);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load " << filenameTexture << endl;
+		return false;
+	}
+
+	return true;
+}
+
+
 /**
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
@@ -130,14 +180,11 @@ bool CEnemylvl2::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	mesh = CMeshBuilder::GenerateBox(glm::vec4(1, 0.5f, 0, 1));
-
-	// load and create a texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/gold_rock.tga", false);
-	if (iTextureID == 0)
+	if (LoadModelAndTexture("Models/Level2/MecanicEye.obj",
+		"Models/Pistol/honeycombs_col.png",
+		VAO, iTextureID, iIndicesSize) == false)
 	{
-		cout << "Unable to load Image/gold_rock.tga" << endl;
-		return false;
+		cout << "Unable to load model and texture" << endl;
 	}
 
 	// Store the handler to the terrain
@@ -429,6 +476,7 @@ bool CEnemylvl2::Update(const double dElapsedTime)
 	model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 	model = glm::translate(model, vec3Position);
 	model = glm::scale(model, vec3Scale);
+	model = glm::rotate(model, 1.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(fYaw), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	// Update the weapon's position
