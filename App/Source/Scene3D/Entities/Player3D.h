@@ -149,8 +149,8 @@ public:
 	double speedTimer;
 	double trapTimer = 3;
 	double jumpscaretraptimer = 1.5;
-	double DefUpTimer = 10;
-	double DmgUpTimer = 10;
+	double DefUpTimer = 30;
+	double DmgUpTimer = 30;
 
 	int Damage = 10;
 	int DamagetoHydra = 5;
@@ -161,6 +161,9 @@ public:
 	double ultTimer = 3;
 	double ultSpeed = 1;
 	double ultDamage = 0;
+
+	// Check if player is near chest
+	bool chest_near = false;
 
 protected:
 	// The handle to the CCamera class instance

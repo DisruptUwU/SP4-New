@@ -165,7 +165,7 @@ bool CDragon::Init(void)
 	cTerrain = CTerrain::GetInstance();
 
 	// Movement Control
-	fMovementSpeed = 5.0f;
+	fMovementSpeed = 15.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -184,6 +184,8 @@ bool CDragon::Init(void)
 	m_iWayPointID = cWaypointManager->AddWaypoint(m_iWayPointID, glm::vec3(-30.0f, vec3Position.y, 0.0f));
 
 	cWaypointManager->PrintSelf();
+
+	sCurrentFSM = FSM::ATTACK;
 
 	return true;
 }
@@ -351,8 +353,13 @@ bool CDragon::Update(const double dElapsedTime)
 	// Calculate angle from player
 	targetFront = glm::normalize((cPlayer3D->GetPosition() - pos));
 	float dot = glm::dot(targetFront, vec3Front);
+	//cout << dot << endl;
 
-	if (dot >= 0.9)
+	if (dot < 0 && sCurrentFSM == FSM::ATTACK)
+	{
+		sCurrentFSM = FSM::IDLE;
+	}
+	else if (dot >= 0.9 && sCurrentFSM == FSM::ATTACK)
 	{
 		vec3Front = targetFront;
 		DischargeWeapon();
@@ -360,7 +367,7 @@ bool CDragon::Update(const double dElapsedTime)
 		// Process the movement
 		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
 	}
-	else if (dot >= 0)
+	else if (dot >= 0 && sCurrentFSM == FSM::ATTACK)
 	{
 		// Slowly turn left or right based on player position
 		if (glm::dot(vec3Right, targetFront) > 0)
@@ -374,16 +381,21 @@ bool CDragon::Update(const double dElapsedTime)
 			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
 		}
 	}
-	else
+	else if (sCurrentFSM == FSM::IDLE)
 	{
-		if (true)
+		// Process the movement
+		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+
+		if (glm::length(vec3Position) >= glm::length(cTerrain->GetMaxPos()) * 1.1)
 		{
-			//fly to edge of map
+			sCurrentFSM = FSM::PATROL;
+			vec3Front = vec3Right;
 		}
-		else
-		{
-			// fly circle
-		}
+	}
+	else if (sCurrentFSM == FSM::PATROL)
+	{
+		// Process the movement
+		//ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
 	}
 	UpdateFrontAndYaw();
 

@@ -472,7 +472,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	if (DmgUpTimer <= 0)
 	{
 		AtkIncrease = false;
-		DmgUpTimer = 10;
+		DmgUpTimer = 30;
 	}
 
 	if (AtkIncrease == true) {
@@ -489,7 +489,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	if (DefUpTimer <= 0)
 	{
 		DefenceIncrease = false;
-		DefUpTimer = 10;
+		DefUpTimer = 30;
 	}
 
 	if (ultTimer <= 0)

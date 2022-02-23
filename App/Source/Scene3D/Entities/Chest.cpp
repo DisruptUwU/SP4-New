@@ -3,7 +3,7 @@
  By: Toh Da Jun
  Date: Sep 2021
  */
-#include "DoorLvl5.h"
+#include "Chest.h"
 
  // Include ShaderManager
 #include "RenderControl/ShaderManager.h"
@@ -23,7 +23,7 @@ using namespace std;
 /**
  @brief Default Constructor
  */
-CDoorLvl5::CDoorLvl5(void)
+CChest::CChest(void)
 {
 	// Set the default position to the origin
 	vec3Position = glm::vec3(0.0f, fHeightOffset, 0.0f);
@@ -34,7 +34,7 @@ CDoorLvl5::CDoorLvl5(void)
  @param vec3Position A const glm::vec3 variable which contains the position of the camera
  @param vec3Front A const glm::vec3 variable which contains the up direction of the camera
  */
-CDoorLvl5::CDoorLvl5(const glm::vec3 vec3Position,
+CChest::CChest(const glm::vec3 vec3Position,
 	const glm::vec3 vec3Front)
 {
 	this->vec3Position = glm::vec3(vec3Position.x, vec3Position.y + fHeightOffset, vec3Position.z);
@@ -44,7 +44,7 @@ CDoorLvl5::CDoorLvl5(const glm::vec3 vec3Position,
 /**
  @brief Destructor
  */
-CDoorLvl5::~CDoorLvl5(void)
+CChest::~CChest(void)
 {
 }
 
@@ -52,16 +52,16 @@ CDoorLvl5::~CDoorLvl5(void)
  @brief Initialise this class instance
  @return true is successfully initialised this class instance, else false
  */
-bool CDoorLvl5::Init(void)
+bool CChest::Init(void)
 {
 	// Call the parent's Init()
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::DOORLVL5);
+	SetType(CEntity3D::TYPE::CHEST);
 
-	if (LoadModelAndTexture("Models/Sub_bosses/door.obj",
-		"Models/Sub_bosses/door.jpg",
+	if (LoadModelAndTexture("Models/Chest/chest.obj",
+		"Models/Chest/chest_red.jpg",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
 		cout << "Unable to load model and texture" << endl;
@@ -80,7 +80,7 @@ bool CDoorLvl5::Init(void)
  @param iIndicesSize A GLuint& variable containing the iIndicesSize to be returned
  @return A bool variable
  */
-bool CDoorLvl5::LoadModelAndTexture(const char* filenameModel,
+bool CChest::LoadModelAndTexture(const char* filenameModel,
 	const char* filenameTexture,
 	GLuint& VAO,
 	GLuint& iTextureID,
@@ -134,7 +134,7 @@ bool CDoorLvl5::LoadModelAndTexture(const char* filenameModel,
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
  */
-void CDoorLvl5::SetModel(const glm::mat4 model)
+void CChest::SetModel(const glm::mat4 model)
 {
 	this->model = model;
 }
@@ -143,7 +143,7 @@ void CDoorLvl5::SetModel(const glm::mat4 model)
  @brief Set view
  @param view A const glm::mat4 variable containing the model for this class instance
  */
-void CDoorLvl5::SetView(const glm::mat4 view)
+void CChest::SetView(const glm::mat4 view)
 {
 	this->view = view;
 }
@@ -152,7 +152,7 @@ void CDoorLvl5::SetView(const glm::mat4 view)
  @brief Set projection
  @param projection A const glm::mat4 variable containing the model for this class instance
  */
-void CDoorLvl5::SetProjection(const glm::mat4 projection)
+void CChest::SetProjection(const glm::mat4 projection)
 {
 	this->projection = projection;
 }
@@ -162,7 +162,7 @@ void CDoorLvl5::SetProjection(const glm::mat4 projection)
  @param dt A const double variable containing the elapsed time since the last frame
  @return A bool variable
  */
-bool CDoorLvl5::Update(const double dElapsedTime)
+bool CChest::Update(const double dElapsedTime)
 {
 	CSolidObject::Update(dElapsedTime);
 
@@ -183,7 +183,7 @@ bool CDoorLvl5::Update(const double dElapsedTime)
 /**
  @brief PreRender Set up the OpenGL display environment before rendering
  */
-void CDoorLvl5::PreRender(void)
+void CChest::PreRender(void)
 {
 	CSolidObject::PreRender();
 }
@@ -191,7 +191,7 @@ void CDoorLvl5::PreRender(void)
 /**
  @brief Render Render this instance
  */
-void CDoorLvl5::Render(void)
+void CChest::Render(void)
 {
 	if (m_bLODStatus == false)
 	{
@@ -232,7 +232,7 @@ void CDoorLvl5::Render(void)
 /**
 @brief PostRender Set up the OpenGL display environment after rendering.
 */
-void CDoorLvl5::PostRender(void)
+void CChest::PostRender(void)
 {
 	CSolidObject::PostRender();
 }
@@ -240,7 +240,7 @@ void CDoorLvl5::PostRender(void)
 /**
  @brief Print Self
  */
-void CDoorLvl5::PrintSelf(void)
+void CChest::PrintSelf(void)
 {
 	cout << "CHut_Concrete::PrintSelf()" << endl;
 	cout << "========================" << endl;

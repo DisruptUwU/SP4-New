@@ -212,14 +212,24 @@ bool CLevel1::Init(void)
 
 	float fCheckHeight;
 
-	// Initialise the health powerup
+	/*// Initialise the health powerup
 	fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
 	CHealthup* cHealthup = new CHealthup(glm::vec3(0.0f, fCheckHeight, 0.0f));
 	cHealthup->SetShader("Shader3D");
 	cHealthup->Init();
 	cHealthup->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	// Add the health pickup to the cSolidObjectManager
-	cSolidObjectManager->Add(cHealthup);
+	cSolidObjectManager->Add(cHealthup);*/
+
+	// Initialise the chest 
+	fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+	CChest* cChest = new CChest(glm::vec3(0.0f, fCheckHeight - 0.75, 0.0f));
+	cChest->SetShader("Shader3D");
+	cChest->Init();
+	cChest->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cChest->SetScale(glm::vec3(0.5, 0.5, 0.5));
+	// Add the chest to the cSolidObjectManager
+	cSolidObjectManager->Add(cChest);
 
 
 	// Initialise door (portal) that goes to next level

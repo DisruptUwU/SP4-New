@@ -222,12 +222,12 @@ bool CLevel5::Init(void)
 	//// Add the cIncreaseDmg to the cSolidObjectManager
 	//cSolidObjectManager->Add(cIncreaseDmg);
 
-	CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
-	cDoor->SetShader("Shader3D");
-	cDoor->Init();
-	cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
+	//cDoor->SetShader("Shader3D");
+	//cDoor->Init();
+	//cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
-	cSolidObjectManager->Add(cDoor);
+	//cSolidObjectManager->Add(cDoor);
 
 	// Assign a cPistol to the cPlayer3D
 	CPistol* cPistol = new CPistol();
@@ -258,12 +258,12 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
-	SpawnSoul(35.0f, fCheckHeight + 1, 25.0f);
-	SpawnSoul(35.0f, fCheckHeight + 1, -25.0f);
-	SpawnSoul(-35.0f, fCheckHeight + 1, -25.0f);
-	SpawnSoul(-35.0f, fCheckHeight + 1, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, 25.0f);
 
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
+	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight - 0.6f, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
 	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
@@ -340,7 +340,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 				// Initialise a CHealth
-				CHealthup* cHealthup = new CHealthup(glm::vec3(-15, fCheckHeight, 45));
+				CHealthup* cHealthup = new CHealthup(glm::vec3(-15, fCheckHeight - 1, 45));
 				cHealthup->SetShader("Shader3D");
 				cHealthup->Init();
 				cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -371,7 +371,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 				//Increase Dmg
-				CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(-5.0f, fCheckHeight, 45.0f));
+				CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(-5.0f, fCheckHeight - 1, 45.0f));
 				cIncreaseDmg->SetShader("Shader3D");
 				cIncreaseDmg->Init();
 				cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -403,7 +403,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 				// Increase Def
-				CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(-7.0f, fCheckHeight, 45.0f));
+				CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(-7.0f, fCheckHeight - 1, 45.0f));
 				cIncreaseDef->SetShader("Shader3D");
 				cIncreaseDef->Init();
 				cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -464,6 +464,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
 		cSolidObjectManager->Add(cDoor);
 	}

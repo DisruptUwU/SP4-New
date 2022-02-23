@@ -304,7 +304,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 0.0f, 1.0f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
 		ImGui::ProgressBar(cInventoryItem->GetCount() /
-			(float)cInventoryItem->GetMaxCount(), ImVec2(100.0f * relativeScale_x, 20.0f * relativeScale_y));
+			(float)cInventoryItem->GetMaxCount(), ImVec2(200.0f * relativeScale_x, 20.0f * relativeScale_y));
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 		ImGui::End();
@@ -328,7 +328,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.8f, 0.98f, 0.05f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(100.0f * relativeScale_x, 20.0f * relativeScale_y));
+		ImGui::ProgressBar(cPlayer3D->stamina / 100, ImVec2(200.0f * relativeScale_x, 20.0f * relativeScale_y));
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 		ImGui::End();
@@ -369,7 +369,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.22f));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Attack PowerUp: %f", cPlayer3D->DmgUpTimer);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Attack PowerUp: %0.2f", cPlayer3D->DmgUpTimer);
 			ImGui::End();
 		}
 		if (cPlayer3D->DefenceIncrease == true)
@@ -378,7 +378,16 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.22f));
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Defence PowerUp: %f", cPlayer3D->DefUpTimer);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Defence PowerUp: %0.2f", cPlayer3D->DefUpTimer);
+			ImGui::End();
+		}
+		if (cPlayer3D->speedPower == true)
+		{
+			ImGui::Begin("POWPickup", NULL, PickupWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.22f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Speed PowerUp: %0.2f", cPlayer3D->speedTimer);
 			ImGui::End();
 		}
 
@@ -470,6 +479,26 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 		ImGui::End();
 		ImGui::PopStyleColor();
 
+		if (cPlayer3D->chest_near == true)
+		{
+			ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+				ImGuiWindowFlags_NoBackground |
+				ImGuiWindowFlags_NoTitleBar |
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoCollapse |
+				ImGuiWindowFlags_NoScrollbar;
+
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Open Chest?");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'F' To Open Chest");
+			ImGui::End();
+		}
+
 		if (cPlayer3D->NearFinalNPC == true)
 		{
 			ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
@@ -512,7 +541,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			}
 			else if (cPlayer3D->FinalNPCDialogueStage == 3) {
 				ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.1f, cSettings->iWindowHeight * 0.8f));
 				ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 				//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
@@ -522,7 +551,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			}
 			else if (cPlayer3D->FinalNPCDialogueStage == 4) {
 				ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.1f, cSettings->iWindowHeight * 0.8f));
 				ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 				//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
@@ -592,7 +621,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("Textbox", NULL, bossName);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.1f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				ImGui::TextColored(ImVec4(1, 1, 0, 1), "GUARDIAN OF THE GATE");
@@ -608,7 +637,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 						ImGuiWindowFlags_NoCollapse |
 						ImGuiWindowFlags_NoScrollbar;
 					ImGui::Begin("FinalBossHp", NULL, bossHp);
-					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 					ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					cInventoryItem = cInventoryManager->GetItem("FinalBossHp");
@@ -633,7 +662,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 						ImGuiWindowFlags_NoCollapse |
 						ImGuiWindowFlags_NoScrollbar;
 					ImGui::Begin("FinalBossHp", NULL, bossHp);
-					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 					ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					cInventoryItem = cInventoryManager->GetItem("FinalBossHp");
@@ -658,7 +687,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 						ImGuiWindowFlags_NoCollapse |
 						ImGuiWindowFlags_NoScrollbar;
 					ImGui::Begin("FinalBossHp", NULL, bossHp);
-					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 					ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					cInventoryItem = cInventoryManager->GetItem("FinalBossHp");
@@ -752,7 +781,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("Textbox", NULL, bossName);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.1f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				ImGui::TextColored(ImVec4(1, 1, 0, 1), "BLACK CALAMITY");
@@ -766,7 +795,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("DemonBossHp", NULL, bossHp);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 				ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				cInventoryItem = cInventoryManager->GetItem("DemonBossHp");
@@ -805,7 +834,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("Textbox", NULL, bossName);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.05f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				ImGui::TextColored(ImVec4(1, 1, 0, 1), "LORD OF THE CRIMSON OCEAN");
@@ -819,7 +848,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("HydraHP", NULL, bossHp);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.10f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 				ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				cInventoryItem = cInventoryManager->GetItem("HydraHP");
