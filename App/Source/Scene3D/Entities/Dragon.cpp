@@ -286,6 +286,7 @@ void CDragon::SetCurrentWeapon(const int iSlot)
 bool CDragon::DischargeWeapon(void) const
 {
 	glm::vec3 pos(vec3Position.x, vec3Position.y + 4.7, vec3Position.z);
+	glm::vec3 target = glm::normalize(cPlayer3D->GetPosition() - pos);
 
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{

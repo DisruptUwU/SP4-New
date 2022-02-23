@@ -546,7 +546,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			}
 			else
 			{
-				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 15.f * dElapsedTime;
+				cSolidObjectManager->cFinalBoss3D->FinalBossHp += 7.f * dElapsedTime;
 			}
 		}
 		else if (cSolidObjectManager->cFinalBoss3D->FinalBossHp >= 100)

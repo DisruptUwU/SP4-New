@@ -47,7 +47,7 @@ bool CPistol::Init(void)
 	iMaxTotalRounds = 400;
 
 	// The time between shots
-	dTimeBetweenShots = 0.3333;
+	dTimeBetweenShots = 0.75;
 	// The elapsed time (between shots)
 	dElapsedTime = 0.0;
 	// Boolean flag to indicate if weapon can fire now
@@ -65,7 +65,7 @@ bool CPistol::Init(void)
 	std::vector<ModelVertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 
-	std::string file_path = "Models/Pistol/gun_type64_01.obj";
+	std::string file_path = "Models/Pistol/gun_type64_01.obj"; //purposelly remove gun again
 	bool success = CLoadOBJ::LoadOBJ(file_path.c_str(), vertices, uvs, normals, true);
 	if (!success)
 	{

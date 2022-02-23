@@ -472,22 +472,24 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	if (DmgUpTimer <= 0)
 	{
 		AtkIncrease = false;
-		DmgUpTimer = 3;
+		DmgUpTimer = 10;
 	}
 
 	if (AtkIncrease == true) {
 		DmgUpTimer -= 1 * dElapsedTime;
-		Damage = 200; 
+		Damage = 20; 
+		DamagetoHydra = 10;
 	}
 	else
 	{
 		Damage = 10; //100
+		DamagetoHydra = 5;
 	}
 	
 	if (DefUpTimer <= 0)
 	{
 		DefenceIncrease = false;
-		DefUpTimer = 3;
+		DefUpTimer = 10;
 	}
 
 	if (Hit == true)
