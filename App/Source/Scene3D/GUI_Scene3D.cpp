@@ -574,7 +574,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("Textbox", NULL, bossName);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.1f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				ImGui::TextColored(ImVec4(1, 1, 0, 1), "GUARDIAN OF THE GATE");
@@ -734,7 +734,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("Textbox", NULL, bossName);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.1f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				ImGui::TextColored(ImVec4(1, 1, 0, 1), "BLACK CALAMITY");
@@ -748,7 +748,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("DemonBossHp", NULL, bossHp);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 				ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				cInventoryItem = cInventoryManager->GetItem("DemonBossHp");
@@ -787,7 +787,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("Textbox", NULL, bossName);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.05f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				ImGui::TextColored(ImVec4(1, 1, 0, 1), "LORD OF THE CRIMSON OCEAN");
@@ -801,7 +801,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 					ImGuiWindowFlags_NoCollapse |
 					ImGuiWindowFlags_NoScrollbar;
 				ImGui::Begin("HydraHP", NULL, bossHp);
-				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.10f));
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 				ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 				cInventoryItem = cInventoryManager->GetItem("HydraHP");
