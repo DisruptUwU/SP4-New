@@ -166,6 +166,12 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroaraggressive.ogg"), 7, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 8, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\OP.ogg"), 9, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect1.ogg"), 10, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect2.ogg"), 11, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect3.ogg"), 12, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect4.ogg"), 13, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect5.ogg"), 14, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect6.ogg"), 15, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -287,6 +293,76 @@ bool CLevel3::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
+
+	//if gametimer >= 0
+	if (playSounds == true)
+	{
+		gametimer += dElapsedTime;
+	}
+
+	else
+	{
+		gametimer = 0;
+	}
+
+	if (gametimer >= 10) //10
+	{
+		if (checkSound1 == 0)
+		{
+			cSoundController->PlaySoundByID(13);
+			checkSound1 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+	if (gametimer >= 20)
+	{
+		if (checkSound2 == 0)
+		{
+			cSoundController->PlaySoundByID(12);
+			checkSound2 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+	if (gametimer >= 30)
+	{
+		if (checkSound3 == 0)
+		{
+			cSoundController->PlaySoundByID(14);
+			checkSound3 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+	if (gametimer >= 40)
+	{
+		if (checkSound4 == 0)
+		{
+			cSoundController->PlaySoundByID(15);
+			checkSound4 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+
+	if (gametimer >= 60)
+	{
+		gametimer = 0;
+		checkSound1 = 0;
+		checkSound2 = 0;
+		checkSound3 = 0;
+		checkSound4 = 0;
+	}
+
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
@@ -354,6 +430,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (timeractivate == true)
 	{
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		cGUI_Scene3D->gameOver = true;
 		npctobosstimer += dElapsedTime;
 		/*cSoundController->PlaySoundByID(6);*/
 		cPlayer3D->cantMove = true;
@@ -376,6 +453,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		npctobosstimer = 0;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
 		timeractivate = false;
+		cGUI_Scene3D->gameOver = false;
 	}
 
 	cout << "npctobosstimer: " << npctobosstimer << endl;
@@ -439,6 +517,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 		else
 		{
+			playSounds = false;
 			spawnportal = false;
 		}
 	}
@@ -474,6 +553,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		/*cSoundController->StopSound();*/
 		//cSolidObjectManager->healthbelow50 = true;
+		cSoundController->StopSound();
 		changesongsequence = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
@@ -515,6 +595,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->HydraKilled == true && checkaggresion == 1)
 	{
+		//playSounds = false;
 		cSoundController->StopSound();
 	}
 

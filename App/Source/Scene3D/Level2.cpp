@@ -160,6 +160,14 @@ bool CLevel2::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Screech\\devilscream.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Levelthemes\\Level2.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect1.ogg"), 6, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect2.ogg"), 7, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect3.ogg"), 8, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect4.ogg"), 9, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect5.ogg"), 10, true);
+	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect6.ogg"), 11, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -445,25 +453,75 @@ bool CLevel2::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
-	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
+	//if gametimer >= 0
+	if (playSounds == true)
+	{
+		gametimer += dElapsedTime;
+	}
+
+	else
+	{
+		gametimer = 0;
+	}
+
+	if (gametimer >= 10) //10
+	{
+		if (checkSound1 == 0)
+		{
+			cSoundController->PlaySoundByID(6);
+			checkSound1 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+	if (gametimer >= 20)
+	{
+		if (checkSound2 == 0)
+		{
+			cSoundController->PlaySoundByID(8);
+			checkSound2 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+	if (gametimer >= 30)
+	{
+		if (checkSound3 == 0)
+		{
+			cSoundController->PlaySoundByID(9);
+			checkSound3 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+	if (gametimer >= 40)
+	{
+		if (checkSound4 == 0)
+		{
+			cSoundController->PlaySoundByID(11);
+			checkSound4 += 1;
+		}
+		else
+		{
+			//return;
+		}
+	}
+
+	if (gametimer >= 60)
+	{
+		gametimer = 0;
+		checkSound1 = 0;
+		checkSound2 = 0;
+		checkSound3 = 0;
+		checkSound4 = 0;
+	}
+	
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
@@ -618,7 +676,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	//	wavedead = true;
 	//}
 
-	if (cSolidObjectManager->DeadEnemies >= 7)
+	if (cSolidObjectManager->DeadEnemies >= 2) //change back to 7 later
 	{
 		if (checkDemonspawn == 0)
 		{
@@ -640,6 +698,8 @@ bool CLevel2::Update(const double dElapsedTime)
 			//cSolidObjectManager->Add(cDemon);
 			//cout << "Die" << endl;
 			//checkDemonspawn += 1;
+			cSoundController->PlaySoundByID(4);
+			cSoundController->PlaySoundByID(5);
 			Demonspawn = true;
 			checkDemonspawn += 1;
 		}
@@ -674,13 +734,23 @@ bool CLevel2::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->DemonKilled == true)
 	{
+		//cSoundController->StopSound();
 		if (portalcheck == 0)
 		{
+			cSoundController->StopSound();
 			portalspawn = true;
 			portalcheck += 1;
 		}
 
-		else
+		else if (portalcheck == 1)
+		{
+			cSoundController->PlaySoundByID(4);
+			portalspawn = false;
+			playSounds = false;
+			portalcheck += 1;
+		}
+
+		else if (portalcheck >= 2)
 		{
 			portalspawn = false;
 		}
@@ -702,7 +772,7 @@ bool CLevel2::Update(const double dElapsedTime)
 
 	}
 
-	if (cSolidObjectManager->Doorlevel2 == true)//push
+	if (cSolidObjectManager->Doorlevel2 == true && portalcheck >= 1)//extra check
 	{
  		gotolevel3 = true;
 	}

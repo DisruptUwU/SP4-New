@@ -160,6 +160,7 @@ bool CLevel5::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -205,21 +206,21 @@ bool CLevel5::Init(void)
 	//// Add the cBearTrap to the cSolidObjectManager
 	//cSolidObjectManager->Add(cBearTrap);
 
-	// Increase Def
-	CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(4.0f, fCheckHeight, -2.0f));
-	cIncreaseDef->SetShader("Shader3D");
-	cIncreaseDef->Init();
-	cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	// Add the cIncreaseDef to the cSolidObjectManager
-	cSolidObjectManager->Add(cIncreaseDef);
+	//// Increase Def
+	//CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(4.0f, fCheckHeight, -2.0f));
+	//cIncreaseDef->SetShader("Shader3D");
+	//cIncreaseDef->Init();
+	//cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cIncreaseDef to the cSolidObjectManager
+	//cSolidObjectManager->Add(cIncreaseDef);
 
-	//Increase Dmg
-	CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	cIncreaseDmg->SetShader("Shader3D");
-	cIncreaseDmg->Init();
-	cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	// Add the cIncreaseDmg to the cSolidObjectManager
-	cSolidObjectManager->Add(cIncreaseDmg);
+	////Increase Dmg
+	//CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(2.0f, fCheckHeight, -2.0f));
+	//cIncreaseDmg->SetShader("Shader3D");
+	//cIncreaseDmg->Init();
+	//cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//// Add the cIncreaseDmg to the cSolidObjectManager
+	//cSolidObjectManager->Add(cIncreaseDmg);
 
 	CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
 	cDoor->SetShader("Shader3D");
@@ -327,12 +328,88 @@ bool CLevel5::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
+
+	{ // AttackPOW Spawn Check
+		if (cPlayer3D->AtkIncrease == true)
+		{
+			spawnCheckAtk = false;
+		}
+
+		if (spawnCheckAtkTimer <= 0)
+		{
+			if (spawnCheckAtk == false)
+			{
+				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+				//Increase Dmg
+				CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(-5.0f, fCheckHeight, 45.0f));
+				cIncreaseDmg->SetShader("Shader3D");
+				cIncreaseDmg->Init();
+				cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				// Add the cIncreaseDmg to the cSolidObjectManager
+				cSolidObjectManager->Add(cIncreaseDmg);
+				spawnCheckAtk = true;
+				spawnCheckAtkTimer = 10;
+			}
+			else
+			{
+				spawnCheckAtkTimer = 10;
+			}
+		}
+		else
+		{
+			spawnCheckAtkTimer -= 1 * dElapsedTime;
+		}
+	}
+
+	{ // DefencePOW Spawn Check
+		if (cPlayer3D->DefenceIncrease == true)
+		{
+			spawnCheckDef = false;
+		}
+
+		if (spawnCheckDefTimer <= 0)
+		{
+			if (spawnCheckDef == false)
+			{
+				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+				// Increase Def
+				CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(-7.0f, fCheckHeight, 45.0f));
+				cIncreaseDef->SetShader("Shader3D");
+				cIncreaseDef->Init();
+				cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				// Add the cIncreaseDef to the cSolidObjectManager
+				cSolidObjectManager->Add(cIncreaseDef);
+				spawnCheckDef = true;
+				spawnCheckDefTimer = 10;
+			}
+			else
+			{
+				spawnCheckDefTimer = 10;
+			}
+		}
+		else
+		{
+			spawnCheckDefTimer -= 1 * dElapsedTime;
+		}
+	}
+
 	if (cPlayer3D->playerlostallhealth == true)
 	{
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);\
+		cSoundController->StopSound();
 		cSolidObjectManager->youlose = true;
 		cGUI_Scene3D->gameOver = true;
 		losegame = true;
+	}
+
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		cSoundController->PlaySoundByID(4);
+	}
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
 
 	if (cSolidObjectManager->FinalBossKilled == true)

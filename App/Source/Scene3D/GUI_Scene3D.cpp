@@ -722,7 +722,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.1f));
 				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-				ImGui::TextColored(ImVec4(1, 1, 0, 1), "NIGGER ENFORCER");
+				ImGui::TextColored(ImVec4(1, 1, 0, 1), "BLACK CALAMITY");
 				ImGui::End();
 
 				ImGuiWindowFlags bossHp = ImGuiWindowFlags_AlwaysAutoResize |
