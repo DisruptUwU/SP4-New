@@ -342,37 +342,35 @@ bool CDragon::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	if (true)
+	glm::vec3 tempPos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
+	glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - tempPos));
+	float dot = glm::dot(targetFront, vec3Front);
+	cout << dot << endl;
+	if (dot >= 0.1)
 	{
-		glm::vec3 tempPos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
-		glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - tempPos));
-		float dot = glm::dot(targetFront, vec3Front);
-		cout << dot << endl;
-		if (dot >= 0.25)
-		{
-			vec3Front = targetFront;
-			DischargeWeapon();
+		vec3Front = targetFront;
+		DischargeWeapon();
 
-			// Process the movement
-			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
-		}
-		else if (dot >= 0)
+		// Process the movement
+		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+	}
+	else if (dot >= 0)
+	{
+		// rotate slowly
+		//glm::vec3 side = glm::rotateY(targetFront, glm::radians(90));
+	}
+	else
+	{
+		if (true)
 		{
-			// rotate slowly
+			//fly to edge of map
 		}
 		else
 		{
-			if (true)
-			{
-				//fly to edge of map
-			}
-			else
-			{
-				// fly circle
-			}
+			// fly circle
 		}
-		UpdateFrontAndYaw();
 	}
+	UpdateFrontAndYaw();
 
 	// Update the model
 	model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first

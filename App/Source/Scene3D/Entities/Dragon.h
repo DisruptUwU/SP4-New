@@ -5,6 +5,7 @@
 
 // Include GLM
 #include <includes/glm.hpp>
+#include <includes/gtx/rotate_vector.hpp>
 #include <includes/gtc/matrix_transform.hpp>
 #include <includes/gtc/type_ptr.hpp>
 
