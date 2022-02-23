@@ -764,7 +764,7 @@ bool CLevel2::Update(const double dElapsedTime)
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-		//cSpeed->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
+		cDoor->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
 		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
 		cSolidObjectManager->Add(cDoor);
