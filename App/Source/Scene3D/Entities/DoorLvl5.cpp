@@ -60,7 +60,7 @@ bool CDoorLvl5::Init(void)
 	// Set the type
 	SetType(CEntity3D::TYPE::DOORLVL5);
 
-	if (LoadModelAndTexture("Models/Level5/Heart.obj",
+	if (LoadModelAndTexture("Models/Sub_bosses/door.obj",
 		"Models/Sub_bosses/door.jpg",
 		VAO, iTextureID, iIndicesSize) == false)
 	{

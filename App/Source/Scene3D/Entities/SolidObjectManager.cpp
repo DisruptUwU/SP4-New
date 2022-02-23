@@ -12,6 +12,9 @@
 // Include CCameraEffectsManager
 #include "../CameraEffects/CameraEffectsManager.h"
 
+// Include CKeyboardController
+#include "Inputs\KeyboardController.h"
+
 #include <iostream>
 
 using namespace std;
@@ -316,6 +319,15 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(*it_other)->RollbackPosition();
 					(*it_other)->SetStatus(false);
 					cout << "** speed ***" << endl;
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST) && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F))
+				{
+					cPlayer3D->speedPower = true;
+					(*it_other)->RollbackPosition();
+					(*it_other)->SetStatus(false);
+					cout << "** chest bonus ***" << endl;
 					break;
 				}
 

@@ -222,12 +222,12 @@ bool CLevel5::Init(void)
 	//// Add the cIncreaseDmg to the cSolidObjectManager
 	//cSolidObjectManager->Add(cIncreaseDmg);
 
-	CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
-	cDoor->SetShader("Shader3D");
-	cDoor->Init();
-	cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
+	//cDoor->SetShader("Shader3D");
+	//cDoor->Init();
+	//cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
-	cSolidObjectManager->Add(cDoor);
+	//cSolidObjectManager->Add(cDoor);
 
 	// Assign a cPistol to the cPlayer3D
 	CPistol* cPistol = new CPistol();
@@ -464,6 +464,7 @@ bool CLevel5::Update(const double dElapsedTime)
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
 		cSolidObjectManager->Add(cDoor);
 	}
