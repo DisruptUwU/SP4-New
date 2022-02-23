@@ -261,24 +261,25 @@ bool CLevel2::Init(void)
 		cEnemy3D7->Init();
 		cEnemy3D7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	
-	if (wavedead) 
-{
-		float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
-		CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
-		cDemon->SetShader("Shader3D");
-		cDemon->Init();
-		cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		if (wavedead)
+		{
+			float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
+			CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
+			cDemon->SetShader("Shader3D");
+			//cDemon->SetRotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+			cDemon->Init();
+			cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 			CPistol* cDemonPistol = new CPistol();
-	cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-	cDemonPistol->Init();
-	cDemonPistol->SetShader("Shader3D_Model");
-	cDemon->SetWeapon(0, cDemonPistol);
+			cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+			cDemonPistol->Init();
+			cDemonPistol->SetShader("Shader3D_Model");
+			cDemon->SetWeapon(0, cDemonPistol);
 
-	cSolidObjectManager->cDemon = cDemon;
+			cSolidObjectManager->cDemon = cDemon;
 
-	cSolidObjectManager->Add(cDemon);
-	}
+			cSolidObjectManager->Add(cDemon);
+		}
 
 
 	// Assign a cPistol to the cEnemy3D

@@ -165,6 +165,8 @@ protected:
 	int checkSound3 = 0;
 	int checkSound4 = 0;
 	bool playSounds = true;
+	bool spawnpower1 = false;
+	bool spawnpower2 = false;
 
 	// Constructor
 	CLevel3(void);
