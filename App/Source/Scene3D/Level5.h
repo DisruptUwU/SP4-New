@@ -50,6 +50,8 @@
 #include "Entities\IncreaseDef.h"
 // Include CIncreaseDmg
 #include "Entities\IncreaseDmg.h"
+// Include CIncreaseDmg
+#include "Entities\Healthup.h"
 // Include CDoorLvl5
 #include "Entities\DoorLvl5.h"
 
