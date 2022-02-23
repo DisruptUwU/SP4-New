@@ -651,11 +651,11 @@ void CHydra::Render(void)
 
 	CSolidObject::Render();
 
-	cPrimaryWeapon->SetView(view);
+	/*cPrimaryWeapon->SetView(view);
 	cPrimaryWeapon->SetProjection(projection);
 	cPrimaryWeapon->PreRender();
 	cPrimaryWeapon->Render();
-	cPrimaryWeapon->PostRender();
+	cPrimaryWeapon->PostRender();*/
 }
 
 /**
