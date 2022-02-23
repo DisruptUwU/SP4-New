@@ -359,12 +359,12 @@ bool CDragon::Update(const double dElapsedTime)
 	{
 		if (glm::dot(vec3Right, targetFront) > 0)
 		{
-			double angle = 10 * dElapsedTime;
+			double angle = 5 * dElapsedTime;
 			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
 		}
 		else
 		{
-			double angle = -10 * dElapsedTime;
+			double angle = -5 * dElapsedTime;
 			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
 		}
 	}
