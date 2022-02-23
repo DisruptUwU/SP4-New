@@ -581,7 +581,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 						ImGuiWindowFlags_NoCollapse |
 						ImGuiWindowFlags_NoScrollbar;
 					ImGui::Begin("FinalBossHp", NULL, bossHp);
-					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 					ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					cInventoryItem = cInventoryManager->GetItem("FinalBossHp");
@@ -606,7 +606,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 						ImGuiWindowFlags_NoCollapse |
 						ImGuiWindowFlags_NoScrollbar;
 					ImGui::Begin("FinalBossHp", NULL, bossHp);
-					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 					ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					cInventoryItem = cInventoryManager->GetItem("FinalBossHp");
@@ -631,7 +631,7 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 						ImGuiWindowFlags_NoCollapse |
 						ImGuiWindowFlags_NoScrollbar;
 					ImGui::Begin("FinalBossHp", NULL, bossHp);
-					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.15f));
+					ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
 					ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 					ImGui::SetWindowFontScale(1.5f * relativeScale_y);
 					cInventoryItem = cInventoryManager->GetItem("FinalBossHp");
