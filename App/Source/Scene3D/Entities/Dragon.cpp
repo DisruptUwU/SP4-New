@@ -343,10 +343,15 @@ bool CDragon::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed
 	StorePositionForRollback();
 
+	// Offset centre position
 	glm::vec3 pos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
 	glm::vec3 targetFront = glm::normalize((cPlayer3D->GetPosition() - pos));
+	pos += 5.5f * targetFront;
+
+	// Calculate angle from player
+	targetFront = glm::normalize((cPlayer3D->GetPosition() - pos));
 	float dot = glm::dot(targetFront, vec3Front);
-	cout << dot << endl;
+
 	if (dot >= 0.9)
 	{
 		vec3Front = targetFront;
@@ -357,6 +362,7 @@ bool CDragon::Update(const double dElapsedTime)
 	}
 	else if (dot >= 0)
 	{
+		// Slowly turn left or right based on player position
 		if (glm::dot(vec3Right, targetFront) > 0)
 		{
 			double angle = 5 * dElapsedTime;

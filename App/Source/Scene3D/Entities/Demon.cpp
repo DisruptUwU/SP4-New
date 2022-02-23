@@ -179,7 +179,7 @@ bool CDemon::Init(void)
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	if (LoadModelAndTexture("Models/Sub_bosses/MegaGyarados3.obj",
+	if (LoadModelAndTexture("Models/Level2/Demon_Skull.obj",
 		"Models/Pistol/honeycombs_col.png",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
@@ -511,6 +511,7 @@ bool CDemon::Update(const double dElapsedTime)
 	model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 	model = glm::translate(model, vec3Position);
 	model = glm::scale(model, vec3Scale);
+	model = glm::rotate(model,1.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::rotate(model, glm::radians(fYaw), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	// Update the weapon's position
