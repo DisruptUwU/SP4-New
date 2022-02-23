@@ -153,6 +153,7 @@ public:
 	double DmgUpTimer = 10;
 
 	int Damage = 10;
+	int DamagetoHydra = 5;
 	bool cantMove = false;
 
 protected:

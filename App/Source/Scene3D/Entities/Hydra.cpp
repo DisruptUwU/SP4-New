@@ -440,7 +440,7 @@ bool CHydra::Update(const double dElapsedTime)
 		nonattackphase = false;
 		fDetectionDistance = 1000.0f;
 		//cPlayer3D->NearHydra = true;
-		fMovementSpeed = 0.5f;
+		fMovementSpeed = 1.f;
 	}
 
 	cout << "non attack phase: " << nonattackphase << endl;
@@ -448,7 +448,7 @@ bool CHydra::Update(const double dElapsedTime)
 	if (moreaggresivepart1 == true)
 	{
 		fDetectionDistance = 1000.0f;
-		fMovementSpeed = 2.5; //3
+		fMovementSpeed = 3.f; //3
 	}
 	else if (moreaggresivepart1 == false && changingform == true)
 	{
