@@ -492,12 +492,13 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		DefUpTimer = 30;
 	}
 
-	if (ultTimer <= 0)
+	if (ultTimer <= 0 && ult >= 0)
 	{
 		ultTimer = 3;
 		ultActive = false;
 		ultSpeed = 1;
 		ultDamage = 0;
+		ult = 0;
 		cout << "power down" << endl;
 	}
 
@@ -588,6 +589,14 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		ultTimer -= 1 * dElapsedTime;
 		ultSpeed = 5;
 		ultDamage = 30;
+
+	}
+	else
+	{
+		if (ult < 100)
+		{
+			ult += 10 * dElapsedTime;
+		}
 
 	}
 

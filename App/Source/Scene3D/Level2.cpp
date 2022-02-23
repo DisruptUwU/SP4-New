@@ -579,15 +579,15 @@ bool CLevel2::Update(const double dElapsedTime)
 		sprintCheck = false;
 	}
 
-	if (cPlayer3D->ult < 100)
-	{
-		cPlayer3D->ult += 10 * dElapsedTime;
-	}
+	//if (cPlayer3D->ult < 100)
+	//{
+	//	cPlayer3D->ult += 10 * dElapsedTime;
+	//}
 
-	if (cPlayer3D->ult >= 100 && cPlayer3D->ultTimer <= 0)
-	{
-		cPlayer3D->ult = 0;
-	}
+	//if (cPlayer3D->ult >= 100 && cPlayer3D->ultTimer <= 0)
+	//{
+	//	cPlayer3D->ult = 0;
+	//}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F) && cPlayer3D->ult >= 100 && cPlayer3D->ultActive == false) {
 		cPlayer3D->ultActive = true;
