@@ -343,6 +343,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 						(*it_other)->SetStatus(false);
 						cout << "** chest bonus received ***" << endl;
 						cPlayer3D->chest_near = false;
+						cPlayer3D->gloves = true;
+						cout << "** gloves equipped ***" << endl;
 						break;
 					}
 				}
