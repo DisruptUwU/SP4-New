@@ -565,7 +565,6 @@ bool CLevel5::Update(const double dElapsedTime)
 			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 300;
 			//cSolidObjectManager->cFinalBoss3D->healersAlive = 4;
 			//cSolidObjectManager->cFinalBoss3D->phase = 1;
-			//cSolidObjectManager->cFinalBoss3D->regainPhase1 = true;
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
@@ -595,6 +594,19 @@ bool CLevel5::Update(const double dElapsedTime)
 	else if ((cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true) && (cSolidObjectManager->cFinalBoss3D->phase == 4))
 	{
 		cSolidObjectManager->cFinalBoss3D->FinalBossHp = 0;
+	}
+
+	if (cSolidObjectManager->cFinalBoss3D->enraged == true)
+	{
+		if (cSolidObjectManager->cFinalBoss3D->enragedStats == false)
+		{
+			cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 4.0f;
+			cSolidObjectManager->moreaggresivepart2 = true;
+			cSolidObjectManager->cFinalBoss3D->enragedStats = true;
+		}
+		else
+		{
+		}
 	}
 
 	//// Get keyboard updates for player3D

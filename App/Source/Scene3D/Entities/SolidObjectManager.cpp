@@ -288,6 +288,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 
 					// Load the menu state
 					cout << "Loading lvl 2 state" << endl;
+					moreaggresivepart2 = false;
 					lvl1_portal_bool = true;
 					//CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
 					break;
@@ -296,6 +297,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL2))
 				{
 					Doorlevel2 = true;
+					moreaggresivepart2 = false;
 					cout << "** teleporting to level 2 ***" << endl;
 					break;
 				}
@@ -409,6 +411,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL3))
 				{
 					wenttodoor = true;
+					moreaggresivepart2 = false;
 					cout << "** teleporting! ***" << endl;
 					break;
 				}
@@ -416,6 +419,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL5))
 				{
 					wenttodoorlvl5 = true;
+					moreaggresivepart2 = false;
 					cout << "** teleporting! ***" << endl;
 					break;
 				}

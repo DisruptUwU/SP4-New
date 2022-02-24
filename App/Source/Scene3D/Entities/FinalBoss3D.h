@@ -118,7 +118,7 @@ public:
 	bool goRight = true;
 
 	bool enraged = false;
-	bool regainPhase1 = false;
+	bool enragedStats = false;
 
 	double FinalBossHp = 300;
 	// Detection distance for player
