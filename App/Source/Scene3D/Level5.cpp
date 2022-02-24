@@ -244,7 +244,7 @@ bool CLevel5::Init(void)
 	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -2.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
-	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
@@ -691,6 +691,10 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
+
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F) && cPlayer3D->ult >= 100 && cPlayer3D->ultActive == false) {
+		cPlayer3D->ultActive = true;
+	}
 
 	// Get keyboard updates for camera
 	if (!cPlayer3D->IsCameraAttached())
