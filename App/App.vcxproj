@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Scene3D\Entities\BearTrap.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Bloodbath.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Chest.cpp" />
+    <ClCompile Include="Source\Scene3D\Entities\Chest_Zone.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Coin.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\Demon.cpp" />
     <ClCompile Include="Source\Scene3D\Entities\door.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Source\Scene3D\Entities\BearTrap.h" />
     <ClInclude Include="Source\Scene3D\Entities\Bloodbath.h" />
     <ClInclude Include="Source\Scene3D\Entities\Chest.h" />
+    <ClInclude Include="Source\Scene3D\Entities\Chest_Zone.h" />
     <ClInclude Include="Source\Scene3D\Entities\Coin.h" />
     <ClInclude Include="Source\Scene3D\Entities\Demon.h" />
     <ClInclude Include="Source\Scene3D\Entities\door.h" />

@@ -259,6 +259,9 @@
     <ClCompile Include="Source\Scene3D\Entities\Chest.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Chest_Zone.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Scene2D\BackgroundEntity.h" />
@@ -858,6 +861,9 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\AI\FSM.h" />
     <ClInclude Include="Source\Scene3D\Entities\Chest.h">
+      <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\Entities\Chest_Zone.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
   </ItemGroup>
