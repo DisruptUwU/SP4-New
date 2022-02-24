@@ -161,6 +161,7 @@ bool CLevel5::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Endurance.ogg"), 5, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -459,8 +460,9 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (spawnportal == true)
 	{
+		cSoundController->StopSound();
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
+		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(0, fCheckHeight, 0)); //y = -0.5
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -486,12 +488,11 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->FinalNPCDialogueStage == 8)
 	{
-
-		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
+		cSolidObjectManager->cFinalBoss3D->phase = 1; 
 		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
-		//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		Enddialogtimer += dElapsedTime;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
+		cSoundController->PlaySoundByID(5);
 	}
 
 	if (Enddialogtimer >= 2.5)
