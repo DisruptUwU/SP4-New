@@ -26,6 +26,8 @@
 
 // Include CChest
 #include "Entities\Chest.h"
+// Include CChestZone
+#include "Entities\Chest_Zone.h"
 
 // Include CSolidObjectManager
 #include "Entities\SolidObjectManager.h"

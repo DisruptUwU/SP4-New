@@ -231,6 +231,16 @@ bool CLevel1::Init(void)
 	// Add the chest to the cSolidObjectManager
 	cSolidObjectManager->Add(cChest);
 
+	// Initialise the chest detection zone
+	fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+	CChestZone* cChestZone = new CChestZone(glm::vec3(0.0f, fCheckHeight - 0.75, 0.0f));
+	cChestZone->SetShader("Shader3D");
+	cChestZone->Init();
+	cChestZone->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	cChestZone->SetScale(glm::vec3(2, 0.5, 2));
+	// Add the chest zone to the cSolidObjectManager
+	cSolidObjectManager->Add(cChestZone);
+
 
 	// Initialise door (portal) that goes to next level
 	fCheckHeight = cTerrain->GetHeight(0.0f, -90.0f);
