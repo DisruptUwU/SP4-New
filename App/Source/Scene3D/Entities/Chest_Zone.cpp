@@ -62,12 +62,12 @@ bool CChestZone::Init(void)
 
 	// Moddel loading commented out as this entity is for detecting if player is in vicinity of chest 
 	
-	if (LoadModelAndTexture("Models/Chest/chest.obj",
+	/*if (LoadModelAndTexture("Models/Chest/chest.obj",
 		"Models/Chest/chest_red.jpg",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
 		cout << "Unable to load model and texture" << endl;
-	}
+	}*/
 
 
 	return true;

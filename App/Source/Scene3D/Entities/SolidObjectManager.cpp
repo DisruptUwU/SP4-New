@@ -192,6 +192,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 	bool bResult = false;
 	//DeadEnemies = 0;
 
+	cPlayer3D->chest_near = false;
+
 	std::list<CSolidObject*>::iterator it, end;
 	std::list<CSolidObject*>::iterator it_other;
 
