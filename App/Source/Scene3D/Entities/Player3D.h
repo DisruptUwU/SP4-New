@@ -165,6 +165,9 @@ public:
 	// Check if player is near chest
 	bool chest_near = false;
 
+	// Gloves from chest
+	bool gloves = false;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
