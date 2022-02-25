@@ -492,6 +492,10 @@ bool CLevel1::Update(const double dElapsedTime)
 		sprintCheck = false;
 	}
 
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F) && cPlayer3D->ult >= 100 && cPlayer3D->ultActive == false) {
+		cPlayer3D->ultActive = true;
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
 

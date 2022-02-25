@@ -363,7 +363,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				{
 					cPlayer3D->chest_near = true;
 					//(*it)->RollbackPosition();
-					if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)) // Get something
+					if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_P)) // Get something
 					{
 						//cPlayer3D->chest_near = true;
 						//(*it_other)->RollbackPosition();

@@ -695,7 +695,7 @@ bool CLevel2::Update(const double dElapsedTime)
 		CDemon* cDemon = new CDemon(glm::vec3(20.0f, fCheckHeight5, -30.0f));
 		cDemon->SetShader("Shader3D");
 		cDemon->Init();
-		cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-1, -1, -1), glm::vec3(1, 1.25, 1));
 
 		CPistol* cDemonPistol = new CPistol();
 		cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
