@@ -374,14 +374,14 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (spawnpower2 == true) // //
 	{
 		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CSpeed* cSpeed = new CSpeed(glm::vec3(8, -0.2, -8));
-		cSpeed->SetShader("Shader3D");
-		cSpeed->Init();
-		cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(8, -0.2, -8));
+		cIncreaseDmg->SetShader("Shader3D");
+		cIncreaseDmg->Init();
+		cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 		//cStructure3D->SetScale(glm::vec3(0.5f));
 
 		// Add the cStructure3D to the cSolidObjectManager
-		cSolidObjectManager->Add(cSpeed);
+		cSolidObjectManager->Add(cIncreaseDmg);
 	}
 
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
