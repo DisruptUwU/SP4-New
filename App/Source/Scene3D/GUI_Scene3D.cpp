@@ -132,6 +132,11 @@ bool CGUI_Scene3D::Init(void)
 	cJumpscare5->SetShader("Shader_GUI");
 	cCameraEffectsManager->Add("Jumpscare5", cJumpscare5);
 	// Add Lowhealth
+	CJumpscare* cJumpscare6 = new CJumpscare();
+	cJumpscare6->Init(6);
+	cJumpscare6->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("LoadingScreen", cJumpscare6);
+	// Add Lowhealth
 	CYoulose* cYoulose = new CYoulose();
 	cYoulose->Init();
 	cYoulose->SetShader("Shader_GUI");
