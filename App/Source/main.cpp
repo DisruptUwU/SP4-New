@@ -3,6 +3,7 @@
  @brief This file contains the main function for this project
  */
 #include "Application.h"
+#include <time.h>
 
 // Include GLM
 #include <includes/glm.hpp>
@@ -28,6 +29,7 @@ Boolean macro to determine if the program is in 3D or 2D mode
  */
 int main(void)
 {
+	srand(time(NULL));
 	Application* pApp = Application::GetInstance();
 	// if the application is initialised properly, then run it
 	if (pApp->Init() == true)
