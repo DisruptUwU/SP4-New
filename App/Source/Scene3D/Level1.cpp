@@ -434,36 +434,18 @@ bool CLevel1::Update(const double dElapsedTime)
 		background_music_lvl1 = false;
 	}
 
-	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
-	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
+	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
+	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
@@ -479,15 +461,15 @@ bool CLevel1::Update(const double dElapsedTime)
 	}
 	else
 	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
 		{
@@ -499,7 +481,8 @@ bool CLevel1::Update(const double dElapsedTime)
 		}
 	}
 
-	if (sprintCheck == true) {
+	if (sprintCheck == true)
+	{
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
 
