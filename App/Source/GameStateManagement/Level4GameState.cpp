@@ -58,6 +58,14 @@ bool CLevel4GameState::Init(void)
  */
 bool CLevel4GameState::Update(const double dElapsedTime)
 {
+	if (CLevel4->bNextLevel == true)
+	{
+		cout << "Loading level 4" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
 		// Reset the CKeyboardController
