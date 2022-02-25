@@ -219,6 +219,8 @@ bool CEnemylvl2::Init(void)
 	vec3Front = glm::normalize((cWaypointManager->GetNearestWaypoint(vec3Position)->GetPosition() - vec3Position));
 	UpdateFrontAndYaw();
 
+	bIsDisplayed = false;
+
 	return true;
 }
 

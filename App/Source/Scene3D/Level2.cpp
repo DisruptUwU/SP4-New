@@ -477,7 +477,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
 	{
-		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+		//((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
 
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
@@ -649,7 +649,7 @@ bool CLevel2::Update(const double dElapsedTime)
 
 	if (cPlayer3D->playerlostallhealth == true)
 	{
-		cPlayer3D->playerhealthbelow30 = false;
+		//cPlayer3D->playerhealthbelow30 = false;
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		if (checkplayerdie == 0)
 		{
@@ -658,10 +658,11 @@ bool CLevel2::Update(const double dElapsedTime)
 		}
 		else
 		{
-
+			cSoundController->StopSound();
 		}
 		cPlayer3D->playerhealthbelow30 = false;
 		cGUI_Scene3D->gameOver = true;
+		cPlayer3D->playerhealthbelow30 = false;
 		loseGame = true;
 	}
 
