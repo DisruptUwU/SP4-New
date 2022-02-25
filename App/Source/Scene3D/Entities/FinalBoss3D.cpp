@@ -220,7 +220,6 @@ bool CFinalBoss3D::LoadModelAndTexture(const char* filenameModel,
 	return true;
 }
 
-
 /**
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
@@ -320,11 +319,13 @@ bool CFinalBoss3D::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
-		return cPrimaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
-	}
-	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
-	{
-		return cSecondaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
+		glm::vec3 pos(vec3Position.x, vec3Position.y + 2, vec3Position.z);
+		glm::vec3 front = cPlayer3D->GetPosition() - pos;
+		float d = glm::distance(cPlayer3D->GetPosition(), vec3Position);
+		front.x /= d;
+		front.y /= d;
+		front.z /= d;
+		return cPrimaryWeapon->Discharge(pos, front, (CSolidObject*)this);
 	}
 	//return NULL;
 }
@@ -446,18 +447,7 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 			UpdateFrontAndYaw();
 
 			// Discharge weapon
-			if (DischargeWeapon() == false)
-			{
-				// Check if the weapon mag is empty
-				if (cPrimaryWeapon->GetMagRound() == 0)
-				{
-					if (cPrimaryWeapon->GetTotalRound() != 0)
-					{
-						// Reload the weapon
-						cPrimaryWeapon->Reload();
-					}
-				}
-			}
+			DischargeWeapon();
 
 			if (timer <= 0)
 			{
@@ -565,11 +555,11 @@ void CFinalBoss3D::Render(void)
 
 	CSolidObject::Render();
 
-	cPrimaryWeapon->SetView(view);
-	cPrimaryWeapon->SetProjection(projection);
-	cPrimaryWeapon->PreRender();
-	cPrimaryWeapon->Render();
-	cPrimaryWeapon->PostRender();
+	//cPrimaryWeapon->SetView(view);
+	//cPrimaryWeapon->SetProjection(projection);
+	//cPrimaryWeapon->PreRender();
+	//cPrimaryWeapon->Render();
+	//cPrimaryWeapon->PostRender();
 }
 
 /**

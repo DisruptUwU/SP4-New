@@ -114,6 +114,8 @@ protected:
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
 
+	double winTimer = 0;
+
 	// Constructor
 	CLevelFinal(void);
 	// Destructor

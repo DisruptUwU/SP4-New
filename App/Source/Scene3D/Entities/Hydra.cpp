@@ -182,7 +182,7 @@ bool CHydra::Init(int type)
 
 	if (type == 1)
 	{
-		if (LoadModelAndTexture("Models/Objects/Healthkit.obj",
+		if (LoadModelAndTexture("Models/Objects/drizzle.obj",
 			"Models/Pistol/honeycombs_col.png",
 			VAO, iTextureID, iIndicesSize) == false)
 		{
@@ -488,21 +488,13 @@ bool CHydra::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance /*&& npctoboss != true*/)
+	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 	{
 		cPlayer3D->NearLevel3BOSSWHENHENPC = true;
-
-		//if (npctoboss == false)
-		//{
-		//	cPlayer3D->NearHydra = true;
-		//}
-		//cPlayer3D->NearHydra = true;
-		//cPlayer3D->NearHydra = false;
 	}
 	else
 	{
 		cPlayer3D->NearLevel3BOSSWHENHENPC = false;
-		//cPlayer3D->NearHydra = false; // false
 	}
 
 	if (nonattackphase == false)
@@ -560,18 +552,7 @@ bool CHydra::Update(const double dElapsedTime)
 				UpdateFrontAndYaw();
 
 				// Discharge weapon
-				if (DischargeWeapon() == false)
-				{
-					// Check if the weapon mag is empty
-					if (cPrimaryWeapon->GetMagRound() == 0)
-					{
-						if (cPrimaryWeapon->GetTotalRound() != 0)
-						{
-							// Reload the weapon
-							cPrimaryWeapon->Reload();
-						}
-					}
-				}
+				DischargeWeapon();
 
 				// Process the movement
 				ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);

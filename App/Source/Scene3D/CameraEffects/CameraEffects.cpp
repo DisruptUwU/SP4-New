@@ -28,7 +28,7 @@ using namespace std;
  */
 CCameraEffects::CCameraEffects(void)
 	: transform(glm::mat4(1.0f))
-	, fCountdownTimer(7.0f) //2.0f
+	, fCountdownTimer(2.0f) //2.0f
 {
 }
 

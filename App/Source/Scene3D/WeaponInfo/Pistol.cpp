@@ -36,16 +36,6 @@ bool CPistol::Init(void)
 	// Call the parent's Init method
 	CWeaponInfo::Init();
 
-	// Original is 8,8,40,40
-	// The number of ammunition in a magazine for this weapon
-	iMagRounds = 80;
-	// The maximum number of ammunition for this magazine for this weapon
-	iMaxMagRounds = 80;
-	// The current total number of rounds currently carried by this player
-	iTotalRounds = 400;
-	// The max total number of rounds currently carried by this player
-	iMaxTotalRounds = 400;
-
 	// The time between shots
 	dTimeBetweenShots = 0.75;
 	// The elapsed time (between shots)

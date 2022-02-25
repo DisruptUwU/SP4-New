@@ -19,6 +19,7 @@
 #include "FinalNPC.h"
 #include "Player3D.h"
 #include "Demon.h"
+#include "Dragon.h"
 
 // Include list
 #include <list>
@@ -42,6 +43,9 @@ public:
 	virtual void Add(CSolidObject* cSolidObject);
 	// Remove a CSolidObject* from this class instance
 	virtual bool Erase(CSolidObject* cSolidObject);
+
+	//Solid object count
+	int Count();
 
 	// Collision Check for a CSolidObject*
 	virtual bool CollisionCheck(CSolidObject* cSolidObject);
@@ -73,6 +77,8 @@ public:
 
 	bool DemonKilled = false;
 
+	bool DragonKilled = false;
+
 	int DeadEnemies = 0;
 
 	//bool hydrashotplayer = false;
@@ -85,6 +91,8 @@ public:
 	CFinalNPC* cFinalNPC;
 
 	CDemon* cDemon;
+
+	CDragon* cDragon;
 
 	CPlayer3D* cPlayer3D;
 

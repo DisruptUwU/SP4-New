@@ -58,10 +58,24 @@ bool CLevel1GameState::Init(void)
  */
 bool CLevel1GameState::Update(const double dElapsedTime)
 {
+	if (CLevel1->losegame == true)
+	{
+		gameovertimer += dElapsedTime;
+	}
+
+	if (gameovertimer >= 2.5)
+	{
+		CLevel1->losegame = false;
+		cout << "Loading MenuState" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
 	if (CLevel1->teleport_2_lvl2 == true)
 	{
+		CLevel1->teleport_2_lvl2 == false;
 		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+		// CKeyboardController::GetInstance()->Reset();
 
 		// Load the menu state
 		cout << "Loading Level 2" << endl;

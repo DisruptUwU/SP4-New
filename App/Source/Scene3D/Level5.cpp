@@ -245,7 +245,9 @@ bool CLevel5::Init(void)
 	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -2.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
-	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
+	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(-0.25, 0, -0.5), glm::vec3(0.25, 2, 0.5));
+	cFinalBoss3D->bIsDisplayed = false;
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
@@ -292,7 +294,9 @@ void CLevel5::SpawnHealer(int x, int y, int z)
 	CHealer3D* cHealer3D = new CHealer3D(glm::vec3(x, y, z));
 	cHealer3D->SetShader("Shader3D");
 	cHealer3D->Init();
-	cHealer3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cHealer3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec3(-0.25, -1, -0.25), glm::vec3(0.25, 1, 0.25));
+	cHealer3D->bIsDisplayed = false;
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
 	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
@@ -310,7 +314,8 @@ void CLevel5::SpawnSoul(int x, int y, int z)
 	CLostSoul3D* cLostSoul3D = new CLostSoul3D(glm::vec3(x, y, z));
 	cLostSoul3D->SetShader("Shader3D");
 	cLostSoul3D->Init();
-	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
+	cLostSoul3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cLostSoul3D->bIsDisplayed = false;
 	CPistol* cEnemyPistol = new CPistol();
 	cEnemyPistol->SetScale(glm::vec3(0.f, 0.f, 0.f));
 	//cEnemyPistol->Init();
@@ -426,10 +431,11 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->playerlostallhealth == true)
 	{
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);\
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		cSoundController->StopSound();
 		cSolidObjectManager->youlose = true;
 		cGUI_Scene3D->gameOver = true;
+		cPlayer3D->playerhealthbelow30 = false;
 		losegame = true;
 	}
 
@@ -462,7 +468,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	{
 		cSoundController->StopSound();
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(0, fCheckHeight, 0)); //y = -0.5
+		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(0, fCheckHeight - 1, 0)); //y = -0.5
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -765,10 +771,6 @@ bool CLevel5::Update(const double dElapsedTime)
 
 		// Reset the key so that it will not repeat until the key is released and pressed again
 		CKeyboardController::GetInstance()->ResetKey(GLFW_KEY_9);
-	}
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_R))
-	{
-		cPlayer3D->GetWeapon()->Reload();
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_LEFT_SHIFT))

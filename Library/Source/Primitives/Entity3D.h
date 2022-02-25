@@ -33,7 +33,6 @@ public:
 		PLAYER = 0,
 		NPC,
 		ENEMY_LVL1, // This one will be used for lvl 1 enemies
-		HYDRA,
 		OTHERS,		// Default value: Other entities such as ground and skybox
 		STRUCTURE,	// Buildings etc
 		PROJECTILE,
@@ -52,6 +51,8 @@ public:
 		SOUL,
 		ENEMYLVL2,
 		DEMON,
+		HYDRA,
+		DRAGON,
 		COIN,
 		DOORLVL2,
 		DOORLVL3,

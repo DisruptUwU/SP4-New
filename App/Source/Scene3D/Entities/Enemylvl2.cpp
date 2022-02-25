@@ -436,18 +436,7 @@ bool CEnemylvl2::Update(const double dElapsedTime)
 			UpdateFrontAndYaw();
 
 			// Discharge weapon
-			if (DischargeWeapon() == false)
-			{
-				// Check if the weapon mag is empty
-				if (cPrimaryWeapon->GetMagRound() == 0)
-				{
-					if (cPrimaryWeapon->GetTotalRound() != 0)
-					{
-						// Reload the weapon
-						cPrimaryWeapon->Reload();
-					}
-				}
-			}
+			DischargeWeapon();
 
 			// Process the movement
 			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);

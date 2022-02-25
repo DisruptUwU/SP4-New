@@ -173,7 +173,7 @@ bool CLevel4::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitTerrain(4);
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
+	cTerrain->SetRenderSize(50.0f, 5.0f, 50.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -208,7 +208,7 @@ bool CLevel4::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// Initialise the cEnemy3D
-	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 5.0f, 20.0f));
+	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 5.0f, -30.0f));
 	cDragon->SetShader("Shader3D");
 	cDragon->Init();
 	cDragon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-1.5, 0, -2.5), glm::vec3(1.5, 5.5, 2.5));
@@ -233,10 +233,16 @@ bool CLevel4::Init(void)
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
 	cGUI_Scene3D->Init();
 
+	cSolidObjectManager->cDragon = cDragon;
+	cGUI_Scene3D->cDragon = cDragon;
+
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
 	cEntityManager = CEntityManager::GetInstance(); //wwdawe
 	cEntityManager->Init();
+
+	bPortal = false;
+	bNextLevel = false;
 
 	return true;
 }
@@ -297,7 +303,8 @@ bool CLevel4::Update(const double dElapsedTime)
 		}
 	}
 
-	if (sprintCheck == true) {
+	if (sprintCheck == true)
+	{
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
 
@@ -367,10 +374,6 @@ bool CLevel4::Update(const double dElapsedTime)
 		// Reset the key so that it will not repeat until the key is released and pressed again
 		CKeyboardController::GetInstance()->ResetKey(GLFW_KEY_9);
 	}
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_R))
-	{
-		cPlayer3D->GetWeapon()->Reload();
-	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 	{
@@ -416,6 +419,17 @@ bool CLevel4::Update(const double dElapsedTime)
 
 	// Post Update the mouse controller
 	cMouseController->PostUpdate();
+
+	if (cSolidObjectManager->Count() == 1)
+	{
+		// portal
+		bPortal = true;
+		
+		if (cPlayer3D->GetPosition().x >= -1 && cPlayer3D->GetPosition().x <= 1 && cPlayer3D->GetPosition().z >= -1 && cPlayer3D->GetPosition().z <= 1)
+		{
+			bNextLevel = true;
+		}
+	}
 
 	return true;
 }
@@ -466,34 +480,6 @@ void CLevel4::Render(void)
 	cCamera->vec3Position = storeCameraPosition;
 	cCamera->ProcessMouseMovement(0, 0, true); // call this to make sure it updates its camera vectors, note that we disable pitch constrains for this specific case (otherwise we can't reverse camera's pitch values)
 
-	// Activate the minimap system
-	CMinimap::GetInstance()->Activate();
-	// Setup the rendering environment
-	CMinimap::GetInstance()->PreRender();
-
-	glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-
-	// Render the Terrain
-	cTerrain->SetView(playerView);
-	cTerrain->SetProjection(playerProjection);
-	cTerrain->PreRender();
-	cTerrain->Render();
-	cTerrain->PostRender();
-
-	// Render the entities
-	cEntityManager->SetView(playerView);
-	cEntityManager->SetProjection(playerProjection);
-	cEntityManager->Render();
-
-	// Render the entities for the minimap
-	cSolidObjectManager->SetView(playerView);
-	cSolidObjectManager->SetProjection(playerProjection);
-	cSolidObjectManager->Render();
-
-	// Deactivate the cMinimap so that we can render as per normal
-	CMinimap::GetInstance()->Deactivate();
-
-	// Part 2: Render the entire scene as per normal
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
 	glm::mat4 projection = glm::perspective(	glm::radians(CCamera::GetInstance()->fZoom),
@@ -532,6 +518,11 @@ void CLevel4::Render(void)
 	cProjectileManager->PreRender();
 	cProjectileManager->Render();
 	cProjectileManager->PostRender();
+
+	if (bPortal)
+	{
+
+	}
 
 	// now draw the mirror quad with screen texture
 	// --------------------------------------------

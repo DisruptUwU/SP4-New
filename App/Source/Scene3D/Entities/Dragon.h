@@ -5,7 +5,6 @@
 
 // Include GLM
 #include <includes/glm.hpp>
-//#include <includes/gtx/rotate_vector.hpp>
 #include <includes/gtc/matrix_transform.hpp>
 #include <includes/gtc/type_ptr.hpp>
 
@@ -98,6 +97,8 @@ public:
 	// PostRender
 	virtual void PostRender(void);
 
+	double DragonHp = 100;
+
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;
@@ -113,8 +114,8 @@ protected:
 	int iCurrentNumMovement;
 	int iMaxNumMovement;
 
-	// Detection distance for player
-	float fDetectionDistance;
+	double dPatrolTime;
+	bool bTurned;
 
 	// The handle to the CCamera class instance
 	CCamera* cCamera;

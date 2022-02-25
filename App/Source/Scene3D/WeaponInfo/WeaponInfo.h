@@ -27,24 +27,6 @@ public:
 	// Destructor
 	virtual ~CWeaponInfo(void);
 
-	// Set the number of ammunition in the magazine for this player
-	virtual void SetMagRound(const int iMagRounds);
-	// Set the maximum number of ammunition in the magazine for this weapon
-	virtual void SetMaxMagRound(const int iMagRounds);
-	// The current total number of rounds currently carried by this player
-	virtual void SetTotalRound(const int iTotalRounds);
-	// The max total number of rounds currently carried by this player
-	virtual void SetMaxTotalRound(const int iMaxTotalRounds);
-
-	// Get the number of ammunition in the magazine for this player
-	virtual int GetMagRound(void) const;
-	// Get the maximum number of ammunition in the magazine for this weapon
-	virtual int GetMaxMagRound(void) const;
-	// Get the current total number of rounds currently carried by this player
-	virtual int GetTotalRound(void) const;
-	// Get the max total number of rounds currently carried by this player
-	virtual int GetMaxTotalRound(void) const;
-
 	// Set the time between shots
 	virtual void SetTimeBetweenShots(const double dTimeBetweenShots);
 	// Set the firing rate in rounds per min
@@ -65,10 +47,6 @@ public:
 	virtual bool Update(const double dt);
 	// Discharge this weapon
 	virtual bool Discharge(glm::vec3 vec3Position, glm::vec3 vec3Front, CSolidObject* pSource = NULL);
-	// Reload this weapon
-	virtual void Reload(void);
-	// Add rounds
-	virtual void AddRounds(const int iNewRounds);
 
 	// Set model
 	virtual void SetModel(glm::mat4 model);
@@ -87,33 +65,11 @@ public:
 	// Print Self
 	virtual void PrintSelf(void);
 
-	// The number of ammunition in a magazine for this weapon
-	int iMagRounds;
-	// The maximum number of ammunition for this magazine for this weapon
-	int iMaxMagRounds;
-	// The current total number of rounds currently carried by this player
-	int iTotalRounds;
-	// The max total number of rounds currently carried by this player
-	int iMaxTotalRounds;
-
 protected:
-	//// The number of ammunition in a magazine for this weapon
-	//int iMagRounds;
-	//// The maximum number of ammunition for this magazine for this weapon
-	//int iMaxMagRounds;
-	//// The current total number of rounds currently carried by this player
-	//int iTotalRounds;
-	//// The max total number of rounds currently carried by this player
-	//int iMaxTotalRounds;
-
 	// The time between shots in milliseconds
 	double dTimeBetweenShots;
 	// The elapsed time (between shots) in milliseconds
 	double dElapsedTime;
-	// The elapsed time for reloading of a magazine in milliseconds
-	double dReloadTime;
-	// The maximum elapsed time for reloading of a magazine in milliseconds
-	double dMaxReloadTime;
 	// Boolean flag to indicate if weapon can fire now
 	bool bFire;
 

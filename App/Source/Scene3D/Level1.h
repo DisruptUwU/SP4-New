@@ -33,8 +33,10 @@
 #include "Entities\SolidObjectManager.h"
 // Include CPlayer3D
 #include "Entities\Player3D.h"
-// Include CEnemy3D
-#include "Entities\Enemy3D.h"
+/*// Include CEnemy3D
+#include "Entities\Enemy3D.h"*/
+// Include CEnemy3D from lvl 2
+#include "Entities\Enemylvl2.h"
 // Include CHealthup
 #include "Entities\Healthup.h"
 // Include CDoor
@@ -81,7 +83,12 @@ public:
 
 	bool sprintCheck = false;
 
-	bool teleport_2_lvl2;
+	bool teleport_2_lvl2 = false;
+		
+	int checkplayerdie = 0;
+
+	bool losegame = false;
+
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -121,6 +128,9 @@ protected:
 
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
+
+	// Background music bool
+	bool background_music_lvl1;
 
 	// Constructor
 	CLevel1(void);

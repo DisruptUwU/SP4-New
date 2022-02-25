@@ -128,6 +128,7 @@ public:
 	bool NearFinalNPC = false;
 	bool NearDemon = false;
 	bool NearLevel3BOSSWHENHENPC = false; //NearLevel3NPC
+	bool NearDragon = false;
 	bool NeartheKing = false;
 	bool AllSoulsKilled = false;
 	int Level3NPCDialogueStage = 0;
@@ -168,6 +169,9 @@ public:
 
 	// Gloves from chest
 	bool gloves = false;
+
+	// Level 1?
+	bool at_level1 = false;;
 
 protected:
 	// The handle to the CCamera class instance

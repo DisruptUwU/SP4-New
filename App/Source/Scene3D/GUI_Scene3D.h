@@ -56,6 +56,9 @@
 // Include CHydra
 #include "Entities\Hydra.h"
 
+// Include CDragon
+#include "Entities\Dragon.h"
+
 // Include CHydra
 #include "Entities\SolidObjectManager.h"
 
@@ -95,6 +98,8 @@ public:
 	CFinalBoss3D* cFinalBoss3D;
 
 	CHydra* cHydra;
+
+	CDragon* cDragon;
 
 	CSolidObjectManager* cSolidObjectManager;
 

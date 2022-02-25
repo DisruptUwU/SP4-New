@@ -63,7 +63,7 @@ bool CSolidObjectManager::Init(void)
 
 	//cFinalBoss3D = CFinalBoss3D::GetInstance();
 
-	enemy_lvl1_count = 4; // Set this to number of enemies in lvl 1
+	enemy_lvl1_count = 0; // Set this to number of enemies in lvl 1
 
 	return true;
 }
@@ -125,6 +125,17 @@ bool CSolidObjectManager::Erase(CSolidObject* cSolidObject)
 	}
 	// Return false if not found
 	return false;
+}
+
+int CSolidObjectManager::Count()
+{
+	int count = 0;
+	for (std::list<CSolidObject*>::iterator it = lSolidObject.begin(); it != lSolidObject.end(); ++it)
+	{
+		if ((*it)->GetStatus())
+			count++;
+	}
+	return count;
 }
 
 /**
@@ -204,9 +215,11 @@ bool CSolidObjectManager::CheckForCollision(void)
 		// If the entity is not active, then skip it (Unless entity is door for lvl 1, which will activate upon killing of all four enemies in lvl 1)
 		if ((*it)->GetStatus() == false)
 		{
-			if (enemy_lvl1_count <= 0 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
+			if (enemy_lvl1_count >= 8 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
 			{
 				(*it)->SetStatus(true);
+				DeadEnemies = 0;
+				cPlayer3D->at_level1 = false;
 				cout << "** Level 1 portal activated ***" << endl;
 				//continue;
 			}
@@ -214,7 +227,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 		}
 
 		// Set door to false first
-		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count > 0)
+		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count < 8)
 		{
 			cout << "** Level 1 portal set false ***" << endl;
 			(*it)->SetStatus(false);
@@ -310,7 +323,21 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
-				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::FINALBOSS))
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::FINALBOSS))//
+				{
+					(*it)->RollbackPosition();
+					(*it_other)->RollbackPosition();
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HYDRA))
+				{
+					(*it)->RollbackPosition();
+					(*it_other)->RollbackPosition();
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DEMON))
 				{
 					(*it)->RollbackPosition();
 					(*it_other)->RollbackPosition();
@@ -505,7 +532,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
+					//enemy_lvl1_count--; // We use a hardcoded value for now for MVP
 					cout << "** RayBoxCollision between lvl 1 enemy and Projectile ***" << endl;
 					break;
 				}
@@ -517,6 +544,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					DeadEnemies += 1;
+					enemy_lvl1_count += 1; // We use a hardcoded value for now for MVP
 					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
@@ -607,6 +635,20 @@ bool CSolidObjectManager::CheckForCollision(void)
 					}
 					cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
 					break;
+				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::DRAGON)
+				{
+				// If this projectile is fired by the NPC, then skip it
+				if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+					continue;
+				(cProjectileManager->vProjectile[i])->SetStatus(false);
+				cDragon->DragonHp -= (10 + cPlayer3D->ultDamage);
+				if (cDragon->DragonHp <= 0) {
+					DragonKilled = true;
+					(*it)->SetStatus(false);
+				}
+				cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
+				break;
 				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::STRUCTURE)
 				{

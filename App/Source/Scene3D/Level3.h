@@ -39,6 +39,8 @@
 // Include CStructure3D
 #include "Entities\Speed.h"
 // Include CStructure3D
+#include "Entities\IncreaseDmg.h"
+// Include CStructure3D
 #include "Entities\Healthup.h"
 // Include CStructure3D
 #include "Entities\Bloodbath.h"
@@ -120,6 +122,8 @@ protected:
 	CCamera* cCamera;
 
 	CSpeed* cSpeed;
+
+	CIncreaseDmg* cIncreaseDmg;
 
 	CLevel3NPC* cLevel3NPC;
 
