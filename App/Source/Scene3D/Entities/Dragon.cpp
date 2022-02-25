@@ -174,7 +174,8 @@ bool CDragon::Init(void)
 	glm::vec3 pos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
 	vec3Front = glm::normalize((cPlayer3D->GetPosition() - pos));
 
-	patrolTime = 0;
+	dPatrolTime = 0;
+	bTurned = false;
 
 	bIsDisplayed = false;
 
@@ -393,7 +394,7 @@ bool CDragon::Update(const double dElapsedTime)
 		if (vec3Position.x <= cTerrain->GetMinPos().x * 1.1 || vec3Position.x >= cTerrain->GetMaxPos().x * 1.1)
 		{
 			sCurrentFSM = FSM::PATROL;
-			patrolTime = rand() % 3 + 2;
+			dPatrolTime = rand() % 3 + 2;
 
 			if (rand() % 2 == 0)
 			{
@@ -407,11 +408,11 @@ bool CDragon::Update(const double dElapsedTime)
 		else if (vec3Position.z <= cTerrain->GetMinPos().z * 1.1 || vec3Position.z >= cTerrain->GetMaxPos().z * 1.1)
 		{
 			sCurrentFSM = FSM::PATROL;
-			patrolTime = rand() % 3 + 2;
+			dPatrolTime = rand() % 3 + 2;
 
 			if (rand() % 2 == 0)
 			{
-				vec3Front = glm::vec3(-1, 0, 0);
+				vec3Front = glm::vec3(1, 0, 0);
 			}
 			else
 			{
@@ -421,30 +422,78 @@ bool CDragon::Update(const double dElapsedTime)
 	}
 	else if (sCurrentFSM == FSM::PATROL)
 	{
-		patrolTime -= dElapsedTime;
-		if (patrolTime <= 0)
+		dPatrolTime -= dElapsedTime;
+		if (dPatrolTime <= 0)
 		{
 			sCurrentFSM = FSM::ATTACK;
 			vec3Front = targetFront;
+			bTurned = false;
 		}
 		else
 		{
 			// Process the movement
 			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
 
-			if (vec3Position.x <= cTerrain->GetMinPos().x && vec3Position.z <= cTerrain->GetMinPos().z)
+			if (!bTurned)
 			{
-				if (glm::dot(vec3Right, -vec3Position) < 0)
+				if (vec3Position.x <= cTerrain->GetMinPos().x * 1.1 && vec3Position.z <= cTerrain->GetMinPos().z * 1.1)
 				{
+					if (glm::dot(vec3Right, -vec3Position) < 0)
+					{
+						vec3Front = glm::vec3(0, 0, 1);
+					}
+					else
+					{
+						vec3Front = glm::vec3(1, 0, 0);
+					}
 
+					bTurned = true;
 				}
-				else
+				else if (vec3Position.x <= cTerrain->GetMinPos().x * 1.1 && vec3Position.z >= cTerrain->GetMaxPos().z * 1.1)
 				{
+					if (glm::dot(vec3Right, -vec3Position) < 0)
+					{
+						vec3Front = glm::vec3(1, 0, 0);
+					}
+					else
+					{
+						vec3Front = glm::vec3(0, 0, -1);
+					}
 
+					bTurned = true;
+				}
+				else if (vec3Position.x >= cTerrain->GetMaxPos().x * 1.1 && vec3Position.z <= cTerrain->GetMinPos().z * 1.1)
+				{
+					if (glm::dot(vec3Right, -vec3Position) < 0)
+					{
+						vec3Front = glm::vec3(-1, 0, 0);
+					}
+					else
+					{
+						vec3Front = glm::vec3(0, 0, 1);
+					}
+
+					bTurned = true;
+				}
+				else if (vec3Position.x >= cTerrain->GetMaxPos().x * 1.1 && vec3Position.z >= cTerrain->GetMaxPos().z * 1.1)
+				{
+					if (glm::dot(vec3Right, -vec3Position) < 0)
+					{
+						vec3Front = glm::vec3(0, 0, -1);
+					}
+					else
+					{
+						vec3Front = glm::vec3(-1, 0, 0);
+					}
+
+					bTurned = true;
 				}
 			}
 		}
 	}
+
+	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));
+
 	UpdateFrontAndYaw();
 
 	// Update the model
