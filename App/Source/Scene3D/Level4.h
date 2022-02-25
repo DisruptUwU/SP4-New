@@ -73,6 +73,8 @@ public:
 	void PostRender(void);
 
 	bool sprintCheck = false;
+
+	bool bNextLevel;
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;
@@ -112,6 +114,8 @@ protected:
 
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
+
+	bool bPortal;
 
 	// Constructor
 	CLevel4(void);

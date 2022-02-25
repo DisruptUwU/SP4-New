@@ -490,8 +490,6 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		//cPlayer3D->cantMove = false; //or here
 		cPlayer3D->stamina = 100;
-		CPlayer3D::GetInstance()->GetWeapon()->iMagRounds = 80;
-		CPlayer3D::GetInstance()->GetWeapon()->iTotalRounds = 400;
 		//CPlayer3D::GetInstance()->GetWeapon()->AddRounds(30);
 		//cPlayer3D->
 		//cSoundController->PlaySoundByID(7);
@@ -709,10 +707,6 @@ bool CLevel3::Update(const double dElapsedTime)
 
 		// Reset the key so that it will not repeat until the key is released and pressed again
 		CKeyboardController::GetInstance()->ResetKey(GLFW_KEY_9);
-	}
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_R))
-	{
-		cPlayer3D->GetWeapon()->Reload();
 	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_LEFT_SHIFT))

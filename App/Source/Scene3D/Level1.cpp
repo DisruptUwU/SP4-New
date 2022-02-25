@@ -46,6 +46,7 @@ CLevel1::CLevel1(void)
 	, cSkyBox(NULL)
 	, cTerrain(NULL)
 	, teleport_2_lvl2(false)
+	, background_music_lvl1(true)
 {
 }
 
@@ -161,6 +162,9 @@ bool CLevel1::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\lvl1_background.ogg"), 6, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -191,6 +195,8 @@ bool CLevel1::Init(void)
 
 	// Add the cPlayer3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cPlayer3D);
+
+	cPlayer3D->at_level1 = true;
 
 	// Initialise the projectile manager
 	cProjectileManager = CProjectileManager::GetInstance();
@@ -325,7 +331,69 @@ bool CLevel1::Init(void)
 	cSolidObjectManager->Add(cEnemy3D_4);
 
 
-	// Initialise CStructureBoundary3D entities 
+	// Initialise the 5th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(-30.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_5 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, -30.0f));
+	cEnemy3D_5->SetShader("Shader3D");
+	cEnemy3D_5->Init();
+	cEnemy3D_5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_5->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_5);
+
+
+	// Initialise the 6th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(30.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_6 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, -30.0f));
+	cEnemy3D_6->SetShader("Shader3D");
+	cEnemy3D_6->Init();
+	cEnemy3D_6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_6->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_6);
+
+
+
+	// Initialise the 7th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(-50.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_7 = new CEnemylvl2(glm::vec3(-50.0f, fCheckHeight, -30.0f));
+	cEnemy3D_7->SetShader("Shader3D");
+	cEnemy3D_7->Init();
+	cEnemy3D_7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_7->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_7);
+
+
+
+	// Initialise the 8th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(50.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_8 = new CEnemylvl2(glm::vec3(50.0f, fCheckHeight, -30.0f));
+	cEnemy3D_8->SetShader("Shader3D");
+	cEnemy3D_8->Init();
+	cEnemy3D_8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_8->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_8);
+
+
+	/*// Initialise CStructureBoundary3D entities 
 	fCheckHeight = cTerrain->GetHeight(0.0f, 50.0f);
 	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(0.0f, fCheckHeight, 50.0f));
 	cStructure3D->SetShader("Shader3D");
@@ -334,7 +402,7 @@ bool CLevel1::Init(void)
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	cSolidObjectManager->Add(cStructure3D);*/
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
@@ -358,6 +426,13 @@ bool CLevel1::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
+
+	if (background_music_lvl1)
+	{
+		// Background music
+		cSoundController->PlaySoundByID(6);
+		background_music_lvl1 = false;
+	}
 
 	//// Get keyboard updates for player3D
 	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
@@ -494,10 +569,6 @@ bool CLevel1::Update(const double dElapsedTime)
 		// Reset the key so that it will not repeat until the key is released and pressed again
 		CKeyboardController::GetInstance()->ResetKey(GLFW_KEY_9);
 	}
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_R))
-	{
-		cPlayer3D->GetWeapon()->Reload();
-	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 	{
@@ -534,6 +605,7 @@ bool CLevel1::Update(const double dElapsedTime)
 		if (checkplayerdie == 0)
 		{
 			cSoundController->StopSound();
+			background_music_lvl1 = false;
 			checkplayerdie += 1;
 		}
 		else
@@ -568,6 +640,7 @@ bool CLevel1::Update(const double dElapsedTime)
 	cSolidObjectManager->CheckForCollision();
 	if (cSolidObjectManager->lvl1_portal_bool == true)
 	{
+		cSoundController->StopSound();
 		teleport_2_lvl2 = true;
 	}
 

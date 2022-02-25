@@ -447,18 +447,7 @@ bool CFinalBoss3D::Update(const double dElapsedTime)
 			UpdateFrontAndYaw();
 
 			// Discharge weapon
-			if (DischargeWeapon() == false)
-			{
-				// Check if the weapon mag is empty
-				if (cPrimaryWeapon->GetMagRound() == 0)
-				{
-					if (cPrimaryWeapon->GetTotalRound() != 0)
-					{
-						// Reload the weapon
-						cPrimaryWeapon->Reload();
-					}
-				}
-			}
+			DischargeWeapon();
 
 			if (timer <= 0)
 			{
@@ -566,11 +555,11 @@ void CFinalBoss3D::Render(void)
 
 	CSolidObject::Render();
 
-	cPrimaryWeapon->SetView(view);
-	cPrimaryWeapon->SetProjection(projection);
-	cPrimaryWeapon->PreRender();
-	cPrimaryWeapon->Render();
-	cPrimaryWeapon->PostRender();
+	//cPrimaryWeapon->SetView(view);
+	//cPrimaryWeapon->SetProjection(projection);
+	//cPrimaryWeapon->PreRender();
+	//cPrimaryWeapon->Render();
+	//cPrimaryWeapon->PostRender();
 }
 
 /**
