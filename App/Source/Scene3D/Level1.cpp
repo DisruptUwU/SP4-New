@@ -192,6 +192,8 @@ bool CLevel1::Init(void)
 	// Add the cPlayer3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cPlayer3D);
 
+	cPlayer3D->at_level1 = true;
+
 	// Initialise the projectile manager
 	cProjectileManager = CProjectileManager::GetInstance();
 	cProjectileManager->Init();

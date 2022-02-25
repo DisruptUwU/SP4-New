@@ -169,6 +169,9 @@ public:
 	// Gloves from chest
 	bool gloves = false;
 
+	// Level 1?
+	bool at_level1 = false;;
+
 protected:
 	// The handle to the CCamera class instance
 	CCamera* cCamera;

@@ -127,6 +127,17 @@ bool CSolidObjectManager::Erase(CSolidObject* cSolidObject)
 	return false;
 }
 
+int CSolidObjectManager::Count()
+{
+	int count = 0;
+	for (std::list<CSolidObject*>::iterator it = lSolidObject.begin(); it != lSolidObject.end(); ++it)
+	{
+		if ((*it)->GetStatus())
+			count++;
+	}
+	return count;
+}
+
 /**
  @brief Collision Check for a CSolidObject*
  @param cSolidObject The CSolidObject* variable to be checked
@@ -208,6 +219,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 			{
 				(*it)->SetStatus(true);
 				DeadEnemies = 0;
+				cPlayer3D->at_level1 = false;
 				cout << "** Level 1 portal activated ***" << endl;
 				//continue;
 			}

@@ -420,6 +420,11 @@ bool CLevel4::Update(const double dElapsedTime)
 	// Post Update the mouse controller
 	cMouseController->PostUpdate();
 
+	if (cSolidObjectManager->Count() == 1)
+	{
+		//portal
+	}
+
 	return true;
 }
 
