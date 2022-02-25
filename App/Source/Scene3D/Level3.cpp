@@ -221,20 +221,14 @@ bool CLevel3::Init(void)
 
 	// Initialise the cEnemy3D
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	cHydra = new CHydra(glm::vec3(0.0f, 0.0f, 0.0f)); //0.5f
+	cHydra = new CHydra(glm::vec3(0.0f, 0.0f, 0.0f)); 
 	cHydra->SetShader("Shader3D");
 	cHydra->Init(1); //1
-	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
-		/*glm::vec3(-2, 1.5, -0.5), glm::vec3(0.25, 3, 0.5)*/);
+	cHydra->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	cHydra->bIsDisplayed = false;
-	//cEnemy3D->SetScale(glm::vec3(0.5f));
 	// Assign a cPistol to the cEnemy3D
 
 	CPistol* cEnemyPistol = new CPistol();
-	// Set the position, rotation and scale of this weapon
-	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	//cEnemyPistol->SetPosition(glm::vec3(0.05f, 20.f, -0.3f));
-	//cEnemyPistol->SetRotation(60, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
 	cEnemyPistol->Init(); 
@@ -243,16 +237,6 @@ bool CLevel3::Init(void)
 
 	// Add the cEnemy3D to the cSolidObjectManager
 	cSolidObjectManager->Add(cHydra);
-
-	//// Initialise a CStructure3D
-	//CBloodbath* cBloodbath = new CBloodbath(glm::vec3(0, 8, 0));
-	//cBloodbath->SetShader("Shader3D");
-	//cBloodbath->Init();
-	//cBloodbath->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)); // 0.0.1.0
-	//cBloodbath->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
-	//cBloodbath->SetScale(glm::vec3(15, 15, 15));
-
-	//cSolidObjectManager->Add(cBloodbath);
 
 	cSolidObjectManager->cHydra = cHydra;
 
@@ -283,7 +267,6 @@ bool CLevel3::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
-	//if gametimer >= 0
 	if (playSounds == true)
 	{
 		gametimer += dElapsedTime;
@@ -294,7 +277,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		gametimer = 0;
 	}
 
-	if (gametimer >= 10) //10
+	if (gametimer >= 10) 
 	{
 		if (checkSound1 == 0)
 		{
@@ -316,11 +299,10 @@ bool CLevel3::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(12);
 			checkSound2 += 1;
 			CCameraEffectsManager::GetInstance()->Get("Jumpscare2")->SetStatus(true);
-			//cGUI_Scene3D->gameOver = true;
 		}
 		else
 		{
-			//return;
+
 		}
 	}
 	if (gametimer >= 30)
@@ -331,13 +313,10 @@ bool CLevel3::Update(const double dElapsedTime)
 			checkSound3 += 1;
 			spawnpower2 = true;
 			CCameraEffectsManager::GetInstance()->Get("Jumpscare3")->SetStatus(true);
-			//cGUI_Scene3D->gameOver = true;
 		}
 		else
 		{
-			//return;
 			spawnpower2 = false;
-			//cGUI_Scene3D->gameOver = false;
 		}
 	}
 	if (gametimer >= 40)
@@ -367,12 +346,10 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (spawnpower1 == true)
 	{
-		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
 		CHealthup* cHealthup = new CHealthup(glm::vec3(5, -0.2, -5));
 		cHealthup->SetShader("Shader3D");
 		cHealthup->Init();
 		cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-		//cStructure3D->SetScale(glm::vec3(0.5f));
 
 		// Add the cStructure3D to the cSolidObjectManager
 		cSolidObjectManager->Add(cHealthup);
@@ -380,14 +357,10 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (spawnpower2 == true) // //
 	{
-		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
 		CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(8, -0.2, -8));
 		cIncreaseDmg->SetShader("Shader3D");
 		cIncreaseDmg->Init();
 		cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-		//cStructure3D->SetScale(glm::vec3(0.5f));
-
-		// Add the cStructure3D to the cSolidObjectManager
 		cSolidObjectManager->Add(cIncreaseDmg);
 	}
 
@@ -439,7 +412,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
-		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)//IsKeyPressed
+		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)
 		{
 			//npctobosstimer += dElapsedTime;
 			if (cPlayer3D->Level3NPCDialogueStage <= 0)
@@ -447,11 +420,6 @@ bool CLevel3::Update(const double dElapsedTime)
 				cPlayer3D->Level3NPCDialogueStage++;
 				timeractivate = true;
 			}
-
-			//else // when dialog over
-			//{
-			//	timeractivate = true;
-			//}
 		}
 	}
 
@@ -460,7 +428,6 @@ bool CLevel3::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("Jumpscare4")->SetStatus(true);
 		cGUI_Scene3D->gameOver = true;
 		npctobosstimer += dElapsedTime;
-		/*cSoundController->PlaySoundByID(6);*/
 		cPlayer3D->cantMove = true;
 		if (checkfirstroar == 0)
 		{
@@ -474,9 +441,9 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
-	if (npctobosstimer >= 2.2) // 2.2
+	if (npctobosstimer >= 2.2)
 	{
-		cPlayer3D->cantMove = false; //either here
+		cPlayer3D->cantMove = false; 
 		cHydra->npctoboss = true;
 		npctobosstimer = 0;
 		CCameraEffectsManager::GetInstance()->Get("Jumpscare4")->SetStatus(false);
@@ -484,15 +451,9 @@ bool CLevel3::Update(const double dElapsedTime)
 		cGUI_Scene3D->gameOver = false;
 	}
 
-	cout << "npctobosstimer: " << npctobosstimer << endl;
-
 	if (cHydra->npctoboss == true && cHydra->moreaggresivepart2 == false)
 	{
-		//cPlayer3D->cantMove = false; //or here
 		cPlayer3D->stamina = 100;
-		//CPlayer3D::GetInstance()->GetWeapon()->AddRounds(30);
-		//cPlayer3D->
-		//cSoundController->PlaySoundByID(7);
 		cPlayer3D->SetPosition(glm::vec3(-2.4f, 5.7f, -28.1f));
 		cPlayer3D->NearHydra = true;
 		if (checknpctohydra == 0)
@@ -507,16 +468,9 @@ bool CLevel3::Update(const double dElapsedTime)
 
 		else
 		{
-			//spawnportal = false;
 			cHydra->npctoboss = false;
 		}
 	}
-
-	//if (cPlayer3D->Level3NPCDialogueStage >= 1)
-	//{
-	//	cLevel3NPC->Init(2);
-	//	//cLevel3NPC-> SetScale(glm::vec3(0.1, 0.1, 0.1));
-	//}
 
 	if (cPlayer3D->stamina <= 0)
 	{
@@ -579,12 +533,9 @@ bool CLevel3::Update(const double dElapsedTime)
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-		//cSpeed->SetRotation(-90.f, glm::vec3(1.0f, 0.0f, 0.0f));
 		cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
 
 		cSolidObjectManager->Add(cDoor);
-
-		cout << "Door has spawned " << spawnportal << endl;
 	}
 
 	if (cSolidObjectManager->wenttodoor == true)//push
@@ -748,9 +699,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(5);
 		}
-		cout << "you lose" << losegame << endl;
 		cPlayer3D->playerhealthbelow30 = false;
-		//cSolidObjectManager->youlose = true;
 		cGUI_Scene3D->gameOver = true;
 		losegame = true;
 	}
@@ -760,18 +709,6 @@ bool CLevel3::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		cSoundController->PlaySoundByID(5);
 	}
-
-	//if (cSolidObjectManager->youlose == true)
-	//{
-	//	//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
-	//	//cout << "you lose" << losegame << endl;
-	//	losegame = true;
-	//}
-
-	//if (cGUI_Scene3D->gameOver == true)
-	//{
-	//	losegame = true;
-	//}
 
 	if (cPlayer3D->playerhealthbelow30 == true)
 	{

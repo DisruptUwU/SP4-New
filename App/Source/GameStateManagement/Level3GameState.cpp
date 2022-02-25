@@ -68,6 +68,10 @@ bool CLevel3GameState::Update(const double dElapsedTime)
 	if (gameovertimer >= 2.5)
 	{
 		CLevel3->losegame = false;
+
+		// Reset the CKeyboardController
+		CKeyboardController::GetInstance()->Reset();
+
 		cout << "Loading MenuState" << endl;
 		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
 		CGameStateManager::GetInstance()->OffPauseGameState();
@@ -76,6 +80,9 @@ bool CLevel3GameState::Update(const double dElapsedTime)
 
 	if (CLevel3->gotolevel4 == true)
 	{
+		// Reset the CKeyboardController
+		CKeyboardController::GetInstance()->Reset();
+
 		CLevel3->gotolevel4 = false;
 		cout << "Loading level 4" << endl;
 		CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
