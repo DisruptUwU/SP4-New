@@ -362,67 +362,6 @@ bool CLevel2::Init(void)
 	cEntityManager = CEntityManager::GetInstance(); //wwdawe
 	cEntityManager->Init();
 
-	// Initialise the CRock3D
-	//CRock3D* cRock3D = new CRock3D();
-	//cRock3D->SetInstancingMode(false);
-	//if (cRock3D->IsInstancedRendering() == true)
-	//{
-	//	cRock3D->SetScale(glm::vec3(5.0f));
-	//	cRock3D->SetNumOfInstance(1000);
-	//	cRock3D->SetSpreadDistance(100.0f);
-
-	//	cRock3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	//}
-	//else
-	//{
-	//	fCheckHeight = cTerrain->GetHeight(2.0f, 2.0f);
-	//	cRock3D->SetPosition(glm::vec3(2.0f, fCheckHeight, 2.0f));
-	//	cRock3D->SetScale(glm::vec3(0.5f));
-	//	cRock3D->SetShader("Shader3DNoColour");			// FOR NORMAL RENDERING
-	//}
-	//if (cRock3D->Init() == true)
-	//{
-	//	cEntityManager->Add(cRock3D);
-	//}
-	//else
-	//{
-	//	delete cRock3D;
-	//}
-
-	// Initialise the CTreeKabak3D
-	//CTreeKabak3D* cTreeKabak3D = new CTreeKabak3D(glm::vec3(0.0f, 0.0f, 0.0f));
-	//cTreeKabak3D->SetInstancingMode(true);
-	//if (cTreeKabak3D->IsInstancedRendering() == true)
-	//{
-	//	cTreeKabak3D->SetScale(glm::vec3(1.0f));
-	//	cTreeKabak3D->SetNumOfInstance(100);
-	//	cTreeKabak3D->SetSpreadDistance(100.0f);
-
-	//	cTreeKabak3D->SetShader("Shader3D_Instancing");	// FOR INSTANCED RENDERING
-	//}
-	//if (cTreeKabak3D->Init() == true)
-	//{
-	//	cEntityManager->Add(cTreeKabak3D);
-	//}
-	//else
-	//{
-	//	delete cTreeKabak3D;
-	//}
-
-	// Initialise a CSpinTower
-	//CSpinTower::Create();
-
-	// Initialise a CHut_Concrete
-	//fCheckHeight = cTerrain->GetHeight(-2.0f, 2.0f);
-	//CHut_Concrete* cHut_Concrete = new CHut_Concrete(glm::vec3(-2.0f, fCheckHeight, 2.0f));
-	//cHut_Concrete->SetShader("Shader3DNoColour");
-	//cHut_Concrete->SetLODStatus(true);
-	//cHut_Concrete->Init();
-	//cHut_Concrete->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-
-	//// Add the cHut_Concrete to the cSolidObjectManager
-	//cSolidObjectManager->Add(cHut_Concrete);
-
 	return true;
 }
 
@@ -534,17 +473,18 @@ bool CLevel2::Update(const double dElapsedTime)
 		checkSound4 = 0;
 	}
 	
-	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
+	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
+	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
@@ -560,15 +500,15 @@ bool CLevel2::Update(const double dElapsedTime)
 	}
 	else
 	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
 		{
@@ -580,7 +520,8 @@ bool CLevel2::Update(const double dElapsedTime)
 		}
 	}
 
-	if (sprintCheck == true) {
+	if (sprintCheck == true)
+	{
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
 
