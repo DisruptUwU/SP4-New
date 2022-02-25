@@ -161,6 +161,7 @@ bool CLevel5::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Endurance.ogg"), 5, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -244,7 +245,7 @@ bool CLevel5::Init(void)
 	CFinalBoss3D* cFinalBoss3D = new CFinalBoss3D(glm::vec3(0.0f, fCheckHeight, -2.0f));
 	cFinalBoss3D->SetShader("Shader3D");
 	cFinalBoss3D->Init();
-	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cFinalBoss3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
@@ -258,12 +259,12 @@ bool CLevel5::Init(void)
 	cSolidObjectManager->Add(cFinalBoss3D);
 	cSolidObjectManager->cFinalBoss3D = cFinalBoss3D;
 
-	SpawnSoul(35.0f, fCheckHeight + 1, 25.0f);
-	SpawnSoul(35.0f, fCheckHeight + 1, -25.0f);
-	SpawnSoul(-35.0f, fCheckHeight + 1, -25.0f);
-	SpawnSoul(-35.0f, fCheckHeight + 1, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight, 25.0f);
+	SpawnSoul(35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, -25.0f);
+	SpawnSoul(-35.0f, fCheckHeight, 25.0f);
 
-	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight, 45.0f));
+	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight - 0.6f, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
 	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
@@ -340,7 +341,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 				// Initialise a CHealth
-				CHealthup* cHealthup = new CHealthup(glm::vec3(-15, fCheckHeight, 45));
+				CHealthup* cHealthup = new CHealthup(glm::vec3(-0, fCheckHeight , 10));
 				cHealthup->SetShader("Shader3D");
 				cHealthup->Init();
 				cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -371,7 +372,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 				//Increase Dmg
-				CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(-5.0f, fCheckHeight, 45.0f));
+				CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(8.5f, fCheckHeight , -7.5f));
 				cIncreaseDmg->SetShader("Shader3D");
 				cIncreaseDmg->Init();
 				cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -403,7 +404,7 @@ bool CLevel5::Update(const double dElapsedTime)
 			{
 				float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
 				// Increase Def
-				CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(-7.0f, fCheckHeight, 45.0f));
+				CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(-7.5f, fCheckHeight , -7.5f));
 				cIncreaseDef->SetShader("Shader3D");
 				cIncreaseDef->Init();
 				cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -459,8 +460,9 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (spawnportal == true)
 	{
+		cSoundController->StopSound();
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
+		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(0, fCheckHeight, 0)); //y = -0.5
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -486,12 +488,11 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (cPlayer3D->FinalNPCDialogueStage == 8)
 	{
-
-		cSolidObjectManager->cFinalBoss3D->phase = 1; // i comment your fMovementspeed as it had error on my end
+		cSolidObjectManager->cFinalBoss3D->phase = 1; 
 		cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 2.0f;
-		//CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
 		Enddialogtimer += dElapsedTime;
 		cSolidObjectManager->cFinalBoss3D->fDetectionDistance = 1000;
+		cSoundController->PlaySoundByID(5);
 	}
 
 	if (Enddialogtimer >= 2.5)
@@ -564,7 +565,6 @@ bool CLevel5::Update(const double dElapsedTime)
 			cSolidObjectManager->cFinalBoss3D->FinalBossHp = 300;
 			//cSolidObjectManager->cFinalBoss3D->healersAlive = 4;
 			//cSolidObjectManager->cFinalBoss3D->phase = 1;
-			//cSolidObjectManager->cFinalBoss3D->regainPhase1 = true;
 		}
 	}
 	else if (cSolidObjectManager->cFinalBoss3D->phase == 3) {
@@ -594,6 +594,19 @@ bool CLevel5::Update(const double dElapsedTime)
 	else if ((cSolidObjectManager->cFinalBoss3D->KilledFinalBoss == true) && (cSolidObjectManager->cFinalBoss3D->phase == 4))
 	{
 		cSolidObjectManager->cFinalBoss3D->FinalBossHp = 0;
+	}
+
+	if (cSolidObjectManager->cFinalBoss3D->enraged == true)
+	{
+		if (cSolidObjectManager->cFinalBoss3D->enragedStats == false)
+		{
+			cSolidObjectManager->cFinalBoss3D->fMovementSpeed = 4.0f;
+			cSolidObjectManager->moreaggresivepart2 = true;
+			cSolidObjectManager->cFinalBoss3D->enragedStats = true;
+		}
+		else
+		{
+		}
 	}
 
 	//// Get keyboard updates for player3D
@@ -691,6 +704,10 @@ bool CLevel5::Update(const double dElapsedTime)
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
+
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F) && cPlayer3D->ult >= 100 && cPlayer3D->ultActive == false) {
+		cPlayer3D->ultActive = true;
+	}
 
 	// Get keyboard updates for camera
 	if (!cPlayer3D->IsCameraAttached())

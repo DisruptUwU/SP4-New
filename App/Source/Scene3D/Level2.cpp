@@ -579,8 +579,23 @@ bool CLevel2::Update(const double dElapsedTime)
 		sprintCheck = false;
 	}
 
+	//if (cPlayer3D->ult < 100)
+	//{
+	//	cPlayer3D->ult += 10 * dElapsedTime;
+	//}
+
+	//if (cPlayer3D->ult >= 100 && cPlayer3D->ultTimer <= 0)
+	//{
+	//	cPlayer3D->ult = 0;
+	//}
+
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F) && cPlayer3D->ult >= 100 && cPlayer3D->ultActive == false) {
+		cPlayer3D->ultActive = true;
+	}
+
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
+
 
 	// Get keyboard updates for camera
 	if (!cPlayer3D->IsCameraAttached())
@@ -677,7 +692,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	//	wavedead = true;
 	//}
 
-	if (cSolidObjectManager->DeadEnemies >= 2) //change back to 7 later
+	if (cSolidObjectManager->DeadEnemies >= 7) //change back to 7 later
 	{
 		if (checkDemonspawn == 0)
 		{

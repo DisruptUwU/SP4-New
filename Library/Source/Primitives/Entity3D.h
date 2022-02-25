@@ -38,6 +38,7 @@ public:
 		STRUCTURE,	// Buildings etc
 		PROJECTILE,
 		CHEST, // Chest that gives a random power-up upon interaction
+		CHEST_ZONE, // Invisible entity for detecting player
 		DOOR,
 		SPEEDPOWER,
 		HEALTHPOWER,

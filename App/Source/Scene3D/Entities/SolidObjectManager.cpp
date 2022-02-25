@@ -192,6 +192,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 	bool bResult = false;
 	//DeadEnemies = 0;
 
+	cPlayer3D->chest_near = false;
+
 	std::list<CSolidObject*>::iterator it, end;
 	std::list<CSolidObject*>::iterator it_other;
 
@@ -286,6 +288,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 
 					// Load the menu state
 					cout << "Loading lvl 2 state" << endl;
+					moreaggresivepart2 = false;
 					lvl1_portal_bool = true;
 					//CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
 					break;
@@ -294,6 +297,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL2))
 				{
 					Doorlevel2 = true;
+					moreaggresivepart2 = false;
 					cout << "** teleporting to level 2 ***" << endl;
 					break;
 				}
@@ -322,13 +326,32 @@ bool CSolidObjectManager::CheckForCollision(void)
 					break;
 				}
 
-				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST) && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F))
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST) /* && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
 				{
-					cPlayer3D->speedPower = true;
-					(*it_other)->RollbackPosition();
-					(*it_other)->SetStatus(false);
-					cout << "** chest bonus ***" << endl;
+					(*it)->RollbackPosition();
 					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST_ZONE) /* && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					cPlayer3D->chest_near = true;
+					//(*it)->RollbackPosition();
+					if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F))
+					{
+						//cPlayer3D->chest_near = true;
+						//(*it_other)->RollbackPosition();
+						(*it_other)->SetStatus(false);
+						cout << "** chest bonus received ***" << endl;
+						cPlayer3D->chest_near = false;
+						cPlayer3D->gloves = true;
+						cout << "** gloves equipped ***" << endl;
+						break;
+					}
+				}
+
+				if (((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::CHEST_ZONE)) == false /* && CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
+				{
+					//cPlayer3D->chest_near = false;
 				}
 
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DEFPOWER) /*&& CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)*/)
@@ -390,6 +413,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL3))
 				{
 					wenttodoor = true;
+					moreaggresivepart2 = false;
 					cout << "** teleporting! ***" << endl;
 					break;
 				}
@@ -397,6 +421,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DOORLVL5))
 				{
 					wenttodoorlvl5 = true;
+					moreaggresivepart2 = false;
 					cout << "** teleporting! ***" << endl;
 					break;
 				}
@@ -469,7 +494,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					DeadEnemies += 1;
+					//DeadEnemies += 1;
 					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
@@ -529,7 +554,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					}
 					else
 					{
-						cFinalBoss3D->FinalBossHp -= cPlayer3D->Damage;
+						cFinalBoss3D->FinalBossHp -= (cPlayer3D->Damage + cPlayer3D->ultDamage);
 					}
 
 					if (cFinalBoss3D->FinalBossHp <= 0) {
@@ -559,7 +584,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						}
 						else
 						{
-							cHydra->HydraBossHp -= cPlayer3D->DamagetoHydra;
+							cHydra->HydraBossHp -= (cPlayer3D->DamagetoHydra + cPlayer3D->ultDamage);
 						}
 						if (cHydra->HydraBossHp <= 1) {
 							HydraKilled = true;
@@ -575,7 +600,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					cDemon->DemonHp -= 10;
+					cDemon->DemonHp -= (10 + cPlayer3D->ultDamage) ;
 					if (cDemon->DemonHp <= 0) {
 						DemonKilled = true;
 						(*it)->SetStatus(false); 

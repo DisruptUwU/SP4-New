@@ -24,12 +24,19 @@
 // Include CSoundController
 #include "..\SoundController\SoundController.h"
 
+// Include CChest
+#include "Entities\Chest.h"
+// Include CChestZone
+#include "Entities\Chest_Zone.h"
+
 // Include CSolidObjectManager
 #include "Entities\SolidObjectManager.h"
 // Include CPlayer3D
 #include "Entities\Player3D.h"
-// Include CEnemy3D
-#include "Entities\Enemy3D.h"
+/*// Include CEnemy3D
+#include "Entities\Enemy3D.h"*/
+// Include CEnemy3D from lvl 2
+#include "Entities\Enemylvl2.h"
 // Include CHealthup
 #include "Entities\Healthup.h"
 // Include CDoor

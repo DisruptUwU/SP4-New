@@ -212,14 +212,34 @@ bool CLevel1::Init(void)
 
 	float fCheckHeight;
 
-	// Initialise the health powerup
+	/*// Initialise the health powerup
 	fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
 	CHealthup* cHealthup = new CHealthup(glm::vec3(0.0f, fCheckHeight, 0.0f));
 	cHealthup->SetShader("Shader3D");
 	cHealthup->Init();
 	cHealthup->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	// Add the health pickup to the cSolidObjectManager
-	cSolidObjectManager->Add(cHealthup);
+	cSolidObjectManager->Add(cHealthup);*/
+
+	// Initialise the chest 
+	fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+	CChest* cChest = new CChest(glm::vec3(0.0f, fCheckHeight - 0.75, 0.0f));
+	cChest->SetShader("Shader3D");
+	cChest->Init();
+	cChest->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cChest->SetScale(glm::vec3(0.5, 0.5, 0.5));
+	// Add the chest to the cSolidObjectManager
+	cSolidObjectManager->Add(cChest);
+
+	// Initialise the chest detection zone
+	fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+	CChestZone* cChestZone = new CChestZone(glm::vec3(0.0f, fCheckHeight - 0.75, 0.0f));
+	cChestZone->SetShader("Shader3D");
+	cChestZone->Init();
+	cChestZone->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	cChestZone->SetScale(glm::vec3(2, 0.5, 2));
+	// Add the chest zone to the cSolidObjectManager
+	cSolidObjectManager->Add(cChestZone);
 
 
 	// Initialise door (portal) that goes to next level
@@ -235,7 +255,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the first cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(-5.0f, -90.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(-5.0f, fCheckHeight, -90.0f));
+	CEnemylvl2* cEnemy3D = new CEnemylvl2(glm::vec3(-5.0f, fCheckHeight, -90.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
 	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -260,7 +280,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the 2nd cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(5.0f, -90.0f);
-	CEnemy3D* cEnemy3D_2 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight, -90.0f));
+	CEnemylvl2* cEnemy3D_2 = new CEnemylvl2(glm::vec3(5.0f, fCheckHeight, -90.0f));
 	cEnemy3D_2->SetShader("Shader3D");
 	cEnemy3D_2->Init();
 	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -276,7 +296,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the 3rd cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(30.0f, 0.0f);
-	CEnemy3D* cEnemy3D_3 = new CEnemy3D(glm::vec3(30.0f, fCheckHeight, 0.0f));
+	CEnemylvl2* cEnemy3D_3 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_3->SetShader("Shader3D");
 	cEnemy3D_3->Init();
 	cEnemy3D_3->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -292,7 +312,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the 4th cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(-30.0f, 0.0f);
-	CEnemy3D* cEnemy3D_4 = new CEnemy3D(glm::vec3(-30.0f, fCheckHeight, 0.0f));
+	CEnemylvl2* cEnemy3D_4 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_4->SetShader("Shader3D");
 	cEnemy3D_4->Init();
 	cEnemy3D_4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));

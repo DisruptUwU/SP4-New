@@ -13,6 +13,9 @@
 #include <includes/gtc/matrix_transform.hpp>
 #include <includes/gtc/type_ptr.hpp>
 
+ // Include LoadOBJ
+#include "System/LoadOBJ.h"
+
 // Include Camera
 #include "../Camera.h"
 
@@ -59,6 +62,8 @@ public:
 
 	// Initialise this class instance
 	bool Init(void);
+
+	bool LoadModelAndTexture(const char* filenameModel, const char* filenameTexture, GLuint& VAO, GLuint& iTextureID, GLuint& iIndicesSize);
 
 	// Set model
 	virtual void SetModel(const glm::mat4 model);
@@ -113,7 +118,7 @@ public:
 	bool goRight = true;
 
 	bool enraged = false;
-	bool regainPhase1 = false;
+	bool enragedStats = false;
 
 	double FinalBossHp = 300;
 	// Detection distance for player
