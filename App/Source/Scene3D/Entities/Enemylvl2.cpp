@@ -73,7 +73,7 @@ CEnemylvl2::CEnemylvl2(	const glm::vec3 vec3Position,
 	this->vec3Front = vec3Front;
 	this->fYaw = fYaw;
 	this->fPitch = fPitch;
-	//this->bIsDisplayed = true;
+	//this->bIsDisplayed = false;
 
 	// Update the vectors for this enemy
 	UpdateEnemyVectors();
