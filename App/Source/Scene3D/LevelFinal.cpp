@@ -292,13 +292,13 @@ bool CLevelFinal::Update(const double dElapsedTime)
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();
 
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_E))
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && cPlayer3D->NeartheKing == true)
 	{
 		winGame = true;
 		cGUI_Scene3D->gameOver = true;
 		cPlayer3D->cantMove = true;
 		cSoundController->PlaySoundByID(4);
-		CCameraEffectsManager::GetInstance()->Get("Youwin")->SetStatus(true);
+		/*CCameraEffectsManager::GetInstance()->Get("Youwin")->SetStatus(true);*/
 	}
 
 	// Get keyboard updates for camera
