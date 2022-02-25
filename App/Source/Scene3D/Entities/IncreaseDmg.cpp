@@ -60,7 +60,7 @@ bool CIncreaseDmg::Init(void)
 	// Set the type
 	SetType(CEntity3D::TYPE::DMGPOWER);
 
-	if (LoadModelAndTexture("Models/Level5/Heart.obj",
+	if (LoadModelAndTexture("Models/Objects/Star.obj",
 		"Models/Pistol/honeycombs_col.png",
 		VAO, iTextureID, iIndicesSize) == false)
 	{

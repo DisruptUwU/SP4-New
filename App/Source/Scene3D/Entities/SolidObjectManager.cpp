@@ -218,6 +218,8 @@ bool CSolidObjectManager::CheckForCollision(void)
 			if (enemy_lvl1_count <= 0 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
 			{
 				(*it)->SetStatus(true);
+				DeadEnemies = 0;
+				cPlayer3D->at_level1 = false;
 				cout << "** Level 1 portal activated ***" << endl;
 				//continue;
 			}
@@ -329,6 +331,13 @@ bool CSolidObjectManager::CheckForCollision(void)
 				}
 
 				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::HYDRA))
+				{
+					(*it)->RollbackPosition();
+					(*it_other)->RollbackPosition();
+					break;
+				}
+
+				if ((((*it)->GetType() == CSolidObject::TYPE::PLAYER)) && ((*it_other)->GetType() == CSolidObject::TYPE::DEMON))
 				{
 					(*it)->RollbackPosition();
 					(*it_other)->RollbackPosition();
@@ -535,6 +544,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					DeadEnemies += 1;
+					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
 					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
