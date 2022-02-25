@@ -431,6 +431,7 @@ bool CLevel1::Update(const double dElapsedTime)
 	{
 		// Background music
 		cSoundController->PlaySoundByID(6);
+		background_music_lvl1 = false;
 	}
 
 	//// Get keyboard updates for player3D
@@ -639,6 +640,7 @@ bool CLevel1::Update(const double dElapsedTime)
 	cSolidObjectManager->CheckForCollision();
 	if (cSolidObjectManager->lvl1_portal_bool == true)
 	{
+		cSoundController->StopSound();
 		teleport_2_lvl2 = true;
 	}
 
