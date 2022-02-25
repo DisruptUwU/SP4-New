@@ -451,6 +451,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	if (cSolidObjectManager->wenttodoorlvl5 == true)//push
 	{
 		gotolevel6 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 	if (cSolidObjectManager->cFinalBoss3D->soulsAlive <= 0)
@@ -586,18 +587,19 @@ bool CLevel5::Update(const double dElapsedTime)
 		}
 	}
 
-	//// Get keyboard updates for player3D
-	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
+	// Get keyboard updates for player3D
+	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
+	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
@@ -613,15 +615,15 @@ bool CLevel5::Update(const double dElapsedTime)
 	}
 	else
 	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
 		{
@@ -669,7 +671,8 @@ bool CLevel5::Update(const double dElapsedTime)
 		cPlayer3D->stamina = 0;
 	}
 
-	if (sprintCheck == true) {
+	if (sprintCheck == true)
+	{
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
 
@@ -810,62 +813,6 @@ void CLevel5::PreRender(void)
  */
 void CLevel5::Render(void)
 {
-	// Part 1: Render for the minimap by binding to framebuffer and render to color texture
-	//         But the camera is move to top-view of the scene
-
-	// Backup some key settings for the camera and player
-	glm::vec3 storePlayerPosition = cPlayer3D->GetPosition();
-	float storeCameraYaw = cCamera->fYaw;
-	float storeCameraPitch = cCamera->fPitch;
-	glm::vec3 storeCameraPosition = cCamera->vec3Position;
-	// Adjust camera yaw and pitch so that it is looking from a top-view of the terrain
-	cCamera->fYaw += 180.0f;
-	cCamera->fPitch = -90.0f;
-	// We store the player's position into the camera as we want the minimap to focus on the player
-	cCamera->vec3Position = glm::vec3(storePlayerPosition.x, 10.0f, storePlayerPosition.z);
-	// Recalculate all the camera vectors. 
-	// We disable pitch constrains for this specific case as we want the camera to look straight down
-	cCamera->ProcessMouseMovement(0, 0, false);
-	// Generate the view and projection
-	glm::mat4 playerView = cCamera->GetViewMatrix();
-	glm::mat4 playerProjection = glm::perspective(	glm::radians(45.0f),
-													(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
-													0.1f, 1000.0f);
-
-	// Set the camera parameters back to the previous values
-	cCamera->fYaw = storeCameraYaw;
-	cCamera->fPitch = storeCameraPitch;
-	cCamera->vec3Position = storeCameraPosition;
-	cCamera->ProcessMouseMovement(0, 0, true); // call this to make sure it updates its camera vectors, note that we disable pitch constrains for this specific case (otherwise we can't reverse camera's pitch values)
-
-	// Activate the minimap system
-	CMinimap::GetInstance()->Activate();
-	// Setup the rendering environment
-	CMinimap::GetInstance()->PreRender();
-
-	glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-
-	// Render the Terrain
-	cTerrain->SetView(playerView);
-	cTerrain->SetProjection(playerProjection);
-	cTerrain->PreRender();
-	cTerrain->Render();
-	cTerrain->PostRender();
-
-	// Render the entities
-	cEntityManager->SetView(playerView);
-	cEntityManager->SetProjection(playerProjection);
-	cEntityManager->Render();
-
-	// Render the entities for the minimap
-	cSolidObjectManager->SetView(playerView);
-	cSolidObjectManager->SetProjection(playerProjection);
-	cSolidObjectManager->Render();
-
-	// Deactivate the cMinimap so that we can render as per normal
-	CMinimap::GetInstance()->Deactivate();
-
-	// Part 2: Render the entire scene as per normal
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
 	glm::mat4 projection = glm::perspective(	glm::radians(CCamera::GetInstance()->fZoom),
