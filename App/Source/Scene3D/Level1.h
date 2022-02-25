@@ -83,7 +83,12 @@ public:
 
 	bool sprintCheck = false;
 
-	bool teleport_2_lvl2;
+	bool teleport_2_lvl2 = false;
+		
+	int checkplayerdie = 0;
+
+	bool losegame = false;
+
 protected:
 	// The handler to the CSettings
 	CSettings* cSettings;

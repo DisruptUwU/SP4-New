@@ -526,6 +526,38 @@ bool CLevel1::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(false);
 	}
 
+
+	// Player dead
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->PlaySoundByID(5);
+		}
+		cout << "you lose" << losegame << endl;
+		cPlayer3D->playerhealthbelow30 = false;
+		//cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
+		losegame = true;
+	}
+
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		cSoundController->PlaySoundByID(4);
+	}
+
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
+	}
+
 	// Update the Solid Objects
 	cSolidObjectManager->Update(dElapsedTime);
 

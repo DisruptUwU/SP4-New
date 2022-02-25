@@ -52,6 +52,7 @@ public:
 		SOUL,
 		ENEMYLVL2,
 		DEMON,
+		DRAGON,
 		COIN,
 		DOORLVL2,
 		DOORLVL3,

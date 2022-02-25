@@ -165,7 +165,7 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroar.ogg"), 6, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydraroaraggressive.ogg"), 7, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase1.ogg"), 8, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\OP.ogg"), 9, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Hydrathemephase2.ogg"), 9, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect1.ogg"), 10, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect2.ogg"), 11, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect3.ogg"), 12, true);
@@ -574,7 +574,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		/*cSoundController->StopSound();*/
 		//cSolidObjectManager->healthbelow50 = true;
-		cSoundController->StopSound();
+		//cSoundController->StopSound();
 		changesongsequence = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;

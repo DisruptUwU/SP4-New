@@ -118,7 +118,7 @@ bool CDragon::Init(void)
 	CSolidObject::Init();
 
 	// Set the type
-	SetType(CEntity3D::TYPE::NPC);
+	SetType(CEntity3D::TYPE::DRAGON);
 
 	// Initialise the cPlayer3D
 	cPlayer3D = CPlayer3D::GetInstance();
@@ -168,6 +168,7 @@ bool CDragon::Init(void)
 
 	// Movement Control
 	fMovementSpeed = 15.0f;
+	fDetectionDistance = 1000.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -297,7 +298,7 @@ bool CDragon::DischargeWeapon(void) const
 
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
-		return cPrimaryWeapon->Discharge(pos, vec3Front, (CSolidObject*)this);
+		return cPrimaryWeapon->Discharge(pos, target, (CSolidObject*)this);
 	}
 	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
 	{
@@ -359,6 +360,15 @@ bool CDragon::Update(const double dElapsedTime)
 	targetFront = glm::normalize((cPlayer3D->GetPosition() - pos));
 	float dot = glm::dot(targetFront, vec3Front);
 	//cout << dot << endl;
+
+	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
+	{
+		cPlayer3D->NearDragon = true;
+	}
+	else
+	{
+		cPlayer3D->NearDragon = false;
+	}
 
 	if (dot < 0 && sCurrentFSM == FSM::ATTACK)
 	{

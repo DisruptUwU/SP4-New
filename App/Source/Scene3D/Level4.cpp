@@ -233,6 +233,9 @@ bool CLevel4::Init(void)
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
 	cGUI_Scene3D->Init();
 
+	cSolidObjectManager->cDragon = cDragon;
+	cGUI_Scene3D->cDragon = cDragon;
+
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
 	cEntityManager = CEntityManager::GetInstance(); //wwdawe
