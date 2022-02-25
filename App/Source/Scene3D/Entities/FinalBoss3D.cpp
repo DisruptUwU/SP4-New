@@ -220,7 +220,6 @@ bool CFinalBoss3D::LoadModelAndTexture(const char* filenameModel,
 	return true;
 }
 
-
 /**
  @brief Set model
  @param model A const glm::mat4 variable containing the model for this class instance
