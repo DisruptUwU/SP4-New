@@ -480,6 +480,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	if (cSolidObjectManager->wenttodoorlvl5 == true)//push
 	{
 		gotolevel6 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 	if (cSolidObjectManager->cFinalBoss3D->soulsAlive <= 0)

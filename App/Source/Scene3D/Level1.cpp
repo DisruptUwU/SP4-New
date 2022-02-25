@@ -647,6 +647,7 @@ bool CLevel1::Update(const double dElapsedTime)
 	{
 		cSoundController->StopSound();
 		teleport_2_lvl2 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 	// Update the entities

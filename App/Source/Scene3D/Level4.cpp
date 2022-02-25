@@ -432,6 +432,7 @@ bool CLevel4::Update(const double dElapsedTime)
 		if (cPlayer3D->GetPosition().x >= -1 && cPlayer3D->GetPosition().x <= 1 && cPlayer3D->GetPosition().z >= -1 && cPlayer3D->GetPosition().z <= 1)
 		{
 			bNextLevel = true;
+			CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 		}
 	}
 
