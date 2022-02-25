@@ -129,6 +129,9 @@ protected:
 	// Handler to the EntityManager class
 	CEntityManager* cEntityManager;
 
+	// Background music bool
+	bool background_music_lvl1;
+
 	// Constructor
 	CLevel1(void);
 	// Destructor

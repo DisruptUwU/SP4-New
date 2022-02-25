@@ -46,6 +46,7 @@ CLevel1::CLevel1(void)
 	, cSkyBox(NULL)
 	, cTerrain(NULL)
 	, teleport_2_lvl2(false)
+	, background_music_lvl1(true)
 {
 }
 
@@ -161,6 +162,9 @@ bool CLevel1::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Explosion.ogg"), 2, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Jump.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscarehydra.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\lvl1_background.ogg"), 6, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -423,6 +427,12 @@ bool CLevel1::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
+	if (background_music_lvl1)
+	{
+		// Background music
+		cSoundController->PlaySoundByID(6);
+	}
+
 	//// Get keyboard updates for player3D
 	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 	//{
@@ -598,6 +608,7 @@ bool CLevel1::Update(const double dElapsedTime)
 		if (checkplayerdie == 0)
 		{
 			cSoundController->StopSound();
+			background_music_lvl1 = false;
 			checkplayerdie += 1;
 		}
 		else
