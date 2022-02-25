@@ -168,6 +168,7 @@ bool CLevel2::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect4.ogg"), 9, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect5.ogg"), 10, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect6.ogg"), 11, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 12, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -690,6 +691,17 @@ bool CLevel2::Update(const double dElapsedTime)
 		// Switch off Scope mode and zoom out
 		cCamera->fZoom = 45.0f;
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(false);
+	}
+
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		cSoundController->PlaySoundByID(12);
+	}
+
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
 
 
