@@ -211,16 +211,34 @@
     <ClCompile Include="Source\Scene3D\Entities\DoorLvl5.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\Camera.cpp">
+      <Filter>Scene3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\CameraEffects\Youwin.cpp">
+      <Filter>Scene3D\CameraEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Chest.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene3D\Entities\Chest_Zone.cpp">
+      <Filter>Scene3D\Entities</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Scene3D\AI\FSM.cpp">
       <Filter>Scene3D\AI</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp">
       <Filter>GameSceneManagement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\IntroState.cpp">
+    <ClCompile Include="Source\GameStateManagement\Level1GameState.cpp">
       <Filter>GameSceneManagement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\Level1GameState.cpp">
+    <ClCompile Include="Source\GameStateManagement\IntroState.cpp">
       <Filter>GameSceneManagement</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\Level2GameState.cpp">
@@ -243,24 +261,6 @@
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\PlayGameState.cpp">
       <Filter>GameSceneManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Camera.cpp">
-      <Filter>Scene3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\CameraEffects\Youwin.cpp">
-      <Filter>Scene3D\CameraEffects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Chest.cpp">
-      <Filter>Scene3D\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\Entities\Chest_Zone.cpp">
-      <Filter>Scene3D\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -760,39 +760,6 @@
     <ClInclude Include="Source\Scene3D\Minimap\Minimap.h">
       <Filter>Scene3D\Minimap</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\IntroState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level2GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level3GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level4GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level5GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\MenuState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PauseState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\doorlvl3.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
@@ -813,9 +780,6 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Level1.h">
       <Filter>Scene3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene3D\AI\FSM.h">
-      <Filter>Scene3D\AI</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
       <Filter>GameSceneManagement</Filter>
@@ -865,6 +829,42 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\Entities\Chest_Zone.h">
       <Filter>Scene3D\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\AI\FSM.h">
+      <Filter>Scene3D\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\IntroState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level2GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level3GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level4GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level5GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\MenuState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\PauseState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
+      <Filter>GameSceneManagement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

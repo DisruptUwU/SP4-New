@@ -527,11 +527,11 @@ void CLostSoul3D::Render(void)
 
 	CSolidObject::Render();
 
-	cPrimaryWeapon->SetView(view);
-	cPrimaryWeapon->SetProjection(projection);
-	cPrimaryWeapon->PreRender();
-	cPrimaryWeapon->Render();
-	cPrimaryWeapon->PostRender();
+	//cPrimaryWeapon->SetView(view);
+	//cPrimaryWeapon->SetProjection(projection);
+	//cPrimaryWeapon->PreRender();
+	//cPrimaryWeapon->Render();
+	//cPrimaryWeapon->PostRender();
 }
 
 /**

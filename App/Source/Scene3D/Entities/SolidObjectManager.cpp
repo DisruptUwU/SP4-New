@@ -127,6 +127,17 @@ bool CSolidObjectManager::Erase(CSolidObject* cSolidObject)
 	return false;
 }
 
+int CSolidObjectManager::Count()
+{
+	int count = 0;
+	for (std::list<CSolidObject*>::iterator it = lSolidObject.begin(); it != lSolidObject.end(); ++it)
+	{
+		if ((*it)->GetStatus())
+			count++;
+	}
+	return count;
+}
+
 /**
  @brief Collision Check for a CSolidObject*
  @param cSolidObject The CSolidObject* variable to be checked
