@@ -141,6 +141,5 @@ protected:
 	bool spawnpower1 = false;
 	bool spawnpower2 = false;
 	double demontexttimer = 3;
-	double demonhalfhealth = 0;
 };
 

@@ -629,6 +629,10 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					cDemon->DemonHp -= (10 + cPlayer3D->ultDamage) ;
+					if (cDemon->DemonHp <= 50)
+					{
+						demonhalfhealth += 1;
+					}
 					if (cDemon->DemonHp <= 0) {
 						DemonKilled = true;
 						(*it)->SetStatus(false); 
