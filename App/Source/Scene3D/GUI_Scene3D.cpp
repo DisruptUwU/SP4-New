@@ -35,7 +35,6 @@ CGUI_Scene3D::CGUI_Scene3D(void)
 	, projection(glm::mat4(1.0f))
 	, m_fProgressBar(0.0f)
 	, cCameraEffectsManager(NULL)
-	, cMinimap(NULL)
 	, cInventoryManager(NULL)
 	, cInventoryItem(NULL)
 	, cPlayer3D(NULL)
@@ -61,13 +60,6 @@ CGUI_Scene3D::~CGUI_Scene3D(void)
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-
-	// Destroy the cMinimap and set it to NULL
-	if (cMinimap)
-	{
-		cMinimap->Destroy();
-		cMinimap = NULL;
-	}
 
 	// Destroy the cCameraEffects and set it to NULL
 	if (cCameraEffectsManager)
@@ -132,6 +124,11 @@ bool CGUI_Scene3D::Init(void)
 	cJumpscare5->SetShader("Shader_GUI");
 	cCameraEffectsManager->Add("Jumpscare5", cJumpscare5);
 	// Add Lowhealth
+	CJumpscare* cJumpscare6 = new CJumpscare();
+	cJumpscare6->Init(6);
+	cJumpscare6->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("LoadingScreen", cJumpscare6);
+	// Add Lowhealth
 	CYoulose* cYoulose = new CYoulose();
 	cYoulose->Init();
 	cYoulose->SetShader("Shader_GUI");
@@ -155,12 +152,6 @@ bool CGUI_Scene3D::Init(void)
 	CCameraShake* cCameraShake = new CCameraShake();
 	cCameraShake->Init();
 	cCameraEffectsManager->Add("CameraShake", cCameraShake);
-
-	// Load the Minimap
-	cMinimap = CMinimap::GetInstance();
-	// Set a shader to this class instance of Minimap
-	cMinimap->SetShader("cRenderToTextureShader");
-	cMinimap->Init();
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -1035,11 +1026,6 @@ void CGUI_Scene3D::Render(void)
 	}
 	else
 	{
-		// Render the minimap
-		cMinimap->PreRender();
-		cMinimap->Render();
-		cMinimap->PostRender();
-
 		glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
 		cPlayer3D->GetWeapon()->SetProjection(projection);
 		cPlayer3D->GetWeapon()->PreRender();

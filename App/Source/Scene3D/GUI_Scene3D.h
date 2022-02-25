@@ -41,8 +41,6 @@
 
 // Include CCameraEffectsManager
 #include "CameraEffects/CameraEffectsManager.h"
-// Include Minimap
-#include "Minimap/Minimap.h"
 
 // Include CPlayer3D
 #include "Entities\Player3D.h"
@@ -129,8 +127,6 @@ protected:
 
 	// Handler to the CCameraEffectsManager
 	CCameraEffectsManager* cCameraEffectsManager;
-	// Handler to the CMinimap
-	CMinimap* cMinimap;
 
 	// The handler containing the instance of CInventoryManager
 	CInventoryManager* cInventoryManager;

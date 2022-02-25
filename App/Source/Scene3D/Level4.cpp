@@ -216,9 +216,6 @@ bool CLevel4::Init(void)
 
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
-	// Set the position, rotation and scale of this weapon
-	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
 	cEnemyPistol->Init();
@@ -238,10 +235,17 @@ bool CLevel4::Init(void)
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
-	cEntityManager = CEntityManager::GetInstance(); //wwdawe
+	cEntityManager = CEntityManager::GetInstance();
 	cEntityManager->Init();
 
-	bPortal = false;
+	float fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+	cDoor = new CDoor(glm::vec3(0.0f, fCheckHeight, 0.0f));
+	cDoor->SetShader("Shader3D");
+	cDoor->Init();
+	cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
+	cDoor->SetStatus(false);
+	cEntityManager->Add(cDoor);
+
 	bNextLevel = false;
 
 	return true;
@@ -423,7 +427,7 @@ bool CLevel4::Update(const double dElapsedTime)
 	if (cSolidObjectManager->Count() == 1)
 	{
 		// portal
-		bPortal = true;
+		cDoor->SetStatus(true);
 		
 		if (cPlayer3D->GetPosition().x >= -1 && cPlayer3D->GetPosition().x <= 1 && cPlayer3D->GetPosition().z >= -1 && cPlayer3D->GetPosition().z <= 1)
 		{
@@ -452,34 +456,6 @@ void CLevel4::PreRender(void)
  */
 void CLevel4::Render(void)
 {
-	// Part 1: Render for the minimap by binding to framebuffer and render to color texture
-	//         But the camera is move to top-view of the scene
-
-	// Backup some key settings for the camera and player
-	glm::vec3 storePlayerPosition = cPlayer3D->GetPosition();
-	float storeCameraYaw = cCamera->fYaw;
-	float storeCameraPitch = cCamera->fPitch;
-	glm::vec3 storeCameraPosition = cCamera->vec3Position;
-	// Adjust camera yaw and pitch so that it is looking from a top-view of the terrain
-	cCamera->fYaw += 180.0f;
-	cCamera->fPitch = -90.0f;
-	// We store the player's position into the camera as we want the minimap to focus on the player
-	cCamera->vec3Position = glm::vec3(storePlayerPosition.x, 10.0f, storePlayerPosition.z);
-	// Recalculate all the camera vectors. 
-	// We disable pitch constrains for this specific case as we want the camera to look straight down
-	cCamera->ProcessMouseMovement(0, 0, false);
-	// Generate the view and projection
-	glm::mat4 playerView = cCamera->GetViewMatrix();
-	glm::mat4 playerProjection = glm::perspective(	glm::radians(45.0f),
-													(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
-													0.1f, 1000.0f);
-
-	// Set the camera parameters back to the previous values
-	cCamera->fYaw = storeCameraYaw;
-	cCamera->fPitch = storeCameraPitch;
-	cCamera->vec3Position = storeCameraPosition;
-	cCamera->ProcessMouseMovement(0, 0, true); // call this to make sure it updates its camera vectors, note that we disable pitch constrains for this specific case (otherwise we can't reverse camera's pitch values)
-
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
 	glm::mat4 projection = glm::perspective(	glm::radians(CCamera::GetInstance()->fZoom),
@@ -518,11 +494,6 @@ void CLevel4::Render(void)
 	cProjectileManager->PreRender();
 	cProjectileManager->Render();
 	cProjectileManager->PostRender();
-
-	if (bPortal)
-	{
-
-	}
 
 	// now draw the mirror quad with screen texture
 	// --------------------------------------------

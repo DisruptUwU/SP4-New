@@ -131,6 +131,9 @@ void CEntityManager::Render(void)
 	end = lEntity3D.end();
 	for (it = lEntity3D.begin(); it != end; ++it)
 	{
+		if (!(*it)->GetStatus())
+			continue;
+
 		(*it)->SetView(view);
 		(*it)->SetProjection(projection);
 		(*it)->PreRender();

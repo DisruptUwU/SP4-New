@@ -363,15 +363,47 @@ bool CSolidObjectManager::CheckForCollision(void)
 				{
 					cPlayer3D->chest_near = true;
 					//(*it)->RollbackPosition();
-					if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F))
+					if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F)) // Get something
 					{
 						//cPlayer3D->chest_near = true;
 						//(*it_other)->RollbackPosition();
+
+						int random_no = 1 + (rand() % 5);
+						switch (random_no) {
+						case 1:
+							printf("Got Coin!");
+							cPlayer3D->collectCoin = true;
+							break;
+						case 2:
+							printf("Got Speed!");
+							cPlayer3D->speedPower = true;
+							break;
+						case 3:
+							printf("Got Health!");
+							cPlayer3D->healthPower = true;
+							break;
+						case 4:
+							printf("Got Attack!");
+							cPlayer3D->AtkIncrease = true;
+							break;
+						case 5:
+							printf("Got Defence!");
+							cPlayer3D->DefenceIncrease = true;
+							break;
+							/*case 6:
+								printf("Got Ammo!");
+								// cPlayer3D->A = true;
+								break;*/
+						default:
+							printf("Error");
+							break;
+						}
+
 						(*it_other)->SetStatus(false);
 						cout << "** chest bonus received ***" << endl;
 						cPlayer3D->chest_near = false;
-						cPlayer3D->gloves = true;
-						cout << "** gloves equipped ***" << endl;
+						//cPlayer3D->gloves = true;
+						//cout << "** gloves equipped ***" << endl;
 						break;
 					}
 				}
@@ -739,6 +771,9 @@ void CSolidObjectManager::Render(void)
 	end = lSolidObject.end();
 	for (it = lSolidObject.begin(); it != end; ++it)
 	{
+		if (!(*it)->GetStatus())
+			continue;
+
 		(*it)->SetView(view);
 		(*it)->SetProjection(projection);
 		(*it)->PreRender();
