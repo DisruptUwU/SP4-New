@@ -255,7 +255,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the first cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(-5.0f, -90.0f);
-	CEnemy3D* cEnemy3D = new CEnemy3D(glm::vec3(-5.0f, fCheckHeight, -90.0f));
+	CEnemylvl2* cEnemy3D = new CEnemylvl2(glm::vec3(-5.0f, fCheckHeight, -90.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
 	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -280,7 +280,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the 2nd cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(5.0f, -90.0f);
-	CEnemy3D* cEnemy3D_2 = new CEnemy3D(glm::vec3(5.0f, fCheckHeight, -90.0f));
+	CEnemylvl2* cEnemy3D_2 = new CEnemylvl2(glm::vec3(5.0f, fCheckHeight, -90.0f));
 	cEnemy3D_2->SetShader("Shader3D");
 	cEnemy3D_2->Init();
 	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -296,7 +296,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the 3rd cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(30.0f, 0.0f);
-	CEnemy3D* cEnemy3D_3 = new CEnemy3D(glm::vec3(30.0f, fCheckHeight, 0.0f));
+	CEnemylvl2* cEnemy3D_3 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_3->SetShader("Shader3D");
 	cEnemy3D_3->Init();
 	cEnemy3D_3->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -312,7 +312,7 @@ bool CLevel1::Init(void)
 
 	// Initialise the 4th cEnemy3D
 	fCheckHeight = cTerrain->GetHeight(-30.0f, 0.0f);
-	CEnemy3D* cEnemy3D_4 = new CEnemy3D(glm::vec3(-30.0f, fCheckHeight, 0.0f));
+	CEnemylvl2* cEnemy3D_4 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_4->SetShader("Shader3D");
 	cEnemy3D_4->Init();
 	cEnemy3D_4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -524,6 +524,38 @@ bool CLevel1::Update(const double dElapsedTime)
 		// Switch off Scope mode and zoom out
 		cCamera->fZoom = 45.0f;
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(false);
+	}
+
+
+	// Player dead
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->PlaySoundByID(5);
+		}
+		cout << "you lose" << losegame << endl;
+		cPlayer3D->playerhealthbelow30 = false;
+		//cSolidObjectManager->youlose = true;
+		cGUI_Scene3D->gameOver = true;
+		losegame = true;
+	}
+
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		cSoundController->PlaySoundByID(4);
+	}
+
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
 
 	// Update the Solid Objects

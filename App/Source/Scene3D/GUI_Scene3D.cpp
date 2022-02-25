@@ -874,6 +874,59 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			//}
 		}
 
+		if (cPlayer3D->NearDragon == true)
+		{
+			ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+				ImGuiWindowFlags_NoBackground |
+				ImGuiWindowFlags_NoTitleBar |
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoCollapse |
+				ImGuiWindowFlags_NoScrollbar;
+			if (cDragon->DragonHp <= 0) {
+
+			}
+			else 
+			{
+				ImGuiWindowFlags bossName = ImGuiWindowFlags_AlwaysAutoResize |
+					ImGuiWindowFlags_NoBackground |
+					ImGuiWindowFlags_NoTitleBar |
+					ImGuiWindowFlags_NoMove |
+					ImGuiWindowFlags_NoResize |
+					ImGuiWindowFlags_NoCollapse |
+					ImGuiWindowFlags_NoScrollbar;
+				ImGui::Begin("Textbox", NULL, bossName);
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.35f, cSettings->iWindowHeight * 0.125f));
+				ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+				ImGui::TextColored(ImVec4(1, 1, 0, 1), "SOARING OVERLORD");
+				ImGui::End();
+
+				ImGuiWindowFlags bossHp = ImGuiWindowFlags_AlwaysAutoResize |
+					ImGuiWindowFlags_NoBackground |
+					ImGuiWindowFlags_NoTitleBar |
+					ImGuiWindowFlags_NoMove |
+					ImGuiWindowFlags_NoResize |
+					ImGuiWindowFlags_NoCollapse |
+					ImGuiWindowFlags_NoScrollbar;
+				ImGui::Begin("DemonBossHp", NULL, bossHp);
+				ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.20f, cSettings->iWindowHeight * 0.175f));
+				ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+				ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+				cInventoryItem = cInventoryManager->GetItem("DemonBossHp");
+				ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+					ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+					ImVec2(0, 1), ImVec2(1, 0));
+				ImGui::SameLine();
+				ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.48f, 0.98f, 0.0f, 1.0f));
+				ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+				ImGui::ProgressBar(cDragon->DragonHp / 100, ImVec2(375.0f * relativeScale_x, 20.0f * relativeScale_y));
+				ImGui::PopStyleColor();
+				ImGui::PopStyleColor();
+				ImGui::End();
+			}
+		}
+
 		ImGui::End();
 	}
 }

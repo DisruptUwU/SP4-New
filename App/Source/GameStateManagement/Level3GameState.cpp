@@ -78,7 +78,7 @@ bool CLevel3GameState::Update(const double dElapsedTime)
 	{
 		CLevel3->gotolevel4 = false;
 		cout << "Loading level 4" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level5GameState");
+		CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
 		CGameStateManager::GetInstance()->OffPauseGameState();
 		return true;
 	}

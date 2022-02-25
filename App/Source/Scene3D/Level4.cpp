@@ -173,7 +173,7 @@ bool CLevel4::Init(void)
 	cTerrain->SetShader("Shader3D_Terrain");
 	cTerrain->InitTerrain(4);
 	// Set the size of the Terrain
-	cTerrain->SetRenderSize(100.0f, 5.0f, 100.0f);
+	cTerrain->SetRenderSize(50.0f, 5.0f, 50.0f);
 
 	// Load the movable Entities
 	// Initialise the CSolidObjectManager
@@ -208,7 +208,7 @@ bool CLevel4::Init(void)
 	cPlayer3D->SetWeapon(0, cPistol);
 
 	// Initialise the cEnemy3D
-	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 5.0f, 20.0f));
+	CDragon* cDragon = new CDragon(glm::vec3(0.0f, 5.0f, -30.0f));
 	cDragon->SetShader("Shader3D");
 	cDragon->Init();
 	cDragon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-1.5, 0, -2.5), glm::vec3(1.5, 5.5, 2.5));
@@ -232,6 +232,9 @@ bool CLevel4::Init(void)
 	// Store the cGUI_Scene3D singleton instance here
 	cGUI_Scene3D = CGUI_Scene3D::GetInstance();
 	cGUI_Scene3D->Init();
+
+	cSolidObjectManager->cDragon = cDragon;
+	cGUI_Scene3D->cDragon = cDragon;
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
