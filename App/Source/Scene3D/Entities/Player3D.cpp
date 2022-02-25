@@ -32,10 +32,6 @@ CPlayer3D::CPlayer3D(void)
 	, cPrimaryWeapon(NULL)
 	, cSecondaryWeapon(NULL)
 	, iCurrentWeapon(0)
-	, fCameraSwayAngle(0.0f)
-	, fCameraSwayDeltaAngle(0.25f)
-	, bCameraSwayDirection(false)	// false = left, true = right
-	, bCameraSwayActive(true)
 	, cInventoryManager(NULL)
 	, cInventoryItem(NULL)
 {
@@ -68,10 +64,6 @@ CPlayer3D::CPlayer3D(	const glm::vec3 vec3Position,
 	, cPrimaryWeapon(NULL)
 	, cSecondaryWeapon(NULL)
 	, iCurrentWeapon(0)
-	, fCameraSwayAngle(0.0f)
-	, fCameraSwayDeltaAngle(0.5f)
-	, bCameraSwayDirection(false)	// false = left, true = right
-	, bCameraSwayActive(true)
 {
 	mesh = NULL;
 
@@ -368,10 +360,6 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 		vec3Position -= vec3Right * velocity;
 	if (direction == PLAYERMOVEMENT::RIGHT)
 		vec3Position += vec3Right * velocity;
-
-	// Indicate that camera sway is to be updated
-	if (bCameraSwayActive)
-		bUpdateCameraSway = false;
 }
 
 /**
@@ -430,34 +418,6 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	// Constraint the player's position
 	Constraint();
 
-	// Implement player/camera sway
-	if ((bUpdateCameraSway) && (bCameraSwayActive))
-	{
-		glm::mat4 rotationMat(1); // Creates a identity matrix
-		rotationMat = glm::rotate(rotationMat, glm::radians(fCameraSwayAngle), vec3Front);
-		vec3Up = glm::vec3(rotationMat * glm::vec4(vec3WorldUp, 1.0f));
-
-		if (bCameraSwayDirection == false)	// Sway to left
-		{
-			fCameraSwayAngle -= fCameraSwayDeltaAngle;
-			if (fCameraSwayAngle < fCameraSwayAngle_LeftLimit)
-			{
-				fCameraSwayAngle = fCameraSwayAngle_LeftLimit;
-				bCameraSwayDirection = !bCameraSwayDirection;
-			}
-		}
-		else if (bCameraSwayDirection == true)	// Sway to right
-		{
-			fCameraSwayAngle += fCameraSwayDeltaAngle;
-			if (fCameraSwayAngle > fCameraSwayAngle_RightLimit)
-			{
-				fCameraSwayAngle = fCameraSwayAngle_RightLimit;
-				bCameraSwayDirection = !bCameraSwayDirection;
-			}
-		}
-		bUpdateCameraSway = false;
-	}
-
 	if (jumpscaretraptimer <= 0)
 	{
 		jumpscaretraptimer = 1.5;
@@ -501,7 +461,7 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		cout << "power down" << endl;
 	}
 
-		if (ultActive == true)
+	if (ultActive == true)
 	{
 		ultTimer -= 1 * dElapsedTime;
 		ultSpeed = 5;
@@ -599,9 +559,6 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		collectCoin = false;
 	}
 
-
-
-
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	if (cInventoryItem->GetCount() <= 30) //getmaxcount
 	{
@@ -696,8 +653,7 @@ void CPlayer3D::UpdatePlayerVectors(void)
 	// Normalize the vectors, because their length gets closer to 0 the more 
 	// you look up or down which results in slower movement.
 	vec3Right = glm::normalize(glm::cross(vec3Front, vec3WorldUp));  
-	if (!bCameraSwayActive)
-		vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
+	vec3Up = glm::normalize(glm::cross(vec3Right, vec3Front));
 
 	// If the camera is attached to this player, then update the camera
 	if (cCamera)
