@@ -507,14 +507,12 @@ bool CPlayer3D::Update(const double dElapsedTime)
 		ultSpeed = 5;
 		ultDamage = 30;
 		ult -= 35 * dElapsedTime;
-		cout << "fuck" << endl;
 	}
 	else
 	{
 		if (ult < 100)
 		{
 			ult += 10 * dElapsedTime;
-			cout << "cum" << endl;
 		}
 
 	}

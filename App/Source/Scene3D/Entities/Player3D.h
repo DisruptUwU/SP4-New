@@ -161,6 +161,7 @@ public:
 	double ultTimer = 3;
 	double ultSpeed = 1;
 	double ultDamage = 0;
+	int demontextcheck = 0;
 
 	// Check if player is near chest
 	bool chest_near = false;

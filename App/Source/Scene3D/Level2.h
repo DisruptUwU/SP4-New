@@ -34,6 +34,8 @@
 // Include CStructure3D
 #include "Entities\Structure3D.h"
 #include "Entities\Coin.h"
+#include "Entities\Speed.h"
+#include "Entities\Healthup.h"
 // Include CStructure3D
 #include "Entities\doorlvl2.h"
 // Include CProjectileManager
@@ -136,5 +138,9 @@ protected:
 	bool Demonspawn = false;
 	int portalcheck = 0;
 	bool portalspawn;
+	bool spawnpower1 = false;
+	bool spawnpower2 = false;
+	double demontexttimer = 3;
+	double demonhalfhealth = 0;
 };
 

@@ -261,25 +261,6 @@ bool CLevel2::Init(void)
 		cEnemy3D7->Init();
 		cEnemy3D7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	
-		if (wavedead)
-		{
-			float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
-			CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
-			cDemon->SetShader("Shader3D");
-			//cDemon->SetRotation(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-			cDemon->Init();
-			cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-
-			CPistol* cDemonPistol = new CPistol();
-			cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-			cDemonPistol->Init();
-			cDemonPistol->SetShader("Shader3D_Model");
-			cDemon->SetWeapon(0, cDemonPistol);
-
-			cSolidObjectManager->cDemon = cDemon;
-
-			cSolidObjectManager->Add(cDemon);
-		}
 
 
 	// Assign a cPistol to the cEnemy3D
@@ -471,10 +452,11 @@ bool CLevel2::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(6);
 			checkSound1 += 1;
+			spawnpower1 = true;
 		}
 		else
 		{
-			//return;
+			spawnpower1 = false;
 		}
 	}
 	if (gametimer >= 20)
@@ -495,10 +477,12 @@ bool CLevel2::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(9);
 			checkSound3 += 1;
+			spawnpower2 = true;
 		}
 		else
 		{
 			//return;
+			spawnpower2 = false;
 		}
 	}
 	if (gametimer >= 40)
@@ -512,6 +496,32 @@ bool CLevel2::Update(const double dElapsedTime)
 		{
 			//return;
 		}
+	}
+
+	if (spawnpower1 == true)
+	{
+		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+		CSpeed* cSpeed = new CSpeed(glm::vec3(-85, 5.7, -65));
+		cSpeed->SetShader("Shader3D");
+		cSpeed->Init();
+		cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		//cStructure3D->SetScale(glm::vec3(0.5f));
+
+		// Add the cStructure3D to the cSolidObjectManager
+		cSolidObjectManager->Add(cSpeed);
+	}
+
+	if (spawnpower2 == true)
+	{
+		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
+		CHealthup* cHealthup = new CHealthup(glm::vec3(-90, 5.7, -65));
+		cHealthup->SetShader("Shader3D");
+		cHealthup->Init();
+		cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		//cStructure3D->SetScale(glm::vec3(0.5f));
+
+		// Add the cStructure3D to the cSolidObjectManager
+		cSolidObjectManager->Add(cHealthup);
 	}
 
 	if (gametimer >= 60)
@@ -687,11 +697,6 @@ bool CLevel2::Update(const double dElapsedTime)
 	}
 
 
-	//if (CEnemy3D::GetStatus == false)
-	//{
-	//	wavedead = true;
-	//}
-
 	if (cSolidObjectManager->DeadEnemies >= 7) //change back to 7 later
 	{
 		if (checkDemonspawn == 0)
@@ -718,15 +723,24 @@ bool CLevel2::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(5);
 			Demonspawn = true;
 			checkDemonspawn += 1;
+
+
 		}
 		else
 		{
-			Demonspawn = false;
+			//Demonspawn = false;
 		}
 	}
 
 	if (Demonspawn == true)
 	{
+		if (cPlayer3D->demontextcheck == 0)
+		{
+			cPlayer3D->demontextcheck = 1;
+			
+		}
+
+
 		//wavedead = true;
 		float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
 		CDemon* cDemon = new CDemon(glm::vec3(20.0f, fCheckHeight5, -30.0f));
@@ -744,8 +758,27 @@ bool CLevel2::Update(const double dElapsedTime)
 
 		cSolidObjectManager->Add(cDemon);
 
+		if (cDemon->DemonHp <= 50)
+		{
+			demonhalfhealth = 1;
+		}
+
 		cGUI_Scene3D->cDemon = cDemon;
-		cout << "Die" << endl;
+	}
+
+	if (cPlayer3D->demontextcheck == 1)
+	{
+		demontexttimer -= 1 * dElapsedTime;
+
+		if (demontexttimer <= 0)
+		{
+			cPlayer3D->demontextcheck = 2;
+		}
+	}
+
+	if (demonhalfhealth = 1)
+	{
+
 	}
 
 	if (cSolidObjectManager->DemonKilled == true)
