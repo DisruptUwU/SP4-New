@@ -44,6 +44,9 @@ public:
 	// Remove a CSolidObject* from this class instance
 	virtual bool Erase(CSolidObject* cSolidObject);
 
+	//Solid object count
+	int Count();
+
 	// Collision Check for a CSolidObject*
 	virtual bool CollisionCheck(CSolidObject* cSolidObject);
 
