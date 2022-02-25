@@ -393,6 +393,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(6);
 			checkSound1 += 1;
 			spawnpower1 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare5")->SetStatus(true);
 		}
 		else
 		{
@@ -418,6 +419,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(9);
 			checkSound3 += 1;
 			spawnpower2 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare2")->SetStatus(true);
 		}
 		else
 		{
