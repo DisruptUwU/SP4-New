@@ -494,8 +494,28 @@ void CGUI_Scene3D::Update(const double dElapsedTime)
 			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
 			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Open Chest?");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Open Chest for gloves?");
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Press 'F' To Open Chest");
+			ImGui::End();
+		}
+
+		else if (cPlayer3D->at_level1 == true)
+		{
+			ImGuiWindowFlags dialogueWindowFlag = ImGuiWindowFlags_AlwaysAutoResize |
+				ImGuiWindowFlags_NoBackground |
+				ImGuiWindowFlags_NoTitleBar |
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoCollapse |
+				ImGuiWindowFlags_NoScrollbar;
+
+			ImGui::Begin("NPCTextBox", NULL, dialogueWindowFlag);
+			ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.3f, cSettings->iWindowHeight * 0.8f));
+			ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+			//ImGui::SetWindowSize(ImVec2((float)cSettings->iWindowWidth, (float)cSettings->iWindowHeight));
+			ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Welcome to your fate");
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Defeat all enemies to activate Portal");
 			ImGui::End();
 		}
 

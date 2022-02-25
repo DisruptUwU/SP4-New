@@ -208,6 +208,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 			{
 				(*it)->SetStatus(true);
 				DeadEnemies = 0;
+				cPlayer3D->at_level1 = false;
 				cout << "** Level 1 portal activated ***" << endl;
 				//continue;
 			}
