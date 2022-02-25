@@ -298,7 +298,6 @@ bool CLevelFinal::Update(const double dElapsedTime)
 		cGUI_Scene3D->gameOver = true;
 		cPlayer3D->cantMove = true;
 		cSoundController->PlaySoundByID(4);
-		/*CCameraEffectsManager::GetInstance()->Get("Youwin")->SetStatus(true);*/
 	}
 
 	// Get keyboard updates for camera
