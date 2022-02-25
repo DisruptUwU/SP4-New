@@ -296,7 +296,7 @@ bool CDragon::DischargeWeapon(void) const
 
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
-		return cPrimaryWeapon->Discharge(pos, vec3Front, (CSolidObject*)this);
+		return cPrimaryWeapon->Discharge(pos, target, (CSolidObject*)this);
 	}
 	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
 	{
