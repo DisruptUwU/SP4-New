@@ -240,7 +240,8 @@ bool CLevel5::Init(void)
 	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight - 0.6f, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	cFinalNPC->bIsDisplayed = false;
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
 	cSolidObjectManager->cFinalNPC = cFinalNPC;
@@ -321,6 +322,7 @@ bool CLevel5::Update(const double dElapsedTime)
 				cHealthup->SetShader("Shader3D");
 				cHealthup->Init();
 				cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cHealthup->bIsDisplayed = false;
 				cSolidObjectManager->Add(cHealthup);
 				spawnCheckHP = true;
 				spawnCheckHPTimer = 10;
@@ -352,6 +354,7 @@ bool CLevel5::Update(const double dElapsedTime)
 				cIncreaseDmg->SetShader("Shader3D");
 				cIncreaseDmg->Init();
 				cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cIncreaseDmg->bIsDisplayed = false;
 				// Add the cIncreaseDmg to the cSolidObjectManager
 				cSolidObjectManager->Add(cIncreaseDmg);
 				spawnCheckAtk = true;
@@ -384,6 +387,7 @@ bool CLevel5::Update(const double dElapsedTime)
 				cIncreaseDef->SetShader("Shader3D");
 				cIncreaseDef->Init();
 				cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cIncreaseDef->bIsDisplayed = false;
 				// Add the cIncreaseDef to the cSolidObjectManager
 				cSolidObjectManager->Add(cIncreaseDef);
 				spawnCheckDef = true;
