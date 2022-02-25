@@ -60,8 +60,8 @@ bool CIncreaseDef::Init(void)
 	// Set the type
 	SetType(CEntity3D::TYPE::DEFPOWER);
 
-	if (LoadModelAndTexture("Models/Pistol/gun_type64_01.obj",
-		"Models/Pistol/gun_type64_01.jpg",
+	if (LoadModelAndTexture("Models/Objects/shield.obj",
+		"Models/Pistol/honeycombs_col.png",
 		VAO, iTextureID, iIndicesSize) == false)
 	{
 		cout << "Unable to load model and texture" << endl;

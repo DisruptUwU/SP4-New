@@ -63,7 +63,7 @@ bool CSolidObjectManager::Init(void)
 
 	//cFinalBoss3D = CFinalBoss3D::GetInstance();
 
-	enemy_lvl1_count = 4; // Set this to number of enemies in lvl 1
+	enemy_lvl1_count = 0; // Set this to number of enemies in lvl 1
 
 	return true;
 }
@@ -215,7 +215,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 		// If the entity is not active, then skip it (Unless entity is door for lvl 1, which will activate upon killing of all four enemies in lvl 1)
 		if ((*it)->GetStatus() == false)
 		{
-			if (enemy_lvl1_count <= 0 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
+			if (enemy_lvl1_count >= 8 && (*it)->GetType() == CEntity3D::TYPE::DOOR)
 			{
 				(*it)->SetStatus(true);
 				DeadEnemies = 0;
@@ -227,7 +227,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 		}
 
 		// Set door to false first
-		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count > 0)
+		if ((*it)->GetType() == CSolidObject::TYPE::DOOR && enemy_lvl1_count < 8)
 		{
 			cout << "** Level 1 portal set false ***" << endl;
 			(*it)->SetStatus(false);
@@ -532,7 +532,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 						continue;
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
-					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
+					//enemy_lvl1_count--; // We use a hardcoded value for now for MVP
 					cout << "** RayBoxCollision between lvl 1 enemy and Projectile ***" << endl;
 					break;
 				}
@@ -544,7 +544,7 @@ bool CSolidObjectManager::CheckForCollision(void)
 					(*it)->SetStatus(false);
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
 					DeadEnemies += 1;
-					enemy_lvl1_count--; // We use a hardcoded value for now for MVP
+					enemy_lvl1_count += 1; // We use a hardcoded value for now for MVP
 					cout << "** RayBoxCollision between Enemy and Projectile ***" << endl;
 					break;
 				}
