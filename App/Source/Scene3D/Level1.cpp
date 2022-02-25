@@ -625,6 +625,11 @@ bool CLevel1::Update(const double dElapsedTime)
 		cSoundController->PlaySoundByID(4);
 	}
 
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_ESCAPE))
+	{
+		cSoundController->StopSound();
+	}
+
 	else
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
