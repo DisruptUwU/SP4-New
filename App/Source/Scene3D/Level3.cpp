@@ -685,7 +685,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cMouseController->IsButtonPressed(CMouseController::BUTTON_TYPE::RMB))
 	{
 		// Switch on Scope mode and zoom in
-		cCamera->fZoom = 1.0f;
+		cCamera->fZoom = 20.0f;
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(true);
 	}
 	else if (cMouseController->IsButtonReleased(CMouseController::BUTTON_TYPE::RMB))
