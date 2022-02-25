@@ -19,6 +19,7 @@
 #include "FinalNPC.h"
 #include "Player3D.h"
 #include "Demon.h"
+#include "Dragon.h"
 
 // Include list
 #include <list>
@@ -73,6 +74,8 @@ public:
 
 	bool DemonKilled = false;
 
+	bool DragonKilled = false;
+
 	int DeadEnemies = 0;
 
 	//bool hydrashotplayer = false;
@@ -85,6 +88,8 @@ public:
 	CFinalNPC* cFinalNPC;
 
 	CDemon* cDemon;
+
+	CDragon* cDragon;
 
 	CPlayer3D* cPlayer3D;
 

@@ -488,21 +488,13 @@ bool CHydra::Update(const double dElapsedTime)
 	// Store the enemy's current position, if rollback is needed.
 	StorePositionForRollback();
 
-	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance /*&& npctoboss != true*/)
+	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
 	{
 		cPlayer3D->NearLevel3BOSSWHENHENPC = true;
-
-		//if (npctoboss == false)
-		//{
-		//	cPlayer3D->NearHydra = true;
-		//}
-		//cPlayer3D->NearHydra = true;
-		//cPlayer3D->NearHydra = false;
 	}
 	else
 	{
 		cPlayer3D->NearLevel3BOSSWHENHENPC = false;
-		//cPlayer3D->NearHydra = false; // false
 	}
 
 	if (nonattackphase == false)

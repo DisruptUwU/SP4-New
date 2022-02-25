@@ -97,6 +97,8 @@ public:
 	// PostRender
 	virtual void PostRender(void);
 
+	double DragonHp = 100;
+
 protected:
 	// Enemy Attributes
 	glm::vec3 vec3Up;
@@ -111,6 +113,8 @@ protected:
 	// Movement Control
 	int iCurrentNumMovement;
 	int iMaxNumMovement;
+
+	float fDetectionDistance;
 
 	double patrolTime;
 

@@ -608,6 +608,20 @@ bool CSolidObjectManager::CheckForCollision(void)
 					cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
 					break;
 				}
+				else if ((*it)->GetType() == CSolidObject::TYPE::DRAGON)
+				{
+				// If this projectile is fired by the NPC, then skip it
+				if ((cProjectileManager->vProjectile[i])->GetSource() == (*it))
+					continue;
+				(cProjectileManager->vProjectile[i])->SetStatus(false);
+				cDragon->DragonHp -= (10 + cPlayer3D->ultDamage);
+				if (cDragon->DragonHp <= 0) {
+					DragonKilled = true;
+					(*it)->SetStatus(false);
+				}
+				cout << "** RayBoxCollision between Demon and Projectile ***" << endl;
+				break;
+				}
 				else if ((*it)->GetType() == CSolidObject::TYPE::STRUCTURE)
 				{
 					(cProjectileManager->vProjectile[i])->SetStatus(false);
