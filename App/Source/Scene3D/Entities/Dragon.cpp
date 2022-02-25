@@ -174,6 +174,8 @@ bool CDragon::Init(void)
 	glm::vec3 pos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
 	vec3Front = glm::normalize((cPlayer3D->GetPosition() - pos));
 
+	cPlayer3D->NearDragon = true;
+
 	dPatrolTime = 0;
 	bTurned = false;
 
