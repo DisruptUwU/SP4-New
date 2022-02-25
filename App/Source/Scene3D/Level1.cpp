@@ -327,7 +327,69 @@ bool CLevel1::Init(void)
 	cSolidObjectManager->Add(cEnemy3D_4);
 
 
-	// Initialise CStructureBoundary3D entities 
+	// Initialise the 5th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(-30.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_5 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, -30.0f));
+	cEnemy3D_5->SetShader("Shader3D");
+	cEnemy3D_5->Init();
+	cEnemy3D_5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_5->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_5);
+
+
+	// Initialise the 6th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(30.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_6 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, -30.0f));
+	cEnemy3D_6->SetShader("Shader3D");
+	cEnemy3D_6->Init();
+	cEnemy3D_6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_6->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_6);
+
+
+
+	// Initialise the 7th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(-50.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_7 = new CEnemylvl2(glm::vec3(-50.0f, fCheckHeight, -30.0f));
+	cEnemy3D_7->SetShader("Shader3D");
+	cEnemy3D_7->Init();
+	cEnemy3D_7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_7->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_7);
+
+
+
+	// Initialise the 8th cEnemy3D
+	fCheckHeight = cTerrain->GetHeight(50.0f, -30.0f);
+	CEnemylvl2* cEnemy3D_8 = new CEnemylvl2(glm::vec3(50.0f, fCheckHeight, -30.0f));
+	cEnemy3D_8->SetShader("Shader3D");
+	cEnemy3D_8->Init();
+	cEnemy3D_8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//cEnemy3D->SetScale(glm::vec3(0.5f));
+
+	// Assign a cPistol to the cEnemy3D
+	cEnemy3D_8->SetWeapon(0, cEnemyPistol);
+
+	// Add the cEnemy3D to the cSolidObjectManager
+	cSolidObjectManager->Add(cEnemy3D_8);
+
+
+	/*// Initialise CStructureBoundary3D entities 
 	fCheckHeight = cTerrain->GetHeight(0.0f, 50.0f);
 	CStructure3D* cStructure3D = new CStructure3D(glm::vec3(0.0f, fCheckHeight, 50.0f));
 	cStructure3D->SetShader("Shader3D");
@@ -336,7 +398,7 @@ bool CLevel1::Init(void)
 	//cStructure3D->SetScale(glm::vec3(0.5f));
 
 	// Add the cStructure3D to the cSolidObjectManager
-	cSolidObjectManager->Add(cStructure3D);
+	cSolidObjectManager->Add(cStructure3D);*/
 
 	// Load the GUI Entities
 	// Store the cGUI_Scene3D singleton instance here
