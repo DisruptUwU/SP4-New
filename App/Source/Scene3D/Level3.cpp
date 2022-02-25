@@ -574,7 +574,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		/*cSoundController->StopSound();*/
 		//cSolidObjectManager->healthbelow50 = true;
-		cSoundController->StopSound();
+		//cSoundController->StopSound();
 		changesongsequence = true;
 		cHydra->moreaggresivepart1 = false;
 		cHydra->changingform = true;
