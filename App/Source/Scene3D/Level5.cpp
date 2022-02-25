@@ -292,7 +292,7 @@ void CLevel5::SpawnHealer(int x, int y, int z)
 	CHealer3D* cHealer3D = new CHealer3D(glm::vec3(x, y, z));
 	cHealer3D->SetShader("Shader3D");
 	cHealer3D->Init();
-	cHealer3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cHealer3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	CPistol* cEnemyPistol = new CPistol();
 	// Set the position, rotation and scale of this weapon
 	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
@@ -462,7 +462,7 @@ bool CLevel5::Update(const double dElapsedTime)
 	{
 		cSoundController->StopSound();
 		float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(0, fCheckHeight, 0)); //y = -0.5
+		CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(0, fCheckHeight - 1, 0)); //y = -0.5
 		cDoor->SetShader("Shader3D");
 		cDoor->Init();
 		cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
