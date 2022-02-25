@@ -71,6 +71,8 @@ CDragon::CDragon(const glm::vec3 vec3Position,
 
 	// Update the vectors for this enemy
 	UpdateEnemyVectors();
+
+	srand(time(NULL));
 }
 
 /**
@@ -169,8 +171,10 @@ bool CDragon::Init(void)
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
-	// Detection distance for player
-	fDetectionDistance = 0.0f;
+	glm::vec3 pos(vec3Position.x, cPlayer3D->GetPosition().y, vec3Position.z);
+	vec3Front = glm::normalize((cPlayer3D->GetPosition() - pos));
+
+	patrolTime = 0;
 
 	bIsDisplayed = false;
 
@@ -370,14 +374,14 @@ bool CDragon::Update(const double dElapsedTime)
 	else if (dot >= 0 && sCurrentFSM == FSM::ATTACK)
 	{
 		// Slowly turn left or right based on player position
-		if (glm::dot(vec3Right, targetFront) > 0)
+		if (glm::dot(vec3Right, targetFront) < 0)
 		{
-			double angle = 5 * dElapsedTime;
+			double angle = -5 * dElapsedTime;
 			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
 		}
 		else
 		{
-			double angle = -5 * dElapsedTime;
+			double angle = 5 * dElapsedTime;
 			vec3Front = glm::mat3(cos(angle), 0, sin(angle), 0, 1, 0, -sin(angle), 0, cos(angle)) * vec3Front;
 		}
 	}
@@ -386,16 +390,60 @@ bool CDragon::Update(const double dElapsedTime)
 		// Process the movement
 		ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
 
-		if (glm::length(vec3Position) >= glm::length(cTerrain->GetMaxPos()) * 1.1)
+		if (vec3Position.x <= cTerrain->GetMinPos().x * 1.1 || vec3Position.x >= cTerrain->GetMaxPos().x * 1.1)
 		{
 			sCurrentFSM = FSM::PATROL;
-			vec3Front = vec3Right;
+			patrolTime = rand() % 3 + 2;
+
+			if (rand() % 2 == 0)
+			{
+				vec3Front = glm::vec3(0, 0, -1);
+			}
+			else
+			{
+				vec3Front = glm::vec3(0, 0, 1);
+			}
+		}
+		else if (vec3Position.z <= cTerrain->GetMinPos().z * 1.1 || vec3Position.z >= cTerrain->GetMaxPos().z * 1.1)
+		{
+			sCurrentFSM = FSM::PATROL;
+			patrolTime = rand() % 3 + 2;
+
+			if (rand() % 2 == 0)
+			{
+				vec3Front = glm::vec3(-1, 0, 0);
+			}
+			else
+			{
+				vec3Front = glm::vec3(1, 0, 0);
+			}
 		}
 	}
 	else if (sCurrentFSM == FSM::PATROL)
 	{
-		// Process the movement
-		//ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+		patrolTime -= dElapsedTime;
+		if (patrolTime <= 0)
+		{
+			sCurrentFSM = FSM::ATTACK;
+			vec3Front = targetFront;
+		}
+		else
+		{
+			// Process the movement
+			ProcessMovement(ENEMYMOVEMENT::FORWARD, (float)dElapsedTime);
+
+			if (vec3Position.x <= cTerrain->GetMinPos().x && vec3Position.z <= cTerrain->GetMinPos().z)
+			{
+				if (glm::dot(vec3Right, -vec3Position) < 0)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
+		}
 	}
 	UpdateFrontAndYaw();
 

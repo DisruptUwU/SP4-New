@@ -5,7 +5,6 @@
 
 // Include GLM
 #include <includes/glm.hpp>
-//#include <includes/gtx/rotate_vector.hpp>
 #include <includes/gtc/matrix_transform.hpp>
 #include <includes/gtc/type_ptr.hpp>
 
@@ -113,8 +112,7 @@ protected:
 	int iCurrentNumMovement;
 	int iMaxNumMovement;
 
-	// Detection distance for player
-	float fDetectionDistance;
+	double patrolTime;
 
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
