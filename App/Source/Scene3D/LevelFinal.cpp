@@ -465,6 +465,8 @@ void CLevelFinal::Render(void)
 	// Call the cGUI_Scene3D's PostRender()
 	cGUI_Scene3D->PostRender();
 
+	glEnable(GL_DEPTH_TEST);
+
 	return;
 }
 
