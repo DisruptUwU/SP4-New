@@ -319,11 +319,13 @@ bool CFinalBoss3D::DischargeWeapon(void) const
 {
 	if ((iCurrentWeapon == 0) && (cPrimaryWeapon))
 	{
-		return cPrimaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
-	}
-	else if ((iCurrentWeapon == 1) && (cSecondaryWeapon))
-	{
-		return cSecondaryWeapon->Discharge(vec3Position, vec3Front, (CSolidObject*)this);
+		glm::vec3 pos(vec3Position.x, vec3Position.y + 2, vec3Position.z);
+		glm::vec3 front = cPlayer3D->GetPosition() - pos;
+		float d = glm::distance(cPlayer3D->GetPosition(), vec3Position);
+		front.x /= d;
+		front.y /= d;
+		front.z /= d;
+		return cPrimaryWeapon->Discharge(pos, front, (CSolidObject*)this);
 	}
 	//return NULL;
 }
