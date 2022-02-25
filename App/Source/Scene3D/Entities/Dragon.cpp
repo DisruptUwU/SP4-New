@@ -168,7 +168,6 @@ bool CDragon::Init(void)
 
 	// Movement Control
 	fMovementSpeed = 15.0f;
-	fDetectionDistance = 1000.0f;
 	iCurrentNumMovement = 0;
 	iMaxNumMovement = 100;
 
@@ -360,15 +359,6 @@ bool CDragon::Update(const double dElapsedTime)
 	targetFront = glm::normalize((cPlayer3D->GetPosition() - pos));
 	float dot = glm::dot(targetFront, vec3Front);
 	//cout << dot << endl;
-
-	if (glm::distance(vec3Position, cPlayer3D->GetPosition()) < fDetectionDistance)
-	{
-		cPlayer3D->NearDragon = true;
-	}
-	else
-	{
-		cPlayer3D->NearDragon = false;
-	}
 
 	if (dot < 0 && sCurrentFSM == FSM::ATTACK)
 	{
