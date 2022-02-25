@@ -817,54 +817,7 @@ void CLevel5::PreRender(void)
  */
 void CLevel5::Render(void)
 {
-	// Part 1: Render for the minimap by binding to framebuffer and render to color texture
-//         But the camera is move to top-view of the scene
-
-// Backup some key settings for the camera and player
-	glm::vec3 storePlayerPosition = cPlayer3D->GetPosition();
-	float storeCameraYaw = cCamera->fYaw;
-	float storeCameraPitch = cCamera->fPitch;
-	glm::vec3 storeCameraPosition = cCamera->vec3Position;
-	// Adjust camera yaw and pitch so that it is looking from a top-view of the terrain
-	cCamera->fYaw += 180.0f;
-	cCamera->fPitch = -90.0f;
-	// We store the player's position into the camera as we want the minimap to focus on the player
-	cCamera->vec3Position = glm::vec3(storePlayerPosition.x, 10.0f, storePlayerPosition.z);
-	// Recalculate all the camera vectors. 
-	// We disable pitch constrains for this specific case as we want the camera to look straight down
-	cCamera->ProcessMouseMovement(0, 0, false);
-	// Generate the view and projection
-	glm::mat4 playerView = cCamera->GetViewMatrix();
-	glm::mat4 playerProjection = glm::perspective(glm::radians(45.0f),
-		(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
-		0.1f, 1000.0f);
-
-	// Set the camera parameters back to the previous values
-	cCamera->fYaw = storeCameraYaw;
-	cCamera->fPitch = storeCameraPitch;
-	cCamera->vec3Position = storeCameraPosition;
-	cCamera->ProcessMouseMovement(0, 0, true); // call this to make sure it updates its camera vectors, note that we disable pitch constrains for this specific case (otherwise we can't reverse camera's pitch values)
-
 	glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-
-	// Render the Terrain
-	cTerrain->SetView(playerView);
-	cTerrain->SetProjection(playerProjection);
-	cTerrain->PreRender();
-	cTerrain->Render();
-	cTerrain->PostRender();
-
-	// Render the entities
-	cEntityManager->SetView(playerView);
-	cEntityManager->SetProjection(playerProjection);
-	cEntityManager->Render();
-
-	// Render the entities for the minimap
-	cSolidObjectManager->SetView(playerView);
-	cSolidObjectManager->SetProjection(playerProjection);
-	cSolidObjectManager->Render();
-
-	// Part 2: Render the entire scene as per normal
 
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;

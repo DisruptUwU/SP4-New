@@ -190,15 +190,6 @@ protected:
 	CWeaponInfo* cSecondaryWeapon;
 	int iCurrentWeapon;
 
-	// Player/Camera Sway
-	float fCameraSwayAngle; 
-	float fCameraSwayDeltaAngle; 
-	// The limits for left and right sway 
-	const float fCameraSwayAngle_LeftLimit = -2.0f, fCameraSwayAngle_RightLimit = 2.0f;
-	bool bCameraSwayDirection; // false = left, true = right
-	bool bCameraSwayActive;
-	bool bUpdateCameraSway;
-
 	// Physics
 	CPhysics3D cPhysics3D;
 

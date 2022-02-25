@@ -414,6 +414,8 @@ void CLevelFinal::PreRender(void)
  */
 void CLevelFinal::Render(void)
 {
+	glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
+
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
 	glm::mat4 projection = glm::perspective(glm::radians(CCamera::GetInstance()->fZoom),
