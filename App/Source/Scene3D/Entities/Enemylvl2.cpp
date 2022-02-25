@@ -73,6 +73,7 @@ CEnemylvl2::CEnemylvl2(	const glm::vec3 vec3Position,
 	this->vec3Front = vec3Front;
 	this->fYaw = fYaw;
 	this->fPitch = fPitch;
+	//this->bIsDisplayed = false;
 
 	// Update the vectors for this enemy
 	UpdateEnemyVectors();
@@ -217,6 +218,8 @@ bool CEnemylvl2::Init(void)
 	// Let the NPC face the nearest waypoint
 	vec3Front = glm::normalize((cWaypointManager->GetNearestWaypoint(vec3Position)->GetPosition() - vec3Position));
 	UpdateFrontAndYaw();
+
+	bIsDisplayed = false;
 
 	return true;
 }

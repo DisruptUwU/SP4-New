@@ -200,35 +200,6 @@ bool CLevel5::Init(void)
 
 	// Bear Trap
 	float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
-	//CBearTrap* cBearTrap = new CBearTrap(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cBearTrap->SetShader("Shader3D");
-	//cBearTrap->Init();
-	//cBearTrap->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//// Add the cBearTrap to the cSolidObjectManager
-	//cSolidObjectManager->Add(cBearTrap);
-
-	//// Increase Def
-	//CIncreaseDef* cIncreaseDef = new CIncreaseDef(glm::vec3(4.0f, fCheckHeight, -2.0f));
-	//cIncreaseDef->SetShader("Shader3D");
-	//cIncreaseDef->Init();
-	//cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//// Add the cIncreaseDef to the cSolidObjectManager
-	//cSolidObjectManager->Add(cIncreaseDef);
-
-	////Increase Dmg
-	//CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(2.0f, fCheckHeight, -2.0f));
-	//cIncreaseDmg->SetShader("Shader3D");
-	//cIncreaseDmg->Init();
-	//cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	//// Add the cIncreaseDmg to the cSolidObjectManager
-	//cSolidObjectManager->Add(cIncreaseDmg);
-
-	//CDoorLvl5* cDoor = new CDoorLvl5(glm::vec3(10, fCheckHeight, 0)); //y = -0.5
-	//cDoor->SetShader("Shader3D");
-	//cDoor->Init();
-	//cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-
-	//cSolidObjectManager->Add(cDoor);
 
 	// Assign a cPistol to the cPlayer3D
 	CPistol* cPistol = new CPistol();
@@ -269,7 +240,8 @@ bool CLevel5::Init(void)
 	CFinalNPC* cFinalNPC = new CFinalNPC(glm::vec3(-10.0f, fCheckHeight - 0.6f, 45.0f));
 	cFinalNPC->SetShader("Shader3D");
 	cFinalNPC->Init();
-	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
+	cFinalNPC->InitCollider("Shader3D_Line", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	cFinalNPC->bIsDisplayed = false;
 	// Add the cGenerator to the cSolidObjectManager
 	cSolidObjectManager->Add(cFinalNPC);
 	cSolidObjectManager->cFinalNPC = cFinalNPC;
@@ -350,6 +322,7 @@ bool CLevel5::Update(const double dElapsedTime)
 				cHealthup->SetShader("Shader3D");
 				cHealthup->Init();
 				cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cHealthup->bIsDisplayed = false;
 				cSolidObjectManager->Add(cHealthup);
 				spawnCheckHP = true;
 				spawnCheckHPTimer = 10;
@@ -381,6 +354,7 @@ bool CLevel5::Update(const double dElapsedTime)
 				cIncreaseDmg->SetShader("Shader3D");
 				cIncreaseDmg->Init();
 				cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cIncreaseDmg->bIsDisplayed = false;
 				// Add the cIncreaseDmg to the cSolidObjectManager
 				cSolidObjectManager->Add(cIncreaseDmg);
 				spawnCheckAtk = true;
@@ -413,6 +387,7 @@ bool CLevel5::Update(const double dElapsedTime)
 				cIncreaseDef->SetShader("Shader3D");
 				cIncreaseDef->Init();
 				cIncreaseDef->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+				cIncreaseDef->bIsDisplayed = false;
 				// Add the cIncreaseDef to the cSolidObjectManager
 				cSolidObjectManager->Add(cIncreaseDef);
 				spawnCheckDef = true;

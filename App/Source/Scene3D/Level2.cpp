@@ -168,6 +168,7 @@ bool CLevel2::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect4.ogg"), 9, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect5.ogg"), 10, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect6.ogg"), 11, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\heartbeat.ogg"), 12, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -392,6 +393,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(6);
 			checkSound1 += 1;
 			spawnpower1 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare5")->SetStatus(true);
 		}
 		else
 		{
@@ -417,6 +419,7 @@ bool CLevel2::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(9);
 			checkSound3 += 1;
 			spawnpower2 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare2")->SetStatus(true);
 		}
 		else
 		{
@@ -474,7 +477,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
 	{
-		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+		//((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
 
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
@@ -633,6 +636,35 @@ bool CLevel2::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("ScopeScreen")->SetStatus(false);
 	}
 
+	if (cPlayer3D->playerhealthbelow30 == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
+		cSoundController->PlaySoundByID(12);
+	}
+
+	else
+	{
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
+	}
+
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		//cPlayer3D->playerhealthbelow30 = false;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->StopSound();
+		}
+		cPlayer3D->playerhealthbelow30 = false;
+		cGUI_Scene3D->gameOver = true;
+		cPlayer3D->playerhealthbelow30 = false;
+		loseGame = true;
+	}
 
 	if (cSolidObjectManager->DeadEnemies >= 7) //change back to 7 later
 	{

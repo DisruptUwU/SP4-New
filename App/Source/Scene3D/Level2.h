@@ -81,6 +81,7 @@ public:
 	bool notdead = true;
 	bool status;
 	bool gotolevel3 = false;
+	bool loseGame = false;
 
 	double gametimer = 0;
 
@@ -129,6 +130,7 @@ protected:
 	// Destructor
 	virtual ~CLevel2(void);
 
+	int checkplayerdie = 0;
 	int checkDemonspawn = 0;
 	int checkSound1 = 0;
 	int checkSound2 = 0;

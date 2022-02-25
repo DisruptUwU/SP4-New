@@ -50,6 +50,8 @@ bool CLevel2GameState::Init(void)
 		return false;
 	}
 
+	gameovertimer = 0;
+
 	return true;
 }
 
@@ -58,6 +60,25 @@ bool CLevel2GameState::Init(void)
  */
 bool CLevel2GameState::Update(const double dElapsedTime)
 {
+
+	if (CLevel2->loseGame == true)
+	{
+		gameovertimer += dElapsedTime;
+	}
+
+	if (gameovertimer >= 2.5)
+	{
+		CLevel2->loseGame = false;
+
+		// Reset the CKeyboardController
+		CKeyboardController::GetInstance()->Reset();
+
+		cout << "Loading MenuState" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
+		CGameStateManager::GetInstance()->OffPauseGameState();
+		return true;
+	}
+
 	if (CLevel2->gotolevel3 == true)
 	{
 		CLevel2->gotolevel3 = false;

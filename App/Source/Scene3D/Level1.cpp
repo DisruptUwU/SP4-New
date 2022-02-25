@@ -250,7 +250,7 @@ bool CLevel1::Init(void)
 
 	// Initialise door (portal) that goes to next level
 	fCheckHeight = cTerrain->GetHeight(0.0f, -90.0f);
-	CDoor* cDoor = new CDoor(glm::vec3(0.0f, fCheckHeight - 1.0f, -90.0f));
+	CDoor* cDoor = new CDoor(glm::vec3(0.0f, fCheckHeight, -90.0f));
 	cDoor->SetShader("Shader3D");
 	cDoor->Init();
 	cDoor->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -264,7 +264,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D = new CEnemylvl2(glm::vec3(-5.0f, fCheckHeight, -90.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
-	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -289,7 +289,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_2 = new CEnemylvl2(glm::vec3(5.0f, fCheckHeight, -90.0f));
 	cEnemy3D_2->SetShader("Shader3D");
 	cEnemy3D_2->Init();
-	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -305,7 +305,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_3 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_3->SetShader("Shader3D");
 	cEnemy3D_3->Init();
-	cEnemy3D_3->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_3->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -321,7 +321,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_4 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_4->SetShader("Shader3D");
 	cEnemy3D_4->Init();
-	cEnemy3D_4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -336,7 +336,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_5 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, -30.0f));
 	cEnemy3D_5->SetShader("Shader3D");
 	cEnemy3D_5->Init();
-	cEnemy3D_5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -351,7 +351,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_6 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, -30.0f));
 	cEnemy3D_6->SetShader("Shader3D");
 	cEnemy3D_6->Init();
-	cEnemy3D_6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -367,7 +367,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_7 = new CEnemylvl2(glm::vec3(-50.0f, fCheckHeight, -30.0f));
 	cEnemy3D_7->SetShader("Shader3D");
 	cEnemy3D_7->Init();
-	cEnemy3D_7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -383,7 +383,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_8 = new CEnemylvl2(glm::vec3(50.0f, fCheckHeight, -30.0f));
 	cEnemy3D_8->SetShader("Shader3D");
 	cEnemy3D_8->Init();
-	cEnemy3D_8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
