@@ -300,7 +300,8 @@ bool CLevel4::Update(const double dElapsedTime)
 		}
 	}
 
-	if (sprintCheck == true) {
+	if (sprintCheck == true)
+	{
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
 
@@ -370,10 +371,6 @@ bool CLevel4::Update(const double dElapsedTime)
 		// Reset the key so that it will not repeat until the key is released and pressed again
 		CKeyboardController::GetInstance()->ResetKey(GLFW_KEY_9);
 	}
-	if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_R))
-	{
-		cPlayer3D->GetWeapon()->Reload();
-	}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 	{
@@ -422,7 +419,11 @@ bool CLevel4::Update(const double dElapsedTime)
 
 	if (cSolidObjectManager->Count() == 1)
 	{
-		//portal
+		// portal
+		if (cPlayer3D->GetPosition().x)
+		{
+
+		}
 	}
 
 	return true;
