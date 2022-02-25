@@ -411,6 +411,10 @@ bool CLevel3::Update(const double dElapsedTime)
 		}
 	}
 
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_F) && cPlayer3D->ult >= 100 && cPlayer3D->ultActive == false) {
+		cPlayer3D->ultActive = true;
+	}
+
 	if (cPlayer3D->NearLevel3BOSSWHENHENPC == true)
 	{
 		if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_E) && checknpctohydra == 0)
@@ -543,6 +547,8 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cSolidObjectManager->wenttodoor == true)//push
 	{
 		gotolevel4 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
+		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(true);
 	}
 
 	if (cSolidObjectManager->cHydra->HydraBossHp <= 50 && cSolidObjectManager->cHydra->HydraBossHp >= 31)

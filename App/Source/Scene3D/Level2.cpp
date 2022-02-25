@@ -638,34 +638,14 @@ bool CLevel2::Update(const double dElapsedTime)
 	{
 		if (checkDemonspawn == 0)
 		{
-			////wavedead = true;
-			//float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
-			//CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
-			//cDemon->SetShader("Shader3D");
-			//cDemon->Init();
-			//cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-
-			//CPistol* cDemonPistol = new CPistol();
-			//cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-			//cDemonPistol->Init();
-			//cDemonPistol->SetShader("Shader3D_Model");
-			//cDemon->SetWeapon(0, cDemonPistol);
-
-			//cSolidObjectManager->cDemon = cDemon;
-
-			//cSolidObjectManager->Add(cDemon);
-			//cout << "Die" << endl;
-			//checkDemonspawn += 1;
 			cSoundController->PlaySoundByID(4);
 			cSoundController->PlaySoundByID(5);
 			Demonspawn = true;
 			checkDemonspawn += 1;
-
-
 		}
 		else
 		{
-			//Demonspawn = false;
+			Demonspawn = false;
 		}
 	}
 
@@ -695,12 +675,44 @@ bool CLevel2::Update(const double dElapsedTime)
 
 		cSolidObjectManager->Add(cDemon);
 
-		if (cDemon->DemonHp <= 50)
+		cGUI_Scene3D->cDemon = cDemon;
+	}
+
+	if (cSolidObjectManager->demonhalfhealth == 1)
+	{
+		if (cPlayer3D->demonhalftextcheck == 0)
 		{
-			demonhalfhealth = 1;
+			cPlayer3D->demonhalftextcheck = 1;
+
 		}
 
-		cGUI_Scene3D->cDemon = cDemon;
+		float fCheckHeight8 = cTerrain->GetHeight(0.0f, -10.0f);
+		CEnemylvl2* cEnemy3D8 = new CEnemylvl2(glm::vec3(20.0f, fCheckHeight8, -35.0f));
+		cEnemy3D8->SetShader("Shader3D");
+		cEnemy3D8->Init();
+		cEnemy3D8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		CEnemylvl2* cEnemy3D9 = new CEnemylvl2(glm::vec3(20.0f, fCheckHeight8, -25.0f));
+		cEnemy3D9->SetShader("Shader3D");
+		cEnemy3D9->Init();
+		cEnemy3D9->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		CPistol* cEnemyPistol8 = new CPistol();
+		cEnemyPistol8->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+		cEnemyPistol8->Init();
+		cEnemyPistol8->SetShader("Shader3D_Model");
+		cEnemy3D8->SetWeapon(0, cEnemyPistol8);
+
+		CPistol* cEnemyPistol9 = new CPistol();
+		cEnemyPistol9->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+		cEnemyPistol9->Init();
+		cEnemyPistol9->SetShader("Shader3D_Model");
+		cEnemy3D9->SetWeapon(0, cEnemyPistol9);
+
+		cSolidObjectManager->Add(cEnemy3D8);
+		cSolidObjectManager->Add(cEnemy3D9);
+
+		cSolidObjectManager->demonhalfhealth += 1;
 	}
 
 	if (cPlayer3D->demontextcheck == 1)
@@ -710,12 +722,19 @@ bool CLevel2::Update(const double dElapsedTime)
 		if (demontexttimer <= 0)
 		{
 			cPlayer3D->demontextcheck = 2;
+			demontexttimer = 3;
 		}
 	}
 
-	if (demonhalfhealth = 1)
+	if (cPlayer3D->demonhalftextcheck == 1)
 	{
+		demontexttimer -= 1 * dElapsedTime;
 
+		if (demontexttimer <= 0)
+		{
+			cPlayer3D->demonhalftextcheck = 2;
+			demontexttimer = 3;
+		}
 	}
 
 	if (cSolidObjectManager->DemonKilled == true)
@@ -761,6 +780,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	if (cSolidObjectManager->Doorlevel2 == true && portalcheck >= 1)//extra check
 	{
  		gotolevel3 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 

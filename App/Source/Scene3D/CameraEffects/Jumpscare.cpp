@@ -110,5 +110,16 @@ bool CJumpscare::Init(int type)
 		}
 	}
 
+	// load and create a texture 
+	if (type == 6)
+	{
+		iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/GUI/Loadingscreen.jpg", false);
+		if (iTextureID == 0)
+		{
+			cout << "Unable to load Image/GUI/youlose.png" << endl;
+			return false;
+		}
+	}
+
 	return true;
 }

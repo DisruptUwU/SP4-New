@@ -608,6 +608,11 @@ bool CLevel1::Update(const double dElapsedTime)
 		cSoundController->PlaySoundByID(4);
 	}
 
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_ESCAPE))
+	{
+		cSoundController->StopSound();
+	}
+
 	else
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
@@ -625,6 +630,7 @@ bool CLevel1::Update(const double dElapsedTime)
 	{
 		cSoundController->StopSound();
 		teleport_2_lvl2 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 	// Update the entities
