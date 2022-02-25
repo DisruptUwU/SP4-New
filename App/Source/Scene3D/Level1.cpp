@@ -264,7 +264,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D = new CEnemylvl2(glm::vec3(-5.0f, fCheckHeight, -90.0f));
 	cEnemy3D->SetShader("Shader3D");
 	cEnemy3D->Init();
-	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -289,7 +289,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_2 = new CEnemylvl2(glm::vec3(5.0f, fCheckHeight, -90.0f));
 	cEnemy3D_2->SetShader("Shader3D");
 	cEnemy3D_2->Init();
-	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_2->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -305,7 +305,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_3 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_3->SetShader("Shader3D");
 	cEnemy3D_3->Init();
-	cEnemy3D_3->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_3->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -321,7 +321,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_4 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, 0.0f));
 	cEnemy3D_4->SetShader("Shader3D");
 	cEnemy3D_4->Init();
-	cEnemy3D_4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_4->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -336,7 +336,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_5 = new CEnemylvl2(glm::vec3(-30.0f, fCheckHeight, -30.0f));
 	cEnemy3D_5->SetShader("Shader3D");
 	cEnemy3D_5->Init();
-	cEnemy3D_5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_5->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -351,7 +351,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_6 = new CEnemylvl2(glm::vec3(30.0f, fCheckHeight, -30.0f));
 	cEnemy3D_6->SetShader("Shader3D");
 	cEnemy3D_6->Init();
-	cEnemy3D_6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_6->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -367,7 +367,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_7 = new CEnemylvl2(glm::vec3(-50.0f, fCheckHeight, -30.0f));
 	cEnemy3D_7->SetShader("Shader3D");
 	cEnemy3D_7->Init();
-	cEnemy3D_7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_7->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -383,7 +383,7 @@ bool CLevel1::Init(void)
 	CEnemylvl2* cEnemy3D_8 = new CEnemylvl2(glm::vec3(50.0f, fCheckHeight, -30.0f));
 	cEnemy3D_8->SetShader("Shader3D");
 	cEnemy3D_8->Init();
-	cEnemy3D_8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	cEnemy3D_8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 0.0f));
 	//cEnemy3D->SetScale(glm::vec3(0.5f));
 
 	// Assign a cPistol to the cEnemy3D
@@ -434,36 +434,18 @@ bool CLevel1::Update(const double dElapsedTime)
 		background_music_lvl1 = false;
 	}
 
-	//// Get keyboard updates for player3D
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-	//	((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
-	//}
-	//if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::LEFT, (float)dElapsedTime);
-	//}
-	//else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_D))
-	//{
-	//	cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::RIGHT, (float)dElapsedTime);
-	//}
-	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
+	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
+	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
@@ -479,15 +461,15 @@ bool CLevel1::Update(const double dElapsedTime)
 	}
 	else
 	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
 		{
@@ -499,7 +481,8 @@ bool CLevel1::Update(const double dElapsedTime)
 		}
 	}
 
-	if (sprintCheck == true) {
+	if (sprintCheck == true)
+	{
 		cPlayer3D->stamina -= 20 * dElapsedTime;
 	}
 
@@ -625,6 +608,11 @@ bool CLevel1::Update(const double dElapsedTime)
 		cSoundController->PlaySoundByID(4);
 	}
 
+	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_ESCAPE))
+	{
+		cSoundController->StopSound();
+	}
+
 	else
 	{
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
@@ -642,6 +630,7 @@ bool CLevel1::Update(const double dElapsedTime)
 	{
 		cSoundController->StopSound();
 		teleport_2_lvl2 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 	// Update the entities
