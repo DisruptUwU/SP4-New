@@ -697,34 +697,14 @@ bool CLevel2::Update(const double dElapsedTime)
 	{
 		if (checkDemonspawn == 0)
 		{
-			////wavedead = true;
-			//float fCheckHeight5 = cTerrain->GetHeight(0.0f, -10.0f);
-			//CDemon* cDemon = new CDemon(glm::vec3(30.0f, fCheckHeight5, -30.0f));
-			//cDemon->SetShader("Shader3D");
-			//cDemon->Init();
-			//cDemon->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-
-			//CPistol* cDemonPistol = new CPistol();
-			//cDemonPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
-			//cDemonPistol->Init();
-			//cDemonPistol->SetShader("Shader3D_Model");
-			//cDemon->SetWeapon(0, cDemonPistol);
-
-			//cSolidObjectManager->cDemon = cDemon;
-
-			//cSolidObjectManager->Add(cDemon);
-			//cout << "Die" << endl;
-			//checkDemonspawn += 1;
 			cSoundController->PlaySoundByID(4);
 			cSoundController->PlaySoundByID(5);
 			Demonspawn = true;
 			checkDemonspawn += 1;
-
-
 		}
 		else
 		{
-			//Demonspawn = false;
+			Demonspawn = false;
 		}
 	}
 
@@ -754,12 +734,44 @@ bool CLevel2::Update(const double dElapsedTime)
 
 		cSolidObjectManager->Add(cDemon);
 
-		if (cDemon->DemonHp <= 50)
+		cGUI_Scene3D->cDemon = cDemon;
+	}
+
+	if (cSolidObjectManager->demonhalfhealth == 1)
+	{
+		if (cPlayer3D->demonhalftextcheck == 0)
 		{
-			demonhalfhealth = 1;
+			cPlayer3D->demonhalftextcheck = 1;
+
 		}
 
-		cGUI_Scene3D->cDemon = cDemon;
+		float fCheckHeight8 = cTerrain->GetHeight(0.0f, -10.0f);
+		CEnemylvl2* cEnemy3D8 = new CEnemylvl2(glm::vec3(20.0f, fCheckHeight8, -35.0f));
+		cEnemy3D8->SetShader("Shader3D");
+		cEnemy3D8->Init();
+		cEnemy3D8->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		CEnemylvl2* cEnemy3D9 = new CEnemylvl2(glm::vec3(20.0f, fCheckHeight8, -25.0f));
+		cEnemy3D9->SetShader("Shader3D");
+		cEnemy3D9->Init();
+		cEnemy3D9->InitCollider("Shader3D_Line", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		CPistol* cEnemyPistol8 = new CPistol();
+		cEnemyPistol8->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+		cEnemyPistol8->Init();
+		cEnemyPistol8->SetShader("Shader3D_Model");
+		cEnemy3D8->SetWeapon(0, cEnemyPistol8);
+
+		CPistol* cEnemyPistol9 = new CPistol();
+		cEnemyPistol9->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
+		cEnemyPistol9->Init();
+		cEnemyPistol9->SetShader("Shader3D_Model");
+		cEnemy3D9->SetWeapon(0, cEnemyPistol9);
+
+		cSolidObjectManager->Add(cEnemy3D8);
+		cSolidObjectManager->Add(cEnemy3D9);
+
+		cSolidObjectManager->demonhalfhealth += 1;
 	}
 
 	if (cPlayer3D->demontextcheck == 1)
@@ -769,12 +781,19 @@ bool CLevel2::Update(const double dElapsedTime)
 		if (demontexttimer <= 0)
 		{
 			cPlayer3D->demontextcheck = 2;
+			demontexttimer = 3;
 		}
 	}
 
-	if (demonhalfhealth = 1)
+	if (cPlayer3D->demonhalftextcheck == 1)
 	{
+		demontexttimer -= 1 * dElapsedTime;
 
+		if (demontexttimer <= 0)
+		{
+			cPlayer3D->demonhalftextcheck = 2;
+			demontexttimer = 3;
+		}
 	}
 
 	if (cSolidObjectManager->DemonKilled == true)
@@ -862,62 +881,6 @@ void CLevel2::PreRender(void)
  */
 void CLevel2::Render(void)
 {
-	// Part 1: Render for the minimap by binding to framebuffer and render to color texture
-	//         But the camera is move to top-view of the scene
-
-	// Backup some key settings for the camera and player
-	glm::vec3 storePlayerPosition = cPlayer3D->GetPosition();
-	float storeCameraYaw = cCamera->fYaw;
-	float storeCameraPitch = cCamera->fPitch;
-	glm::vec3 storeCameraPosition = cCamera->vec3Position;
-	// Adjust camera yaw and pitch so that it is looking from a top-view of the terrain
-	cCamera->fYaw += 180.0f;
-	cCamera->fPitch = -90.0f;
-	// We store the player's position into the camera as we want the minimap to focus on the player
-	cCamera->vec3Position = glm::vec3(storePlayerPosition.x, 10.0f, storePlayerPosition.z);
-	// Recalculate all the camera vectors. 
-	// We disable pitch constrains for this specific case as we want the camera to look straight down
-	cCamera->ProcessMouseMovement(0, 0, false);
-	// Generate the view and projection
-	glm::mat4 playerView = cCamera->GetViewMatrix();
-	glm::mat4 playerProjection = glm::perspective(	glm::radians(45.0f),
-													(float)cSettings->iWindowWidth / (float)cSettings->iWindowHeight,
-													0.1f, 1000.0f);
-
-	// Set the camera parameters back to the previous values
-	cCamera->fYaw = storeCameraYaw;
-	cCamera->fPitch = storeCameraPitch;
-	cCamera->vec3Position = storeCameraPosition;
-	cCamera->ProcessMouseMovement(0, 0, true); // call this to make sure it updates its camera vectors, note that we disable pitch constrains for this specific case (otherwise we can't reverse camera's pitch values)
-
-	// Activate the minimap system
-	CMinimap::GetInstance()->Activate();
-	// Setup the rendering environment
-	CMinimap::GetInstance()->PreRender();
-
-	glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-
-	// Render the Terrain
-	cTerrain->SetView(playerView);
-	cTerrain->SetProjection(playerProjection);
-	cTerrain->PreRender();
-	cTerrain->Render();
-	cTerrain->PostRender();
-
-	// Render the entities
-	cEntityManager->SetView(playerView);
-	cEntityManager->SetProjection(playerProjection);
-	cEntityManager->Render();
-
-	// Render the entities for the minimap
-	cSolidObjectManager->SetView(playerView);
-	cSolidObjectManager->SetProjection(playerProjection);
-	cSolidObjectManager->Render();
-
-	// Deactivate the cMinimap so that we can render as per normal
-	CMinimap::GetInstance()->Deactivate();
-
-	// Part 2: Render the entire scene as per normal
 	// Get the camera view and projection
 	glm::mat4 view = CCamera::GetInstance()->GetViewMatrix();;
 	glm::mat4 projection = glm::perspective(	glm::radians(CCamera::GetInstance()->fZoom),
