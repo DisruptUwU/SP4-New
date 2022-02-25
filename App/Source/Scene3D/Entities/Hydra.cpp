@@ -182,7 +182,7 @@ bool CHydra::Init(int type)
 
 	if (type == 1)
 	{
-		if (LoadModelAndTexture("Models/Objects/Healthkit.obj",
+		if (LoadModelAndTexture("Models/Objects/drizzle.obj",
 			"Models/Pistol/honeycombs_col.png",
 			VAO, iTextureID, iIndicesSize) == false)
 		{
