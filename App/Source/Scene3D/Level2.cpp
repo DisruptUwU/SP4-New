@@ -647,6 +647,24 @@ bool CLevel2::Update(const double dElapsedTime)
 		CCameraEffectsManager::GetInstance()->Get("Lowhealth")->SetStatus(false);
 	}
 
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		//cPlayer3D->playerhealthbelow30 = false;
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->StopSound();
+		}
+		cPlayer3D->playerhealthbelow30 = false;
+		cGUI_Scene3D->gameOver = true;
+		cPlayer3D->playerhealthbelow30 = false;
+		loseGame = true;
+	}
 
 	if (cSolidObjectManager->DeadEnemies >= 7) //change back to 7 later
 	{
