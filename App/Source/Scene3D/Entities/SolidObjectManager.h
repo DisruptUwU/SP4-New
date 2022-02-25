@@ -77,6 +77,8 @@ public:
 
 	bool DemonKilled = false;
 
+	double demonhalfhealth = 0;
+
 	bool DragonKilled = false;
 
 	int DeadEnemies = 0;
