@@ -114,9 +114,8 @@ protected:
 	int iCurrentNumMovement;
 	int iMaxNumMovement;
 
-	float fDetectionDistance;
-
-	double patrolTime;
+	double dPatrolTime;
+	bool bTurned;
 
 	// The handle to the CCamera class instance
 	CCamera* cCamera;
