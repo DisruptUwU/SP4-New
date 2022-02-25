@@ -839,6 +839,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	if (cSolidObjectManager->Doorlevel2 == true && portalcheck >= 1)//extra check
 	{
  		gotolevel3 = true;
+		CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 	}
 
 
