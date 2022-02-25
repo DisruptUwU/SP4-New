@@ -10,6 +10,8 @@
 // Include CBloodScreen
 #include "CameraEffects/Lowhealth.h"
 // Include CBloodScreen
+#include "CameraEffects/jumpscare.h"
+// Include CBloodScreen
 #include "CameraEffects/Youlose.h"
 // Include CBloodScreen
 #include "CameraEffects/Youwin.h"
@@ -104,6 +106,31 @@ bool CGUI_Scene3D::Init(void)
 	cLowhealth->Init();
 	cLowhealth->SetShader("Shader_GUI");
 	cCameraEffectsManager->Add("Lowhealth", cLowhealth);
+	// Add Lowhealth
+	CJumpscare* cJumpscare1 = new CJumpscare();
+	cJumpscare1->Init(1);
+	cJumpscare1->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("Jumpscare1", cJumpscare1);
+	// Add Lowhealth
+	CJumpscare* cJumpscare2 = new CJumpscare();
+	cJumpscare2->Init(2);
+	cJumpscare2->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("Jumpscare2", cJumpscare2);
+	// Add Lowhealth
+	CJumpscare* cJumpscare3 = new CJumpscare();
+	cJumpscare3->Init(3);
+	cJumpscare3->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("Jumpscare3", cJumpscare3);
+	// Add Lowhealth
+	CJumpscare* cJumpscare4 = new CJumpscare();
+	cJumpscare4->Init(4);
+	cJumpscare4->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("Jumpscare4", cJumpscare4);
+	// Add Lowhealth
+	CJumpscare* cJumpscare5 = new CJumpscare();
+	cJumpscare5->Init(5);
+	cJumpscare5->SetShader("Shader_GUI");
+	cCameraEffectsManager->Add("Jumpscare5", cJumpscare5);
 	// Add Lowhealth
 	CYoulose* cYoulose = new CYoulose();
 	cYoulose->Init();

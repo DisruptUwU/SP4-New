@@ -301,6 +301,7 @@ bool CLevel3::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(13);
 			checkSound1 += 1;
 			spawnpower1 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare1")->SetStatus(true);
 		}
 		else
 		{
@@ -314,6 +315,8 @@ bool CLevel3::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(12);
 			checkSound2 += 1;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare2")->SetStatus(true);
+			//cGUI_Scene3D->gameOver = true;
 		}
 		else
 		{
@@ -327,11 +330,14 @@ bool CLevel3::Update(const double dElapsedTime)
 			cSoundController->PlaySoundByID(14);
 			checkSound3 += 1;
 			spawnpower2 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare3")->SetStatus(true);
+			//cGUI_Scene3D->gameOver = true;
 		}
 		else
 		{
 			//return;
 			spawnpower2 = false;
+			//cGUI_Scene3D->gameOver = false;
 		}
 	}
 	if (gametimer >= 40)
@@ -340,6 +346,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		{
 			cSoundController->PlaySoundByID(15);
 			checkSound4 += 1;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare4")->SetStatus(true);
 		}
 		else
 		{
@@ -450,7 +457,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 	if (timeractivate == true)
 	{
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		CCameraEffectsManager::GetInstance()->Get("Jumpscare4")->SetStatus(true);
 		cGUI_Scene3D->gameOver = true;
 		npctobosstimer += dElapsedTime;
 		/*cSoundController->PlaySoundByID(6);*/
@@ -472,7 +479,7 @@ bool CLevel3::Update(const double dElapsedTime)
 		cPlayer3D->cantMove = false; //either here
 		cHydra->npctoboss = true;
 		npctobosstimer = 0;
-		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(false);
+		CCameraEffectsManager::GetInstance()->Get("Jumpscare4")->SetStatus(false);
 		timeractivate = false;
 		cGUI_Scene3D->gameOver = false;
 	}
@@ -531,17 +538,39 @@ bool CLevel3::Update(const double dElapsedTime)
 	if (cSolidObjectManager->HydraKilled == true)
 	{
 		//cSoundController->StopSound();
+		//if (checkportal == 0)
+		//{
+		//	spawnportal = true;
+		//	checkportal += 1;
+		//}
+
+		//else
+		//{
+		//	playSounds = false;
+		//	spawnportal = false;
+		//}
+
+		//cSoundController->StopSound();
 		if (checkportal == 0)
 		{
+			cSoundController->StopSound();
 			spawnportal = true;
 			checkportal += 1;
 		}
 
-		else
+		else if (checkportal == 1)
 		{
+			cSoundController->PlaySoundByID(4);
+			spawnportal = false;
 			playSounds = false;
+			checkportal += 1;
+		}
+
+		else if (checkportal >= 2)
+		{
 			spawnportal = false;
 		}
+
 	}
 
 	if (spawnportal == true)
@@ -615,11 +644,11 @@ bool CLevel3::Update(const double dElapsedTime)
 		//cHydra->moreaggresivepart2 = false;
 	}
 
-	if (cSolidObjectManager->HydraKilled == true && checkaggresion == 1)
-	{
-		//playSounds = false;
-		cSoundController->StopSound();
-	}
+	//if (cSolidObjectManager->HydraKilled == true && checkaggresion == 1)
+	//{
+	//	//playSounds = false;
+	//	cSoundController->StopSound();
+	//}
 
 	if (CKeyboardController::GetInstance()->IsKeyPressed(GLFW_KEY_SPACE))
 		cPlayer3D->SetToJump();

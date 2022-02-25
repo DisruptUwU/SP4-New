@@ -156,6 +156,8 @@ protected:
 
 	double Enddialogtimer = 0;
 
+	int checkplayerdie = 0;
+
 	// Constructor
 	CLevel5(void);
 	// Destructor
