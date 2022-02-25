@@ -60,8 +60,8 @@ bool CLevel4GameState::Update(const double dElapsedTime)
 {
 	if (CLevel4->bNextLevel == true)
 	{
-		cout << "Loading level 4" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
+		cout << "Loading level 5" << endl;
+		CGameStateManager::GetInstance()->SetActiveGameState("Level5GameState");
 		CGameStateManager::GetInstance()->OffPauseGameState();
 		return true;
 	}

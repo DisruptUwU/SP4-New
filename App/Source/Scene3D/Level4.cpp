@@ -216,9 +216,6 @@ bool CLevel4::Init(void)
 
 	// Assign a cPistol to the cEnemy3D
 	CPistol* cEnemyPistol = new CPistol();
-	// Set the position, rotation and scale of this weapon
-	//cEnemyPistol->SetPosition(glm::vec3(0.05f, -0.075f, 0.5f));
-	//cEnemyPistol->SetRotation(3.14159f, glm::vec3(0.0f, 1.0f, 0.0f));
 	cEnemyPistol->SetScale(glm::vec3(1.75f, 1.75f, 1.75f));
 	// Initialise the instance
 	cEnemyPistol->Init();
@@ -238,10 +235,17 @@ bool CLevel4::Init(void)
 
 	// Load the non-movable Entities with no collisions
 	// Initialise the CEntityManager
-	cEntityManager = CEntityManager::GetInstance(); //wwdawe
+	cEntityManager = CEntityManager::GetInstance();
 	cEntityManager->Init();
 
-	bPortal = false;
+	float fCheckHeight = cTerrain->GetHeight(0.0f, 0.0f);
+	cDoor = new CDoor(glm::vec3(0.0f, fCheckHeight, 0.0f));
+	cDoor->SetShader("Shader3D");
+	cDoor->Init();
+	cDoor->SetScale(glm::vec3(0.03, 0.03, 0.03));
+	cDoor->SetStatus(false);
+	cEntityManager->Add(cDoor);
+
 	bNextLevel = false;
 
 	return true;
@@ -423,7 +427,7 @@ bool CLevel4::Update(const double dElapsedTime)
 	if (cSolidObjectManager->Count() == 1)
 	{
 		// portal
-		bPortal = true;
+		cDoor->SetStatus(true);
 		
 		if (cPlayer3D->GetPosition().x >= -1 && cPlayer3D->GetPosition().x <= 1 && cPlayer3D->GetPosition().z >= -1 && cPlayer3D->GetPosition().z <= 1)
 		{
@@ -518,11 +522,6 @@ void CLevel4::Render(void)
 	cProjectileManager->PreRender();
 	cProjectileManager->Render();
 	cProjectileManager->PostRender();
-
-	if (bPortal)
-	{
-
-	}
 
 	// now draw the mirror quad with screen texture
 	// --------------------------------------------

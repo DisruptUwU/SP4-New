@@ -37,7 +37,7 @@ CDoor::CDoor(void)
 CDoor::CDoor(const glm::vec3 vec3Position,
 	const glm::vec3 vec3Front)
 {
-	this->vec3Position = glm::vec3(vec3Position.x, vec3Position.y + fHeightOffset, vec3Position.z);
+	this->vec3Position = glm::vec3(vec3Position.x, vec3Position.y, vec3Position.z);
 	this->vec3Front = vec3Front;
 }
 
@@ -66,7 +66,6 @@ bool CDoor::Init(void)
 	{
 		cout << "Unable to load model and texture" << endl;
 	}
-
 
 	return true;
 }

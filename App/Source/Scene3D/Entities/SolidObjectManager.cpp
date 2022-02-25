@@ -735,6 +735,9 @@ void CSolidObjectManager::Render(void)
 	end = lSolidObject.end();
 	for (it = lSolidObject.begin(); it != end; ++it)
 	{
+		if (!(*it)->GetStatus())
+			continue;
+
 		(*it)->SetView(view);
 		(*it)->SetProjection(projection);
 		(*it)->PreRender();
