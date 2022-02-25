@@ -261,17 +261,18 @@ bool CLevel4::Update(const double dElapsedTime)
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
 
-	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0) {
+	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
+	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 			sprintCheck = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
@@ -287,15 +288,15 @@ bool CLevel4::Update(const double dElapsedTime)
 	}
 	else
 	{
+		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
+
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::FORWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		else if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_S))
 		{
 			cPlayer3D->ProcessMovement(CPlayer3D::PLAYERMOVEMENT::BACKWARD, (float)dElapsedTime);
-			((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
 		}
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_A))
 		{
@@ -432,6 +433,7 @@ bool CLevel4::Update(const double dElapsedTime)
 		if (cPlayer3D->GetPosition().x >= -1 && cPlayer3D->GetPosition().x <= 1 && cPlayer3D->GetPosition().z >= -1 && cPlayer3D->GetPosition().z <= 1)
 		{
 			bNextLevel = true;
+			CCameraEffectsManager::GetInstance()->Get("LoadingScreen")->SetStatus(true);
 		}
 	}
 
