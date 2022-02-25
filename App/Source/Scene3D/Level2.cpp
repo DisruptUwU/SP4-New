@@ -477,7 +477,7 @@ bool CLevel2::Update(const double dElapsedTime)
 	
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
 	{
-		((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = true;
+		//((CCameraShake*)CCameraEffectsManager::GetInstance()->Get("CameraShake"))->bToBeUpdated = false;
 
 		if (CKeyboardController::GetInstance()->IsKeyDown(GLFW_KEY_W))
 		{

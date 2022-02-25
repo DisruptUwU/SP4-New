@@ -371,7 +371,7 @@ void CPlayer3D::ProcessMovement(const PLAYERMOVEMENT direction, const float delt
 
 	// Indicate that camera sway is to be updated
 	if (bCameraSwayActive)
-		bUpdateCameraSway = true;
+		bUpdateCameraSway = false;
 }
 
 /**
