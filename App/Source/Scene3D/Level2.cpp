@@ -443,7 +443,8 @@ bool CLevel2::Update(const double dElapsedTime)
 	if (spawnpower1 == true)
 	{
 		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CSpeed* cSpeed = new CSpeed(glm::vec3(20.0f, 5.7, -35));
+		//float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+		CSpeed* cSpeed = new CSpeed(glm::vec3(20.0f, 3, -35));
 		cSpeed->SetShader("Shader3D");
 		cSpeed->Init();
 		cSpeed->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -456,7 +457,8 @@ bool CLevel2::Update(const double dElapsedTime)
 	if (spawnpower2 == true)
 	{
 		//fCheckHeight = cTerrain->GetHeight(2.0f, -2.0f);
-		CHealthup* cHealthup = new CHealthup(glm::vec3(20.0f, 5.7, -25));
+		//float fCheckHeight = cTerrain->GetHeight(0.0f, -10.0f);
+		CHealthup* cHealthup = new CHealthup(glm::vec3(20.0f, 3, -25));
 		cHealthup->SetShader("Shader3D");
 		cHealthup->Init();
 		cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
