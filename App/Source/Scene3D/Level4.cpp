@@ -220,6 +220,7 @@ bool CLevel4::Init(void)
 	// Initialise the instance
 	cEnemyPistol->Init();
 	cEnemyPistol->SetShader("Shader3D_Model");
+	cEnemyPistol->SetTimeBetweenShots(0.5);
 	cDragon->SetWeapon(0, cEnemyPistol);
 
 	// Add the cEnemy3D to the cSolidObjectManager
