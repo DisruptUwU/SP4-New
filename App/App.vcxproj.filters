@@ -247,6 +247,9 @@
     <ClCompile Include="Source\Scene3D\Entities\Chest_Zone.cpp">
       <Filter>Scene3D\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene3D\CameraEffects\Jumpscare.cpp">
+      <Filter>Scene3D\CameraEffects</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Scene3D\AI\FSM.cpp">
       <Filter>Scene3D\AI</Filter>
     </ClCompile>
@@ -279,9 +282,6 @@
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\PlayGameState.cpp">
       <Filter>GameSceneManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene3D\CameraEffects\Jumpscare.cpp">
-      <Filter>Scene3D\CameraEffects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -817,42 +817,6 @@
     <ClInclude Include="Source\Scene3D\Entities\Chest_Zone.h">
       <Filter>Scene3D\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene3D\AI\FSM.h">
-      <Filter>Scene3D\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\IntroState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level2GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level3GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level4GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\Level5GameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\MenuState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PauseState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
-      <Filter>GameSceneManagement</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene3D\Physics3D.h">
       <Filter>Scene3D</Filter>
     </ClInclude>
@@ -907,6 +871,42 @@
     </ClInclude>
     <ClInclude Include="Source\Scene3D\CameraEffects\Jumpscare.h">
       <Filter>Scene3D\CameraEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene3D\AI\FSM.h">
+      <Filter>Scene3D\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\IntroState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level1GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level2GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level3GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level4GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\Level5GameState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\MenuState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\PauseState.h">
+      <Filter>GameSceneManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
+      <Filter>GameSceneManagement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
