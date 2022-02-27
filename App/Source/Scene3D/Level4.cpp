@@ -582,14 +582,14 @@ bool CLevel4::Update(const double dElapsedTime)
 		else if (checklastroar > 1)
 		{
 			//
+			// portal
+			cDoor->SetStatus(true);
+
 		}
 	}
 
-	if (cSolidObjectManager->Count() == 1)
+	if (cDoor->GetStatus() == true)
 	{
-		// portal
-		cDoor->SetStatus(true);
-		
 		if (cPlayer3D->GetPosition().x >= -1 && cPlayer3D->GetPosition().x <= 1 && cPlayer3D->GetPosition().z >= -1 && cPlayer3D->GetPosition().z <= 1)
 		{
 			bNextLevel = true;
