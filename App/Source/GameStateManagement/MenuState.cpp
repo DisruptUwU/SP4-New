@@ -174,78 +174,78 @@ bool CMenuState::Update(const double dElapsedTime)
 		ImGui::End();
 	}
 
-	//For keyboard controls
-	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_1)) //space
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	////For keyboard controls
+	//if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_1)) //space
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading PlayGameState" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
-		return true;
-	}
-	/*else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	//	// Load the menu state
+	//	cout << "Loading PlayGameState" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
+	//	return true;
+	//}
+	///*else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_RIGHT_SHIFT))
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading CLevel1" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
-		return true;
-	}*/
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_2))
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	//	// Load the menu state
+	//	cout << "Loading CLevel1" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("Level1GameState");
+	//	return true;
+	//}*/
+	//else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_2))
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading CLevel2" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level2GameState");
-		return true;
-	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_3))
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	//	// Load the menu state
+	//	cout << "Loading CLevel2" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("Level2GameState");
+	//	return true;
+	//}
+	//else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_3))
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading CLevel3" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level3GameState");
-		return true;
-	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_4))
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	//	// Load the menu state
+	//	cout << "Loading CLevel3" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("Level3GameState");
+	//	return true;
+	//}
+	//else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_4))
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading CLevel4" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
-		return true;
-	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_5))
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	//	// Load the menu state
+	//	cout << "Loading CLevel4" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("Level4GameState");
+	//	return true;
+	//}
+	//else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_5))
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading CLevel5" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("Level5GameState");
-		return true;
-	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_6))
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
+	//	// Load the menu state
+	//	cout << "Loading CLevel5" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("Level5GameState");
+	//	return true;
+	//}
+	//else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_6))
+	//{
+	//	// Reset the CKeyboardController
+	//	CKeyboardController::GetInstance()->Reset();
 
-		// Load the menu state
-		cout << "Loading CLevel5" << endl;
-		CGameStateManager::GetInstance()->SetActiveGameState("FinalGameState");
-		return true;
-	}
-	else if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
+	//	// Load the menu state
+	//	cout << "Loading CLevel5" << endl;
+	//	CGameStateManager::GetInstance()->SetActiveGameState("FinalGameState");
+	//	return true;
+	//}
+	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
