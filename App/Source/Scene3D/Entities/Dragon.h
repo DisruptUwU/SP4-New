@@ -97,7 +97,7 @@ public:
 	// PostRender
 	virtual void PostRender(void);
 
-	double DragonHp = 200;
+	double DragonHp = 100;
 
 protected:
 	// Enemy Attributes
