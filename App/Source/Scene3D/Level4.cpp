@@ -546,6 +546,24 @@ bool CLevel4::Update(const double dElapsedTime)
 	// Post Update the mouse controller
 	cMouseController->PostUpdate();
 
+	if (cPlayer3D->playerlostallhealth == true)
+	{
+		CCameraEffectsManager::GetInstance()->Get("Youlose")->SetStatus(true);
+		if (checkplayerdie == 0)
+		{
+			cSoundController->StopSound();
+			checkplayerdie += 1;
+		}
+		else
+		{
+			cSoundController->PlaySoundByID(3);
+		}
+		playSounds = false;
+		cPlayer3D->playerhealthbelow30 = false;
+		cGUI_Scene3D->gameOver = true;
+		losegame = true;
+	}
+
 	if (cSolidObjectManager->DragonKilled == true)
 	{
 		playSounds = false;

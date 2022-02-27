@@ -80,6 +80,8 @@ public:
 
 	bool sprintCheck = false;
 
+	bool losegame = false;
+
 	bool bNextLevel;
 protected:
 	// The handler to the CSettings
@@ -129,8 +131,8 @@ protected:
 	int checkroar2 = 0;
 	int checkroar3 = 0;
 	int checkroar4 = 0;
+	int checkplayerdie = 0;
 	double gametimer = 0;
-
 	bool playSounds = true;
 	bool spawnpower1 = false;
 	bool spawnpower2 = false;
