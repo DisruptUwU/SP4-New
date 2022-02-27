@@ -34,6 +34,10 @@
 #include "Entities\Dragon.h"
 // Include CDoor
 #include "Entities/door.h"
+// Include CDoor
+#include "Entities/Healthup.h"
+// Include CDoor
+#include "Entities/IncreaseDmg.h"
 // Include CStructure3D
 #include "Entities\Structure3D.h"
 // Include CProjectileManager
@@ -118,6 +122,18 @@ protected:
 	CEntityManager* cEntityManager;
 
 	CDoor* cDoor;
+
+	int checkfirstroar = 0;
+	int checklastroar = 0;
+	int checkroar1 = 0;
+	int checkroar2 = 0;
+	int checkroar3 = 0;
+	int checkroar4 = 0;
+	double gametimer = 0;
+
+	bool playSounds = true;
+	bool spawnpower1 = false;
+	bool spawnpower2 = false;
 
 	// Constructor
 	CLevel4(void);

@@ -172,6 +172,9 @@ bool CLevel3::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect4.ogg"), 13, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect5.ogg"), 14, true);
 	cSoundController->LoadSound(FileSystem::getPath("ScarySoundeffects\\scarysoundeffect6.ogg"), 15, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar1.ogg"), 16, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar2.ogg"), 17, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar6.ogg"), 18, true);
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -281,7 +284,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		if (checkSound1 == 0)
 		{
-			cSoundController->PlaySoundByID(13);
+			cSoundController->PlaySoundByID(17);
 			checkSound1 += 1;
 			spawnpower1 = true;
 			CCameraEffectsManager::GetInstance()->Get("Jumpscare1")->SetStatus(true);
@@ -309,7 +312,7 @@ bool CLevel3::Update(const double dElapsedTime)
 	{
 		if (checkSound3 == 0)
 		{
-			cSoundController->PlaySoundByID(14);
+			cSoundController->PlaySoundByID(16);
 			checkSound3 += 1;
 			spawnpower2 = true;
 			CCameraEffectsManager::GetInstance()->Get("Jumpscare3")->SetStatus(true);
@@ -518,7 +521,7 @@ bool CLevel3::Update(const double dElapsedTime)
 
 		else if (checkportal == 1)
 		{
-			cSoundController->PlaySoundByID(4);
+			cSoundController->PlaySoundByID(18);
 			spawnportal = false;
 			playSounds = false;
 			checkportal += 1;

@@ -159,7 +159,15 @@ bool CLevel4::Init(void)
 	// Load the sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 	cSoundController->Init();
-	//cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Sound_Bell.ogg"), 1, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Dragontheme.ogg"), 2, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar1.ogg"), 3, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar2.ogg"), 4, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar3.ogg"), 5, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar4.ogg"), 6, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar5.ogg"), 7, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\dragonroar6.ogg"), 8, true);
+
 
 	// Load the Environment Entities
 	// Load the SkyBox
@@ -261,6 +269,114 @@ bool CLevel4::Update(const double dElapsedTime)
 {
 	// Store the current position, if rollback is needed.
 	cPlayer3D->StorePositionForRollback();
+
+	if (checkfirstroar == 0)
+	{
+		cSoundController->PlaySoundByID(3);
+		checkfirstroar += 1;
+	}
+	else
+	{
+		//
+	}
+
+	if (playSounds == true)
+	{
+		gametimer += dElapsedTime;
+		cSoundController->PlaySoundByID(2);
+	}
+
+	else
+	{
+		gametimer = 0;
+	}
+
+	if (gametimer >= 10)
+	{
+		if (checkroar1 == 0)
+		{
+			cSoundController->PlaySoundByID(5);
+			checkroar1 += 1;
+			spawnpower1 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare1")->SetStatus(true);
+		}
+		else
+		{
+			//return;
+			spawnpower1 = false;
+		}
+	}
+	if (gametimer >= 20)
+	{
+		if (checkroar2 == 0)
+		{
+			cSoundController->PlaySoundByID(6);
+			checkroar2 += 1;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare2")->SetStatus(true);
+		}
+		else
+		{
+
+		}
+	}
+	if (gametimer >= 30)
+	{
+		if (checkroar3 == 0)
+		{
+			cSoundController->PlaySoundByID(4);
+			checkroar3 += 1;
+			spawnpower2 = true;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare3")->SetStatus(true);
+		}
+		else
+		{
+			spawnpower2 = false;
+		}
+	}
+	if (gametimer >= 40)
+	{
+		if (checkroar4 == 0)
+		{
+			cSoundController->PlaySoundByID(5);
+			checkroar4 += 1;
+			CCameraEffectsManager::GetInstance()->Get("Jumpscare4")->SetStatus(true);
+		}
+		else
+		{
+			//return;
+		}
+	}
+
+	if (gametimer >= 60)
+	{
+		gametimer = 0;
+		checkroar1 = 0;
+		checkroar2 = 0;
+		checkroar3 = 0;
+		checkroar4 = 0;
+		spawnpower1 = false;
+		spawnpower2 = false;
+	}
+
+	if (spawnpower1 == true)
+	{
+		CHealthup* cHealthup = new CHealthup(glm::vec3(5, 1, -5));
+		cHealthup->SetShader("Shader3D");
+		cHealthup->Init();
+		cHealthup->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+
+		// Add the cStructure3D to the cSolidObjectManager
+		cSolidObjectManager->Add(cHealthup);
+	}
+
+	if (spawnpower2 == true) // //
+	{
+		CIncreaseDmg* cIncreaseDmg = new CIncreaseDmg(glm::vec3(8, 1, -8));
+		cIncreaseDmg->SetShader("Shader3D");
+		cIncreaseDmg->Init();
+		cIncreaseDmg->InitCollider("Shader3D_Line", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+		cSolidObjectManager->Add(cIncreaseDmg);
+	}
 
 	if (cPlayer3D->sprint == true && cPlayer3D->stamina > 0)
 	{
@@ -429,6 +545,27 @@ bool CLevel4::Update(const double dElapsedTime)
 
 	// Post Update the mouse controller
 	cMouseController->PostUpdate();
+
+	if (cSolidObjectManager->DragonKilled == true)
+	{
+		playSounds = false;
+		if (checklastroar == 0)
+		{
+			cSoundController->StopSound();
+			checklastroar += 1;
+		}
+
+		else if (checklastroar == 1)
+		{
+			cSoundController->PlaySoundByID(8);
+			checklastroar += 1;
+		}
+
+		else if (checklastroar > 1)
+		{
+			//
+		}
+	}
 
 	if (cSolidObjectManager->Count() == 1)
 	{
