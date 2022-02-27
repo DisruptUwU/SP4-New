@@ -442,8 +442,8 @@ bool CPlayer3D::Update(const double dElapsedTime)
 	}
 	else
 	{
-		Damage = 40; //10
-		DamagetoHydra = 35; //5
+		Damage = 10; //10
+		DamagetoHydra = 5; //5
 	}
 	
 	if (DefUpTimer <= 0)
