@@ -443,8 +443,6 @@ bool CHydra::Update(const double dElapsedTime)
 		fMovementSpeed = 1.f;
 	}
 
-	cout << "non attack phase: " << nonattackphase << endl;
-
 	if (moreaggresivepart1 == true)
 	{
 		fDetectionDistance = 1000.0f;
@@ -479,10 +477,6 @@ bool CHydra::Update(const double dElapsedTime)
 		fMovementSpeed = 5; //6
 		/*HydraBossHp = 70;*/
 	}
-
-	cout << "timer: " << formchangetimer  << endl;
-
-	cout << "Moreagressivepart2: " << moreaggresivepart2 << endl;
 
 
 	// Store the enemy's current position, if rollback is needed.
