@@ -575,7 +575,7 @@ bool CLevel4::Update(const double dElapsedTime)
 
 		else if (checklastroar == 1)
 		{
-			cSoundController->PlaySoundByID(8);
+			cSoundController->PlaySoundByID(7);
 			checklastroar += 1;
 		}
 
